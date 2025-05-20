@@ -19,7 +19,7 @@ Repo link: [https://github.com/NicholasClooney/11ty-subspace-builder](https://gi
 3. [Tachyons for CSS](#tachyons-for-css)
 4. [Special shoutout to ChatGPT](#special-shoutout-to-chatgpt)
 5. [Design inspirations](#design-inspirations)
-6. [The “magic” part](#the-magic-part)
+6. [The "magic" part](#the-"magic"-part)
 7. [Key Takeaways](#key-takeaways)
 
 ---
@@ -47,7 +47,7 @@ I started thinking of our workflow like *pair programming*: ChatGPT as the **dri
 * Studied a few slick sites to nail the hamburger menu behavior and visuals.
 * Added a simple fade+slide keyframe to give the nav a polished feel without adding bulk.
 
-## The “magic” part
+## The "magic" part
 
 * **Local edits** → **git push** → **Cloudflare Pages deploy**: \~30 seconds.
 * My girlfriend across the country refreshes the URL and sees the latest tweaks almost instantly. Truly mind-blowing for a lightweight setup.
