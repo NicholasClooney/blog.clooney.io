@@ -1,5 +1,5 @@
-title: 11ty Subspace Builder
-url: https://subspace-builder.nicholas.clooney.io
+title: Nicholas Clooney
+url: https://blog.nicholas.clooney.io/
 
 author:
   name: Nicholas Clooney
@@ -19,7 +19,7 @@ githubEmbed:
 # tracking with umami
 umami:
   source: https://analytics.clooney.ninja/script.js
-  id: 3bc809cb-ff21-4420-8636-99a8c7eecfed
+  id: 49fa5de1-ee69-4faa-b73e-7fdf92e3c808
 
 # giscus comments system
 # get your config here: https://giscus.app/
