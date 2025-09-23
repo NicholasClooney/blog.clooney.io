@@ -1,5 +1,6 @@
 ---
 title: Building My Own Subspace Builder
+date: 2025-05-20
 eleventyNavigation:
   key: post-1
 ---
