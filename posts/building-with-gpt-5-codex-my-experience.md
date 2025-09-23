@@ -5,9 +5,9 @@ eleventyNavigation:
   key: post-2
 ---
 
-Over the past few weeks, I’ve been experimenting with GPT-5 Codex to build small websites. What started as crude wireframes in Apple Notes quickly became polished 11ty projects with clean layouts and modern styling — all with surprisingly little effort on my part.
+Building small websites with GPT-5 Codex turned out to be less about typing code and more about collaboration. From crude sketches to polished sites, the model took on the heavy lifting while I guided direction and design.
 
-From a lost & found pet site to a birthday page and even a simple encryption toolkit, the process felt conversational and fast. GPT-5 Codex handled the tedious details while I focused on the big picture, making the whole experience both fun and a glimpse into the future of programming.
+Along the way I discovered both the joy of fast iteration and the limits of relying on an AI partner. These projects became less about the sites themselves and more about exploring a new style of programming — conversational, creative, and sometimes flawed, but always eye-opening.
 
 ## Table of Contents
 
@@ -21,19 +21,20 @@ From a lost & found pet site to a birthday page and even a simple encryption too
    * [🎂 Birthday Page](#-birthday-page)
    * [🔐 Encryption Toolkit](#-encryption-toolkit)
 6. [What I Learned](#what-i-learned)
-7. [Closing Thoughts](#closing-thoughts)
+7. [Challenges and Caveats](#challenges-and-caveats)
+8. [Closing Thoughts](#closing-thoughts)
 
 ## Introduction
 
-I’ve been experimenting with GPT-5 Codex to build small, single-page websites. While I’ve shared an overview of how smoothly the process went, here I want to dive deeper: not just *that* it worked, but *what it felt like* to work this way, what surprised me, and what I learned along the way.
+I’ve been experimenting with GPT-5 Codex to build small, single-page websites. These projects might seem trivial at first glance, but they became a testing ground for a new way of working with code. What surprised me wasn’t just the results, but how the process itself felt — fast, collaborative, and occasionally frustrating in ways that taught me as much as the successes did.
 
 ## Why Small Projects?
 
-I like building tiny, focused projects — little experiments that can be finished in a weekend. They’re quick, they’re playful, and they give me something tangible to share. But what usually slows me down is the tedious glue work: styling, repetitive edits, or restructuring when I change my mind. That’s where GPT-5 Codex came in and made the whole process lighter.
+I like building tiny, focused projects — little experiments that can be finished in a weekend. They’re quick, they’re playful, and they give me something tangible to share. They’re also forgiving: if something doesn’t work, it’s easy to pivot or start again. That’s part of what makes them a great fit for experimenting with Codex, since the stakes are low and the lessons transfer to bigger projects where the caveats matter more.
 
 ## The Workflow: Conversational and Iterative
 
-The process felt more like a conversation than traditional coding. I’d sketch a rough idea in Apple Notes, hand it over, and Codex would spin up a working site in minutes. Then we’d go back and forth: I’d highlight gaps, it would adjust, and we’d iterate. What struck me wasn’t just the speed, but how I could stay in the role of planner and designer while Codex handled the details.
+The process felt more like a conversation than traditional coding. I’d sketch a rough idea in Apple Notes, hand it over, and Codex would spin up a working site in minutes. Then we’d go back and forth: I’d highlight gaps, it would adjust, and we’d iterate. What struck me wasn’t just the speed, but how I could stay in the role of planner and designer while Codex handled the details. That said, the back-and-forth isn’t always perfect — sometimes both of us get stuck, which ties into the caveats I’ll cover later.
 
 ## Handling Tedious Changes
 
@@ -43,26 +44,37 @@ One of the best moments was asking Codex to transform my private “lost pet” 
 
 ### 🐾 Lost & Found Pet Website
 
-Started as a personal tool for my own cat, Luna. With Codex’s help, it quickly became a polished, shareable template for anyone who needs a lost pet page.
+Started as a personal tool for my own cat, Luna. With Codex’s help, it quickly became a polished, shareable template for anyone who needs a lost pet page. My role was sketching the structure and clarifying how details should be presented, while Codex handled renaming and layout.
 
 ### 🎂 Birthday Page
 
-What began as a simple HTML/CSS surprise gift became an interactive, styled 11ty site with animations and hover effects. Codex helped me layer in polish I wouldn’t have managed on my own.
+What began as a simple HTML/CSS surprise gift became an interactive, styled 11ty site with animations and hover effects. I provided the concept and nudged the creative direction; Codex generated the styling and made the site feel polished.
 
 ### 🔐 Encryption Toolkit
 
-To keep the birthday content semi-private, I built an encryption/decryption setup — Node.js for encrypting, and a browser Q\&A for decrypting. Codex handled the boilerplate and made security approachable.
+To keep the birthday content semi-private, I built an encryption/decryption setup — Node.js for encrypting, and a browser Q\&A for decrypting. I set the goals and requirements, while Codex wrote most of the boilerplate and ensured the flow was secure but simple.
 
 (*I’ll include screenshots alongside these to show the transformations.*)
 
 ## What I Learned
+
+These are some of the key takeaways I noticed when things went smoothly. They don’t capture every situation — and as I’ll explain in the next section, there are caveats and limits to be aware of — but they highlight where Codex really shines:
 
 * Sketches and vague descriptions are enough to get started. Codex fills in structure fast.
 * The model thrives at tedious, mechanical edits, freeing me to focus on design and flow.
 * I don’t need deep CSS knowledge to end up with sites that look modern and clean.
 * Pair-programming with an AI feels less like delegating and more like collaborating.
 
+## Challenges and Caveats
+
+As smooth as the process felt, there are limits and drawbacks worth noting:
+
+* **Knowledge gaps**: If you don’t know what you’re doing, Codex can help, but it may not always be the best or most reliable solution.
+* **Shared blind spots**: Sometimes neither you nor the AI knows the best answer, and you can get stuck chasing dead ends.
+* **Solution quality**: Spending a lot of time making something “work” doesn’t guarantee it’s the right or optimal solution for the problem.
+* **Lack of pushback**: Codex will happily refine a flawed approach without pointing out, “hey, there’s a better way.” This can mean wasted time before realizing a different direction is needed.
+
 ## Closing Thoughts
 
-These projects may have been small in scope, but the process of building them with GPT-5 Codex was eye-opening. Instead of grinding through details, I got to enjoy the creative, high-level side of making things. And that’s the part that makes me believe: this style of programming isn’t just convenient — it’s the future.
+These projects may have been small in scope, but the process of building them with GPT-5 Codex was eye-opening. Instead of grinding through details, I got to enjoy the creative, high-level side of making things. Still, it’s clear that this style of programming requires human judgment to steer in the right direction and avoid the pitfalls I mentioned earlier. For me, that balance of speed, creativity, and critical oversight is what makes me believe this conversational approach isn’t just convenient — it’s a glimpse of the future.
 
