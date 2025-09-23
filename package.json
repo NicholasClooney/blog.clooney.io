@@ -1,6 +1,6 @@
 {
-  "name": "11ty-subspace-builder",
-  "version": "1.1.0",
+  "name": "blog.clooney.io",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
