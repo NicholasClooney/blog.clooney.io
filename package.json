@@ -1,6 +1,14 @@
 {
+<<<<<<< HEAD
   "name": "11ty-subspace-builder",
   "version": "1.9.0",
+||||||| parent of 85b5628 (Naming)
+  "name": "11ty-subspace-builder",
+  "version": "1.8.0",
+=======
+  "name": "blog.clooney.io",
+  "version": "1.0.0",
+>>>>>>> 85b5628 (Naming)
   "private": true,
   "workspaces": [
     "tools/*"
