@@ -1,9 +1,11 @@
 ---
-title: Building with GPT-5 Codex - My Experience
+title: The Joy (and Frustrations) of Building Small Sites with GPT-5 Codex
 date: 2025-09-20
 eleventyNavigation:
   key: post-2
 ---
+
+## Excerpt
 
 Building small websites with GPT-5 Codex turned out to be less about typing code and more about collaboration. From crude sketches to polished sites, the model took on the heavy lifting while I guided direction and design.
 
@@ -73,6 +75,14 @@ As smooth as the process felt, there are limits and drawbacks worth noting:
 * **Shared blind spots**: Sometimes neither you nor the AI knows the best answer, and you can get stuck chasing dead ends.
 * **Solution quality**: Spending a lot of time making something “work” doesn’t guarantee it’s the right or optimal solution for the problem.
 * **Lack of pushback**: Codex will happily refine a flawed approach without pointing out, “hey, there’s a better way.” This can mean wasted time before realizing a different direction is needed.
+
+### Example: Theme Switching Rabbit Hole
+
+One concrete example was when I tried implementing color themes for my blog using Tachyons CSS classes defined in YAML files, with JavaScript swapping them out when switching themes. It worked at first, but as I added more colors per theme, the JS code became increasingly bloated.
+
+Later I realized a far simpler and more scalable approach: define theme colors as CSS custom properties scoped by a `data-theme` attribute. Each theme is just a config of color tokens, and switching themes becomes a single attribute toggle — maximum CSS, minimal JS.
+
+Because I didn’t know this technique, and Codex didn’t push back on my original idea, we went down a rabbit hole refining a suboptimal solution. It cost time and energy before I recognized the better path. The lesson for me: GPT-5 Codex won’t stop you if you’re steering the wrong way, but asking broader questions at the start (e.g., “what’s the best way to implement theme switching?”) can help uncover smarter approaches early.
 
 ## Closing Thoughts
 
