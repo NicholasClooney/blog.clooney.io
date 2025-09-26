@@ -24,7 +24,8 @@ Along the way I discovered both the joy of fast iteration and the limits of rely
    * [🔐 Encryption Toolkit](#-encryption-toolkit)
 6. [What I Learned](#what-i-learned)
 7. [Challenges and Caveats](#challenges-and-caveats)
-8. [Closing Thoughts](#closing-thoughts)
+8. [Tips for Working with ChatGPT](#tips-for-working-with-chatgpt)
+9. [Closing Thoughts](#closing-thoughts)
 
 ## Introduction
 
@@ -54,7 +55,7 @@ What began as a simple HTML/CSS surprise gift became an interactive, styled 11ty
 
 ### 🔐 Encryption Toolkit
 
-To keep the birthday content semi-private, I built an encryption/decryption setup — Node.js for encrypting, and a browser Q\&A for decrypting. I set the goals and requirements, while Codex wrote most of the boilerplate and ensured the flow was secure but simple.
+To keep the birthday content semi-private, I built an encryption/decryption setup — Node.js for encrypting, and a browser Q&A for decrypting. I set the goals and requirements, while Codex wrote most of the boilerplate and ensured the flow was secure but simple.
 
 (*I’ll include screenshots alongside these to show the transformations.*)
 
@@ -83,6 +84,22 @@ One concrete example was when I tried implementing color themes for my blog usin
 Later I realized a far simpler and more scalable approach: define theme colors as CSS custom properties scoped by a `data-theme` attribute. Each theme is just a config of color tokens, and switching themes becomes a single attribute toggle — maximum CSS, minimal JS.
 
 Because I didn’t know this technique, and Codex didn’t push back on my original idea, we went down a rabbit hole refining a suboptimal solution. It cost time and energy before I recognized the better path. The lesson for me: GPT-5 Codex won’t stop you if you’re steering the wrong way, but asking broader questions at the start (e.g., “what’s the best way to implement theme switching?”) can help uncover smarter approaches early.
+
+## Tips for Working with ChatGPT
+
+One thing I realized through these projects is that the *workflow* matters just as much as the output. GPT can churn out implementations while I’m eating breakfast or stretching, but the way I collaborate with it determines whether things move smoothly or spiral into confusion. Here are some practices that made the process work better:
+
+0. **Set the context clearly.** Before diving into code, give the model the bigger picture so it knows what you’re aiming for.
+1. **Ask open questions.** Instead of immediately dictating a solution, ask about the best approaches — especially when you’re not an expert.
+2. **Plan first.** Get GPT to outline the path forward before jumping into implementation.
+3. **Discuss and iterate.** Treat it as a collaborator: question the plan, adjust, and refine together.
+4. **Let it implement.** Once aligned, let GPT handle the heavy lifting.
+5. **Iterate quickly.** Small, fast cycles of changes prevent getting stuck on the wrong path.
+6. **Commit often.** Each working change deserves a save, so you don’t lose progress.
+7. **Own the process.** Don’t blame the tool if it adds extras — if you only want A but it gives A+B, either trim B yourself or reset and ask more clearly.
+8. **Recognize context limits.** If the conversation feels muddled, it may be time to start a fresh session with a clean slate.
+
+These habits made the collaboration feel structured and productive, while still leaving room for creativity and exploration.
 
 ## Closing Thoughts
 
