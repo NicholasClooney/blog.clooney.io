@@ -2,7 +2,7 @@
 title: The Joy (and Frustrations) of Building Small Sites with GPT-5 Codex
 date: 2025-09-20
 eleventyNavigation:
-  key: post-2
+  key: building-with-gpt-5-codex
 ---
 
 ## Excerpt
