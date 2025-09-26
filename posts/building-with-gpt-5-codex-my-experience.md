@@ -41,7 +41,7 @@ The process felt more like a conversation than traditional coding. I’d sketch 
 
 ## Handling Tedious Changes
 
-One of the best moments was asking Codex to transform my private “lost pet” site (originally about my cat, Luna) into a more general “lost & found pet” site. Normally, renaming everything, stripping private info, and making it public-ready is a slog. Codex did 95% of that work in one sweep, leaving me to fine-tune only the last little bits.
+One of the best moments was asking Codex to transform my private projects, as shown below, into more general purpose sites and make them public. Normally, renaming everything, stripping private info, and making it public-ready is a slog. Codex did 95% of that work in one sweep, leaving me to fine-tune only the last little bits.
 
 ## Project Showcase
 
