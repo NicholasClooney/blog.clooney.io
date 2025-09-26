@@ -18,10 +18,9 @@ Along the way I discovered both the joy of fast iteration and the limits of rely
 3. [The Workflow: Conversational and Iterative](#the-workflow-conversational-and-iterative)
 4. [Handling Tedious Changes](#handling-tedious-changes)
 5. [Project Showcase](#project-showcase)
-
-   * [🐾 Lost & Found Pet Website](#-lost--found-pet-website)
-   * [🎂 Birthday Page](#-birthday-page)
-   * [🔐 Encryption Toolkit](#-encryption-toolkit)
+   * [🐾 Project Luna - Pet Lost & Found Page](#-project-luna---pet-lost--found-page)
+   * [🎂 Project Joy - Birthday/Celebration Page](#-project-joy---birthdaycelebration-page)
+   * [🔐 Project Top Secret - Eleventy Passphrase Gate](#-project-top-secret---eleventy-passphrase-gate)
    * [🚀 Subspace Builder (11ty Blog Starter)](#-subspace-builder-11ty-blog-starter)
 6. [What I Learned](#what-i-learned)
 7. [Challenges and Caveats](#challenges-and-caveats)
@@ -46,15 +45,33 @@ One of the best moments was asking Codex to transform my private “lost pet” 
 
 ## Project Showcase
 
-### 🐾 Lost & Found Pet Website
+### 🐾 Project Luna - Pet Lost & Found Page
+
+- Project: https://github.com/TheClooneyCollection/project-luna
+- Demo: https://princessluna.pages.dev/
+
+<img height="300" alt="image" src="https://github.com/user-attachments/assets/24ed04c2-6f64-44c6-9f5e-9ec521f4e078" />
 
 Started as a personal tool for my own cat, Luna. With Codex’s help, it quickly became a polished, shareable template for anyone who needs a lost pet page. My role was sketching the structure and clarifying how details should be presented, while Codex handled renaming and layout.
 
-### 🎂 Birthday Page
+### 🎂 Project Joy - Birthday/Celebration Page
+
+- Project: https://github.com/TheClooneyCollection/project-joy
+- Demo: https://project-joy.pages.dev/
+
+<img height="300" alt="image" src="https://github.com/user-attachments/assets/d16095e6-02ea-4c06-b98a-a4e9290abe4f" />
+
 
 What began as a simple HTML/CSS surprise gift became an interactive, styled 11ty site with animations and hover effects. I provided the concept and nudged the creative direction; Codex generated the styling and made the site feel polished.
 
-### 🔐 Encryption Toolkit
+### 🔐 Project Top Secret - Eleventy Passphrase Gate
+
+- Project: https://github.com/TheClooneyCollection/project-top-secret
+- Demo: https://project-top-secret.pages.dev/
+
+<img height="300" alt="image" src="https://github.com/user-attachments/assets/5e2cd34b-90c2-4140-acb8-85bb48d30b37" />
+<img height="300" alt="image" src="https://github.com/user-attachments/assets/f0d12f69-9fa9-43e8-9cf1-35cae66a18bb" />
+
 
 To keep the birthday content semi-private, I built an encryption/decryption setup — Node.js for encrypting, and a browser Q&A for decrypting. I set the goals and requirements, while Codex wrote most of the boilerplate and ensured the flow was secure but simple.
 
@@ -109,5 +126,4 @@ These habits made the collaboration feel structured and productive, while still 
 ## Closing Thoughts
 
 These projects may have been small in scope, but the process of building them with GPT-5 Codex was eye-opening. Instead of grinding through details, I got to enjoy the creative, high-level side of making things. Still, it’s clear that this style of programming requires human judgment to steer in the right direction and avoid the pitfalls I mentioned earlier. For me, that balance of speed, creativity, and critical oversight is what makes me believe this conversational approach isn’t just convenient — it’s a glimpse of the future.
-
 
