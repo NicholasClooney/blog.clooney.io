@@ -22,6 +22,7 @@ Along the way I discovered both the joy of fast iteration and the limits of rely
    * [🐾 Lost & Found Pet Website](#-lost--found-pet-website)
    * [🎂 Birthday Page](#-birthday-page)
    * [🔐 Encryption Toolkit](#-encryption-toolkit)
+   * [🚀 Subspace Builder (11ty Blog Starter)](#-subspace-builder-11ty-blog-starter)
 6. [What I Learned](#what-i-learned)
 7. [Challenges and Caveats](#challenges-and-caveats)
 8. [Tips for Working with ChatGPT](#tips-for-working-with-chatgpt)
@@ -57,7 +58,11 @@ What began as a simple HTML/CSS surprise gift became an interactive, styled 11ty
 
 To keep the birthday content semi-private, I built an encryption/decryption setup — Node.js for encrypting, and a browser Q&A for decrypting. I set the goals and requirements, while Codex wrote most of the boilerplate and ensured the flow was secure but simple.
 
-(*I’ll include screenshots alongside these to show the transformations.*)
+### 🚀 Subspace Builder (11ty Blog Starter)
+
+Built as a fast Eleventy blog starter with Tachyons utility classes. It includes theme switching, accessible navigation, and a responsive layout. My focus was creating a flexible, theme-aware base while Codex handled the structure and reusable components.
+
+(*Screenshots to be added alongside for a quick visual of the starter in action.*)
 
 ## What I Learned
 
@@ -104,4 +109,5 @@ These habits made the collaboration feel structured and productive, while still 
 ## Closing Thoughts
 
 These projects may have been small in scope, but the process of building them with GPT-5 Codex was eye-opening. Instead of grinding through details, I got to enjoy the creative, high-level side of making things. Still, it’s clear that this style of programming requires human judgment to steer in the right direction and avoid the pitfalls I mentioned earlier. For me, that balance of speed, creativity, and critical oversight is what makes me believe this conversational approach isn’t just convenient — it’s a glimpse of the future.
+
 
