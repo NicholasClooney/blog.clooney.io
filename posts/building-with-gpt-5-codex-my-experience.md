@@ -18,10 +18,10 @@ Along the way I discovered both the joy of fast iteration and the limits of rely
 3. [The Workflow: Conversational and Iterative](#the-workflow-conversational-and-iterative)
 4. [Handling Tedious Changes](#handling-tedious-changes)
 5. [Project Showcase](#project-showcase)
-   * [🐾 Project Luna - Pet Lost & Found Page](#-project-luna---pet-lost--found-page)
-   * [🎂 Project Joy - Birthday/Celebration Page](#-project-joy---birthdaycelebration-page)
-   * [🔐 Project Top Secret - Eleventy Passphrase Gate](#-project-top-secret---eleventy-passphrase-gate)
-   * [🚀 Subspace Builder (11ty Blog Starter)](#-subspace-builder-11ty-blog-starter)
+   * [🐾 Project Luna - Pet Lost & Found Page](#🐾-project-luna---pet-lost-%26-found-page)
+   * [🎂 Project Joy - Birthday/Celebration Page](#🎂-project-joy---birthday%2Fcelebration-page)
+   * [🔐 Project Top Secret - Eleventy Passphrase Gate](#%F0%9F%94%90-project-top-secret---eleventy-passphrase-gate)
+   * [🚀 Subspace Builder (11ty Blog Starter)](#🚀-subspace-builder-(11ty-blog-starter))
 6. [What I Learned](#what-i-learned)
 7. [Challenges and Caveats](#challenges-and-caveats)
 8. [Tips for Working with ChatGPT](#tips-for-working-with-chatgpt)
@@ -50,7 +50,7 @@ One of the best moments was asking Codex to transform my private “lost pet” 
 - Project: https://github.com/TheClooneyCollection/project-luna
 - Demo: https://princessluna.pages.dev/
 
-<img height="300" alt="image" src="https://github.com/user-attachments/assets/24ed04c2-6f64-44c6-9f5e-9ec521f4e078" />
+<img height="450" alt="image" src="/assets/project-luna.png" />
 
 Started as a personal tool for my own cat, Luna. With Codex’s help, it quickly became a polished, shareable template for anyone who needs a lost pet page. My role was sketching the structure and clarifying how details should be presented, while Codex handled renaming and layout.
 
@@ -59,7 +59,7 @@ Started as a personal tool for my own cat, Luna. With Codex’s help, it quickly
 - Project: https://github.com/TheClooneyCollection/project-joy
 - Demo: https://project-joy.pages.dev/
 
-<img height="300" alt="image" src="https://github.com/user-attachments/assets/d16095e6-02ea-4c06-b98a-a4e9290abe4f" />
+<img height="450" alt="image" src="/assets/project-joy.png" />
 
 
 What began as a simple HTML/CSS surprise gift became an interactive, styled 11ty site with animations and hover effects. I provided the concept and nudged the creative direction; Codex generated the styling and made the site feel polished.
@@ -69,17 +69,20 @@ What began as a simple HTML/CSS surprise gift became an interactive, styled 11ty
 - Project: https://github.com/TheClooneyCollection/project-top-secret
 - Demo: https://project-top-secret.pages.dev/
 
-<img height="300" alt="image" src="https://github.com/user-attachments/assets/5e2cd34b-90c2-4140-acb8-85bb48d30b37" />
-<img height="300" alt="image" src="https://github.com/user-attachments/assets/f0d12f69-9fa9-43e8-9cf1-35cae66a18bb" />
+<img height="450" alt="image" src="/assets/project-top-secret-gate.png" />
+<img height="450" alt="image" src="/assets/project-top-secret-unlocked.png" />
 
 
 To keep the birthday content semi-private, I built an encryption/decryption setup — Node.js for encrypting, and a browser Q&A for decrypting. I set the goals and requirements, while Codex wrote most of the boilerplate and ensured the flow was secure but simple.
 
 ### 🚀 Subspace Builder (11ty Blog Starter)
 
-Built as a fast Eleventy blog starter with Tachyons utility classes. It includes theme switching, accessible navigation, and a responsive layout. My focus was creating a flexible, theme-aware base while Codex handled the structure and reusable components.
+- Project: https://github.com/NicholasClooney/11ty-subspace-builder
+- Demo: https://blog.nicholas.clooney.io/
 
-(*Screenshots to be added alongside for a quick visual of the starter in action.*)
+<img height="450" alt="image" src="/assets/blog.png" />
+
+Built as a fast Eleventy blog starter with Tachyons utility classes. It includes theme switching, accessible navigation, and a responsive layout. My focus was creating a flexible, theme-aware base while Codex handled the structure and reusable components.
 
 ## What I Learned
 
