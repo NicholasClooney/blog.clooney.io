@@ -13,19 +13,7 @@ Along the way I discovered both the joy of fast iteration and the limits of rely
 
 ## Table of Contents
 
-1. [Introduction](#introduction)
-2. [Why Small Projects?](#why-small-projects)
-3. [The Workflow: Conversational and Iterative](#the-workflow-conversational-and-iterative)
-4. [Handling Tedious Changes](#handling-tedious-changes)
-5. [Project Showcase](#project-showcase)
-   * [🐾 Project Luna - Pet Lost & Found Page](#🐾-project-luna---pet-lost-%26-found-page)
-   * [🎂 Project Joy - Birthday/Celebration Page](#🎂-project-joy---birthday%2Fcelebration-page)
-   * [🔐 Project Top Secret - Eleventy Passphrase Gate](#%F0%9F%94%90-project-top-secret---eleventy-passphrase-gate)
-   * [🚀 Subspace Builder (11ty Blog Starter)](#🚀-subspace-builder-(11ty-blog-starter))
-6. [What I Learned](#what-i-learned)
-7. [Challenges and Caveats](#challenges-and-caveats)
-8. [Tips for Working with ChatGPT](#tips-for-working-with-chatgpt)
-9. [Closing Thoughts](#closing-thoughts)
+[[toc]]
 
 ## Introduction
 
