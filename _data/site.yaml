@@ -21,8 +21,8 @@ umami:
 # giscus comments system
 # get your config here: https://giscus.app/
 giscus:
-  repo: TheClooneyCollection/11ty-subspace-builder
-  repoId: R_kgDOOtI2Pw
+  repo: NicholasClooney/blog.clooney.io
+  repoId: R_kgDOOtRluQ
   category: Announcements
-  categoryId: DIC_kwDOOtI2P84CwAOl
+  categoryId: DIC_kwDOOtRluc4CwANX
   mapping: og:title
