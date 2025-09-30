@@ -94,10 +94,11 @@ Conclusion: **iPhone mobile network is IPv4-only, CGNAT**.
 
 1. **Mac is fine**: with IPv6, it’s globally reachable.
 2. **VPS is fine**: public IPv4 makes it easy.
-3. **iPhone mobile carrier is the blocker**:
+3. **iPhone mobile carrier was the blocker at first**:
 
-   * No IPv6 support → stuck in IPv4 CGNAT.
-   * DERP UDP traffic is flaky or blocked → relay fallback fails.
+   * Initially, no IPv6 support → stuck in IPv4 CGNAT.
+   * DERP UDP traffic was flaky or blocked → relay fallback failed.
+4. **But later, after activating the Vodafone UK SIM properly**, the iPhone suddenly received a public IPv4 (85.xxx.xxx.xxx). This allowed **direct iPhone ↔ Mac connectivity** without DERP.
 
 ---
 
