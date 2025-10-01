@@ -15,14 +15,16 @@ What started as a simple question — *"Why can’t I reach my MacBook over Tail
 
 [[toc]]
 
-## The Problem
+## The Problem I _Had_
 
 * On **UK mobile data**, the iPhone could SSH into a VPS (US-based) over Tailscale just fine.
-* But connecting to a MacBook (at home on Hyperoptic broadband) failed.
+* But when I was trying to connect to my MacBook (at home on Hyperoptic broadband) failed.
 * Running `tailscale ping iphone` on the MacBook timed out, and `tailscale ping mac` from iPhone showed `relay LHR` but still failed.
 * On the **same Wi-Fi network**, iPhone ↔ Mac worked perfectly.
 
 So the mystery: why do VPS connections work, but Mac connections fail?
+
+> *Read further on to find out there was one simple fix!*
 
 ---
 
@@ -98,15 +100,17 @@ Conclusion: **iPhone mobile network is IPv4-only, CGNAT**.
 
    * Initially, no IPv6 support → stuck in IPv4 CGNAT.
    * DERP UDP traffic was flaky or blocked → relay fallback failed.
-4. **But later, after activating the Vodafone UK SIM properly**, the iPhone suddenly received a public IPv4 (85.xxx.xxx.xxx). This allowed **direct iPhone ↔ Mac connectivity** without DERP.
+4. **The One Simple Fix**: But later, after activating the UK SIM properly, the iPhone suddenly received a public IPv4 (85.xxx.xxx.xxx). This allowed **direct iPhone ↔ Mac connectivity** without DERP.
 
 ---
 
-## Workarounds
+## Potential Workarounds
+
+(if you don't have a public IPv4 address for your mobile)
 
 * On Mac: could force DERP to guarantee relay, but the real issue is on iPhone’s side.
 * Alternative: use VPS as an **exit node / relay** for iPhone → Mac traffic.
-* Long-term fix: switch to a mobile carrier that offers **IPv6 on mobile data**.
+* Long-term fix: switch to a mobile carrier that offers either **public IP address**, or **IPv6 on mobile data**.
 
 ---
 
