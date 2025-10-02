@@ -68,6 +68,8 @@ export default function (eleventyConfig) {
 		},
 	});
 
+	eleventyConfig.addGlobalData("environment", process.env.ELEVENTY_ENV || "development");
+
 	eleventyConfig.addPlugin(eleventyNavigationPlugin);
 	eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
 		formats: ["avif", "webp", "jpeg"],
