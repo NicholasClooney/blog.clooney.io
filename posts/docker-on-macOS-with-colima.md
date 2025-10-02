@@ -9,6 +9,10 @@ Like a lot of developers coming from Linux or a server environment, I hit some c
 
 Let me walk through what I’ve learned.
 
+## Table of Contents
+
+[[toc]]
+
 ---
 
 ## Installing Docker: CLI vs. Docker Desktop
