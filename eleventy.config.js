@@ -66,6 +66,15 @@ export default function (eleventyConfig) {
 		eleventyExcludeFromCollections(data) {
 			return data.draft && process.env.ELEVENTY_ENV === "production";
 		},
+		title(data) {
+			if (!data?.title) return data?.title;
+			const env = process.env.ELEVENTY_ENV || "development";
+			if (!data.draft || env === "production") {
+				return data.title;
+			}
+			const prefix = "🚧 DRAFT - ";
+			return data.title.startsWith(prefix) ? data.title : `${prefix}${data.title}`;
+		},
 	});
 
 	eleventyConfig.addGlobalData("environment", process.env.ELEVENTY_ENV || "development");
