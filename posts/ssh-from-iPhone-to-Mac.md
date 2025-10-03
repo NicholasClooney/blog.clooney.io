@@ -97,7 +97,8 @@ When `tailscale serve` started proxying the Eleventy preview, I thought that was
 
 The real unlock was `tailscale serve --https=443 http://localhost:8080`. With `npm run dev` running on the Mac, Serve exposes the Eleventy preview behind Tailscale’s HTTPS without touching DNS or my router. It handed me a tidy HTTPS URL, it let me see the live blog build from the couch, the train, anywhere with signal. Every layer that clicked into place kept doubling the delight.
 
-Then I noticed an even simpler trick: with Tailscale’s MagicDNS, the dev server is already reachable inside the tailnet at `https://my-mac.my-tailnet.ts.net:8080`. No Serve, no extra proxy — just the private mesh doing its thing. Serve (or Funnel) can still publish to the wider world if I ever need it, but for day-to-day previews I get a direct, tailnet-only connection that stays fast and private.
+Then I noticed an even simpler trick: with Tailscale’s MagicDNS, the dev server is already reachable inside the tailnet at `https://my-mac.my-tailnet.ts.net:8080` since it is exposed to `0.0.0.0` (so all interfaces). No Serve, no extra proxy — just the private mesh doing its thing.
+Serve (or Funnel) can still publish to my tailnet if I ever need it for things like Umami which is only exposed to localhost, i.e. `127.0.0.1`.
 
 <img
   alt= "Tailscale Serve"
