@@ -9,8 +9,6 @@ I spent the better half of today getting Umami analytics to cooperate with a sta
 
 This is the story of following the trail from mysterious redirects to CORS ghosts and finally to Firefox’s stealthy `sendBeacon` API.
 
-## Table of Contents
-
 [[toc]]
 
 ## The Symptom: No Events, No Errors
