@@ -9,8 +9,6 @@ eleventyNavigation:
 
 Here are some of my often used commands / prompts when working with GPT 5 Codex.
 
-## Table of Contents
-
 [[toc]]
 
 ### Best Solution?
