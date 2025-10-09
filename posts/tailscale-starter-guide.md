@@ -13,8 +13,6 @@ I originally wrote about my broader Tailscale journey in previous blog posts ([C
 
 ---
 
-## Table of Contents
-
 [[toc]]
 
 ## Why Tailscale?
