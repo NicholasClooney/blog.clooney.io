@@ -5,13 +5,9 @@ eleventyNavigation:
   key: building-with-gpt-5-codex
 ---
 
-## Excerpt
-
 Building small websites with GPT-5 Codex turned out to be less about typing code and more about collaboration. From crude sketches to polished sites, the model took on the heavy lifting while I guided direction and design.
 
 Along the way I discovered both the joy of fast iteration and the limits of relying on an AI partner. These projects became less about the sites themselves and more about exploring a new style of programming — conversational, creative, and sometimes flawed, but always eye-opening.
-
-## Table of Contents
 
 [[toc]]
 
