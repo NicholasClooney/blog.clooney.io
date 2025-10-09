@@ -13,6 +13,8 @@ eleventyNavigation:
 * For production: generate a **strong `APP_SECRET`**, use a **strong Postgres password**, **don’t expose the DB**, and **bind Umami to localhost** behind a reverse proxy with TLS.
 * Wrap all of this into a **portable Ansible role** that renders a `.env` and a hardened `docker-compose.yml`, then runs `docker compose` idempotently.
 
+[[toc]]
+
 ---
 
 ## Why Umami’s docs can feel confusing at first
