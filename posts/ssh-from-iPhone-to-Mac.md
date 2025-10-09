@@ -11,8 +11,6 @@ For years, I thought of coding as something tied to my desk — Mac in front of 
 
 This blog is half technical walkthrough, half personal reflection. It’s the story of how I explored Cloudflare Tunnel, discovered Tailscale, refined my workflow with tmux and iTerm, and ultimately unlocked the freedom of having a fully fledged Mac in my pocket.
 
-## Table of Contents
-
 [[toc]]
 
 ---
