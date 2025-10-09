@@ -13,8 +13,6 @@ GPT-5 Codex builds the bulk of my Subspace Builder project. My job is steering t
 
 Inside iTerm I keep three panes going: the main pane on the left stays glued to Codex, the top-right pane holds my git shorthand (`g s`, `g aa`, `g c`), and the bottom-right pane runs `npx @11ty/eleventy --serve`. Living in tmux means that layout follows me everywhere. On the iPhone, those commands are still muscle memory—tapping out a quick `git status --short` or eyeballing the Eleventy logs is surprisingly natural on a tiny keyboard. When there aren’t errors, I jump into Safari or Firefox on the phone to double-check what Codex just published. It’s a small ritual that keeps the human review loop in the mix and lets me iterate on features or fixes the moment inspiration strikes.
 
-## Table of Contents
-
 [[toc]]
 
 ---
