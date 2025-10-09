@@ -11,8 +11,6 @@ What started as a simple question — *"Why can’t I reach my MacBook over Tail
 
 ---
 
-## Table of Contents
-
 [[toc]]
 
 ## The Problem I _Had_
