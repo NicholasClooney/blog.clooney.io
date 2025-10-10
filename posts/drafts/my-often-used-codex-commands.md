@@ -42,6 +42,7 @@ Read the commits since last release and do the following.
 - Follow the existing release title strategy. `<Project>: <Version> - <Title>`
 - Prepare a release description.
 - Run `git tag` commands with the version number and also annotate it with the release title please.
+- Remember to do a `git push` before the following `gh release ...` command.
 - Run `gh` to create a release
 
 Stop before running the commands, let me revise the title, description and version number first.
