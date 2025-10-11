@@ -11,6 +11,31 @@ Here are some of my often used commands / prompts when working with GPT 5 Codex.
 
 [[toc]]
 
+### Minimal Change
+
+```
+Propose a plan with minimal changes to fix this issue.
+```
+
+
+### New Branch & Worktree
+
+**Create**
+
+```
+<Problem Statement>
+
+
+We want to work on this in a new branch and worktree. Please use `git worktree` to create a new branch and worktree.
+```
+
+**Destroy**
+```
+Now we have completed the feature / bugfix, please push the branch to remote and remove the worktree.
+
+Then we'd like you to create a GitHub PR with `gh` command. Let me review the title and description before running the command.
+```
+
 ### Best Solution?
 
 ```
@@ -29,6 +54,10 @@ Even with this, sometimes i still find it's easier to come to a more comprehensi
 Plan out each step, a high level overview, and corresponding project structure.
 
 Let me review the plan. No code change or actions required at this step.
+```
+
+```
+Propose a step by step & numbered plan with minimal changes to fix this issue.
 ```
 
 ### Make A New Release
