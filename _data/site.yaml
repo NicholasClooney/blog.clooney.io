@@ -15,13 +15,12 @@ theme:
 
 headerLinks:
   - label: GitHub
-    url: https://github.com/TheClooneyCollection/11ty-subspace-builder
-  - label: Nicholas's Blog
-    url: https://blog.nicholas.clooney.io/
+    url: https://github.com/NicholasClooney
   - label: Mastodon
     url: https://mastodon.social/@NicholasClooney
     rel: me
-
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/BicholasClooney/
 
 # tracking with umami
 umami:
