@@ -17,7 +17,6 @@
 			defaultMidtoneClass,
 			...Object.values(themeMidtoneMap)
 		])).filter(Boolean);
-		const rotatePreviewEnabled = {{ rotatePreviewButtons | dump | safe }};
 		const storageKey = 'theme';
 		const previewResetDelay = {{ previewResetDelay }};
 		let activeTheme = themeTarget.dataset.theme;
@@ -41,7 +40,7 @@
 		}
 
 		function rotatePreviewButtonsTo(id) {
-			if (!rotatePreviewEnabled || !previewButtons.length || !themeSelector) return;
+			if (!previewButtons.length || !themeSelector) return;
 			const index = previewButtons.findIndex(button => button.dataset.themePreview === id);
 			if (index < 0) return;
 			const reordered = [

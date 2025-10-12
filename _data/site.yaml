@@ -7,7 +7,6 @@ author:
 
 theme:
   showSelectors: true
-  rotatePreviews: true
   previewResetDelay: 200
   transitionDuration: 0.5s
    # all options: linear, ease, ease-in, ease-out, ease-in-out
