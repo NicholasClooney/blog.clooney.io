@@ -21,7 +21,6 @@
 		const previewResetDelay = {{ previewResetDelay }};
 		let activeTheme = themeTarget.dataset.theme;
 		let previewButtons = [];
-		let themeSelector;
 		let previewResetTimeout;
 
 		function updateActivePreview(id) {
@@ -37,18 +36,6 @@
 				button.classList.toggle('o-60', !isActive);
 				button.setAttribute('aria-pressed', String(isActive));
 			});
-		}
-
-		function rotatePreviewButtonsTo(id) {
-			if (!previewButtons.length || !themeSelector) return;
-			const index = previewButtons.findIndex(button => button.dataset.themePreview === id);
-			if (index < 0) return;
-			const reordered = [
-				...previewButtons.slice(index + 1),
-				...previewButtons.slice(0, index + 1)
-			];
-			reordered.forEach(button => themeSelector.appendChild(button));
-			previewButtons = reordered;
 		}
 
 		function clearPreviewReset() {
@@ -79,7 +66,6 @@
 			}
 			if (!preview) {
 				activeTheme = id;
-				rotatePreviewButtonsTo(id);
 				updateActivePreview(id);
 				if (persist) {
 					try {
@@ -136,7 +122,6 @@
 			});
 
 			const supportsPointer = 'PointerEvent' in window;
-			themeSelector = document.querySelector('[data-theme-selector]');
 			previewButtons = Array.from(document.querySelectorAll('[data-theme-preview]'));
 			previewButtons.forEach(button => {
 				const themeId = button.dataset.themePreview;
@@ -155,7 +140,6 @@
 				});
 			});
 
-			rotatePreviewButtonsTo(themeTarget.dataset.theme);
 			updateActivePreview(themeTarget.dataset.theme);
 		});
 	})();
