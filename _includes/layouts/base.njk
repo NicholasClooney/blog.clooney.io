@@ -11,6 +11,7 @@
 {% set defaultThemeClasses = defaultTheme.classes | join(' ') %}
 {% set defaultThemeMidtoneClass = defaultTheme.midtoneClass if defaultTheme.midtoneClass is defined else 'mid-gray' %}
 {% set previewResetDelay = siteThemeConfig.previewResetDelay if siteThemeConfig.previewResetDelay is defined else 200 %}
+{% set rotatePreviewButtons = siteThemeConfig.rotatePreviews if siteThemeConfig.rotatePreviews is defined else true %}
 {% set transitionDuration = siteThemeConfig.transitionDuration if siteThemeConfig.transitionDuration is defined else '0.35s' %}
 {% set transitionTimingFunction = siteThemeConfig.transitionTimingFunction if siteThemeConfig.transitionTimingFunction is defined else 'ease' %}
 {% set siteTitle = site.title or metadata.title %}
