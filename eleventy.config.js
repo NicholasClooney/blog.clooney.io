@@ -175,6 +175,12 @@ export default function (eleventyConfig) {
     eleventyExcludeFromCollections(data) {
       return data.draft && process.env.ELEVENTY_ENV === 'production';
     },
+    title(data) {
+      const prefix = '🚧 DRAFT - ';
+      const { draft, title } = data;
+      if (!title || !draft) return title;
+      return title.startsWith(prefix) ? title : `${prefix}${title}`;
+    },
   });
 
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
