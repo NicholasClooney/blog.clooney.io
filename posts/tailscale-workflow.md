@@ -1,9 +1,9 @@
 ---
-title: "How Tailscale Took Over My Remote Workflow"
+title: "\"Can you believe this?\" — The Tailscale Setup That Gave Me Absolute Freedom"
 date: 2025-10-15
 draft: true
 eleventyNavigation:
-  key: tailscale-workflow-draft
+  key: tailscale-workflow
 excerpt: |
   A late adopter’s love letter to Tailscale: why it now powers Subspace Builder development, private analytics, and even my family’s everyday browsing.
 ---
@@ -11,6 +11,8 @@ excerpt: |
 [[toc]]
 
 ## Full Blog Draft
+
+If you only have a minute, scroll down to the last section—it’s where I’m literally writing this from a bathtub with my entire dev stack in hand. Otherwise, here’s how Tailscale quietly took over everything in between.
 
 ### It Started as an Experiment
 
@@ -56,12 +58,12 @@ Case in point: I’m drafting this post from a bathtub, connected to my Mac thro
 
 ## LinkedIn Adaptation
 
-Late to the Tailscale party, but it’s already the center of my remote setup:
+I don’t think people realize how much Tailscale rewired my day-to-day. The feeling of “I can build from anywhere” landed hard, and I’m still riding that high.
 
-- My Eleventy starter (Subspace Builder), dev server, and Umami analytics all stay private on the 100.x tailnet—no exposed ports, just peace of mind.
-- Blink + mosh on iPhone means `mosh pro` (MacBook) and `mosh debian` (VPS) are a tap away thanks to a tiny bit of host/user config.
-- Exit nodes are trivial: one command on the host, one switch in the mobile app. I use them to hop out of regional firewalls, including China’s GFW, and to sidestep the UK’s age-verification gate without handing IDs to third parties (remember the recent Discord vendor breach?).
-- Writing this draft from a bathtub on my phone—Blink + mosh + tmux give me my Mac’s dev setup, GPT handles prose, Eleventy previews via Tailscale Serve, and git is a command away. Wild times.
-- Even my non-technical family had it running in minutes. Install, sign in, done.
+Subspace Builder, my Eleventy starter, the dev server, and even Umami analytics now live quietly on the 100.x tailnet—no exposed ports, just real peace of mind.
 
-I expected “another VPN.” I got the backbone of my workflow instead.
+On my iPhone, Blink + mosh make `mosh pro` (MacBook) and `mosh debian` (VPS) feel like muscle memory thanks to a tiny bit of host/user config. Exit nodes are engineered for humans: one command on the server, one toggle in the mobile app, and I can route around the Great Firewall or the UK’s age verification gate without entrusting IDs to third parties, especially after incidents like the recent Discord vendor breach.
+
+I’m drafting this while away from my desk, phone in hand, with GPT handling the words, Eleventy’s preview beaming through Tailscale Serve, and git ready every time I want to check a diff. Even my non-technical family had it working in minutes—install, sign in, done.
+
+I expected “another VPN.” What I got was the backbone of my workflow.
