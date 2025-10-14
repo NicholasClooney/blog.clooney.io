@@ -17,7 +17,7 @@ I only dipped my toes into Tailscale recently. I figured it might be handy for t
 
 ### Private-by-Default Development
 
-Subspace Builder’s dev server, shared components, and all the messy work-in-progress branches now live safely on my tailnet. Instead of cracking open public ports just to test a feature, I point everything at Tailscale’s 100.x.x.x network. SSH, Eleventy’s hot-reloading preview, and even the Umami analytics dashboard stay private while remaining instantly reachable.
+[**Subspace Builder**](https://github.com/TheClooneyCollection/11ty-subspace-builder), my Eleventy starter (plus its dev server and Umami analytics), now live safely on my tailnet. Instead of cracking open public ports just to test a feature, I point everything at Tailscale’s 100.x.x.x network. SSH, Eleventy’s hot-reloading preview, and even the Umami analytics dashboard stay private while remaining instantly reachable.
 
 That single design choice changed my stress levels. Knowing that `ssh nicholas@macbook-pro` or `https://macbook-pro.tailXX.ts.net:8080` only resolves inside the mesh network feels like 1000% peace of mind. No more juggling firewall rules or staging passwords.
 
@@ -61,7 +61,7 @@ What a time to be alive!
 ## LinkedIn Adaptation
 💫 Tailnet is a super power.
 
-Full blog here: ["Can you believe this?" — The Tailscale Setup That Gave Me Absolute Freedom](https://blog.nicholas.clooney.io/posts/tailscale-workflow/)
+Full blog here: ["Can you believe this?" — The Tailscale Setup That Gave Me Absolute Freedom](https://blog.nicholas.clooney.io/posts/how-tailscale-revolutionized-my-mobile-workflow/)
 
 I don’t think people realize how much Tailscale rewired my day-to-day. The feeling of “I can build from anywhere” landed hard, and I’m still riding that high.
 
