@@ -105,13 +105,13 @@ function stripHtml(text) {
     .trim();
 }
 
-function escapeHtml(text) {
+function decodeHtmlEntities(text) {
   return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
 }
 
 function truncate(text, maxLength) {
@@ -197,7 +197,7 @@ function buildTemplate({ title, excerpt: excerptText }) {
         <div
           style="font-size: ${fittedTitle.fontSize}px; font-weight: 700; line-height: ${fittedTitle.lineHeight}; letter-spacing: ${fittedTitle.letterSpacing}px;"
         >
-          ${escapeHtml(fittedTitle.text)}
+          ${fittedTitle.text}
         </div>
         <div
           style="
@@ -209,7 +209,7 @@ function buildTemplate({ title, excerpt: excerptText }) {
             max-width: 820px;
           "
         >
-          ${escapeHtml(fittedExcerpt.text)}
+          ${fittedExcerpt.text}
         </div>
       </div>
       <div
@@ -240,7 +240,7 @@ function sanitizeNode(node) {
   if (node == null) return node;
   if (typeof node === 'string') {
     const trimmed = node.trim();
-    return trimmed.length ? trimmed : null;
+    return trimmed.length ? decodeHtmlEntities(trimmed) : null;
   }
   if (Array.isArray(node)) {
     const cleaned = node
