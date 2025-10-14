@@ -72,6 +72,22 @@ tmux new-session -t main -A -s iPhone
 
 The device auto-joins the group the moment Blink connects, so I am looking at the same panes before the status bar finishes animating.
 
+## What it looks like
+
+When the MacBook Pro is churning through a heavy build in the study, I flip open Blink on the iPad, join the `main` group, and keep `macmon` on screen to watch CPU, memory, and temperature from the couch. Same panes, totally different device, zero context lost.
+
+<img
+  alt="Monitoring my MacBook from the iPad via tmux and macmon"
+  src="/assets/tmux-on-iPad.jpeg"
+/>
+
+Back on the Mac, Mission Control gives each desktop its own grouped session so I can dedicate full-screen spaces to specific projects. This is what a pair of grouped sessions looks like—same windows, each with its own focus.
+
+<img
+  alt="Two grouped tmux sessions on macOS with independent focuses"
+  src="/assets/tmux-on-mac.png"
+/>
+
 ## Quality-of-life tweaks
 
 - **Status line**: I include `#S` in the tmux status bar, so it reads `[main]`, `[ipad]`, `[blog]`, etc. A quick glance tells me which focus I am looking at.
