@@ -1,18 +1,15 @@
 ---
 title: "\"Can you believe this?\" — The Tailscale Setup That Gave Me Absolute Freedom"
-date: 2025-10-15
-draft: true
+date: 2025-10-14
 eleventyNavigation:
   key: tailscale-workflow
-excerpt: |
-  A late adopter’s love letter to Tailscale: why it now powers Subspace Builder development, private analytics, and even my family’s everyday browsing.
 ---
 
+If you’ve ever wanted your phone to double as a full-fledged development studio (complete with SSH, live previews, and your entire workflow at your fingertips) then this story is for you. It’s about how a small experiment with Tailscale turned into a complete rewire of how I build, code, and stay connected. From private dev environments to bathtub coding sessions (yes, really), here’s how it all came together.
+
+Every section in this story layers on the next, building toward the “I can’t believe my phone is a full dev studio” moment at the end—so if you can, read it through. The payoff is worth it.
+
 [[toc]]
-
-## Full Blog Draft
-
-If you only have a minute, scroll down to the last section—it’s where I’m literally writing this from a bathtub with my entire dev stack in hand. Otherwise, here’s how Tailscale quietly took over everything in between.
 
 ### It Started as an Experiment
 
@@ -50,20 +47,30 @@ I thought Tailscale would be “yet another VPN.” Instead, it gave me:
 - A way to help my family browse the open internet without extra hassle.
 - A fast safety net when I travel and need my own global proxy.
 
-For an app I installed almost on a whim, it has quietly become the nervous system of my workflow.
+For an app I installed almost on a whim, it has quietly become the backbone of my workflow.
 
-### Bathtub Coding Sessions Are Real
+### The Final Frontier: `<redacted>` Coding Sessions Are Real
 
-Case in point: I’m drafting this post from a bathtub, connected to my Mac through Tailscale, Blink, mosh, and tmux. GPT is filling in paragraphs, Eleventy’s preview server is humming along, and Tailscale Serve is piping the private URL straight to my tailnet. Git is right there whenever I want to check diffs or commit. It still blows my mind that a phone can be the entire control room. What a time to be alive.
+Case in point: I’m writing this very post from my bathtub — yes, really (waterproof devices only 😜). Tailscale, Blink, mosh, and tmux link me straight to my Mac like it’s sitting right in front of me. GPT fills in paragraphs, Eleventy’s preview server hums quietly, and Tailscale Serve pipes the private preview through my tailnet, like some kind of digital magic trick.
 
+It’s funny, sure, but also kind of incredible. This tiny slab of glass in my hand has become a full development studio, a portal into every part of my workflow, no cables or ports in sight. We’ve reached the point where comfort and capability coexist — where even from a bathtub, I can build, write, and ship.
+
+What a time to be alive!
+
+<!--
 ## LinkedIn Adaptation
+💫 Tailnet is a super power.
+
+Full blog at:
 
 I don’t think people realize how much Tailscale rewired my day-to-day. The feeling of “I can build from anywhere” landed hard, and I’m still riding that high.
 
-Subspace Builder, my Eleventy starter, the dev server, and even Umami analytics now live quietly on the 100.x tailnet—no exposed ports, just real peace of mind.
+Subspace Builder, my Eleventy starter, the dev server, and even Umami analytics now live quietly on the 100.x tailnet. No exposed ports, 100% security & control, just real peace of mind.
 
-On my iPhone, Blink + mosh make `mosh pro` (MacBook) and `mosh debian` (VPS) feel like muscle memory thanks to a tiny bit of host/user config. Exit nodes are engineered for humans: one command on the server, one toggle in the mobile app, and I can route around the Great Firewall or the UK’s age verification gate without entrusting IDs to third parties, especially after incidents like the recent Discord vendor breach.
+On my iPhone/iPad, with Blink (terminal app) + mosh, I can easily get instant access to my Mac's full devkit setup with `mosh pro`.
+Exit nodes are engineered for humans: one command on the server. Even my non-technical family had it working in minutes—install, sign in, done. One toggle in the mobile app, and my family can route around the Great Firewall. I can also use that to get around the UK’s age verification gate without entrusting IDs to third parties, especially after incidents like the recent Discord vendor breach.
 
-I’m drafting this while away from my desk, phone in hand, with GPT handling the words, Eleventy’s preview beaming through Tailscale Serve, and git ready every time I want to check a diff. Even my non-technical family had it working in minutes—install, sign in, done.
+Case in point: I’m drafting the whole blog from one of the most relaxed “workstations” imaginable (waterproof devices only) — connected to my Mac through Tailscale, Blink, mosh, and tmux. GPT is filling in paragraphs, Eleventy’s preview server is humming along, and Tailscale Serve is piping the private URL straight to my tailnet.
 
 I expected “another VPN.” What I got was the backbone of my workflow.
+-->
