@@ -61,7 +61,7 @@ What a time to be alive!
 ## LinkedIn Adaptation
 💫 Tailnet is a super power.
 
-Full blog at:
+Full blog here: ["Can you believe this?" — The Tailscale Setup That Gave Me Absolute Freedom](https://blog.nicholas.clooney.io/posts/tailscale-workflow/)
 
 I don’t think people realize how much Tailscale rewired my day-to-day. The feeling of “I can build from anywhere” landed hard, and I’m still riding that high.
 
