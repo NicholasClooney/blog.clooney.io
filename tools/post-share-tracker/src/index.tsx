@@ -318,7 +318,40 @@ const formatStatusLabel = (status?: SocialStatus): string => {
     return "—";
   }
 
-  return status.lastShared ? `${status.status} (${status.lastShared})` : status.status;
+  const { status: value, lastShared } = status;
+  if (!lastShared) {
+    return value;
+  }
+
+  const parsed = parseLastSharedDate(lastShared);
+  if (!parsed) {
+    return `${value} (invalid date)`;
+  }
+
+  return `${value} (${formatRelativeTimeFromNow(parsed)})`;
+};
+
+const getRelativeAgeColor = (date: Date, now = new Date()): string => {
+  const diffMs = now.getTime() - date.getTime();
+  const ageMs = diffMs < 0 ? 0 : diffMs;
+
+  if (ageMs <= DAY_IN_MS) {
+    return "green";
+  }
+
+  if (ageMs <= WEEK_IN_MS) {
+    return "yellow";
+  }
+
+  if (ageMs <= MONTH_IN_MS) {
+    return "magenta";
+  }
+
+  if (ageMs <= YEAR_IN_MS) {
+    return "cyan";
+  }
+
+  return "gray";
 };
 
 const HeaderRow: React.FC = () => (
@@ -635,7 +668,7 @@ const App: React.FC = () => {
           channel,
           display: formatRelativeTimeFromNow(latestDate, now),
           exactTimestamp: latestRaw,
-          color: "green",
+          color: getRelativeAgeColor(latestDate, now),
         };
       }
 
