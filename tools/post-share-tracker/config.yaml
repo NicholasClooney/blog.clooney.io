@@ -9,3 +9,14 @@ social:
     - shared
     - queued
     - draft
+channelActivity:
+  recencyBands:
+    - maxAge: 3 days
+      color: green
+    - maxAge: 1 week
+      color: yellow
+    - maxAge: 1 month
+      color: magenta
+    - maxAge: 1 year
+      color: cyan
+    - color: gray

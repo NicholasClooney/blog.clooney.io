@@ -3,6 +3,7 @@ import { Box, Text, render, useInput } from "ink";
 import {
   SOCIAL_CHANNELS,
   SOCIAL_STATES,
+  CHANNEL_ACTIVITY_RECENCY_BANDS,
   type SocialChannel,
   type SocialState,
 } from "./config.js";
@@ -335,20 +336,11 @@ const getRelativeAgeColor = (date: Date, now = new Date()): string => {
   const diffMs = now.getTime() - date.getTime();
   const ageMs = diffMs < 0 ? 0 : diffMs;
 
-  if (ageMs <= DAY_IN_MS) {
-    return "green";
-  }
-
-  if (ageMs <= WEEK_IN_MS) {
-    return "yellow";
-  }
-
-  if (ageMs <= MONTH_IN_MS) {
-    return "magenta";
-  }
-
-  if (ageMs <= YEAR_IN_MS) {
-    return "cyan";
+  for (const band of CHANNEL_ACTIVITY_RECENCY_BANDS) {
+    const limit = band.maxAgeMs ?? Number.POSITIVE_INFINITY;
+    if (ageMs <= limit) {
+      return band.color;
+    }
   }
 
   return "gray";
