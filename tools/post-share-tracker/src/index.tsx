@@ -42,24 +42,100 @@ const toFilterTokens = (filter: string): string[] => {
     .filter((token) => token.length > 0);
 };
 
-const matchesTokens = (value: string, tokens: string[]): boolean => {
-  if (tokens.length === 0) {
-    return true;
+type TokenMatchRange = {
+  start: number;
+  end: number;
+};
+
+const findSequentialTokenRanges = (value: string, tokens: string[]): TokenMatchRange[] | null => {
+  const normalizedTokens = tokens
+    .map((token) => token.trim())
+    .filter((token) => token.length > 0);
+
+  if (normalizedTokens.length === 0) {
+    return [];
   }
 
   const haystack = value.toLowerCase();
   let searchIndex = 0;
+  const ranges: TokenMatchRange[] = [];
 
-  for (const token of tokens) {
-    const foundIndex = haystack.indexOf(token, searchIndex);
+  for (const token of normalizedTokens) {
+    const lowerToken = token.toLowerCase();
+    const foundIndex = haystack.indexOf(lowerToken, searchIndex);
     if (foundIndex === -1) {
-      return false;
+      return null;
     }
 
-    searchIndex = foundIndex + token.length;
+    ranges.push({
+      start: foundIndex,
+      end: foundIndex + lowerToken.length,
+    });
+
+    searchIndex = foundIndex + lowerToken.length;
   }
 
-  return true;
+  return ranges;
+};
+
+const matchesTokens = (value: string, tokens: string[]): boolean => {
+  return findSequentialTokenRanges(value, tokens) !== null;
+};
+
+const HighlightedText: React.FC<{
+  value: string;
+  tokens: string[];
+  defaultColor?: string;
+  defaultBold?: boolean;
+  highlightColor?: string;
+}> = ({ value, tokens, defaultColor, defaultBold = false, highlightColor = "yellow" }) => {
+  const matchRanges = useMemo(() => {
+    return findSequentialTokenRanges(value, tokens);
+  }, [tokens, value]);
+
+  const segments = useMemo(() => {
+    if (!matchRanges || matchRanges.length === 0) {
+      return [{ text: value, isMatch: false }];
+    }
+
+    const parts: Array<{ text: string; isMatch: boolean }> = [];
+    let lastIndex = 0;
+    for (const range of matchRanges) {
+      if (range.start > lastIndex) {
+        parts.push({
+          text: value.slice(lastIndex, range.start),
+          isMatch: false,
+        });
+      }
+
+      parts.push({
+        text: value.slice(range.start, range.end),
+        isMatch: true,
+      });
+
+      lastIndex = range.end;
+    }
+
+    if (lastIndex < value.length) {
+      parts.push({ text: value.slice(lastIndex), isMatch: false });
+    }
+
+    return parts;
+  }, [matchRanges, value]);
+
+  return (
+    <Text color={defaultColor} bold={defaultBold}>
+      {segments.map((segment, index) =>
+        segment.isMatch ? (
+          <Text key={`match-${index}`} color={highlightColor} bold>
+            {segment.text}
+          </Text>
+        ) : (
+          <React.Fragment key={`segment-${index}`}>{segment.text}</React.Fragment>
+        )
+      )}
+    </Text>
+  );
 };
 
 interface SelectableListProps<Value> {
@@ -194,19 +270,28 @@ const HeaderRow: React.FC = () => (
   </Box>
 );
 
-const PostRow: React.FC<{ post: PostMeta; isSelected?: boolean }> = ({
+const PostRow: React.FC<{ post: PostMeta; tokens: string[]; isSelected?: boolean }> = ({
   post,
+  tokens,
   isSelected = false,
 }) => (
   <Box>
     <Box width={TITLE_COLUMN_WIDTH}>
-      <Text color={isSelected ? "cyan" : undefined}>{post.title}</Text>
+      <HighlightedText
+        value={post.title}
+        tokens={tokens}
+        defaultColor={isSelected ? "cyan" : undefined}
+      />
     </Box>
     {SOCIAL_CHANNELS.map((channel) => {
       const status = post.social?.[channel];
       return (
         <Box key={channel} width={STATUS_COLUMN_WIDTH}>
-          <Text color={getStatusColor(status)}>{formatStatusLabel(status)}</Text>
+          <HighlightedText
+            value={formatStatusLabel(status)}
+            tokens={tokens}
+            defaultColor={getStatusColor(status)}
+          />
         </Box>
       );
     })}
@@ -581,10 +666,18 @@ const App: React.FC = () => {
               renderItem={(item, isSelected) => {
                 const postForRow = postsByPath.get(item.value);
                 if (!postForRow) {
-                  return <Text color={isSelected ? "cyan" : undefined}>{item.label}</Text>;
+                  return (
+                    <HighlightedText
+                      value={item.label}
+                      tokens={filterTokens}
+                      defaultColor={isSelected ? "cyan" : undefined}
+                    />
+                  );
                 }
 
-                return <PostRow post={postForRow} isSelected={isSelected} />;
+                return (
+                  <PostRow post={postForRow} tokens={filterTokens} isSelected={isSelected} />
+                );
               }}
             />
           </Box>
@@ -629,12 +722,18 @@ const App: React.FC = () => {
                 return (
                   <Box flexDirection="row">
                     <Box width={STATUS_COLUMN_WIDTH}>
-                      <Text color={isSelected ? "cyan" : undefined}>{item.value}</Text>
+                      <HighlightedText
+                        value={item.value}
+                        tokens={channelFilterTokens}
+                        defaultColor={isSelected ? "cyan" : undefined}
+                      />
                     </Box>
                     <Box width={STATUS_COLUMN_WIDTH}>
-                      <Text color={getStatusColor(status)}>
-                        {formatStatusLabel(status)}
-                      </Text>
+                      <HighlightedText
+                        value={formatStatusLabel(status)}
+                        tokens={channelFilterTokens}
+                        defaultColor={getStatusColor(status)}
+                      />
                     </Box>
                   </Box>
                 );
@@ -684,7 +783,11 @@ const App: React.FC = () => {
                 return (
                   <Box flexDirection="row">
                     <Box width={STATUS_COLUMN_WIDTH}>
-                      <Text color={isSelected ? "cyan" : undefined}>{item.value}</Text>
+                      <HighlightedText
+                        value={item.value}
+                        tokens={statusFilterTokens}
+                        defaultColor={isSelected ? "cyan" : undefined}
+                      />
                     </Box>
                     <Box width={TITLE_COLUMN_WIDTH}>
                       <Text color={isCurrent ? "green" : "gray"}>
