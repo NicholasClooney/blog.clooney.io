@@ -223,6 +223,8 @@ const App: React.FC = () => {
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
   const [postFilter, setPostFilter] = useState("");
+  const [channelFilter, setChannelFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
 
   const fetchPosts = useCallback(async () => {
     const loaded = await loadPosts();
@@ -254,6 +256,8 @@ const App: React.FC = () => {
     if (selectedPostPath && !selectedPost) {
       setSelectedPostPath(null);
       setSelectedChannel(null);
+      setChannelFilter("");
+      setStatusFilter("");
       setMode("post");
     }
   }, [selectedPostPath, selectedPost]);
@@ -267,9 +271,18 @@ const App: React.FC = () => {
           setPostFilter("");
           return;
         }
+        if (mode === "channel" && channelFilter.length > 0) {
+          setChannelFilter("");
+          return;
+        }
+        if (mode === "status" && statusFilter.length > 0) {
+          setStatusFilter("");
+          return;
+        }
         if (mode === "status") {
           setMode("channel");
           setSelectedChannel(null);
+          setStatusFilter("");
           return;
         }
 
@@ -277,6 +290,8 @@ const App: React.FC = () => {
           setMode("post");
           setSelectedPostPath(null);
           setSelectedChannel(null);
+          setChannelFilter("");
+          setStatusFilter("");
         }
       }
 
@@ -293,6 +308,38 @@ const App: React.FC = () => {
         if (!isModifierPressed && !isNavigationKey && input && input >= " ") {
           setPostFilter((current) => `${current}${input}`);
         }
+        return;
+      }
+
+      if (mode === "channel") {
+        if ((key.backspace || key.delete) && channelFilter.length > 0) {
+          setChannelFilter((current) => current.slice(0, -1));
+          return;
+        }
+
+        const isModifierPressed = key.ctrl || key.meta;
+        const isNavigationKey =
+          key.return || key.upArrow || key.downArrow || key.leftArrow || key.rightArrow || key.pageDown || key.pageUp || key.tab;
+
+        if (!isModifierPressed && !isNavigationKey && input && input >= " ") {
+          setChannelFilter((current) => `${current}${input}`);
+        }
+        return;
+      }
+
+      if (mode === "status") {
+        if ((key.backspace || key.delete) && statusFilter.length > 0) {
+          setStatusFilter((current) => current.slice(0, -1));
+          return;
+        }
+
+        const isModifierPressed = key.ctrl || key.meta;
+        const isNavigationKey =
+          key.return || key.upArrow || key.downArrow || key.leftArrow || key.rightArrow || key.pageDown || key.pageUp || key.tab;
+
+        if (!isModifierPressed && !isNavigationKey && input && input >= " ") {
+          setStatusFilter((current) => `${current}${input}`);
+        }
       }
     },
     {
@@ -304,6 +351,16 @@ const App: React.FC = () => {
   const filterTokens = useMemo(
     () => toFilterTokens(postFilter),
     [postFilter]
+  );
+
+  const channelFilterTokens = useMemo(
+    () => toFilterTokens(channelFilter),
+    [channelFilter]
+  );
+
+  const statusFilterTokens = useMemo(
+    () => toFilterTokens(statusFilter),
+    [statusFilter]
   );
 
   const filteredPosts = useMemo(() => {
@@ -348,7 +405,7 @@ const App: React.FC = () => {
       return [];
     }
 
-    return SOCIAL_CHANNELS.map((channel) => {
+    const allChannels = SOCIAL_CHANNELS.map((channel) => {
       const status = selectedPost.social?.[channel];
       return {
         label: `${channel} — ${formatStatusLabel(status)}`,
@@ -356,7 +413,22 @@ const App: React.FC = () => {
         key: `${selectedPost.filepath}:${channel}`,
       };
     });
-  }, [selectedPost]);
+
+    if (channelFilterTokens.length === 0) {
+      return allChannels;
+    }
+
+    return allChannels.filter((item) => {
+      const status = selectedPost.social?.[item.value];
+      const haystacks = [
+        item.value,
+        formatStatusLabel(status),
+        item.label,
+      ].filter((value): value is string => Boolean(value));
+
+      return haystacks.some((value) => matchesTokens(value, channelFilterTokens));
+    });
+  }, [channelFilterTokens, selectedPost]);
 
   const statusItems = useMemo<SelectItem<SocialState>[]>(() => {
     if (!selectedPost || !selectedChannel) {
@@ -365,12 +437,21 @@ const App: React.FC = () => {
 
     const currentStatus = selectedPost.social?.[selectedChannel]?.status;
 
-    return SOCIAL_STATES.map((state) => ({
+    const allStatuses = SOCIAL_STATES.map((state) => ({
       label: state === currentStatus ? `${state} (current)` : state,
       value: state,
       key: state,
     }));
-  }, [selectedChannel, selectedPost]);
+
+    if (statusFilterTokens.length === 0) {
+      return allStatuses;
+    }
+
+    return allStatuses.filter((item) => {
+      const haystacks = [item.value, item.label];
+      return haystacks.some((value) => matchesTokens(value, statusFilterTokens));
+    });
+  }, [selectedChannel, selectedPost, statusFilterTokens]);
 
   const handlePostSelect = (item: SelectItem<string>) => {
     setSelectedPostPath(item.value);
@@ -379,6 +460,8 @@ const App: React.FC = () => {
     setStatusMessage(null);
     setActionError(null);
     setPostFilter("");
+    setChannelFilter("");
+    setStatusFilter("");
   };
 
   const handleChannelSelect = (item: SelectItem<SocialChannel>) => {
@@ -386,6 +469,7 @@ const App: React.FC = () => {
     setMode("status");
     setStatusMessage(null);
     setActionError(null);
+    setStatusFilter("");
   };
 
   const handleStatusSelect = async (item: SelectItem<SocialState>) => {
@@ -442,6 +526,7 @@ const App: React.FC = () => {
     } finally {
       setMode("channel");
       setSelectedChannel(null);
+      setStatusFilter("");
     }
   };
 
@@ -514,8 +599,11 @@ const App: React.FC = () => {
             Post: <Text bold>{selectedPost.title}</Text>
           </Text>
           <Text>
-            Select a channel to update (Enter). Press Esc to choose a different post.
+            Select a channel to update (Enter). Type to filter. Backspace edits. Esc clears the filter, then backs out.
           </Text>
+          {channelFilter ? (
+            <Text color="gray">Filter: “{channelFilter}”</Text>
+          ) : null}
           <Box marginTop={1} flexDirection="column">
             <Box flexDirection="row">
               <Box width={POINTER_COLUMN_WIDTH} />
@@ -531,6 +619,11 @@ const App: React.FC = () => {
               isActive={mode === "channel" && actionError === null}
               onSelect={handleChannelSelect}
               itemKeyPrefix={`channel-${selectedPost.filepath}`}
+              emptyPlaceholder={
+                <Text color="yellow">
+                  No channels match the filter. Adjust your search or press Esc to clear.
+                </Text>
+              }
               renderItem={(item, isSelected) => {
                 const status = selectedPost.social?.[item.value];
                 return (
@@ -560,7 +653,12 @@ const App: React.FC = () => {
             Channel: <Text bold>{selectedChannel}</Text>{" "}
             <Text color="gray">{formatStatusLabel(currentStatus)}</Text>
           </Text>
-          <Text>Select a new status (Enter). Press Esc to reselect the channel.</Text>
+          <Text>
+            Select a new status (Enter). Type to filter. Backspace edits. Esc clears the filter, then reselects the channel.
+          </Text>
+          {statusFilter ? (
+            <Text color="gray">Filter: “{statusFilter}”</Text>
+          ) : null}
           <Box marginTop={1} flexDirection="column">
             <Box flexDirection="row">
               <Box width={POINTER_COLUMN_WIDTH} />
@@ -576,6 +674,11 @@ const App: React.FC = () => {
               isActive={mode === "status" && actionError === null}
               onSelect={handleStatusSelect}
               itemKeyPrefix={`status-${selectedChannel}`}
+              emptyPlaceholder={
+                <Text color="yellow">
+                  No statuses match the filter. Adjust your search or press Esc to clear.
+                </Text>
+              }
               renderItem={(item, isSelected) => {
                 const isCurrent = item.value === currentStatus?.status;
                 return (
