@@ -37,8 +37,14 @@ const parseSocialStatus = (value: unknown): SocialStatus | undefined => {
 
   const parsed: SocialStatus = { status };
 
-  if (typeof value.lastShared === "string") {
-    parsed.lastShared = value.lastShared;
+  const rawLastShared = value.lastShared;
+  if (typeof rawLastShared === "string") {
+    parsed.lastShared = rawLastShared;
+  } else if (rawLastShared instanceof Date) {
+    const timestamp = rawLastShared.getTime();
+    if (!Number.isNaN(timestamp)) {
+      parsed.lastShared = rawLastShared.toISOString();
+    }
   }
 
   if (typeof value.notes === "string") {
