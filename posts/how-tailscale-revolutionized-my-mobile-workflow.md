@@ -3,6 +3,11 @@ title: "\"Can you believe this?\" — The Tailscale Setup That Gave Me Absolute 
 date: 2025-10-14
 eleventyNavigation:
   key: tailscale-workflow
+
+social:
+  linkedin-post:
+    status: shared
+    lastShared: 2025-10-15T15:54:22.196Z
 ---
 
 If you’ve ever wanted your phone to double as a full-fledged development studio (complete with SSH, live previews, and your entire workflow at your fingertips) then this story is for you. It’s about how a small experiment with Tailscale turned into a complete rewire of how I build, code, and stay connected. From private dev environments to bathtub coding sessions (yes, really), here’s how it all came together.
