@@ -14,9 +14,29 @@ Here are some of my often used commands / prompts when working with GPT 5 Codex.
 ### Minimal Change
 
 ```
+<Problem Statement>
+
 Propose a plan with minimal changes to fix this issue.
 ```
 
+### Create a PR
+
+```
+We are going to create a PR for the work we have done.
+
+Read the commits from where we branched off and do the following.
+
+
+- Propose a title.
+- Propose a suitable description.
+  - Don't need to overcomplicate it.
+  - If changes are small, a short and concise description is fine.
+  - If changes are more complex, explain concisely what file changes are made and how they contribute to the effect of the PR.
+  - If changes involves significant changes to the existing codebase, propose how can we help our reviewers to review easily. 
+- Run `gh` to create the PR
+
+Stop before running the commands, let me revise the title, description first.
+```
 
 ### New Branch & Worktree
 
@@ -41,7 +61,7 @@ Then we'd like you to create a GitHub PR with `gh` command. Let me review the ti
 ```
 <Problem Statement>
 
-Let me know what options we have. Which ones you think best fit for our current problem & solution space.
+Let me know what options we have. Which ones you think best fit for our current problem & solution space and why?
 ```
 
 Even with this, sometimes i still find it's easier to come to a more comprehensive solution by chatting with ChatGPT in the web.
@@ -70,6 +90,7 @@ Read the commits since last release and do the following.
 - Propose a release version based on the changes.
 - Follow the existing release title strategy. `<Project>: <Version> - <Title>`
 - Prepare a release description.
+- Update any package definition file with the new version number and commit.
 - Run `git tag` commands with the version number and also annotate it with the release title please.
 - Remember to do a `git push` before the following `gh release ...` command.
 - Run `gh` to create a release
