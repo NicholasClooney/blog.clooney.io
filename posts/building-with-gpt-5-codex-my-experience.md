@@ -3,6 +3,11 @@ title: The Joy (and Frustrations) of Building Small Sites with GPT-5 Codex
 date: 2025-09-20
 eleventyNavigation:
   key: building-with-gpt-5-codex
+
+social:
+  linkedin-post:
+    status: shared
+    lastShared: 2025-10-15T15:54:00.064Z
 ---
 
 Building small websites with GPT-5 Codex turned out to be less about typing code and more about collaboration. From crude sketches to polished sites, the model took on the heavy lifting while I guided direction and design.
