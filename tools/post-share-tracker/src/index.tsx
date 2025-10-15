@@ -10,6 +10,12 @@ import {
 import type { PostMeta, SocialStatus } from "./loadPosts.js";
 import { loadPosts } from "./loadPosts.js";
 import { savePostSocial } from "./savePostSocial.js";
+import {
+  findSequentialTokenRanges,
+  matchesTokens,
+  toFilterTokens,
+  type TokenMatchRange,
+} from "./filtering.js";
 
 const TITLE_COLUMN_WIDTH = 40;
 const STATUS_COLUMN_WIDTH = 18;
@@ -97,54 +103,6 @@ const buildChannelSummary = (post: PostMeta): string => {
 const buildPostLabel = (post: PostMeta): string => {
   const summary = buildChannelSummary(post);
   return summary ? `${post.title} — ${summary}` : post.title;
-};
-
-const toFilterTokens = (filter: string): string[] => {
-  return filter
-    .toLowerCase()
-    .split(/\s+/)
-    .map((token) => token.trim())
-    .filter((token) => token.length > 0);
-};
-
-type TokenMatchRange = {
-  start: number;
-  end: number;
-};
-
-const findSequentialTokenRanges = (value: string, tokens: string[]): TokenMatchRange[] | null => {
-  const normalizedTokens = tokens
-    .map((token) => token.trim())
-    .filter((token) => token.length > 0);
-
-  if (normalizedTokens.length === 0) {
-    return [];
-  }
-
-  const haystack = value.toLowerCase();
-  let searchIndex = 0;
-  const ranges: TokenMatchRange[] = [];
-
-  for (const token of normalizedTokens) {
-    const lowerToken = token.toLowerCase();
-    const foundIndex = haystack.indexOf(lowerToken, searchIndex);
-    if (foundIndex === -1) {
-      return null;
-    }
-
-    ranges.push({
-      start: foundIndex,
-      end: foundIndex + lowerToken.length,
-    });
-
-    searchIndex = foundIndex + lowerToken.length;
-  }
-
-  return ranges;
-};
-
-const matchesTokens = (value: string, tokens: string[]): boolean => {
-  return findSequentialTokenRanges(value, tokens) !== null;
 };
 
 const HighlightedText: React.FC<{
