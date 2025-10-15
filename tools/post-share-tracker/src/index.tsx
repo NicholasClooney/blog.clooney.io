@@ -14,12 +14,76 @@ const TITLE_COLUMN_WIDTH = 40;
 const STATUS_COLUMN_WIDTH = 18;
 const POINTER_COLUMN_WIDTH = 2;
 
+const MINUTE_IN_MS = 60 * 1000;
+const HOUR_IN_MS = 60 * MINUTE_IN_MS;
+const DAY_IN_MS = 24 * HOUR_IN_MS;
+const WEEK_IN_MS = 7 * DAY_IN_MS;
+const MONTH_IN_MS = 30 * DAY_IN_MS;
+const YEAR_IN_MS = 365 * DAY_IN_MS;
+
+const parseLastSharedDate = (value: string): Date | null => {
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+};
+
+const formatRelativeTimeFromNow = (date: Date, now = new Date()): string => {
+  const timestamp = date.getTime();
+  if (Number.isNaN(timestamp)) {
+    return "invalid date";
+  }
+
+  const diffMs = now.getTime() - timestamp;
+  const absMs = Math.abs(diffMs);
+
+  if (absMs < MINUTE_IN_MS) {
+    return diffMs >= 0 ? "just now" : "in under a minute";
+  }
+
+  const format = (value: number, unit: string): string => {
+    const wholeUnits = Math.max(1, Math.floor(value));
+    const plural = wholeUnits === 1 ? "" : "s";
+    if (diffMs >= 0) {
+      return `${wholeUnits} ${unit}${plural} ago`;
+    }
+    return `in ${wholeUnits} ${unit}${plural}`;
+  };
+
+  if (absMs < HOUR_IN_MS) {
+    return format(absMs / MINUTE_IN_MS, "minute");
+  }
+
+  if (absMs < DAY_IN_MS) {
+    return format(absMs / HOUR_IN_MS, "hour");
+  }
+
+  if (absMs < WEEK_IN_MS) {
+    return format(absMs / DAY_IN_MS, "day");
+  }
+
+  if (absMs < MONTH_IN_MS) {
+    return format(absMs / WEEK_IN_MS, "week");
+  }
+
+  if (absMs < YEAR_IN_MS) {
+    return format(absMs / MONTH_IN_MS, "month");
+  }
+
+  return format(absMs / YEAR_IN_MS, "year");
+};
+
 type Mode = "post" | "channel" | "status" | "saving";
 
 type SelectItem<Value> = {
   label: string;
   value: Value;
   key?: string;
+};
+
+type ChannelActivitySummary = {
+  channel: SocialChannel;
+  display: string;
+  color: string;
+  exactTimestamp?: string | null;
 };
 
 const buildChannelSummary = (post: PostMeta): string => {
@@ -538,6 +602,61 @@ const App: React.FC = () => {
     });
   }, [selectedChannel, selectedPost, statusFilterTokens]);
 
+  const channelActivitySummaries = useMemo<ChannelActivitySummary[]>(() => {
+    const now = new Date();
+
+    return SOCIAL_CHANNELS.map((channel) => {
+      let latestDate: Date | null = null;
+      let latestRaw: string | null = null;
+      let invalidSample: string | null = null;
+
+      for (const post of posts) {
+        const lastShared = post.social?.[channel]?.lastShared;
+        if (!lastShared) {
+          continue;
+        }
+
+        const parsed = parseLastSharedDate(lastShared);
+        if (!parsed) {
+          if (!invalidSample) {
+            invalidSample = lastShared;
+          }
+          continue;
+        }
+
+        if (!latestDate || parsed.getTime() > latestDate.getTime()) {
+          latestDate = parsed;
+          latestRaw = lastShared;
+        }
+      }
+
+      if (latestDate && latestRaw) {
+        return {
+          channel,
+          display: formatRelativeTimeFromNow(latestDate, now),
+          exactTimestamp: latestRaw,
+          color: "green",
+        };
+      }
+
+      if (invalidSample) {
+        return {
+          channel,
+          display: `invalid date (${invalidSample})`,
+          exactTimestamp: null,
+          color: "yellow",
+        };
+      }
+
+      return {
+        channel,
+        display: "never shared",
+        exactTimestamp: null,
+        color: "gray",
+      };
+    });
+  }, [posts]);
+
   const handlePostSelect = (item: SelectItem<string>) => {
     setSelectedPostPath(item.value);
     setSelectedChannel(null);
@@ -813,6 +932,24 @@ const App: React.FC = () => {
         Tracking {posts.length} post{posts.length === 1 ? "" : "s"} across{" "}
         {SOCIAL_CHANNELS.length} channel{SOCIAL_CHANNELS.length === 1 ? "" : "s"}.
       </Text>
+      <Box marginTop={1} flexDirection="column">
+        <Text bold>Channel activity</Text>
+        <Box marginTop={1} flexDirection="column">
+          {channelActivitySummaries.map((summary) => (
+            <Box key={summary.channel} flexDirection="row">
+              <Box width={STATUS_COLUMN_WIDTH}>
+                <Text bold>{summary.channel}</Text>
+              </Box>
+              <Box flexDirection="row">
+                <Text color={summary.color}>{summary.display}</Text>
+                {summary.exactTimestamp ? (
+                  <Text color="gray"> ({summary.exactTimestamp})</Text>
+                ) : null}
+              </Box>
+            </Box>
+          ))}
+        </Box>
+      </Box>
       <Box marginTop={1} flexDirection="column">
         {statusMessage && <Text color="green">{statusMessage}</Text>}
         {actionError && <Text color="red">{actionError}</Text>}
