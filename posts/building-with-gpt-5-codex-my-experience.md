@@ -7,7 +7,7 @@ eleventyNavigation:
 social:
   linkedin-post:
     status: shared
-    lastShared: 2025-10-15T15:54:00.064Z
+    lastShared: 2025-10-9T12:00:00.064Z
 ---
 
 Building small websites with GPT-5 Codex turned out to be less about typing code and more about collaboration. From crude sketches to polished sites, the model took on the heavy lifting while I guided direction and design.
