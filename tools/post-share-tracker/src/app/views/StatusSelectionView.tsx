@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Box, Text } from "ink";
 import type { SelectItem } from "../../components/SelectableList.js";
 import { SelectableList } from "../../components/SelectableList.js";
@@ -6,6 +6,8 @@ import { HighlightedText } from "../../components/HighlightedText.js";
 import type { PostMeta } from "../../loadPosts.js";
 import type { SocialChannel, SocialState } from "../../config.js";
 import { formatStatusLabel } from "../../social/statusDisplay.js";
+import { useStdoutDimensions } from "../../hooks/useStdoutDimensions.js";
+import { estimateWrappedLines, estimateWidthRows } from "../../utils/terminalLayout.js";
 
 export interface StatusSelectionViewProps {
   selectedPost: PostMeta;
@@ -35,28 +37,63 @@ export const StatusSelectionView: React.FC<StatusSelectionViewProps> = ({
   baseReservedRows,
 }) => {
   const currentStatus = selectedPost.social?.[selectedChannel];
-  const headingRows = 4 + (filterValue ? 1 : 0);
+  const { columns } = useStdoutDimensions();
+  const currentStatusLabel = formatStatusLabel(currentStatus);
+
+  const headingRows = useMemo(() => {
+    const channelLine = estimateWrappedLines(
+      `Channel: ${selectedChannel}${currentStatusLabel ? ` ${currentStatusLabel}` : ""}`,
+      columns
+    );
+
+    const instructionsLine = estimateWrappedLines(
+      "Select a new status (Enter). Type to filter. Backspace edits. Esc clears the filter, then reselects the channel.",
+      columns
+    );
+
+    const filterLines = filterValue
+      ? estimateWrappedLines(`Filter: “${filterValue}”`, columns)
+      : 0;
+
+    const headerWidth = pointerColumnWidth + statusColumnWidth + titleColumnWidth;
+    const headerLines = estimateWidthRows(headerWidth, columns);
+
+    return channelLine + instructionsLine + filterLines + 1 + headerLines;
+  }, [
+    columns,
+    currentStatusLabel,
+    filterValue,
+    pointerColumnWidth,
+    selectedChannel,
+    statusColumnWidth,
+    titleColumnWidth,
+  ]);
+
   const reservedRows = baseReservedRows + headingRows;
 
   return (
     <Box flexDirection="column">
       <Text>
         Channel: <Text bold>{selectedChannel}</Text>{" "}
-        <Text color="gray">{formatStatusLabel(currentStatus)}</Text>
+        <Text color="gray">{currentStatusLabel}</Text>
       </Text>
       <Text>
         Select a new status (Enter). Type to filter. Backspace edits. Esc clears the
         filter, then reselects the channel.
       </Text>
-      {filterValue ? <Text color="gray">Filter: “{filterValue}”</Text> : null}
+      {filterValue ? <Text color="gray">{`Filter: “${filterValue}”`}</Text> : null}
       <Box marginTop={1} flexDirection="column">
         <Box flexDirection="row">
           <Box width={pointerColumnWidth} />
           <Box width={statusColumnWidth}>
-            <Text bold>Status</Text>
+            <Text bold wrap="truncate-end">
+              Status
+            </Text>
           </Box>
           <Box width={titleColumnWidth}>
-            <Text bold>Details</Text>
+            <Text bold wrap="truncate-end">
+              Details
+            </Text>
           </Box>
         </Box>
         <SelectableList<SocialState>
@@ -83,7 +120,7 @@ export const StatusSelectionView: React.FC<StatusSelectionViewProps> = ({
                   />
                 </Box>
                 <Box width={titleColumnWidth}>
-                  <Text color={isCurrent ? "green" : "gray"}>
+                  <Text color={isCurrent ? "green" : "gray"} wrap="truncate-end">
                     {isCurrent ? "Already current status" : "Set channel to this state"}
                   </Text>
                 </Box>

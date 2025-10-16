@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Box, Text } from "ink";
 import type { SelectItem } from "../../components/SelectableList.js";
 import { SelectableList } from "../../components/SelectableList.js";
 import { PostStatusHeader, PostStatusRow } from "../../components/PostStatusTable.js";
 import type { PostMeta } from "../../loadPosts.js";
+import { SOCIAL_CHANNELS } from "../../config.js";
+import { useStdoutDimensions } from "../../hooks/useStdoutDimensions.js";
+import { estimateWrappedLines, estimateWidthRows } from "../../utils/terminalLayout.js";
 
 export interface PostSelectionViewProps {
   postsByPath: Map<string, PostMeta>;
@@ -30,7 +33,36 @@ export const PostSelectionView: React.FC<PostSelectionViewProps> = ({
   baseReservedRows,
   onSelect,
 }) => {
-  const headingRows = 4 + (filterValue ? 1 : 0);
+  const { columns } = useStdoutDimensions();
+
+  const headingRows = useMemo(() => {
+    const instructionsLines =
+      estimateWrappedLines("Select a post to update (Enter).", columns) +
+      estimateWrappedLines(
+        "Type to filter by title/slug. Backspace edits. Esc clears the filter.",
+        columns
+      );
+
+    const filterLines = filterValue
+      ? estimateWrappedLines(`Filter: “${filterValue}”`, columns)
+      : 0;
+
+    const headerWidth =
+      pointerColumnWidth +
+      titleColumnWidth +
+      SOCIAL_CHANNELS.length * statusColumnWidth;
+
+    const headerLines = estimateWidthRows(headerWidth, columns);
+
+    return instructionsLines + filterLines + 1 + headerLines;
+  }, [
+    columns,
+    filterValue,
+    pointerColumnWidth,
+    statusColumnWidth,
+    titleColumnWidth,
+  ]);
+
   const reservedRows = baseReservedRows + headingRows;
 
   return (
@@ -39,7 +71,7 @@ export const PostSelectionView: React.FC<PostSelectionViewProps> = ({
       <Text color="gray">
         Type to filter by title/slug. Backspace edits. Esc clears the filter.
       </Text>
-      {filterValue ? <Text color="gray">Filter: “{filterValue}”</Text> : null}
+      {filterValue ? <Text color="gray">{`Filter: “${filterValue}”`}</Text> : null}
       <Box marginTop={1} flexDirection="column">
         <Box flexDirection="row">
           <Box width={pointerColumnWidth} />

@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Box, Text, useInput, useStdout } from "ink";
+import { Box, Text, useInput } from "ink";
+import { useStdoutDimensions } from "../hooks/useStdoutDimensions.js";
 
 export type SelectItem<Value> = {
   label: string;
@@ -28,27 +29,11 @@ export const SelectableList = <Value,>({
   renderItem,
   pointerColumnWidth = 2,
   reservedRows = 0,
-  minViewportRows = 3,
+  minViewportRows = 1,
 }: SelectableListProps<Value>) => {
   const [highlightIndex, setHighlightIndex] = useState(0);
   const [windowStart, setWindowStart] = useState(0);
-  const { stdout } = useStdout();
-  const [rows, setRows] = useState(stdout?.rows ?? 24);
-
-  useEffect(() => {
-    if (!stdout) {
-      return;
-    }
-
-    const handleResize = () => {
-      setRows(stdout.rows);
-    };
-
-    stdout.on("resize", handleResize);
-    return () => {
-      stdout.off("resize", handleResize);
-    };
-  }, [stdout]);
+  const { rows } = useStdoutDimensions();
 
   const viewportRows = useMemo(() => {
     const availableRows = rows - reservedRows;
@@ -205,13 +190,17 @@ export const SelectableList = <Value,>({
             flexDirection="row"
           >
             <Box width={pointerColumnWidth}>
-              <Text color={pointerColor}>{isSelected ? "›" : " "}</Text>
+              <Text color={pointerColor} wrap="truncate-end">
+                {isSelected ? "›" : " "}
+              </Text>
             </Box>
             <Box flexGrow={1}>
               {renderItem ? (
                 renderItem(item, isSelected)
               ) : (
-                <Text color={isSelected ? "cyan" : undefined}>{item.label}</Text>
+                <Text color={isSelected ? "cyan" : undefined} wrap="truncate-end">
+                  {item.label}
+                </Text>
               )}
             </Box>
           </Box>
@@ -219,7 +208,9 @@ export const SelectableList = <Value,>({
       })}
       {fillerRows > 0
         ? Array.from({ length: fillerRows }).map((_, fillerIndex) => (
-            <Text key={`filler-${fillerIndex}`}> </Text>
+            <Text key={`filler-${fillerIndex}`} wrap="truncate-end">
+              {" "}
+            </Text>
           ))
         : null}
     </Box>

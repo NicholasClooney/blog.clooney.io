@@ -19,11 +19,15 @@ export const PostStatusHeader: React.FC<{
 }> = ({ titleColumnWidth, statusColumnWidth }) => (
   <Box>
     <Box width={titleColumnWidth}>
-      <Text bold>Post</Text>
+      <Text bold wrap="truncate-end">
+        Post
+      </Text>
     </Box>
     {SOCIAL_CHANNELS.map((channel) => (
       <Box key={channel} width={statusColumnWidth}>
-        <Text bold>{channel}</Text>
+        <Text bold wrap="truncate-end">
+          {channel}
+        </Text>
       </Box>
     ))}
   </Box>
