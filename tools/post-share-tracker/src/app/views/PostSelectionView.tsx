@@ -14,6 +14,7 @@ export interface PostSelectionViewProps {
   pointerColumnWidth: number;
   titleColumnWidth: number;
   statusColumnWidth: number;
+  baseReservedRows: number;
   onSelect: (item: SelectItem<string>) => void;
 }
 
@@ -26,48 +27,55 @@ export const PostSelectionView: React.FC<PostSelectionViewProps> = ({
   pointerColumnWidth,
   titleColumnWidth,
   statusColumnWidth,
+  baseReservedRows,
   onSelect,
-}) => (
-  <Box flexDirection="column">
-    <Text>Select a post to update (Enter).</Text>
-    <Text color="gray">
-      Type to filter by title/slug. Backspace edits. Esc clears the filter.
-    </Text>
-    {filterValue ? <Text color="gray">Filter: “{filterValue}”</Text> : null}
-    <Box marginTop={1} flexDirection="column">
-      <Box flexDirection="row">
-        <Box width={pointerColumnWidth} />
-        <PostStatusHeader
-          titleColumnWidth={titleColumnWidth}
-          statusColumnWidth={statusColumnWidth}
+}) => {
+  const headingRows = 4 + (filterValue ? 1 : 0);
+  const reservedRows = baseReservedRows + headingRows;
+
+  return (
+    <Box flexDirection="column">
+      <Text>Select a post to update (Enter).</Text>
+      <Text color="gray">
+        Type to filter by title/slug. Backspace edits. Esc clears the filter.
+      </Text>
+      {filterValue ? <Text color="gray">Filter: “{filterValue}”</Text> : null}
+      <Box marginTop={1} flexDirection="column">
+        <Box flexDirection="row">
+          <Box width={pointerColumnWidth} />
+          <PostStatusHeader
+            titleColumnWidth={titleColumnWidth}
+            statusColumnWidth={statusColumnWidth}
+          />
+        </Box>
+        <SelectableList<string>
+          items={items}
+          isActive={isActive}
+          onSelect={onSelect}
+          itemKeyPrefix="post"
+          pointerColumnWidth={pointerColumnWidth}
+          reservedRows={reservedRows}
+          emptyPlaceholder={
+            <Text color="yellow">
+              No posts match the filter. Adjust your search or press Esc to clear.
+            </Text>
+          }
+          renderItem={(item, isSelected) => {
+            const post = postsByPath.get(item.value);
+            return post ? (
+              <PostStatusRow
+                post={post}
+                tokens={tokens}
+                isSelected={isSelected}
+                titleColumnWidth={titleColumnWidth}
+                statusColumnWidth={statusColumnWidth}
+              />
+            ) : (
+              <Text>{item.label}</Text>
+            );
+          }}
         />
       </Box>
-      <SelectableList<string>
-        items={items}
-        isActive={isActive}
-        onSelect={onSelect}
-        itemKeyPrefix="post"
-        pointerColumnWidth={pointerColumnWidth}
-        emptyPlaceholder={
-          <Text color="yellow">
-            No posts match the filter. Adjust your search or press Esc to clear.
-          </Text>
-        }
-        renderItem={(item, isSelected) => {
-          const post = postsByPath.get(item.value);
-          return post ? (
-            <PostStatusRow
-              post={post}
-              tokens={tokens}
-              isSelected={isSelected}
-              titleColumnWidth={titleColumnWidth}
-              statusColumnWidth={statusColumnWidth}
-            />
-          ) : (
-            <Text>{item.label}</Text>
-          );
-        }}
-      />
     </Box>
-  </Box>
-);
+  );
+};

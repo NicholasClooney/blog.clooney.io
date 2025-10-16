@@ -18,6 +18,7 @@ export interface StatusSelectionViewProps {
   statusColumnWidth: number;
   titleColumnWidth: number;
   onSelect: (item: SelectItem<SocialState>) => void | Promise<void>;
+  baseReservedRows: number;
 }
 
 export const StatusSelectionView: React.FC<StatusSelectionViewProps> = ({
@@ -31,8 +32,11 @@ export const StatusSelectionView: React.FC<StatusSelectionViewProps> = ({
   statusColumnWidth,
   titleColumnWidth,
   onSelect,
+  baseReservedRows,
 }) => {
   const currentStatus = selectedPost.social?.[selectedChannel];
+  const headingRows = 4 + (filterValue ? 1 : 0);
+  const reservedRows = baseReservedRows + headingRows;
 
   return (
     <Box flexDirection="column">
@@ -61,6 +65,7 @@ export const StatusSelectionView: React.FC<StatusSelectionViewProps> = ({
           onSelect={onSelect}
           itemKeyPrefix={`status-${selectedChannel}`}
           pointerColumnWidth={pointerColumnWidth}
+          reservedRows={reservedRows}
           emptyPlaceholder={
             <Text color="yellow">
               No statuses match the filter. Adjust your search or press Esc to clear.

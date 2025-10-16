@@ -16,6 +16,7 @@ export interface ChannelSelectionViewProps {
   pointerColumnWidth: number;
   statusColumnWidth: number;
   onSelect: (item: SelectItem<SocialChannel>) => void;
+  baseReservedRows: number;
 }
 
 export const ChannelSelectionView: React.FC<ChannelSelectionViewProps> = ({
@@ -27,50 +28,57 @@ export const ChannelSelectionView: React.FC<ChannelSelectionViewProps> = ({
   pointerColumnWidth,
   statusColumnWidth,
   onSelect,
-}) => (
-  <Box flexDirection="column">
-    <Text>
-      Post: <Text bold>{selectedPost.title}</Text>
-    </Text>
-    <Text>
-      Select a channel (Enter). Type to filter. Backspace edits. Esc clears the
-      filter, then reselects the post.
-    </Text>
-    {filterValue ? <Text color="gray">Filter: “{filterValue}”</Text> : null}
-    <Box marginTop={1} flexDirection="column">
-      <SelectableList<SocialChannel>
-        items={items}
-        isActive={isActive}
-        onSelect={onSelect}
-        itemKeyPrefix={`channel-${selectedPost.filepath}`}
-        pointerColumnWidth={pointerColumnWidth}
-        emptyPlaceholder={
-          <Text color="yellow">
-            No channels match the filter. Adjust your search or press Esc to clear.
-          </Text>
-        }
-        renderItem={(item, isSelected) => {
-          const status = selectedPost.social?.[item.value];
-          return (
-            <Box flexDirection="row">
-              <Box width={statusColumnWidth}>
-                <HighlightedText
-                  value={item.value}
-                  tokens={tokens}
-                  defaultColor={isSelected ? "cyan" : undefined}
-                />
+  baseReservedRows,
+}) => {
+  const headingRows = 3 + (filterValue ? 1 : 0);
+  const reservedRows = baseReservedRows + headingRows;
+
+  return (
+    <Box flexDirection="column">
+      <Text>
+        Post: <Text bold>{selectedPost.title}</Text>
+      </Text>
+      <Text>
+        Select a channel (Enter). Type to filter. Backspace edits. Esc clears the
+        filter, then reselects the post.
+      </Text>
+      {filterValue ? <Text color="gray">Filter: “{filterValue}”</Text> : null}
+      <Box marginTop={1} flexDirection="column">
+        <SelectableList<SocialChannel>
+          items={items}
+          isActive={isActive}
+          onSelect={onSelect}
+          itemKeyPrefix={`channel-${selectedPost.filepath}`}
+          pointerColumnWidth={pointerColumnWidth}
+          reservedRows={reservedRows}
+          emptyPlaceholder={
+            <Text color="yellow">
+              No channels match the filter. Adjust your search or press Esc to clear.
+            </Text>
+          }
+          renderItem={(item, isSelected) => {
+            const status = selectedPost.social?.[item.value];
+            return (
+              <Box flexDirection="row">
+                <Box width={statusColumnWidth}>
+                  <HighlightedText
+                    value={item.value}
+                    tokens={tokens}
+                    defaultColor={isSelected ? "cyan" : undefined}
+                  />
+                </Box>
+                <Box width={statusColumnWidth}>
+                  <HighlightedText
+                    value={formatStatusLabel(status)}
+                    tokens={tokens}
+                    defaultColor={getStatusColor(status)}
+                  />
+                </Box>
               </Box>
-              <Box width={statusColumnWidth}>
-                <HighlightedText
-                  value={formatStatusLabel(status)}
-                  tokens={tokens}
-                  defaultColor={getStatusColor(status)}
-                />
-              </Box>
-            </Box>
-          );
-        }}
-      />
+            );
+          }}
+        />
+      </Box>
     </Box>
-  </Box>
-);
+  );
+};
