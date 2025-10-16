@@ -1,6 +1,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ rawTitle }}</title>
+{% set pageTitle = rawTitle %}
+{% if environment == 'development' %}
+	{% set pageTitle = "👩‍💻 DEV - " ~ pageTitle %}
+{% endif %}
+<title>{{ pageTitle }}</title>
 {% if pageDescription %}
 	<meta name="description" content="{{ pageDescription }}">
 {% endif %}
