@@ -15,6 +15,7 @@ export interface PostMeta {
   slug: string;
   title: string;
   filepath: string;
+  createdAt?: string;
   social?: Partial<Record<SocialChannel, SocialStatus>>;
 }
 
@@ -54,12 +55,35 @@ const parseSocialStatus = (value: unknown): SocialStatus | undefined => {
   return parsed;
 };
 
+const isValidDate = (value: unknown): value is Date => {
+  return value instanceof Date && !Number.isNaN(value.getTime());
+};
+
+const parseDateField = (value: unknown): Date | undefined => {
+  if (typeof value === "string") {
+    const parsed = new Date(value);
+    if (!Number.isNaN(parsed.getTime())) {
+      return parsed;
+    }
+    return undefined;
+  }
+
+  if (isValidDate(value)) {
+    return value;
+  }
+
+  return undefined;
+};
+
 export const loadPosts = async (): Promise<PostMeta[]> => {
   const files = await globby("**/*.md", { cwd: postsDir, absolute: true });
 
   const posts = await Promise.all(
     files.map(async (filepath) => {
-      const fileContents = await fs.readFile(filepath, "utf8");
+      const [fileContents, stats] = await Promise.all([
+        fs.readFile(filepath, "utf8"),
+        fs.stat(filepath),
+      ]);
       const { data } = matter(fileContents);
 
       const relativePath = path.relative(postsDir, filepath);
@@ -78,14 +102,34 @@ export const loadPosts = async (): Promise<PostMeta[]> => {
         }
       }
 
+      const dateField =
+        parseDateField(data.date) ?? parseDateField(data.createdAt);
+
+      const createdAtDate =
+        dateField ??
+        (isValidDate(stats.birthtime) ? stats.birthtime : undefined) ??
+        (isValidDate(stats.mtime) ? stats.mtime : undefined);
+
+      const createdAt = createdAtDate?.toISOString();
+
       return {
         slug,
         title,
         filepath,
+        createdAt,
         social,
       } satisfies PostMeta;
     })
   );
 
-  return posts.sort((a, b) => a.title.localeCompare(b.title));
+  return posts.sort((a, b) => {
+    const aTime = a.createdAt ? Date.parse(a.createdAt) : Number.NEGATIVE_INFINITY;
+    const bTime = b.createdAt ? Date.parse(b.createdAt) : Number.NEGATIVE_INFINITY;
+
+    if (aTime !== bTime) {
+      return bTime - aTime;
+    }
+
+    return a.title.localeCompare(b.title);
+  });
 };

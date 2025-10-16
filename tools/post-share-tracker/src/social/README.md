@@ -11,4 +11,4 @@ Aggregates relative activity information per channel.
 ## statusDisplay.ts
 Formats individual social status records for display.
 - Determines text colour based on status value.
-- Builds human-readable labels with relative time metadata.
+- Builds compact relative-time labels (e.g., `shared (2d)`) while handling invalid dates gracefully.

@@ -11,6 +11,8 @@ export interface PostStatusTableProps {
   titleColumnWidth: number;
   statusColumnWidth: number;
   isSelected?: boolean;
+  position: number;
+  indexWidth: number;
 }
 
 export const PostStatusHeader: React.FC<{
@@ -24,7 +26,12 @@ export const PostStatusHeader: React.FC<{
       </Text>
     </Box>
     {SOCIAL_CHANNELS.map((channel) => (
-      <Box key={channel} width={statusColumnWidth}>
+      <Box
+        key={channel}
+        width={statusColumnWidth}
+        alignItems="center"
+        justifyContent="center"
+      >
         <Text bold wrap="truncate-end">
           {channel}
         </Text>
@@ -39,26 +46,38 @@ export const PostStatusRow: React.FC<PostStatusTableProps> = ({
   titleColumnWidth,
   statusColumnWidth,
   isSelected = false,
-}) => (
-  <Box>
-    <Box width={titleColumnWidth}>
-      <HighlightedText
-        value={post.title}
-        tokens={tokens}
-        defaultColor={isSelected ? "cyan" : undefined}
-      />
+  position,
+  indexWidth,
+}) => {
+  const indexLabel = String(position).padStart(indexWidth, " ");
+  const titleValue = `${indexLabel}. ${post.title}`;
+
+  return (
+    <Box>
+      <Box width={titleColumnWidth}>
+        <HighlightedText
+          value={titleValue}
+          tokens={tokens}
+          defaultColor={isSelected ? "cyan" : undefined}
+        />
+      </Box>
+      {SOCIAL_CHANNELS.map((channel) => {
+        const status = post.social?.[channel];
+        return (
+          <Box
+            key={channel}
+            width={statusColumnWidth}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <HighlightedText
+              value={formatStatusLabel(status)}
+              tokens={tokens}
+              defaultColor={getStatusColor(status)}
+            />
+          </Box>
+        );
+      })}
     </Box>
-    {SOCIAL_CHANNELS.map((channel) => {
-      const status = post.social?.[channel];
-      return (
-        <Box key={channel} width={statusColumnWidth}>
-          <HighlightedText
-            value={formatStatusLabel(status)}
-            tokens={tokens}
-            defaultColor={getStatusColor(status)}
-          />
-        </Box>
-      );
-    })}
-  </Box>
-);
+  );
+};

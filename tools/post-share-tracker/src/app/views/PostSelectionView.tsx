@@ -64,6 +64,9 @@ export const PostSelectionView: React.FC<PostSelectionViewProps> = ({
   ]);
 
   const reservedRows = baseReservedRows + headingRows;
+  const indexWidth = useMemo(() => {
+    return Math.max(1, String(items.length).length);
+  }, [items.length]);
 
   return (
     <Box flexDirection="column">
@@ -94,6 +97,7 @@ export const PostSelectionView: React.FC<PostSelectionViewProps> = ({
           }
           renderItem={(item, isSelected) => {
             const post = postsByPath.get(item.value);
+            const position = Math.max(1, items.indexOf(item) + 1);
             return post ? (
               <PostStatusRow
                 post={post}
@@ -101,6 +105,8 @@ export const PostSelectionView: React.FC<PostSelectionViewProps> = ({
                 isSelected={isSelected}
                 titleColumnWidth={titleColumnWidth}
                 statusColumnWidth={statusColumnWidth}
+                position={position}
+                indexWidth={indexWidth}
               />
             ) : (
               <Text>{item.label}</Text>

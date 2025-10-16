@@ -24,7 +24,7 @@ import {
 } from "./views/index.js";
 import { estimateWrappedLines } from "../utils/terminalLayout.js";
 
-const TITLE_COLUMN_WIDTH = 40;
+const TITLE_COLUMN_WIDTH = 44;
 const STATUS_COLUMN_WIDTH = 18;
 const POINTER_COLUMN_WIDTH = 2;
 
