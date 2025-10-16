@@ -1,10 +1,10 @@
 ---
 draft: true
 
-title: My Often Used Codex Commands
+title: My Often Used Codex Prompts
 date: 2025-09-30
 eleventyNavigation:
-  key: social-cards
+  key: codex-prmopts
 ---
 
 Here are some of my often used commands / prompts when working with GPT 5 Codex.
