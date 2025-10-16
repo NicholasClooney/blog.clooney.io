@@ -5,6 +5,7 @@ View components that render each interactive state of the tracker.
 ## PostSelectionView.tsx
 Lists posts and shows their channel statuses.
 - Displays header labels and leverages `PostStatusRow` for each entry.
+- Prepends row numbers based on the filtered ordering to make cross-referencing easier.
 - Renders filter guidance and empty-state messaging.
 - Invokes the supplied callback when a post is chosen.
 

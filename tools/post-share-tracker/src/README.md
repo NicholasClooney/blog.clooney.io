@@ -11,6 +11,7 @@ Parses Markdown posts and extracts social metadata.
 - Scans the posts directory with `globby`.
 - Uses `gray-matter` to read front matter and normalise titles.
 - Builds `PostMeta` records with per-channel status hydration.
+- Captures each post’s creation timestamp (front matter date or file birth time) and sorts by newest first.
 
 ## savePostSocial.ts
 Updates a post’s front matter with new social status information.

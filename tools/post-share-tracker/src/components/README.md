@@ -16,8 +16,9 @@ Text component with inline token highlighting.
 ## PostStatusTable.tsx
 Table elements for showing per-channel status by post.
 - `PostStatusHeader` renders the column heading row.
-- `PostStatusRow` shows a post title and channel status cells.
+- `PostStatusRow` shows a numbered post title and channel status cells.
 - Uses `HighlightedText` to surface filter matches.
+- Pads numbers consistently and centres per-channel status values for easier scanning.
 
 ## SelectableList.tsx
 Generic keyboard-navigable selection list.

@@ -1,5 +1,8 @@
 import type { SocialStatus } from "../loadPosts.js";
-import { formatRelativeTimeFromNow, parseLastSharedDate } from "../utils/time.js";
+import {
+  formatRelativeTimeFromNowShort,
+  parseLastSharedDate,
+} from "../utils/time.js";
 
 export const getStatusColor = (status?: SocialStatus): string => {
   if (!status) {
@@ -32,5 +35,5 @@ export const formatStatusLabel = (status?: SocialStatus): string => {
     return `${value} (invalid date)`;
   }
 
-  return `${value} (${formatRelativeTimeFromNow(parsed)})`;
+  return `${value} (${formatRelativeTimeFromNowShort(parsed)})`;
 };
