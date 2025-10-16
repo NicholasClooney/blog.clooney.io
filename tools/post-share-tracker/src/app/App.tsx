@@ -11,6 +11,7 @@ import { loadPosts } from "../loadPosts.js";
 import { savePostSocial } from "../savePostSocial.js";
 import { matchesTokens } from "../filtering.js";
 import { useFilterTokens } from "../hooks/useFilterTokens.js";
+import { useStdoutDimensions } from "../hooks/useStdoutDimensions.js";
 import { buildPostLabel } from "../posts/display.js";
 import { summarizeChannelActivity } from "../social/channelActivity.js";
 import { formatStatusLabel } from "../social/statusDisplay.js";
@@ -21,6 +22,7 @@ import {
   PostSelectionView,
   StatusSelectionView,
 } from "./views/index.js";
+import { estimateWrappedLines } from "../utils/terminalLayout.js";
 
 const TITLE_COLUMN_WIDTH = 40;
 const STATUS_COLUMN_WIDTH = 18;
@@ -40,6 +42,7 @@ export const App: React.FC = () => {
   const [postFilter, setPostFilter] = useState("");
   const [channelFilter, setChannelFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const { columns } = useStdoutDimensions();
 
   const fetchPosts = useCallback(async () => {
     const loaded = await loadPosts();
@@ -288,11 +291,35 @@ export const App: React.FC = () => {
     return summarizeChannelActivity(posts);
   }, [posts]);
 
-  const baseReservedRows =
-    6 +
-    channelActivitySummaries.length +
-    (statusMessage ? 1 : 0) +
-    (actionError ? 1 : 0);
+  const statsText = useMemo(() => {
+    return `Tracking ${posts.length} post${posts.length === 1 ? "" : "s"} across ${
+      SOCIAL_CHANNELS.length
+    } channel${SOCIAL_CHANNELS.length === 1 ? "" : "s"}.`;
+  }, [posts.length]);
+
+  const baseReservedRows = useMemo(() => {
+    const headerLines =
+      estimateWrappedLines("Post Share Tracker", columns) +
+      estimateWrappedLines(statsText, columns) +
+      1 + // margin before channel activity block
+      estimateWrappedLines("Channel activity", columns) +
+      1 + // margin before activity summaries
+      channelActivitySummaries.length +
+      1; // margin before interactive section
+
+    const statusLines = statusMessage
+      ? estimateWrappedLines(statusMessage, columns)
+      : 0;
+    const errorLines = actionError ? estimateWrappedLines(actionError, columns) : 0;
+
+    return headerLines + statusLines + errorLines;
+  }, [
+    actionError,
+    channelActivitySummaries.length,
+    columns,
+    statsText,
+    statusMessage,
+  ]);
 
   const handlePostSelect = (item: SelectItem<string>) => {
     setSelectedPostPath(item.value);
@@ -443,10 +470,7 @@ export const App: React.FC = () => {
   return (
     <Box flexDirection="column" height="100%">
       <Text color="cyan">Post Share Tracker</Text>
-      <Text>
-        Tracking {posts.length} post{posts.length === 1 ? "" : "s"} across{" "}
-        {SOCIAL_CHANNELS.length} channel{SOCIAL_CHANNELS.length === 1 ? "" : "s"}.
-      </Text>
+      <Text>{statsText}</Text>
       <Box marginTop={1} flexDirection="column">
         <Text bold>Channel activity</Text>
         <Box marginTop={1} flexDirection="column">

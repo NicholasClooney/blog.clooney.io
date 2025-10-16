@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Box, Text } from "ink";
 import type { SelectItem } from "../../components/SelectableList.js";
 import { SelectableList } from "../../components/SelectableList.js";
@@ -6,6 +6,8 @@ import { HighlightedText } from "../../components/HighlightedText.js";
 import type { PostMeta } from "../../loadPosts.js";
 import type { SocialChannel } from "../../config.js";
 import { formatStatusLabel, getStatusColor } from "../../social/statusDisplay.js";
+import { useStdoutDimensions } from "../../hooks/useStdoutDimensions.js";
+import { estimateWrappedLines } from "../../utils/terminalLayout.js";
 
 export interface ChannelSelectionViewProps {
   selectedPost: PostMeta;
@@ -30,7 +32,26 @@ export const ChannelSelectionView: React.FC<ChannelSelectionViewProps> = ({
   onSelect,
   baseReservedRows,
 }) => {
-  const headingRows = 3 + (filterValue ? 1 : 0);
+  const { columns } = useStdoutDimensions();
+
+  const headingRows = useMemo(() => {
+    const postLine = estimateWrappedLines(
+      `Post: ${selectedPost.title}`,
+      columns
+    );
+
+    const instructionsLine = estimateWrappedLines(
+      "Select a channel (Enter). Type to filter. Backspace edits. Esc clears the filter, then reselects the post.",
+      columns
+    );
+
+    const filterLines = filterValue
+      ? estimateWrappedLines(`Filter: “${filterValue}”`, columns)
+      : 0;
+
+    return postLine + instructionsLine + filterLines + 1;
+  }, [columns, filterValue, selectedPost.title]);
+
   const reservedRows = baseReservedRows + headingRows;
 
   return (
@@ -42,7 +63,7 @@ export const ChannelSelectionView: React.FC<ChannelSelectionViewProps> = ({
         Select a channel (Enter). Type to filter. Backspace edits. Esc clears the
         filter, then reselects the post.
       </Text>
-      {filterValue ? <Text color="gray">Filter: “{filterValue}”</Text> : null}
+      {filterValue ? <Text color="gray">{`Filter: “${filterValue}”`}</Text> : null}
       <Box marginTop={1} flexDirection="column">
         <SelectableList<SocialChannel>
           items={items}

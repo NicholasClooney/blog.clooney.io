@@ -8,6 +8,7 @@ export interface HighlightedTextProps {
   defaultColor?: string;
   defaultBold?: boolean;
   highlightColor?: string;
+  wrap?: "wrap" | "truncate" | "truncate-start" | "truncate-middle" | "truncate-end";
 }
 
 export const HighlightedText: React.FC<HighlightedTextProps> = ({
@@ -16,6 +17,7 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
   defaultColor,
   defaultBold = false,
   highlightColor = "yellow",
+  wrap = "truncate-end",
 }) => {
   const matchRanges = useMemo(() => {
     return findSequentialTokenRanges(value, tokens);
@@ -52,10 +54,10 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
   }, [matchRanges, value]);
 
   return (
-    <Text color={defaultColor} bold={defaultBold}>
+    <Text color={defaultColor} bold={defaultBold} wrap={wrap}>
       {segments.map((segment, index) =>
         segment.isMatch ? (
-          <Text key={`match-${index}`} color={highlightColor} bold>
+          <Text key={`match-${index}`} color={highlightColor} bold wrap={wrap}>
             {segment.text}
           </Text>
         ) : (

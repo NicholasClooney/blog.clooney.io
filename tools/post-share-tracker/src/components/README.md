@@ -11,6 +11,7 @@ Renders relative activity summaries for each channel.
 Text component with inline token highlighting.
 - Splits the string into match and non-match segments.
 - Applies configurable colours and bold styling to matched ranges.
+- Truncates to the available width to keep rows to a single terminal line.
 
 ## PostStatusTable.tsx
 Table elements for showing per-channel status by post.
@@ -23,4 +24,4 @@ Generic keyboard-navigable selection list.
 - Tracks highlight state and responds to arrow/enter/page keys.
 - Supports custom item rendering and empty placeholders.
 - Provides pointer column width control for alignment.
-- Virtualises rows to fit the active terminal height; pass `reservedRows` to keep surrounding layout stable.
+- Virtualises rows to fit the active terminal height; tune `reservedRows`/`minViewportRows` to keep layout stable on resize.

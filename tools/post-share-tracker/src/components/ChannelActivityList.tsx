@@ -15,12 +15,19 @@ export const ChannelActivityList: React.FC<ChannelActivityListProps> = ({
     {summaries.map((summary) => (
       <Box key={summary.channel} flexDirection="row">
         <Box width={statusColumnWidth}>
-          <Text bold>{summary.channel}</Text>
+          <Text bold wrap="truncate-end">
+            {summary.channel}
+          </Text>
         </Box>
         <Box flexDirection="row">
-          <Text color={summary.color}>{summary.display}</Text>
+          <Text color={summary.color} wrap="truncate-end">
+            {summary.display}
+          </Text>
           {summary.exactTimestamp ? (
-            <Text color="gray"> ({summary.exactTimestamp})</Text>
+            <Text color="gray" wrap="truncate-end">
+              {" "}
+              ({summary.exactTimestamp})
+            </Text>
           ) : null}
         </Box>
       </Box>
