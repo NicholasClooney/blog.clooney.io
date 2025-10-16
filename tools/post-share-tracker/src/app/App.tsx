@@ -288,6 +288,12 @@ export const App: React.FC = () => {
     return summarizeChannelActivity(posts);
   }, [posts]);
 
+  const baseReservedRows =
+    6 +
+    channelActivitySummaries.length +
+    (statusMessage ? 1 : 0) +
+    (actionError ? 1 : 0);
+
   const handlePostSelect = (item: SelectItem<string>) => {
     setSelectedPostPath(item.value);
     setSelectedChannel(null);
@@ -398,6 +404,7 @@ export const App: React.FC = () => {
         pointerColumnWidth={POINTER_COLUMN_WIDTH}
         titleColumnWidth={TITLE_COLUMN_WIDTH}
         statusColumnWidth={STATUS_COLUMN_WIDTH}
+        baseReservedRows={baseReservedRows}
         onSelect={handlePostSelect}
       />
     );
@@ -411,6 +418,7 @@ export const App: React.FC = () => {
         isActive={mode === "channel" && actionError === null}
         pointerColumnWidth={POINTER_COLUMN_WIDTH}
         statusColumnWidth={STATUS_COLUMN_WIDTH}
+        baseReservedRows={baseReservedRows}
         onSelect={handleChannelSelect}
       />
     );
@@ -426,13 +434,14 @@ export const App: React.FC = () => {
         pointerColumnWidth={POINTER_COLUMN_WIDTH}
         statusColumnWidth={STATUS_COLUMN_WIDTH}
         titleColumnWidth={TITLE_COLUMN_WIDTH}
+        baseReservedRows={baseReservedRows}
         onSelect={handleStatusSelect}
       />
     );
   }
 
   return (
-    <Box flexDirection="column">
+    <Box flexDirection="column" height="100%">
       <Text color="cyan">Post Share Tracker</Text>
       <Text>
         Tracking {posts.length} post{posts.length === 1 ? "" : "s"} across{" "}

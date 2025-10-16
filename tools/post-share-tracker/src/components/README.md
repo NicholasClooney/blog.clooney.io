@@ -20,6 +20,7 @@ Table elements for showing per-channel status by post.
 
 ## SelectableList.tsx
 Generic keyboard-navigable selection list.
-- Tracks highlight state and responds to arrow/enter keys.
+- Tracks highlight state and responds to arrow/enter/page keys.
 - Supports custom item rendering and empty placeholders.
 - Provides pointer column width control for alignment.
+- Virtualises rows to fit the active terminal height; pass `reservedRows` to keep surrounding layout stable.
