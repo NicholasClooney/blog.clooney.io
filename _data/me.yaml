@@ -23,16 +23,16 @@ intro:
 contacts:
   - label: Email
     url: mailto:not-gonna-tell-you@nicholas-clooney.simplelogin.com
-    icon: ✉️
+    # icon: ✉️
   - label: GitHub
     url: https://github.com/TheClooneyCollection
-    icon: 💻
+    # icon: 💻
   - label: Blog
     url: https://blog.nicholas.clooney.io
-    icon: 📝
+    # icon: 📝
   - label: Mastodon
     url: https://mastodon.social/@NicholasClooney
-    icon: 🐘
+    # icon: 🐘
 aboutSite:
   heading: About this site
   paragraphs:
