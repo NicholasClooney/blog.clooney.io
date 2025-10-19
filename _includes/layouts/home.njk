@@ -2,22 +2,6 @@
 layout: layouts/base.njk
 ---
 
-{% macro renderNav(items) %}
-  <ul class="list pl0 ma0 pa0 flex flex-column lh-copy items-end">
-    {% for item in items | reverse %}
-      <li class="mb2 w-100">
-        <a href="{{ item.url }}"
-           class="db pa3 link dim f5 lh-copy tr tl-ns theme-text">
-          {{ item.data.title }}
-        </a>
-        {% if item.children %}
-          {{ renderNav(item.children) }}
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
-{% endmacro %}
-
 {% set siteThemeConfig = site.theme or {} %}
 {% set showThemeSelectors = siteThemeConfig.showSelectors if siteThemeConfig.showSelectors is defined else true %}
 {% set defaultTheme = themes | first %}
@@ -168,7 +152,32 @@ layout: layouts/base.njk
   <div class="flex flex-column flex-row-ns">
     <!-- Sidebar nav: hidden on mobile until toggle; no background color -->
     <nav id="sidebar" class="dn db-ns w-100 w-25-ns pa4">
-      {{ renderNav(collections.all | eleventyNavigation) }}
+      {% set currentUrl = page.url or '/' %}
+      <ul class="list pl0 ma0 pa0 flex flex-column lh-copy items-end">
+        {% for item in sidebarNav %}
+          {% set isActive = false %}
+          {% if item.id == 'blog' %}
+            {% if currentUrl == '/' or currentUrl.startsWith('/posts/') %}
+              {% set isActive = true %}
+            {% endif %}
+          {% elseif item.id == 'tags' %}
+            {% if currentUrl.startsWith('/tags/') %}
+              {% set isActive = true %}
+            {% endif %}
+          {% else %}
+            {% if currentUrl == item.url %}
+              {% set isActive = true %}
+            {% endif %}
+          {% endif %}
+          <li class="mb2 w-100">
+            <a href="{{ item.url }}"
+               class="db pa3 link dim f5 lh-copy tr tl-ns theme-text{% if isActive %} underline{% endif %}"
+               {% if isActive %}aria-current="page"{% endif %}>
+              {{ item.label }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
     </nav>
 
     <!-- Main content -->
