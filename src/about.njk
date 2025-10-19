@@ -22,7 +22,7 @@ permalink: /about/
       {% endfor %}
     </div>
     <aside class="w-100 w-third-l mt4 mt0-l">
-      <div class="bg-near-white br3 ba b--black-10 pa4">
+      <div class="pa4">
         {% if profile.image and profile.image.src %}
           <figure class="ma0">
             <img src="{{ profile.image.src }}"
@@ -43,7 +43,7 @@ permalink: /about/
             {% for link in contacts %}
               <li class="mb2">
                 <a href="{{ link.url }}"
-                   class="link dim flex items-center pv1 ph2 br2 bg-white ba b--black-10 theme-text">
+                   class="link dim flex items-center pv1 theme-text">
                   {% if link.icon %}
                     <span class="w2 tr mr2" aria-hidden="true">{{ link.icon }}</span>
                   {% endif %}
