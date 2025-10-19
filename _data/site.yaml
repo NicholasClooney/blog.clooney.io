@@ -26,3 +26,9 @@ giscus:
   category: Announcements
   categoryId: DIC_kwDOOtI2P84CwAOl
   mapping: og:title
+
+# social identity verification
+mastodon:
+  relMe:
+    enabled: true
+    url: https://mastodon.social/@NicholasClooney

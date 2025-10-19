@@ -51,6 +51,13 @@
 		{% include "layouts/partials/analytics-tracking-script.njk" %}
 	{% endif %}
 
+	{# Optional Mastodon verification link #}
+	{% set mastodonConfig = site.mastodon if site.mastodon is defined else {} %}
+	{% set mastodonRelMe = mastodonConfig.relMe if mastodonConfig.relMe is defined else {} %}
+	{% if mastodonRelMe.enabled and mastodonRelMe.url %}
+		<link rel="me" href="{{ mastodonRelMe.url }}">
+	{% endif %}
+
 </head>
 <body>
 	<main>
