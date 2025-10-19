@@ -3,6 +3,10 @@ export default [
     id: 'blog',
     label: 'Blog',
     url: '/',
+    activePatterns: [
+      { type: 'equals', value: '/' },
+      { type: 'startsWith', value: '/posts/' },
+    ],
   },
   {
     id: 'projects',
@@ -13,6 +17,9 @@ export default [
     id: 'tags',
     label: 'Tags',
     url: '/tags/',
+    activePatterns: [
+      { type: 'startsWith', value: '/tags/' },
+    ],
   },
   {
     id: 'about',

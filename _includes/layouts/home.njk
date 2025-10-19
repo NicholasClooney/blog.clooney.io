@@ -155,20 +155,17 @@ layout: layouts/base.njk
       {% set currentUrl = page.url or '/' %}
       <ul class="list pl0 ma0 pa0 flex flex-column lh-copy items-end">
         {% for item in sidebarNav %}
+          {% set activePatterns = item.activePatterns if item.activePatterns is defined else [{'type': 'equals', 'value': item.url}] %}
           {% set isActive = false %}
-          {% if item.id == 'blog' %}
-            {% if currentUrl == '/' or currentUrl.startsWith('/posts/') %}
-              {% set isActive = true %}
+          {% for rule in activePatterns %}
+            {% if not isActive %}
+              {% if rule.type == 'equals' and currentUrl == rule.value %}
+                {% set isActive = true %}
+              {% elseif rule.type == 'startsWith' and rule.value and currentUrl.startsWith(rule.value) %}
+                {% set isActive = true %}
+              {% endif %}
             {% endif %}
-          {% elseif item.id == 'tags' %}
-            {% if currentUrl.startsWith('/tags/') %}
-              {% set isActive = true %}
-            {% endif %}
-          {% else %}
-            {% if currentUrl == item.url %}
-              {% set isActive = true %}
-            {% endif %}
-          {% endif %}
+          {% endfor %}
           <li class="mb2 w-100">
             <a href="{{ item.url }}"
                class="db pa3 link dim f5 lh-copy tr tl-ns theme-text{% if isActive %} underline{% endif %}"
