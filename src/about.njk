@@ -5,6 +5,66 @@ showPostHeader: false
 permalink: /about/
 ---
 
-<section class="mw7 center">
-  <h1 class="f3 f2-ns lh-title mt0 mb0">About</h1>
+{% set profile = me.profile or {} %}
+{% set introCopy = me.intro.paragraphs if me.intro and me.intro.paragraphs is defined else [] %}
+{% set contacts = me.contacts | default([]) %}
+{% set aboutSite = me.aboutSite or {} %}
+{% set aboutSiteParagraphs = aboutSite.paragraphs if aboutSite.paragraphs is defined else [] %}
+
+<section class="mw8 center">
+  <div class="flex flex-column flex-row-l">
+    <div class="w-100 w-two-thirds-l pr0 pr5-l">
+      <h1 class="f2 f1-ns lh-title mt0 mb3">About</h1>
+      {% for paragraph in introCopy %}
+        <p class="f5 lh-copy mt0{% if not loop.first %} mt3{% endif %}">
+          {{ paragraph | safe }}
+        </p>
+      {% endfor %}
+    </div>
+    <aside class="w-100 w-third-l mt4 mt0-l">
+      <div class="bg-near-white br3 ba b--black-10 pa4">
+        {% if profile.image and profile.image.src %}
+          <figure class="ma0">
+            <img src="{{ profile.image.src }}"
+                 alt="{{ profile.image.alt | default(profile.name) }}"
+                 class="db w-100 br3" loading="lazy">
+          </figure>
+        {% endif %}
+        <div class="mt3">
+          {% if profile.name %}
+            <p class="f4 fw6 mt0 mb1">{{ profile.name }}</p>
+          {% endif %}
+          {% if profile.role %}
+            <p class="f6 theme-midtone mt0 mb0">{{ profile.role }}</p>
+          {% endif %}
+        </div>
+        {% if contacts | length %}
+          <ul class="list pl0 mt4 mb0">
+            {% for link in contacts %}
+              <li class="mb2">
+                <a href="{{ link.url }}"
+                   class="link dim flex items-center pv1 ph2 br2 bg-white ba b--black-10 theme-text">
+                  {% if link.icon %}
+                    <span class="w2 tr mr2" aria-hidden="true">{{ link.icon }}</span>
+                  {% endif %}
+                  <span class="fw5">{{ link.label }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="mw7 center mt5">
+  <h2 class="f3 f2-ns lh-title mt0">
+    {{ aboutSite.heading | default('About this site') }}
+  </h2>
+  {% for paragraph in aboutSiteParagraphs %}
+    <p class="f5 lh-copy mt3">
+      {{ paragraph | safe }}
+    </p>
+  {% endfor %}
 </section>

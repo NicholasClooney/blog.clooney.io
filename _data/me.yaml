@@ -1,0 +1,51 @@
+profile:
+  name: Nicholas Clooney
+  role: # Developer experience & static site tinkering
+  image:
+    src: /assets/images/nicholas.jpeg
+    alt: Portrait placeholder for Nicholas Clooney
+intro:
+  paragraphs:
+    - >
+      Hi, I’m Nicholas Clooney, a developer who loves building reliable pipelines, crafting well-designed tools, and polishing
+      the small details that make technology pleasant to use. I care deeply about developer experience, keeping build systems fast,
+      shipping with confidence, and sharing practical ideas the community can remix.
+    - >
+      When I’m not coding, I enjoy working with my hands, woodworking, shaping small projects from raw materials, and finding the same
+      quiet satisfaction in physical craft that I do in code. I also love exploring the city, playing strategy and roguelike games, and
+      spending time with my cat, Princess Luna, who keeps things interesting every day.
+    - >
+      This site is a mix of notes, projects, and reflections, part digital garden, part personal logbook, where I share what I’ve learned,
+      built, or simply found meaningful.
+    - >
+      If you’re curious about collaboration, have a question about one of my posts, or just want to say hi, I always enjoy trading notes.
+      The links in the contact card are the quickest way to reach me.
+contacts:
+  - label: Email
+    url: mailto:not-gonna-tell-you@nicholas-clooney.simplelogin.com
+    icon: ✉️
+  - label: GitHub
+    url: https://github.com/TheClooneyCollection
+    icon: 💻
+  - label: Blog
+    url: https://blog.nicholas.clooney.io
+    icon: 📝
+  - label: Mastodon
+    url: https://mastodon.social/@NicholasClooney
+    icon: 🐘
+aboutSite:
+  heading: About this site
+  paragraphs:
+    - >
+      This space runs on <a class="link dim underline" href="https://www.11ty.dev/">Eleventy</a>, stitched together with
+      a handful of custom shortcodes, Markdown enhancements, and a playground of color themes. The layout uses a light
+      layer of <a class="link dim underline" href="https://tachyons.io/">Tachyons</a> utility classes so I can experiment quickly without
+      reinventing a design system each time inspiration strikes.
+    - >
+      Every post is written in Markdown, linted by scripts in the repository, and published through an automated build
+      that also generates social images. I keep analytics lightweight and transparent; you can inspect the configuration
+      in the open-source repo anytime.
+    - >
+      Highlight snippets like <code class="fw6 ph2 pv1 br2 bg-washed-blue dark-blue">eleventy.config.js</code>,
+      custom collections, and theme previews are continually evolving. If you spot something that could be improved,
+      feel free to open an issue or drop me a note.
