@@ -4,7 +4,6 @@ date: 2025-09-27
 tags:
   - eleventy
   - automation
-  - markdown
   - table-of-contents
 eleventyNavigation:
   key: auto-generated-toc

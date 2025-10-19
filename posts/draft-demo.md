@@ -5,6 +5,7 @@ tags:
   - eleventy
   - drafts
   - workflow
+  - testing
 draft: true
 excerpt: |
   Quick sanity check that the new draft pipeline hides unfinished posts when Eleventy runs in production mode.
