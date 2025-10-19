@@ -7,7 +7,6 @@ layout: layouts/base.njk
 {% set defaultTheme = themes | first %}
 {% set defaultThemeId = siteThemeConfig.defaultId if siteThemeConfig.defaultId is defined else (defaultTheme.id if defaultTheme is defined else null) %}
 {% set giscusConfig = site.giscus or {} %}
-{% set headerLinks = site.headerLinks if site.headerLinks is defined else [] %}
 
 <div class="sans-serif">
   <style>
@@ -106,23 +105,6 @@ layout: layouts/base.njk
     <a href="/" class="link dim f3 f2-ns fw6 ma0 tr tl-ns db theme-text">
       {{ site.title }}
     </a>
-    {% if headerLinks | length %}
-      <div class="flex items-center justify-center flex-wrap flex-auto w-100 w-auto-ns mt3 mt0-ns">
-        <ul class="list pl0 ma0 flex items-center flex-wrap justify-center mb0" style="gap: 0.5rem;">
-          {% for link in headerLinks %}
-            <li>
-              <a href="{{ link.url }}"
-                 class="link dim underline f5 f4-ns fw5 theme-text"
-                 {% if link.rel %}rel="{{ link.rel }}"{% endif %}
-                 {% if link.title %}title="{{ link.title }}"{% endif %}
-                 {% if link.target %}target="{{ link.target }}"{% endif %}>
-                {{ link.label }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
     <div class="flex items-center mt3 mt0-ns flex-wrap justify-end">
       {% if showThemeSelectors %}
       <div class="flex items-center flex-nowrap ml3-ns ml2" data-theme-selector>

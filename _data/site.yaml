@@ -13,16 +13,6 @@ theme:
   transitionTimingFunction: ease-in-out
   defaultId: sun
 
-headerLinks:
-  - label: GitHub
-    url: https://github.com/TheClooneyCollection/11ty-subspace-builder
-  - label: Nicholas's Blog
-    url: https://blog.nicholas.clooney.io/
-  - label: Mastodon
-    url: https://mastodon.social/@NicholasClooney
-    rel: me
-
-
 # tracking with umami
 umami:
   source: https://analytics.clooney.ninja/script.js
