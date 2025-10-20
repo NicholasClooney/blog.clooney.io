@@ -7,6 +7,8 @@
     - bg-washed-yellow
   midtoneClass: gold
   accent: "#E7040F"
+  project:
+    tagActiveColor: "#ECE9E9"
 - id: default
   label: Default
   classes:
@@ -14,6 +16,8 @@
     - bg-white
   midtoneClass: mid-gray
   accent: "#00449E"
+  project:
+    tagActiveColor: "#ECE9E9"
 - id: mint
   label: Mint (black / washed-green)
   classes:
@@ -21,6 +25,8 @@
     - bg-washed-green
   midtoneClass: dark-green
   accent: "#137752"
+  project:
+    tagActiveColor: "#ECE9E9"
 - id: grape
   label: Grape (near-white / purple)
   classes:
@@ -28,6 +34,8 @@
     - bg-purple
   midtoneClass: light-purple
   accent: "#FFA3D7"
+  project:
+    tagActiveColor: "#2D113B"
 - id: deep-blue
   label: Deep Blue (white / dark-blue)
   classes:
@@ -35,6 +43,8 @@
     - bg-dark-blue
   midtoneClass: light-blue
   accent: "#CDECFF"
+  project:
+    tagActiveColor: "#012A63"
 - id: midnight
   label: Midnight (near-white / navy)
   classes:
@@ -42,6 +52,8 @@
     - bg-navy
   midtoneClass: moon-gray
   accent: "#96CCFF"
+  project:
+    tagActiveColor: "#001B44"
 - id: charcoal
   label: Charcoal (near-white / mid-gray)
   classes:
@@ -49,3 +61,5 @@
     - bg-mid-gray
   midtoneClass: light-silver
   accent: "#CCCCCC"
+  project:
+    tagActiveColor: "#1A1A1A"

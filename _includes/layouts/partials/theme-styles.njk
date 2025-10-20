@@ -20,8 +20,12 @@
 	}
 	@media screen {
 		{% for theme in themes %}
+		{% set projectConfig = theme.project if theme.project is defined else {} %}
 		html.theme[data-theme="{{ theme.id }}"] {
 			--accent: {{ theme.accent | default(defaultAccent) }};
+			{% if projectConfig.tagActiveColor %}
+			--project-tag-active-color: {{ projectConfig.tagActiveColor }};
+			{% endif %}
 		}
 		{% endfor %}
 	}

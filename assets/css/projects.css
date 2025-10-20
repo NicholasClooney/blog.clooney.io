@@ -1,5 +1,33 @@
 html.theme {
-  --project-tag-active-color: #fff;
+  --projects-filter-bg: rgba(0, 0, 0, 0.03);
+  --project-tag-bg: #fff;
+  --project-tag-border: rgba(0, 0, 0, 0.15);
+  --project-tag-border-hover: rgba(0, 0, 0, 0.4);
+  --project-tag-color: inherit;
+  --project-tag-count-bg: rgba(0, 0, 0, 0.08);
+  --project-card-bg: #fff;
+  --project-card-border: rgba(0, 0, 0, 0.1);
+  --project-card-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  --project-card-shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.08);
+  --project-card-color: inherit;
+  --project-card-media-bg: rgba(0, 0, 0, 0.05);
+  --project-card-divider: rgba(0, 0, 0, 0.05);
+}
+
+html.theme.white,
+html.theme.near-white {
+  --projects-filter-bg: rgba(255, 255, 255, 0.06);
+  --project-tag-bg: rgba(255, 255, 255, 0.08);
+  --project-tag-border: rgba(255, 255, 255, 0.3);
+  --project-tag-border-hover: rgba(255, 255, 255, 0.6);
+  --project-tag-color: inherit;
+  --project-tag-count-bg: rgba(255, 255, 255, 0.2);
+  --project-card-bg: rgba(255, 255, 255, 0.12);
+  --project-card-border: rgba(255, 255, 255, 0.25);
+  --project-card-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --project-card-shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.5);
+  --project-card-media-bg: rgba(255, 255, 255, 0.08);
+  --project-card-divider: rgba(255, 255, 255, 0.18);
 }
 
 .projects-shell {
@@ -7,7 +35,7 @@ html.theme {
 }
 
 .projects-filter {
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: var(--projects-filter-bg, rgba(0, 0, 0, 0.03));
 }
 
 .project-tag {
@@ -15,10 +43,10 @@ html.theme {
   align-items: center;
   gap: 0.4rem;
   padding: 0.25rem 0.75rem;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--project-tag-border, rgba(0, 0, 0, 0.15));
   border-radius: 999px;
-  background-color: #fff;
-  color: inherit;
+  background-color: var(--project-tag-bg, #fff);
+  color: var(--project-tag-color, inherit);
   font-size: 0.75rem;
   line-height: 1.25;
   text-transform: none;
@@ -30,7 +58,7 @@ html.theme {
 .project-tag:hover,
 .project-tag:focus {
   outline: none;
-  border-color: rgba(0, 0, 0, 0.4);
+  border-color: var(--project-tag-border-hover, rgba(0, 0, 0, 0.4));
   transform: translateY(-1px);
 }
 
@@ -41,13 +69,23 @@ html.theme {
   border-color: var(--accent, rgba(0, 0, 0, 0.9));
 }
 
+@supports (color: color-mix(in srgb, #000 0%, #fff 100%)) {
+  .project-tag[data-active='true'],
+  .project-tag[aria-pressed='true'] {
+    color: var(
+      --project-tag-active-color,
+      color-mix(in srgb, var(--accent, rgba(0, 0, 0, 0.9)) 25%, black 75%)
+    );
+  }
+}
+
 .project-tag__label {
   white-space: nowrap;
 }
 
 .project-tag__count {
   font-size: 0.7rem;
-  background-color: rgba(0, 0, 0, 0.08);
+  background-color: var(--project-tag-count-bg, rgba(0, 0, 0, 0.08));
   color: inherit;
   padding: 0.05rem 0.4rem;
   border-radius: 999px;
@@ -78,18 +116,19 @@ html.theme {
   display: flex;
   flex-direction: column;
   height: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--project-card-border, rgba(0, 0, 0, 0.1));
   border-radius: 0.85rem;
   padding: 1.5rem;
-  background-color: #fff;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  background-color: var(--project-card-bg, #fff);
+  box-shadow: var(--project-card-shadow, 0 8px 24px rgba(0, 0, 0, 0.05));
+  color: var(--project-card-color, inherit);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .project-card:hover,
 .project-card:focus-within {
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--project-card-shadow-hover, 0 12px 28px rgba(0, 0, 0, 0.08));
 }
 
 .project-card__media {
@@ -98,7 +137,7 @@ html.theme {
   position: relative;
   border-radius: 0.75rem;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--project-card-media-bg, rgba(0, 0, 0, 0.05));
 }
 
 .project-card__media img {
@@ -119,7 +158,7 @@ html.theme {
 .project-card__tags {
   margin-top: auto;
   padding-top: 1rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--project-card-divider, rgba(0, 0, 0, 0.05));
 }
 
 .projects-section__empty,
