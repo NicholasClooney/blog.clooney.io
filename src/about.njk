@@ -43,11 +43,11 @@ permalink: /about/
             {% for link in contacts %}
               <li class="mb2">
                 <a href="{{ link.url }}"
-                   class="underline link dim flex items-center theme-text">
+                   class=" link dim flex items-center theme-text">
                   {% if link.icon %}
-                    <span class="w2 tr mr2" aria-hidden="true">{{ link.icon }}</span>
+                    <span class="w0 tr mr2" aria-hidden="true">{{ link.icon }}</span>
                   {% endif %}
-                  <span class="fw5">{{ link.label }}</span>
+                  <span class="fw5 underline">{{ link.label }}</span>
                 </a>
               </li>
             {% endfor %}
