@@ -148,11 +148,16 @@ layout: layouts/base.njk
               {% endif %}
             {% endif %}
           {% endfor %}
+          {% set displayLabel = item.label %}
+          {% if item.id == 'drafts' %}
+            {% set draftCount = (collections.drafts | default([])) | length %}
+            {% set displayLabel = item.label ~ ': ' ~ draftCount %}
+          {% endif %}
           <li class="mb3 w-100">
             <a href="{{ item.url }}"
                class="db pa1 link dim f4 lh-copy tr tl-ns theme-text{% if isActive %} underline{% endif %}"
                {% if isActive %}aria-current="page"{% endif %}>
-              {{ item.label }}
+              {{ displayLabel }}
             </a>
           </li>
         {% endfor %}

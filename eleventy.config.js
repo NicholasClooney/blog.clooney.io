@@ -224,6 +224,10 @@ export default function (eleventyConfig) {
     );
   });
 
+  eleventyConfig.addCollection('drafts', (collectionApi) =>
+    collectionApi.getAllSorted().filter((item) => item?.data?.draft),
+  );
+
   eleventyConfig.addAsyncShortcode(
     'github',
     async function (url, style = 'light') {
