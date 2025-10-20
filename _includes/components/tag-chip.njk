@@ -1,0 +1,17 @@
+{% macro renderTagChip(label, slug, options={}) %}
+  {% set classes = options.class or '' %}
+  {% set showCount = options.showCount or false %}
+  {% set count = options.count or 0 %}
+  <button
+    type="button"
+    class="project-tag {{ classes }}"
+    data-project-filter="{{ slug }}"
+    data-tag-label="{{ label }}"
+    aria-pressed="false"
+  >
+    <span class="project-tag__label">#{{ label }}</span>
+    {% if showCount and count > 0 %}
+      <span class="project-tag__count">{{ count }}</span>
+    {% endif %}
+  </button>
+{% endmacro %}

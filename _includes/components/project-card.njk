@@ -1,0 +1,59 @@
+{% from "components/tag-chip.njk" import renderTagChip %}
+
+{% macro renderProjectCard(project) %}
+  {% set tagSlugs = project.tagSlugs or [] %}
+  {% set tags = project.tags or [] %}
+  {% set image = project.image or {} %}
+  <article
+    class="project-card"
+    data-project-card
+    data-tags="{{ tagSlugs | join(',') }}"
+  >
+    {% if image.src %}
+      <figure class="project-card__media">
+        <img
+          src="{{ image.src }}"
+          alt="{{ image.alt or (project.name ~ ' preview') }}"
+          loading="lazy"
+          decoding="async"
+        >
+      </figure>
+    {% endif %}
+    <div class="project-card__body">
+      <header class="project-card__header">
+        <h3 class="project-card__title">
+          <a class="project-card__link link dim theme-text" href="{{ project.url }}">
+            {{ project.name }}
+          </a>
+        </h3>
+        {% if project.lastUpdatedDate %}
+          <p class="project-card__meta theme-midtone f6 mt1 mb0">
+            Updated
+            <time datetime="{{ project.lastUpdated | machineDate }}">
+              {{ project.lastUpdatedDate | readableDate }}
+            </time>
+          </p>
+        {% endif %}
+      </header>
+      {% if project.summary %}
+        <p class="project-card__summary mt3 mb3 theme-text">
+          {{ project.summary }}
+        </p>
+      {% endif %}
+      {% if project.repo %}
+        <p class="project-card__links mt0 mb3">
+          <a class="project-card__repo link dim" href="{{ project.repo }}">Source</a>
+        </p>
+      {% endif %}
+      {% if tags | length %}
+        <div class="project-card__tags flex flex-wrap" data-project-card-tags>
+          {% for tag in tags %}
+            {{ renderTagChip(tag.label, tag.slug, {
+              class: 'project-tag--compact mr2 mb2'
+            }) }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </article>
+{% endmacro %}

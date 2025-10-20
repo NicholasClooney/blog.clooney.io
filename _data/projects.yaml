@@ -1,0 +1,63 @@
+---
+- id: subspace-builder
+  name: 11ty Subspace Builder
+  summary: >
+    A warp-speed Eleventy starter with theme switching, responsive navigation,
+    and image pipelines tuned for fast blog launches.
+  url: https://subspace-builder.nicholas.clooney.io/
+  repo: https://github.com/nicholasclooney/11ty-subspace-builder
+  lastUpdated: 2024-07-15
+  status: active
+  tech:
+    - Eleventy
+    - JavaScript
+    - Node.js
+    - Tachyons
+- id: personal-digital-garden
+  name: Personal Digital Garden
+  summary: >
+    Notes, sketches, and evergreen posts that capture ongoing experiments in
+    woodworking, tinkering, and web development.
+  url: https://nicholas.clooney.io/
+  lastUpdated: 2024-05-02
+  status: active
+  tech:
+    - Eleventy
+    - Markdown
+    - Netlify
+- id: woodshop-cutlist-helper
+  name: Woodshop Cutlist Helper
+  summary: >
+    Generates optimized cut lists, grain alignment hints, and layout diagrams
+    for hobbyist furniture projects.
+  url: https://cutlist.nicholas.clooney.io/
+  lastUpdated: 2024-03-12
+  status: active
+  tech:
+    - Astro
+    - TypeScript
+    - Tailwind CSS
+- id: tabby-static-site-generator
+  name: Tabby Static Site Generator
+  summary: >
+    Lightweight static site workflow that explored Eleventy alternatives before
+    graduating into Subspace Builder.
+  url: https://github.com/nicholasclooney/tabby
+  lastUpdated: 2023-11-08
+  status: archived
+  tech:
+    - Vite
+    - Vue
+    - Markdown
+- id: microfeedback-widget
+  name: Microfeedback Widget
+  summary: >
+    A web component that collects frictionless, emoji-first feedback for
+    prototypes and internal tools.
+  url: https://github.com/nicholasclooney/microfeedback-widget
+  lastUpdated: 2023-06-27
+  status: archived
+  tech:
+    - Web Components
+    - TypeScript
+    - Lit

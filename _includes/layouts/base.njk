@@ -57,6 +57,12 @@
 	{% if mastodonRelMe.enabled and mastodonRelMe.url %}
 		<link rel="me" href="{{ mastodonRelMe.url }}">
 	{% endif %}
+	{% set pageStylesheets = stylesheets if stylesheets is defined else [] %}
+	{% if pageStylesheets %}
+		{% for href in pageStylesheets %}
+			<link rel="stylesheet" href="{{ href }}">
+		{% endfor %}
+	{% endif %}
 
 </head>
 <body>
@@ -64,6 +70,12 @@
 		{{ content | safe }}
 	</main>
 	{% include "layouts/partials/theme-preview-script.njk" %}
+	{% set pageScripts = scripts if scripts is defined else [] %}
+	{% if pageScripts %}
+		{% for script in pageScripts %}
+			<script src="{{ script }}" defer></script>
+		{% endfor %}
+	{% endif %}
 	<script src="/assets/js/copy.js" defer></script>
 </body>
 </html>
