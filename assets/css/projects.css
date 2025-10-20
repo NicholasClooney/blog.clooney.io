@@ -112,6 +112,10 @@ html.theme.near-white {
   }
 }
 
+.project-card[hidden] {
+  display: none !important;
+}
+
 .project-card {
   display: flex;
   flex-direction: column;
