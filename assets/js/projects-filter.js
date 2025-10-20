@@ -8,9 +8,7 @@
   const resetButtons = Array.from(
     root.querySelectorAll('[data-project-filter-reset]'),
   );
-  const tagButtons = Array.from(
-    root.querySelectorAll('[data-project-filter]'),
-  );
+  const tagButtons = Array.from(root.querySelectorAll('[data-project-filter]'));
 
   if (!cards.length) return;
 

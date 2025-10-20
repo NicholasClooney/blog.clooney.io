@@ -1,5 +1,5 @@
 ---
-title: "\"Symbols & Testing\" <Draft #1>"
+title: '"Symbols & Testing" <Draft #1>'
 date: 2025-10-20
 tags:
   - eleventy

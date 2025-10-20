@@ -25,9 +25,8 @@ const mapProjects = (items) => {
 export default {
   eleventyComputed: {
     projectCollections(data) {
-      const source = data.projects && typeof data.projects === 'object'
-        ? data.projects
-        : {};
+      const source =
+        data.projects && typeof data.projects === 'object' ? data.projects : {};
 
       return {
         active: mapProjects(source.active),
@@ -38,13 +37,14 @@ export default {
       return (data.projectCollections && data.projectCollections.active) || [];
     },
     archivedProjects(data) {
-      return (
-        (data.projectCollections && data.projectCollections.archive) || []
-      );
+      return (data.projectCollections && data.projectCollections.archive) || [];
     },
     projectTags(data) {
       const counts = new Map();
-      const collections = data.projectCollections || { active: [], archive: [] };
+      const collections = data.projectCollections || {
+        active: [],
+        archive: [],
+      };
 
       for (const project of [
         ...(collections.active || []),
