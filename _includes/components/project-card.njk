@@ -22,7 +22,7 @@
     <div class="project-card__body">
       <header class="project-card__header">
         <h3 class="project-card__title">
-          <a class="project-card__link link dim theme-text" href="{{ project.url }}">
+          <a class="project-card__link underline link dim theme-text" href="{{ project.url }}">
             {{ project.name }}
           </a>
         </h3>
@@ -42,7 +42,7 @@
       {% endif %}
       {% if project.repo %}
         <p class="project-card__links mt0 mb3">
-          <a class="project-card__repo link dim" href="{{ project.repo }}">Source</a>
+          <a class="project-card__repo link dim" href="{{ project.repo }}">GitHub</a>
         </p>
       {% endif %}
       {% if tags | length %}
