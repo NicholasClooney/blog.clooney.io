@@ -23,17 +23,20 @@ intro:
       The links in the contact card are the quickest way to reach me.
 contacts:
   - label: Email
-    url: mailto:not-gonna-tell-you@nicholas-clooney.simplelogin.com
+    url: mailto:hello@nicholas.clooney.io
     icon: ✉️
-  - label: GitHub
-    url: https://github.com/TheClooneyCollection
-    icon: 💻
-  - label: Blog
-    url: https://blog.nicholas.clooney.io
-    icon: 📝
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/NicholasClooney
+    icon: 👨‍💻
   - label: Mastodon
     url: https://mastodon.social/@NicholasClooney
     icon: 🐘
+  - label: GitHub Profile
+    url: https://github.com/NicholasClooney
+    icon: 🐙
+  - label: GitHub Collection
+    url: https://github.com/TheClooneyCollection
+    icon: 🐙
 aboutSite:
   heading: About this site
   paragraphs:
