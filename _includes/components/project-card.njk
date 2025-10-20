@@ -26,14 +26,6 @@
             {{ project.name }}
           </a>
         </h3>
-        {% if project.lastUpdatedDate %}
-          <p class="project-card__meta theme-midtone f6 mt1 mb0">
-            Updated
-            <time datetime="{{ project.lastUpdated | machineDate }}">
-              {{ project.lastUpdatedDate | readableDate }}
-            </time>
-          </p>
-        {% endif %}
       </header>
       {% if project.summary %}
         <p class="project-card__summary mt3 mb3 theme-text">

@@ -1,71 +1,57 @@
 const slugify = (value) =>
   encodeURIComponent(String(value).trim().toLowerCase().replace(/\s+/g, '-'));
 
+const mapProjects = (items) => {
+  const list = Array.isArray(items) ? items : [];
+
+  return list
+    .filter((project) => project && typeof project === 'object')
+    .map((project) => {
+      const tech = Array.isArray(project.tech) ? project.tech : [];
+      const tagDetails = tech.map((label) => ({
+        label,
+        slug: slugify(label),
+      }));
+
+      return {
+        ...project,
+        tech,
+        tags: tagDetails,
+        tagSlugs: tagDetails.map((tag) => tag.slug),
+      };
+    });
+};
+
 export default {
   eleventyComputed: {
-    projectsSorted(data) {
-      const list = Array.isArray(data.projects) ? data.projects : [];
-      const normalizeStatus = (status) =>
-        typeof status === 'string' && status.trim().length
-          ? status.trim().toLowerCase()
-          : 'active';
+    projectCollections(data) {
+      const source = data.projects && typeof data.projects === 'object'
+        ? data.projects
+        : {};
 
-      const parseDate = (value) => {
-        if (!value) return null;
-        const candidate = new Date(value);
-        return Number.isNaN(candidate.valueOf()) ? null : candidate;
+      return {
+        active: mapProjects(source.active),
+        archive: mapProjects(source.archive ?? source.archived),
       };
-
-      const clone = list.map((project) => {
-        const status = normalizeStatus(project.status);
-        const tech = Array.isArray(project.tech) ? project.tech : [];
-        const tagDetails = tech.map((label) => ({
-          label,
-          slug: slugify(label),
-        }));
-
-        return {
-          ...project,
-          status,
-          tech,
-          tags: tagDetails,
-          tagSlugs: tagDetails.map((tag) => tag.slug),
-          lastUpdated: project.lastUpdated || null,
-          lastUpdatedDate: parseDate(project.lastUpdated || null),
-        };
-      });
-
-      clone.sort((a, b) => {
-        const first = a.lastUpdatedDate
-          ? a.lastUpdatedDate.getTime()
-          : Number.NEGATIVE_INFINITY;
-        const second = b.lastUpdatedDate
-          ? b.lastUpdatedDate.getTime()
-          : Number.NEGATIVE_INFINITY;
-        return second - first;
-      });
-
-      return clone;
     },
     activeProjects(data) {
-      return (data.projectsSorted || []).filter(
-        (project) => project.status === 'active',
-      );
+      return (data.projectCollections && data.projectCollections.active) || [];
     },
     archivedProjects(data) {
-      return (data.projectsSorted || []).filter(
-        (project) => project.status !== 'active',
+      return (
+        (data.projectCollections && data.projectCollections.archive) || []
       );
     },
     projectTags(data) {
       const counts = new Map();
-      for (const project of data.projectsSorted || []) {
+      const collections = data.projectCollections || { active: [], archive: [] };
+
+      for (const project of [
+        ...(collections.active || []),
+        ...(collections.archive || []),
+      ]) {
         for (const { label, slug } of project.tags || []) {
-          const existing = counts.get(slug) || {
-            label,
-            slug,
-            count: 0,
-          };
+          const existing = counts.get(slug) || { label, slug, count: 0 };
           existing.count += 1;
           counts.set(slug, existing);
         }
