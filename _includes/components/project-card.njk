@@ -21,10 +21,8 @@
     {% endif %}
     <div class="project-card__body">
       <header class="project-card__header">
-        <h3 class="project-card__title">
-          <a class="project-card__link link dim theme-text" href="{{ project.url }}">
-            {{ project.name }}
-          </a>
+        <h3 class="project-card__title theme-text">
+          {{ project.name }}
         </h3>
       </header>
       {% if project.summary %}
@@ -32,10 +30,19 @@
           {{ project.summary }}
         </p>
       {% endif %}
-      {% if project.repo %}
-        <p class="project-card__links mt0 mb3">
-          <a class="project-card__repo link dim" href="{{ project.repo }}">GitHub</a>
-        </p>
+      {% if project.repo or project.url %}
+        <div class="project-card__links mt0 mb3">
+          {% if project.url %}
+            <div class="project-card__link-item">
+              <a class="project-card__url link dim" href="{{ project.url }}">Link</a>
+            </div>
+          {% endif %}
+          {% if project.repo %}
+            <div class="project-card__link-item">
+              <a class="project-card__repo link dim" href="{{ project.repo }}">GitHub</a>
+            </div>
+          {% endif %}
+        </div>
       {% endif %}
       {% if tags | length %}
         <div class="project-card__tags flex flex-wrap" data-project-card-tags>

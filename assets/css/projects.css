@@ -164,6 +164,16 @@ html.theme.near-white {
   line-height: 1.3;
 }
 
+.project-card__summary {
+  white-space: pre-line;
+}
+
+.project-card__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
 .project-card__tags {
   margin-top: auto;
   padding-top: 1rem;
