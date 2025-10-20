@@ -1,55 +1,112 @@
 ---
 active:
-  - id: subspace-builder
-    name: 11ty Subspace Builder
+  - name: 11ty Subspace Builder
     summary: >
-      A warp-speed Eleventy starter with theme switching, responsive navigation,
-      and image pipelines tuned for fast blog launches.
+      Warp-speed Eleventy blog starter with Tachyons themes, accessible navigation,
+      responsive image pipelines, and GitHub snippet embeds.
     url: https://subspace-builder.nicholas.clooney.io/
-    repo: https://github.com/nicholasclooney/11ty-subspace-builder
+    repo: https://github.com/TheClooneyCollection/11ty-subspace-builder
     tech:
       - Eleventy
       - JavaScript
       - Node.js
       - Tachyons
-  - id: personal-digital-garden
-    name: Personal Digital Garden
+
+  - name: Personal Digital Garden
     summary: >
-      Notes, sketches, and evergreen posts that capture ongoing experiments in
-      woodworking, tinkering, and web development.
-    url: https://nicholas.clooney.io/
+      Source for my digital garden showcasing personal projects, write-ups,
+      built with 11ty Subspace Builder!
+
+      "Maximum warp. Engage!"
+    url: https://blog.nicholas.clooney.io/
+    repo: https://github.com/NicholasClooney/blog.clooney.io
     tech:
       - Eleventy
-      - Markdown
-      - Netlify
-  - id: woodshop-cutlist-helper
-    name: Woodshop Cutlist Helper
+      - JavaScript
+      - Node.js
+      - Tachyons
+
+  - name: ansible-macOS-playbook
     summary: >
-      Generates optimized cut lists, grain alignment hints, and layout diagrams
-      for hobbyist furniture projects.
-    url: https://cutlist.nicholas.clooney.io/
+      Automated macOS development setup using modular Ansible roles for Homebrew,
+      dotfiles, editors, GUI apps, and system defaults.
+    url: null
+    repo: https://github.com/TheClooneyCollection/ansible-macOS-playbook
     tech:
-      - Astro
-      - TypeScript
-      - Tailwind CSS
+      - Ansible
+      - macOS
+      - Shell
+      - Homebrew
+
+  - name: Project Lighthouse
+    summary: >
+      Infrastructure-as-code playbook that rebuilds the Project Lighthouse droplet
+      on Debian 13 with Docker, security hardening, and web-stack roles.
+    url: null
+    repo: https://github.com/NicholasClooney/ansible-project-lighthouse
+    tech:
+      - Ansible
+      - Debian
+      - Docker
+      - Nginx
+
+  - name: Ansible Role For Umami
+    summary: >
+      Reusable Ansible role that deploys the Umami analytics stack with Docker
+      Compose, env-secret management, and proxy-friendly defaults.
+    url: null
+    repo: https://github.com/NicholasClooney/ansible-role-umami
+    tech:
+      - Ansible
+      - Docker Compose
+      - Umami
+      - Linux
+
+  - name: APK Transfer Kit
+    summary: >
+      Python CLI toolkit that extracts Play Store APK splits with ADB and sideloads
+      them to devices like the Quest 3, keeping installs user-controlled.
+    url: null
+    repo: https://github.com/TheClooneyCollection/apk-transfer-kit
+    tech:
+      - Python
+      - ADB
+      - CLI
+      - Android
+
 archive:
-  - id: tabby-static-site-generator
-    name: Tabby Static Site Generator
+  - name: Project Joy
     summary: >
-      Lightweight static site workflow that explored Eleventy alternatives before
-      graduating into Subspace Builder.
-    url: https://github.com/nicholasclooney/tabby
+      Celebration microsite starter that blends curated copy, galleries, video,
+      audio, and playlists into a responsive single-page reveal.
+    url: https://project-joy.pages.dev/
+    repo: https://github.com/TheClooneyCollection/project-joy
     tech:
-      - Vite
-      - Vue
-      - Markdown
-  - id: microfeedback-widget
-    name: Microfeedback Widget
+      - Eleventy
+      - JavaScript
+      - Node.js
+      - Nunjucks
+
+  - name: Project Luna
     summary: >
-      A web component that collects frictionless, emoji-first feedback for
-      prototypes and internal tools.
-    url: https://github.com/nicholasclooney/microfeedback-widget
+      Configurable lost-and-found companion site with carousel photos, optional
+      emergency info, and contact workflows fed by simple YAML data.
+    url: https://princessluna.pages.dev/
+    repo: https://github.com/TheClooneyCollection/project-luna
     tech:
-      - Web Components
-      - TypeScript
-      - Lit
+      - Eleventy
+      - JavaScript
+      - Node.js
+      - YAML
+
+  - name: Project Top Secret
+    summary: >
+      Passphrase-gated Eleventy starter that decrypts protected HTML in-browser
+      once visitors solve custom questions powered by WebCrypto.
+    url: https://project-top-secret.pages.dev/
+    repo: https://github.com/TheClooneyCollection/project-top-secret
+    tech:
+      - Eleventy
+      - JavaScript
+      - Node.js
+      - WebCrypto
