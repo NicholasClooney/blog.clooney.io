@@ -1,33 +1,43 @@
 ---
 active:
   - name: 11ty Subspace Builder
-    summary: >
+    summary: |
       Warp-speed Eleventy blog starter with Tachyons themes, accessible navigation,
       responsive image pipelines, and GitHub snippet embeds.
     url: https://subspace-builder.nicholas.clooney.io/
     repo: https://github.com/TheClooneyCollection/11ty-subspace-builder
+    image:
+      src: /assets/subspace-builder-v1.12.0.png
+      alt: Screenshot of the 11ty Subspace Builder homepage with recent posts listed
     tech:
       - Eleventy
       - JavaScript
       - Node.js
       - Tachyons
+      - Nunjucks
+      - YAML
 
   - name: Personal Digital Garden
-    summary: >
+    summary: |
       Source for my digital garden showcasing personal projects, write-ups,
       built with 11ty Subspace Builder!
 
       "Maximum warp. Engage!"
     url: https://blog.nicholas.clooney.io/
     repo: https://github.com/NicholasClooney/blog.clooney.io
+    image:
+      src: /assets/digital-garden.png
+      alt: Screenshot of Nicholas Clooney’s digital garden about page in the blue theme
     tech:
       - Eleventy
       - JavaScript
       - Node.js
       - Tachyons
+      - Nunjucks
+      - YAML
 
   - name: ansible-macOS-playbook
-    summary: >
+    summary: |
       Automated macOS development setup using modular Ansible roles for Homebrew,
       dotfiles, editors, GUI apps, and system defaults.
     url: null
@@ -37,9 +47,11 @@ active:
       - macOS
       - Shell
       - Homebrew
+      - DevOps
+      - Infra
 
   - name: Project Lighthouse
-    summary: >
+    summary: |
       Infrastructure-as-code playbook that rebuilds the Project Lighthouse droplet
       on Debian 13 with Docker, security hardening, and web-stack roles.
     url: null
@@ -49,21 +61,29 @@ active:
       - Debian
       - Docker
       - Nginx
+      - DevOps
+      - Infra
 
   - name: Ansible Role For Umami
-    summary: >
+    summary: |
       Reusable Ansible role that deploys the Umami analytics stack with Docker
       Compose, env-secret management, and proxy-friendly defaults.
     url: null
     repo: https://github.com/NicholasClooney/ansible-role-umami
+    image:
+      src: /assets/umami.png
+      alt: Screenshot of an Umami analytics dashboard showing Subspace Builder metrics
     tech:
       - Ansible
+      - Docker
       - Docker Compose
       - Umami
       - Linux
+      - DevOps
+      - Infra
 
   - name: APK Transfer Kit
-    summary: >
+    summary: |
       Python CLI toolkit that extracts Play Store APK splits with ADB and sideloads
       them to devices like the Quest 3, keeping installs user-controlled.
     url: null
@@ -73,10 +93,12 @@ active:
       - ADB
       - CLI
       - Android
+      - Quest
+      - VR
 
 archive:
   - name: Project Joy
-    summary: >
+    summary: |
       Celebration microsite starter that blends curated copy, galleries, video,
       audio, and playlists into a responsive single-page reveal.
     url: https://project-joy.pages.dev/
@@ -86,9 +108,10 @@ archive:
       - JavaScript
       - Node.js
       - Nunjucks
+      - YAML
 
   - name: Project Luna
-    summary: >
+    summary: |
       Configurable lost-and-found companion site with carousel photos, optional
       emergency info, and contact workflows fed by simple YAML data.
     url: https://princessluna.pages.dev/
@@ -97,10 +120,11 @@ archive:
       - Eleventy
       - JavaScript
       - Node.js
+      - Nunjucks
       - YAML
 
   - name: Project Top Secret
-    summary: >
+    summary: |
       Passphrase-gated Eleventy starter that decrypts protected HTML in-browser
       once visitors solve custom questions powered by WebCrypto.
     url: https://project-top-secret.pages.dev/
@@ -109,4 +133,6 @@ archive:
       - Eleventy
       - JavaScript
       - Node.js
+      - Nunjucks
+      - YAML
       - WebCrypto
