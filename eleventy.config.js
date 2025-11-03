@@ -7,6 +7,7 @@ import { eleventyImageTransformPlugin } from '@11ty/eleventy-img';
 import EleventyFetch from '@11ty/eleventy-fetch';
 import hljs from 'highlight.js';
 import path from 'node:path';
+import fs from 'node:fs';
 
 // Bake our own Markdown anchors
 import MarkdownIt from 'markdown-it';
@@ -120,6 +121,19 @@ const guessLanguageByExt = (filePath) => {
 
 const slugify = (value) =>
   encodeURIComponent(String(value).trim().toLowerCase().replace(/\s+/g, '-'));
+
+const loadSiteData = () => {
+  try {
+    const file = fs.readFileSync(
+      new URL('./_data/site.yaml', import.meta.url),
+      'utf8',
+    );
+    const data = yaml.load(file);
+    return data && typeof data === 'object' ? data : {};
+  } catch {
+    return {};
+  }
+};
 
 const md = new MarkdownIt({ html: true, linkify: true })
   .use(MarkdownItAnchor, {
@@ -258,8 +272,10 @@ export default function (eleventyConfig) {
         highlighted = escapeHtml(code);
       }
 
-      const numbered = highlighted
-        .split('\n')
+      const highlightedLines = highlighted.split('\n');
+      const lineCount = highlightedLines.length;
+
+      const numbered = highlightedLines
         .map((line, index) => {
           const content = line.trim().length ? line : ' ';
           const lineNumber = (meta.start || 1) + index;
@@ -274,9 +290,34 @@ export default function (eleventyConfig) {
       const languageClass = normalizedLanguage
         ? ` language-${normalizedLanguage}`
         : '';
+      const siteData = loadSiteData();
+      const collapseThresholdRaw =
+        siteData?.githubEmbed?.collapseLineThreshold ??
+        this?.ctx?.site?.githubEmbed?.collapseLineThreshold ??
+        this?.ctx?.data?.site?.githubEmbed?.collapseLineThreshold;
+      const collapseThreshold =
+        typeof collapseThresholdRaw === 'number'
+          ? collapseThresholdRaw
+          : parseInt(collapseThresholdRaw, 10);
+      const shouldCollapse =
+        Number.isFinite(collapseThreshold) &&
+        collapseThreshold > 0 &&
+        lineCount > collapseThreshold;
+      const collapseClasses = shouldCollapse
+        ? ' gh-embed--collapsible gh-embed--collapsed'
+        : '';
+      const collapseAttributes = shouldCollapse
+        ? ` data-collapse-threshold="${collapseThreshold}" data-line-count="${lineCount}"`
+        : '';
+      const toggleButton = shouldCollapse
+        ? `
+\t<button class="gh-embed__toggle" type="button" data-collapse-toggle aria-expanded="false" data-expand-label="Expand" data-collapse-label="Collapse">
+\t\tExpand
+\t</button>`
+        : '';
 
       return `
-<div class="gh-embed gh-embed--${theme}">
+<div class="gh-embed gh-embed--${theme}${collapseClasses}"${collapseAttributes}>
 	<div class="gh-embed__meta">
 		<a class="gh-embed__file" href="${meta.web}" target="_blank" rel="noopener noreferrer">
 			${meta.filePath}
@@ -289,6 +330,7 @@ export default function (eleventyConfig) {
 	<pre class="gh-embed__pre hljs${languageClass}">
 		<ol class="gh-embed__ol">${numbered}</ol>
 	</pre>
+	${toggleButton}
 </div>`;
     },
   );

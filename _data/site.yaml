@@ -13,6 +13,9 @@ theme:
   transitionTimingFunction: ease-in-out
   defaultId: sun
 
+githubEmbed:
+  collapseLineThreshold: 15
+
 # tracking with umami
 umami:
   source: https://analytics.clooney.ninja/script.js
