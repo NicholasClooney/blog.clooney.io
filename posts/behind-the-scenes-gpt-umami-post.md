@@ -5,7 +5,7 @@ eleventyNavigation:
   key: behind-the-scenes-umami-gpt
 ---
 
-I’ve had the Umami + Ansible post in my head for ages, but it touched three different repositories and a whole bunch of code snippets. Totally doable, but undeniably tedious — which is why it kept slipping down the backlog.
+I’ve had the Umami + Ansible post in my head for ages, but it touched three different repositories and a whole bunch of code snippets. Totally doable, but undeniably tedious — which is why it kept slipping down the backlog. You can read the finished article here: [**Private Analytics With Umami, Docker Compose, and Ansible**](/posts/deploying-umami-ansible-docker/).
 
 The idea that finally nudged it forward was simple: why not let GPT (Codex) do the heavy lifting while I steer?
 
@@ -25,6 +25,27 @@ The idea that finally nudged it forward was simple: why not let GPT (Codex) do t
   4. Draft the article, weaving in {% raw %}`{% github %}` {% endraw %} embeds pinned to those commits.
   5. Proofread everything for accuracy, links, and style.
 
+As you can see, it is a pretty complicated task. I wasn't expecting perfection. I was only hope for good enough.
+
+
+<img
+  alt= "GPT Prompt Part 1"
+  src="/assets/gpt-instructions-1.png"
+/>
+<img
+  alt= "GPT Prompt Part 2"
+  src="/assets/gpt-instructions-2.png"
+/>
+
+But GPT delivered! OVER DELIVERED!
+
+Here’s GPT mapping the work into a multi-step plan before touching a single file:
+
+<img
+  alt= "GPT Planning the Workflow"
+  src="/assets/gpt-making-plans.png"
+/>
+
 ---
 
 ## Watching the Workflow Unfold
@@ -35,8 +56,30 @@ The only nitpick? GPT didn’t realize that my `config/main.yml` file lives as a
 
 What really impressed me was how well it handled the more intricate instructions:
 
+- It dug through each repo to pull the snippets I cared about:
+
+<img
+  alt= "GPT Reading the Repos"
+  src="/assets/gpt-reading.png"
+/>
+
+- It ran shell commands when needed to inspect files and capture commit SHAs:
 - Running `gh` commands to confirm repositories and default branches.
 - Pulling the latest commit SHA on `main` before referencing any code.
+
+<img
+  alt= "GPT Running Commands"
+  src="/assets/gpt-running-commands.png"
+/>
+
+- And it assembled an outline that matched what I’d been procrastinating on:
+
+<img
+  alt= "GPT Drafting the Outline"
+  src="/assets/gpt-drafting-outline.png"
+/>
+
+
 - Formatting each embed as {% raw %}`{% github "https://github.com/.../blob/<sha>/path#Lxx-Lyy" %}`{% endraw %} with the precise line ranges.
 
 For a workflow I expected to hand-hold, GPT basically shipped a polished draft.
