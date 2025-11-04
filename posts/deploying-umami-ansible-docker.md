@@ -3,6 +3,14 @@ title: "Private Analytics With Umami, Docker Compose, and Ansible"
 date: 2025-11-03
 eleventyNavigation:
   key: deploying-umami-ansible-docker
+
+social:
+  mastodon:
+    status: shared
+    lastShared: 2025-11-04T11:29:28.032Z
+  linkedin-post:
+    status: shared
+    lastShared: 2025-11-04T11:23:59.195Z
 ---
 
 I wanted first-party analytics on my blog without handing traffic data to a SaaS vendor. Umami checked every box: open source, self-hostable, and friendly to privacy. I already keep a small VPS online 24/7, so dedicating a slice of that machine to Umami felt like a perfect fit.
