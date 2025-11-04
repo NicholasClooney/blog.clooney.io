@@ -58,7 +58,7 @@ A couple of highlights:
 
 - Postgres persists data in a named volume and exposes a health check.
 - Umami waits on that health check before launching.
-- The `ports` directive binds to `{{ umami_bind_address }}` so I can keep it locked to `127.0.0.1` instead of public interfaces.
+- The `ports` directive binds to {% raw %}`{{ umami_bind_address }}`{% endraw %} so I can keep it locked to `127.0.0.1` instead of public interfaces.
 
 Defaults live alongside the template, so each install starts loopback-only on port `3000` until I override it:
 
