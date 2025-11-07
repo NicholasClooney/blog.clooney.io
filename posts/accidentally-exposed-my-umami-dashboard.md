@@ -3,6 +3,13 @@ title: "How I Accidentally Exposed My Umami Dashboard (and What I Learned)"
 date: 2025-10-03
 eleventyNavigation:
   key: accidentally-exposed-my-umami-dashboard
+tags:
+  - umami
+  - docker
+  - tailscale
+  - private-network
+  - security
+  - infra
 ---
 
 Recently, a few hours after setting up [Umami](https://umami.is/) with Docker and Nginx on my VPS, I stumbled into a misconfiguration that left the admin dashboard exposed to the public web. Thankfully, there was no immediate danger. Since right after creating Umami's docker instance, I have updated the admin username and password immediately, and locked it down before anything bad could happen. Still, it was a stressful reminder that small mistakes in deployment can have big consequences.
