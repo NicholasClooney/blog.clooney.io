@@ -3,6 +3,11 @@ title: "My Super Powered Tmux - One Session But Multiple 'Focuses'"
 date: 2025-10-14
 eleventyNavigation:
   key: my-super-powered-tmux-one-session-but-multiple-focuses
+tags:
+  - tmux
+  - cli
+  - macos
+  - workflow
 
 social:
   linkedin-post:
