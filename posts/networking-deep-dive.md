@@ -3,6 +3,11 @@ title: "Debugging Tailscale on UK Mobile Networks: A Journey into NAT, DERP, and
 date: 2025-09-29
 eleventyNavigation:
   key: networking-deep-dive
+tags:
+  - tailscale
+  - networking
+  - private-network
+  - infra
 ---
 
 ## Introduction
@@ -121,4 +126,3 @@ This long journey showed how much the success of peer-to-peer VPNs like Tailscal
 * IPv6 is the real solution, but only if *both* ends support it.
 
 In our case: the Mac was ready, but the iPhone’s mobile carrier wasn’t. The lesson: sometimes the problem isn’t your device or Tailscale — it’s the invisible network policies between you and the internet.
-
