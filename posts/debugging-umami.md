@@ -8,6 +8,7 @@ tags:
   - security
   - infra
   - networking
+  - devops
 ---
 
 I spent the better half of today getting Umami analytics to cooperate with a static blog served through Cloudflare and an Nginx proxy. The tracking script was having issue in Safari (CORS) and Firefox (nothing showed up in the Developer Tools' Network tab).
