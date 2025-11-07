@@ -3,6 +3,12 @@ title: "A Short Guide to Tailscale: Secure Networking Made Simple"
 date: 2025-10-01
 eleventyNavigation:
   key: tailscale-starter-guide
+tags:
+  - tailscale
+  - networking
+  - private-network
+  - security
+  - infra
 ---
 
 Over the past few weeks, I’ve spent quite a bit of time experimenting with **Tailscale**, and it has quickly become one of my favorite tools.
