@@ -3,6 +3,14 @@ title: "Private Analytics With Umami, Docker Compose, and Ansible"
 date: 2025-11-03
 eleventyNavigation:
   key: deploying-umami-ansible-docker
+tags:
+  - umami
+  - docker
+  - devops
+  - infra
+  - tailscale
+  - private-network
+  - security
 
 social:
   mastodon:
