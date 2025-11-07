@@ -3,6 +3,11 @@ title: The Joy (and Frustrations) of Building Small Sites with GPT-5 Codex
 date: 2025-09-20
 eleventyNavigation:
   key: building-with-gpt-5-codex
+tags:
+  - ai
+  - ai-assisted
+  - eleventy
+  - workflow
 
 social:
   linkedin-post:
@@ -118,4 +123,3 @@ These habits made the collaboration feel structured and productive, while still 
 ## Closing Thoughts
 
 These projects may have been small in scope, but the process of building them with GPT-5 Codex was eye-opening. Instead of grinding through details, I got to enjoy the creative, high-level side of making things. Still, it’s clear that this style of programming requires human judgment to steer in the right direction and avoid the pitfalls I mentioned earlier. For me, that balance of speed, creativity, and critical oversight is what makes me believe this conversational approach isn’t just convenient — it’s a glimpse of the future.
-
