@@ -8,6 +8,7 @@ tags:
   - macos
   - cli
   - infra
+  - devops
 ---
 
 Like a lot of developers coming from Linux or a server environment, I hit some confusion when setting up Docker on my Mac. On Linux, you just install Docker and it works natively. On macOS, it’s a bit different — there’s no native Docker Engine because we don’t have a Linux kernel. That’s where tools like Docker Desktop and Colima come in.
