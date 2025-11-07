@@ -3,6 +3,12 @@ title: "Behind the Scenes: Pair-Writing the Umami Post With GPT"
 date: 2025-11-03
 eleventyNavigation:
   key: behind-the-scenes-umami-gpt
+tags:
+  - ai
+  - ai-assisted
+  - workflow
+  - umami
+  - cli
 ---
 
 I’ve had the Umami + Ansible post in my head for ages, but it touched three different repositories and a whole bunch of code snippets. Totally doable, but undeniably tedious — which is why it kept slipping down the backlog. You can read the finished article here: [**Private Analytics With Umami, Docker Compose, and Ansible**](/posts/deploying-umami-ansible-docker/).
