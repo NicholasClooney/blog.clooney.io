@@ -9,6 +9,7 @@ tags:
   - private-network
   - security
   - infra
+  - devops
 ---
 
 Over the past few weeks, I’ve spent quite a bit of time experimenting with **Tailscale**, and it has quickly become one of my favorite tools.
