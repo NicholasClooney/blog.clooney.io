@@ -3,6 +3,15 @@ title: "AI-Assisted Coding on iPhone: A Journey of Tools, Freedom, and Joy"
 date: 2025-09-28
 eleventyNavigation:
   key: ssh-from-iphone-to-mac
+tags:
+  - ai
+  - ai-assisted
+  - tailscale
+  - tmux
+  - cli
+  - private-network
+  - security
+  - macos
 ---
 
 ## Introduction
