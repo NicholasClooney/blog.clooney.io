@@ -8,6 +8,7 @@ tags:
   - networking
   - private-network
   - infra
+  - devops
 ---
 
 ## Introduction

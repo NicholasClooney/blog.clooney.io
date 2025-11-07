@@ -9,6 +9,7 @@ tags:
   - macos
   - cli
   - devops
+  - infra
 ---
 
 
