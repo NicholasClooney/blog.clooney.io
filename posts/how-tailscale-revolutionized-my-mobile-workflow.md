@@ -3,6 +3,13 @@ title: "\"Can you believe this?\" — The Tailscale Setup That Gave Me Absolute 
 date: 2025-10-14
 eleventyNavigation:
   key: tailscale-workflow
+tags:
+  - tailscale
+  - private-network
+  - security
+  - tmux
+  - cli
+  - macos
 
 social:
   linkedin-post:

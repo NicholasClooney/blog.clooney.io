@@ -3,6 +3,12 @@ title: Building My Own Subspace Builder
 date: 2025-05-20
 eleventyNavigation:
   key: building-my-own-subspace-builder
+tags:
+  - eleventy
+  - ai
+  - ai-assisted
+  - workflow
+  - cloudflare
 ---
 
 Last month, my girlfriend mentioned she needed a sleek portfolio site, and I realized I’d been meaning to start a personal tech blog.

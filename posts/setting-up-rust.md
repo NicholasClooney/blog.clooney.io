@@ -3,6 +3,12 @@ title: "Setting Up Rust Securely (Without the Blind `curl | sh`)"
 date: 2025-10-12
 eleventyNavigation:
   key: setting-up-rust
+tags:
+  - rust
+  - security
+  - macos
+  - cli
+  - devops
 ---
 
 
