@@ -13,6 +13,9 @@ tags:
   - security
 
 social:
+  reddit:
+    status: shared
+    lastShared: 2025-12-12T14:38:50.838Z
   mastodon:
     status: shared
     lastShared: 2025-11-04T11:29:28.032Z
