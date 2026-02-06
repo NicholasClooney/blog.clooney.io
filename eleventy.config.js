@@ -135,7 +135,24 @@ const loadSiteData = () => {
   }
 };
 
-const md = new MarkdownIt({ html: true, linkify: true })
+const md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  highlight(code, language) {
+    if (language && hljs.getLanguage(language)) {
+      try {
+        return hljs.highlight(code, { language }).value;
+      } catch {
+        return escapeHtml(code);
+      }
+    }
+    try {
+      return hljs.highlightAuto(code).value;
+    } catch {
+      return escapeHtml(code);
+    }
+  },
+})
   .use(MarkdownItAnchor, {
     slugify,
     permalink: MarkdownItAnchor.permalink.ariaHidden({
