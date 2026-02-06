@@ -230,3 +230,45 @@
   justify-content: center;
   min-width: 6rem;
 }
+
+main {
+  --code-bg: #f6f8fa;
+  --code-fg: #24292f;
+  --code-border: #d0d7de;
+}
+
+html.theme[data-theme='grape'],
+html.theme[data-theme='deep-blue'],
+html.theme[data-theme='midnight'],
+html.theme[data-theme='charcoal'] {
+  --code-bg: #0d1117;
+  --code-fg: #c9d1d9;
+  --code-border: #30363d;
+}
+
+main pre:not(.gh-embed__pre) {
+  margin: 1.25rem 0;
+  padding: 0.85rem 1rem;
+  overflow: auto;
+  background: var(--code-bg);
+  color: var(--code-fg);
+  border: 1px solid var(--code-border);
+  border-radius: 8px;
+  font:
+    12px/1.55 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    'Liberation Mono',
+    monospace;
+}
+
+main pre:not(.gh-embed__pre) code {
+  display: block;
+  color: inherit;
+}
+
+main pre:not(.gh-embed__pre) code.hljs {
+  padding: 0;
+  background: transparent;
+}
