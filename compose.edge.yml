@@ -1,0 +1,18 @@
+services:
+  dev:
+    ports: !reset []
+    networks:
+      edge:
+        aliases:
+          - subspace-builder-dev
+  prod:
+    ports: !reset []
+    networks:
+      edge:
+        aliases:
+          - subspace-builder-prod
+
+networks:
+  edge:
+    external: true
+    name: edge

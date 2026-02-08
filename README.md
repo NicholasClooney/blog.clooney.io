@@ -51,6 +51,15 @@ npm run build
 
 This sets `ELEVENTY_ENV=production` and writes the static output to the `_site/` directory. Deploy those files to any static host or CDN.
 
+## Docker
+- `compose.yml` uses the stock `node:25-bookworm-slim` image and installs dependencies at container start.
+- Default mode (public ports): `docker compose up -d`
+- Dev: `http://127.0.0.1:8080`
+- Prod: `http://127.0.0.1:8090`
+- Shared-edge mode (no host ports; for reverse proxy via Caddy on the `edge` network): `docker network create edge 2>/dev/null || true`
+- Run: `docker compose -f compose.yml -f compose.edge.yml up -d`
+- Caddy (in the ingress stack) should `reverse_proxy` to the `dev` or `prod` container names on the `edge` network.
+
 ## Social Preview Images
 
 - `scripts/generate-og-images.js` runs before each Eleventy build to produce 1200×630 Open Graph cards using Satori (HTML template) and Resvg. We stick with Satori’s HTML helper instead of JSX so the pipeline stays zero-transpile and works out-of-the-box in Node.
