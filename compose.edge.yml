@@ -4,13 +4,13 @@ services:
     networks:
       edge:
         aliases:
-          - subspace-builder-dev
+          - blog-clooney-io-dev
   prod:
     ports: !reset []
     networks:
       edge:
         aliases:
-          - subspace-builder-prod
+          - blog-clooney-io-prod
 
 networks:
   edge:
