@@ -135,6 +135,30 @@ const loadSiteData = () => {
   }
 };
 
+const markTodoBlockquotes = (tokens = []) => {
+  for (let i = 0; i < tokens.length; i += 1) {
+    const token = tokens[i];
+    if (!token || token.type !== 'blockquote_open') continue;
+
+    let text = '';
+    let j = i + 1;
+    for (; j < tokens.length; j += 1) {
+      const next = tokens[j];
+      if (!next) continue;
+      if (next.type === 'blockquote_close') break;
+      if (next.type === 'inline' && typeof next.content === 'string') {
+        text += `${next.content} `;
+      }
+    }
+
+    if (/\bTODO\b/i.test(text)) {
+      token.attrJoin('class', 'todo-quote');
+    }
+
+    if (j > i) i = j;
+  }
+};
+
 const md = new MarkdownIt({
   html: true,
   linkify: true,
@@ -166,6 +190,12 @@ const md = new MarkdownIt({
     level: [2, 3],
     slugify,
   });
+
+if (process.env.ELEVENTY_ENV !== 'production') {
+  md.core.ruler.after('block', 'todo-blockquotes', (state) => {
+    markTodoBlockquotes(state.tokens);
+  });
+}
 
 export default function (eleventyConfig) {
   const shouldSkipHref = (href) => {
