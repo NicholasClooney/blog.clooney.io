@@ -53,6 +53,29 @@
 	html.theme a:focus-visible {
 		outline-color: var(--accent);
 	}
+	html.theme blockquote.todo-quote {
+		--todo-quote-bg: var(--accent);
+		--todo-quote-fg: #fff;
+		background: var(--todo-quote-bg);
+		color: var(--todo-quote-fg);
+		border-left: 0.4rem solid var(--todo-quote-fg);
+		border-radius: 0.5rem;
+		padding: 1rem 1.25rem;
+		margin-left: 0;
+		margin-right: 0;
+		box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--todo-quote-bg) 70%, transparent);
+	}
+	html.theme blockquote.todo-quote a,
+	html.theme blockquote.todo-quote a:visited {
+		color: inherit;
+	}
+	html.theme.black blockquote.todo-quote {
+		--todo-quote-fg: #fff;
+	}
+	html.theme.near-white blockquote.todo-quote,
+	html.theme.white blockquote.todo-quote {
+		--todo-quote-fg: #111;
+	}
 	/*
 		Eleventy Img transform adds width/height attrs;
 		Reset the height so images stay proportional at narrow widths
