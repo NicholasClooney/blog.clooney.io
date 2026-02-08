@@ -9,3 +9,12 @@ Highlights:
 - [SSH from iPhone to Mac](https://blog.nicholas.clooney.io/posts/ssh-from-iPhone-to-Mac/) — remote dev experiments from anywhere.
 
 Drop by the blog for new posts and ideas as they land.
+
+## Docker
+- `compose.yml` uses the stock `node:25-bookworm-slim` image and installs dependencies at container start.
+- Default mode (public ports): `docker compose up -d`
+- Dev: `http://127.0.0.1:8080`
+- Prod: `http://127.0.0.1:8090`
+- Shared-edge mode (no host ports; for reverse proxy via Caddy on the `edge` network): `docker network create edge 2>/dev/null || true`
+- Run: `docker compose -f compose.yml -f compose.edge.yml up -d`
+- Caddy (in the ingress stack) should `reverse_proxy` to the `dev` or `prod` container names on the `edge` network.
