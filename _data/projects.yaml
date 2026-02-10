@@ -36,6 +36,21 @@ active:
       - Nunjucks
       - YAML
 
+  - name: Project Resume
+    summary: |
+      Data-driven resume built with Eleventy, featuring responsive web and
+      print-friendly layouts plus automatic PDF export via Puppeteer.
+    url: https://resume.nicholas.clooney.io/
+    repo: https://github.com/NicholasClooney/project-resume
+    tech:
+      - Eleventy
+      - JavaScript
+      - Node.js
+      - Nunjucks
+      - YAML
+      - Puppeteer
+      - CSS
+
   - name: ansible-macOS-playbook
     summary: |
       Automated macOS development setup using modular Ansible roles for Homebrew,
