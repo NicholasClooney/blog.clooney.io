@@ -1,14 +1,10 @@
 ---
-draft: true
-
-title: A Everywhere-Accessible but Publicly Invisible Ingress Engine
+title: An Ingress Engine That’s Everywhere-Accessible but Publicly Invisible
 date: 2026-02-08
 tags: []
 eleventyNavigation:
-  key: a-everywhere-accessible-but-publicly-invisible-ingress-engine
+  key: an-everywhere-accessible-but-publicly-invisible-ingress-engine
 ---
-
-> TODO! NICHOLAS FIX THE TODOS
 
 Most personal projects and homelab services don’t need to be public, but they do need to be reachable. I want to access my dev tools, internal dashboards, and side projects from anywhere, on any of my own devices, without opening ports, exposing IPs, or worrying about who might stumble across them on the internet.
 
@@ -58,7 +54,7 @@ That trade-off pushed me to build a private ingress engine that only my devices 
 
 ## A bit of background: Containerization
 
-> I also don't want to run Tailscale as sidecar containers for each and every service I am running.
+> I also don't want to run Tailscale as sidecar containers for every service I am running.
 
 Most of these personal projects are Eleventy sites. I enjoy working on them, iterating quickly, and running them locally. Recently, I moved from running these projects directly on my machine to running them inside Docker containers. That shift gave me better isolation and consistency, but it also made access patterns more important.
 
@@ -75,59 +71,136 @@ I was lucky to come across this post by Gabriel Garrido:
 
 My overall approach is very similar to his post, at least conceptually. Tailscale for the private VPN, Caddy for reverse proxying and issuing HTTPS certificates via my domain provider, and NextDNS for DNS rewrites.
 
-The main difference is in how everything is deployed and some minor implementation details.
+The main difference is in how everything is deployed and the implementation details.
 
 In my setup, everything runs in Docker. Tailscale runs in Docker (though it's just one instance). Caddy runs in Docker. All my services run in Docker. And yes, I really do mean everything.
 
-> TODO! maybe add a screenshot of dockhand
+<img
+  alt= "Dockhand - Containers"
+  src="/assets/dockhand-containers.png"
+/>
 
 On top of that, I managed to eliminate local host port mappings entirely by using a shared network interface across these containers. No exposed ports on the host, no loose ends.
 
 Why go this far? Because I love it being tidy. No extra surface area, no unnecessary plumbing, and a setup where every piece has a clear role and place.
 
-## The Devil is in the Details 
+## The Devil is in the Details
 
 One important note before getting into implementation: this pattern is not locked to Tailscale, Caddy, or NextDNS specifically. Those are just the tools I chose. You can swap any layer for an equivalent (private network, reverse proxy, DNS rewrite provider) and keep the same overall architecture.
 
-> TODO
-> - [ ] create example repo
-> - [ ] Link to my example repo with compose.yml, caddyfile, and dockerfile.caddy
-> - [ ] Add architecture diagram (request flow: device -> tailscale -> caddy -> service)
-> - [ ] Add a "quick start" section with copy/paste commands
-> - [ ] Add security notes (ACLs, key rotation, token storage)
+### The Template Repo
+
+If you want to replicate this pattern, I published a starter template here:  
+[private-ingress-engine-template](https://github.com/TheClooneyCollection/private-ingress-engine-template)
+
+It includes the baseline Docker Compose and Caddy wiring used in this post, so you can adapt it to your own services.
+
+### The Architecture Diagram
+
+Private Ingress Engine puts Caddy and your apps behind a Tailscale-only boundary.
+
+<img
+  alt= "Private Ingress Diagram"
+  src="/assets/private-ingress-diagram.png"
+/>
+
+- Caddy is the ingress point for your private services.
+- Tailscale sidecar provides tailnet connectivity on the Docker host.
+- Tailnet clients (100.64.0.0/10) are allowed through.
+- Public/non-tailnet clients are blocked first by DNS resolve failure
+    - no private rewrite / no route in normal public DNS.
+- If a public client reaches ingress directly, Caddy still denies access with 403 Unauthorized.
+- Allowed traffic is reverse-proxied to internal services:
+    - `dockhand:3000`
+    - `project-resume-dev:8080`
+    - `project-resume-prod:8080`
+
+Result: same hostnames, but only tailnet-connected users can reliably access services.
+
+#### Security notes:
+
+- Tailscale ACLs: keep ingress reachability scoped to your user/group/devices only.
+- Key rotation: use short-lived, one-off Tailscale auth keys for enrollment; rotate DNS API tokens on a schedule and immediately after any suspected leak.
+- Token storage: keep secrets out of git (`.env.template` only), and inject real values at runtime from a secret manager (for me: 1Password + `op run`).
+
+### Prerequisites
+
+Before implementing this pattern, make sure you have:
+
+- A Tailscale tailnet with admin access (for DNS settings, ACLs, and auth keys)
+- A domain and DNS provider API token that supports ACME DNS-01 (for example, Cloudflare)
+- A NextDNS profile where you can create DNS rewrites
+- Docker + Docker Compose v2 on the host machine
+- A secrets workflow for runtime env injection (for example, 1Password `op run`)
 
 
 ### The Shared Docker Network Interface
 
-Before this, I didn't know you can split the docker compose file into multiple ones and combine them and you can do `docker comopse -f compose.yml -f compose.shared-network.yml up`
+Before this, I didn't know you can split the docker compose file into multiple ones and combine them and you can bring up the stack like this:
 
-It really helps in the cases where all my services are public repos and this shared network setup with no host port mapping is just for me. So I can keep a default `compose.yml` with the default network interface and the host port mapping, while the `compose.shared-network.yml` to clear / reset the port mapping and add in the external edge interface. (I don't want anyone running docker with my projects to needing to do anything they shouldn't need to for my own sake.)
+```
+docker compose -f compose.yml -f compose.edge.yml up
+```
+
+This helps because all my services are public repos, but this no-host-port shared-network setup is only for my environment. Other people running my projects do not need to create the `edge` network interface.
+
+I can keep a default `compose.yml` with the default network and host port mappings, and use `compose.edge.yml` to clear/reset port mappings and attach services to the external `edge` interface.
+
+{% github "https://github.com/TheClooneyCollection/project-resume/blob/3b1ded58e78a81609c34796d92f78ce5be836565/compose.edge.yml" %}
 
 ### Tailscale & Caddy
 
-caddy attaches to the tailscale network interface
+Caddy uses `network_mode: service:tailscale`, which means it shares the exact same network namespace as the `tailscale` container:
 
-> TODO
-> - [ ] Add compose snippet showing `network_mode: "service:tailscale"` for caddy
-> - [ ] Add note on why this removes host port exposure
+{% github "https://github.com/TheClooneyCollection/private-ingress-engine-template/blob/ef47a72b0f3993d5c3e1e1a63fdbcaa94082073c/compose.yml" %}
+
+Because Caddy does not publish host ports and sits behind Tailscale's interface, there is no direct host-level `:80` / `:443` exposure to your local LAN or the public internet.
 
 ### Caddy
 
-- domain api token
-- maps all containerized services using `service-alias:port`.
-- only accepts either tailnet ip range or 127.0.0.1 (i think with my setup, it's only 127.0.0.1 since it shares the same network interface as tailscale)
+This is where the ingress behavior becomes explicit and predictable. Caddy is doing three jobs at once: proving domain ownership for TLS, routing hostnames to containers, and enforcing an allowlist at the edge.
 
-> TODO
-> - [ ] Add full example Caddyfile with one dev and one prod route
-> - [ ] Clarify token scope required at domain provider
+Here is the exact Caddy config:
+
+{% github "https://github.com/TheClooneyCollection/private-ingress-engine-template/blob/ef47a72b0f3993d5c3e1e1a63fdbcaa94082073c/conf/Caddyfile" %}
+
+
+#### Domain-provider API Token
+
+Caddy uses your domain provider API token to complete ACME DNS-01 challenges and issue certificates for your private hostnames. The token should be least-privilege and zone-scoped. For Cloudflare, a practical minimum is `Zone:Read` + `DNS:Edit` for only the zones you manage through this ingress.
+
+#### Map All Containerized Services
+
+Each virtual host in the Caddyfile maps cleanly to an internal Docker DNS target such as `dockhand:3000` or `project-resume-dev:8080`. This is what lets you keep friendly domains (`dev.resume.<domain>`) while all real service addressing stays internal on the shared Docker network.
+
+#### Allow & Deny
+
+The `remote_ip` matcher makes access policy part of the web config itself. That means a request must both resolve privately and originate from an allowed source range. If anything hits ingress from outside the tailnet boundary, Caddy rejects it directly.
+
+In other words: DNS rewrites make private names work, Tailscale provides the private path, and Caddy enforces that only that private path is accepted.
+
 
 ### NextDNS + Tailscale
 
-NextDNS for rewriting dns and using Tailscale DNS to use next dns as the "source" for all my devices in my tailnet.
+I use NextDNS to define private DNS rewrites (for example, mapping `dev.resume.clooney.io` to my ingress node's Tailscale IP), then use Tailscale DNS settings to push NextDNS as the resolver source to every device in my tailnet. The result is consistent private name resolution across my phone, laptop, and tablet without manual per-device DNS configuration.
 
-> TODO
-> - [ ] Add one concrete rewrite example (`dev.resume.clooney.io` -> tailnet target)
-> - [ ] Add troubleshooting checklist for DNS propagation and cache flush
+Concrete rewrite example:
+
+`dev.resume.clooney.io` -> `100.64.12.34` (example Tailscale IP for your `private-ingress-engine` node)
+
+<img
+  alt="DNS Rewrites in NextDNS"
+  src="/assets/nextdns-rewrites.png"
+/>
+
+Quick troubleshooting checklist:
+
+- Confirm rewrite exists in NextDNS and points to the current Tailscale IP.
+- Confirm your device is using Tailscale DNS settings (MagicDNS/admin DNS policy applied).
+- Flush DNS cache on the client device/browser after rewrite changes.
+- Check `tailscale status` to verify the ingress node is online.
+- `dig dev.resume.clooney.io` from a tailnet client should return the private `100.x.x.x` target.
+- If TLS fails, verify `CF_DNS_API_TOKEN`, zone permissions, and Caddy logs.
 
 ## FAQ
 
@@ -186,3 +259,16 @@ A: Rewrites let you type human domains while still resolving to private tailnet-
 
 **Q: Why combine NextDNS with Tailscale DNS?**  
 A: Tailscale can distribute DNS settings to your tailnet devices, and NextDNS provides the custom rewrite behavior, so every device gets the same private naming experience.
+
+## What I Want to Improve Next
+
+- Replace hosted DNS rewrites with a self-hosted path (Pi-hole or CoreDNS) to reduce external dependency and keep more of the stack local.
+- Improve resource efficiency across my Eleventy stacks, especially reducing steady-state memory usage for always-on dev/prod containers.
+
+## Closing Thoughts
+
+This setup gave me exactly what I wanted: private services that feel like a real production ingress stack without becoming publicly exposed. I still get clean domains, HTTPS, and centralized routing, but access stays scoped to my tailnet and my devices.
+
+More importantly, it scales with how I work. I can add new services, map them once in Caddy, and keep everything consistent across environments without memorizing ports or running one-off commands.
+
+If you are building in public but operating infrastructure privately, this pattern is a practical middle ground: cloud-like ergonomics, self-hosted control, and a smaller attack surface.
