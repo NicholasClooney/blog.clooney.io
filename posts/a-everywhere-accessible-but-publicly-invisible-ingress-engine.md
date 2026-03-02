@@ -1,7 +1,14 @@
 ---
 title: An Ingress Engine That’s Everywhere-Accessible but Publicly Invisible
 date: 2026-02-08
-tags: []
+tags:
+  - tailscale
+  - docker
+  - private-network
+  - security
+  - networking
+  - infra
+  - devops
 eleventyNavigation:
   key: an-everywhere-accessible-but-publicly-invisible-ingress-engine
 ---
