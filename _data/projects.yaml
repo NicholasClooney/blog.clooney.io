@@ -36,6 +36,20 @@ active:
       - Nunjucks
       - YAML
 
+  - name: Private Ingress Engine Template
+    summary: |
+      Completely private, self-hosted ingress engine for running and exposing
+      services on a tailnet, with custom domains and subdomains.
+    url: null
+    repo: https://github.com/TheClooneyCollection/private-ingress-engine-template
+    tech:
+      - Docker
+      - Nginx
+      - Tailscale
+      - Tailnet
+      - DevOps
+      - Infra
+
   - name: Project Resume
     summary: |
       Data-driven resume built with Eleventy, featuring responsive web and
