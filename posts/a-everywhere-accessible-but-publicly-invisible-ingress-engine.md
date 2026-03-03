@@ -159,7 +159,7 @@ I can keep a default `compose.yml` with the default network and host port mappin
 
 Caddy uses `network_mode: service:tailscale`, which means it shares the exact same network namespace as the `tailscale` container:
 
-{% github "https://github.com/TheClooneyCollection/private-ingress-engine-template/blob/ef47a72b0f3993d5c3e1e1a63fdbcaa94082073c/compose.yml" %}
+{% github "https://github.com/TheClooneyCollection/private-ingress-engine-template/blob/4917ffe8dbbf5e9187471bc90fe89ba1bce6fc87/compose.yml#L24-L43" %}
 
 Because Caddy does not publish host ports and sits behind Tailscale's interface, there is no direct host-level `:80` / `:443` exposure to your local LAN or the public internet.
 
@@ -169,7 +169,7 @@ This is where the ingress behavior becomes explicit and predictable. Caddy is do
 
 Here is the exact Caddy config:
 
-{% github "https://github.com/TheClooneyCollection/private-ingress-engine-template/blob/ef47a72b0f3993d5c3e1e1a63fdbcaa94082073c/conf/Caddyfile" %}
+{% github "https://github.com/TheClooneyCollection/private-ingress-engine-template/blob/4917ffe8dbbf5e9187471bc90fe89ba1bce6fc87/conf/Caddyfile#L1-L40" %}
 
 
 #### Domain-provider API Token
@@ -187,9 +187,13 @@ The `remote_ip` matcher makes access policy part of the web config itself. That 
 In other words: DNS rewrites make private names work, Tailscale provides the private path, and Caddy enforces that only that private path is accepted.
 
 
-### NextDNS + Tailscale
+### Rewrite DNS
 
-I use NextDNS to define private DNS rewrites (for example, mapping `dev.resume.clooney.io` to my ingress node's Tailscale IP), then use Tailscale DNS settings to push NextDNS as the resolver source to every device in my tailnet. The result is consistent private name resolution across my phone, laptop, and tablet without manual per-device DNS configuration.
+You have two good options for private DNS rewrites in this pattern: `NextDNS + Tailscale DNS`, or `Pi-hole + Tailscale DNS`. I have used both. My personal preference is Pi-hole because it gives more control and aligns better with my self-hosted private philosophy. The caveat is that for consistent rewrites, Pi-hole should run on infrastructure that is always online (for example, a home server or a VPS).
+
+#### Option 1: NextDNS + Tailscale DNS
+
+This is the easiest managed path. Use NextDNS rewrites (for example, mapping `dev.resume.clooney.io` to your ingress node's Tailscale IP), then let Tailscale DNS settings apply that resolver configuration across your devices.
 
 Concrete rewrite example:
 
@@ -200,10 +204,18 @@ Concrete rewrite example:
   src="/assets/nextdns-rewrites.png"
 />
 
+#### Option 2: Pi-hole + Tailscale DNS
+
+If you want a self-hosted rewrite DNS path, the template now includes an example Pi-hole service:
+
+{% github "https://github.com/TheClooneyCollection/private-ingress-engine-template/blob/4917ffe8dbbf5e9187471bc90fe89ba1bce6fc87/compose.yml#L45-L60" %}
+
+In this option, Pi-hole handles local rewrite rules while Tailscale keeps resolver behavior consistent across your tailnet devices.
+
 Quick troubleshooting checklist:
 
-- Confirm rewrite exists in NextDNS and points to the current Tailscale IP.
-- Confirm your device is using Tailscale DNS settings (MagicDNS/admin DNS policy applied).
+- Confirm your rewrite rule exists and points to the current Tailscale IP.
+- Confirm your device is using the intended Tailscale DNS settings.
 - Flush DNS cache on the client device/browser after rewrite changes.
 - Check `tailscale status` to verify the ingress node is online.
 - `dig dev.resume.clooney.io` from a tailnet client should return the private `100.x.x.x` target.
@@ -259,17 +271,18 @@ A: Rotate it on a regular schedule and immediately after any possible leak. A pr
 **Q: What minimum DNS API token permissions should Caddy have?**  
 A: Grant only the smallest set needed for DNS challenge updates on the specific zone(s) you use. Avoid account-wide or unrelated permissions; zone-scoped DNS record edit/read is usually the right target.
 
-### NextDNS + DNS rewrites
+### Rewrite DNS
 
 **Q: Why use DNS rewrites here?**  
 A: Rewrites let you type human domains while still resolving to private tailnet-reachable targets.
 
-**Q: Why combine NextDNS with Tailscale DNS?**  
-A: Tailscale can distribute DNS settings to your tailnet devices, and NextDNS provides the custom rewrite behavior, so every device gets the same private naming experience.
+**Q: Why combine rewrite DNS with Tailscale DNS?**  
+A: Tailscale can distribute DNS settings to your tailnet devices, and either NextDNS or Pi-hole can provide the custom rewrite behavior, so every device gets the same private naming experience.
 
 ## What I Want to Improve Next
 
-- Replace hosted DNS rewrites with a self-hosted path (Pi-hole or CoreDNS) to reduce external dependency and keep more of the stack local.
+- DONE! *"Replace hosted DNS rewrites with a self-hosted path (Pi-hole or CoreDNS) to reduce external dependency and keep more of the stack local."*
+
 - Improve resource efficiency across my Eleventy stacks, especially reducing steady-state memory usage for always-on dev/prod containers.
 
 ## Closing Thoughts
