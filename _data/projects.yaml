@@ -50,6 +50,23 @@ active:
       - DevOps
       - Infra
 
+  - name: Project Etho
+    summary: |
+      Beautiful static timeline that tracks Etho's appearances across the web,
+      with month-based navigation, by creator view, rich video cards, and theme support.
+    url: https://etho.clooney.io/
+    repo: https://github.com/TheClooneyCollection/project-etho
+    image:
+      src: /assets/project-etho.png
+      alt: Screenshot of Project Etho showing the January 2026 timeline and video cards
+    tech:
+      - Eleventy
+      - JavaScript
+      - Node.js
+      - Nunjucks
+      - YAML
+      - Python
+
   - name: Project Resume
     summary: |
       Data-driven resume built with Eleventy, featuring responsive web and
