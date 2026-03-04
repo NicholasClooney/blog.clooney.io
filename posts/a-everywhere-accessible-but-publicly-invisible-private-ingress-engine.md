@@ -1,5 +1,5 @@
 ---
-title: An Ingress Engine That’s Everywhere-Accessible but Publicly Invisible
+title: A Private Ingress Engine That’s Everywhere-Accessible but Publicly Invisible
 date: 2026-02-08
 tags:
   - tailscale
@@ -10,7 +10,8 @@ tags:
   - infra
   - devops
 eleventyNavigation:
-  key: an-everywhere-accessible-but-publicly-invisible-ingress-engine
+  key: an-everywhere-accessible-but-publicly-invisible-private-ingress-engine
+permalink: /posts/a-everywhere-accessible-but-publicly-invisible-ingress-engine/
 ---
 
 Most personal projects and homelab services don’t need to be public, but they do need to be reachable. I want to access my dev tools, internal dashboards, and side projects from anywhere, on any of my own devices, without opening ports, exposing IPs, or worrying about who might stumble across them on the internet.
