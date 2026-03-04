@@ -32,13 +32,13 @@ Not public domains:
 youtube.com
 ```
 
-Not private domains:
+Not my private domains either:
 
 ```text
 private.clooney.io
 ```
 
-Even stranger: resetting the DNS server in macOS network settings instantly fixed the issue.
+Even stranger: clearing DNS cache did nothing to fix this but resetting the DNS server in macOS network settings instantly fixed the issue.
 
 After digging deeper, the problem turned out to be a **split DNS resolver state corruption on macOS** combined with a fairly complex DNS path involving Tailscale and a containerized Pi-hole.
 
@@ -47,6 +47,8 @@ After digging deeper, the problem turned out to be a **split DNS resolver state 
 ---
 
 ## My Setup
+
+> See detailed explainer in my [Private Ingress Engine](/posts/a-everywhere-accessible-but-publicly-invisible-ingress-engine/) post
 
 My machines run inside a Tailscale tailnet and use custom DNS.
 
@@ -74,7 +76,7 @@ The Pi-hole instance itself runs in a container on another machine:
 MacBook Pro
  └─ Docker container
      └─ Pi-hole
-         └─ connected to Tailscale (service mode)
+         └─ connected to a Tailscale container (service mode)
 ```
 
 So DNS resolution actually travels through multiple layers:
@@ -102,6 +104,7 @@ When the issue occurred, the system behaved like this:
 | `ping 1.1.1.1`   | ✅ works |
 | `ssh server`     | ✅ works |
 | `dig google.com` | ✅ works |
+| `dns-sd -G v4 google.com` | ❌ fails |
 | Safari           | ❌ fails |
 | Firefox          | ❌ fails |
 | private domains  | ❌ fails |
@@ -179,6 +182,7 @@ Which resulted in behavior like:
 | `dig`    | works  |
 | `ping`   | works  |
 | `ssh`    | works  |
+| `dns-sd`    | fails  |
 | browsers | fail   |
 
 This explains why the machine appeared healthy while browsers were broken.
