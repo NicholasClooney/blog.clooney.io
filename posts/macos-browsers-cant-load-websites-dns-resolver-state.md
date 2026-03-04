@@ -15,7 +15,7 @@ excerpt: |
   Browsers failing while `ping`, `ssh`, and `dig` still work can point to a split macOS resolver failure. In this post, I break down how a Tailscale + Pi-hole setup triggered resolver state corruption and how resetting DNS settings immediately fixed it.
 ---
 
-I recently ran into a strange networking issue on macOS while running a custom DNS setup with **Tailscale and Pi-hole**.
+I recently ran into a strange networking issue on macOS while running a custom DNS setup with **Tailscale and Pi-hole** - aka. my [Private Ingress Engine](/posts/a-everywhere-accessible-but-publicly-invisible-ingress-engine/).
 
 The machine clearly had network connectivity:
 
