@@ -12,15 +12,17 @@ excerpt: |
   A practical overview of Zig, from its C-replacement goals and LLVM backend to its toolchain design, cross-compilation model, and appeal for systems and CLI software.
 ---
 
+> **Editor's note:** The first version of this article was written with AI assistance — specifically as the result of a conversation with ChatGPT — and then revised for factual accuracy with Claude. If you spot anything incorrect or out of date, please do leave a comment and let me know. I'm not a Zig expert, and the language is actively evolving.
+
 Over the past few years, **Zig** has gained increasing attention in systems programming circles. It is often described as a **modern alternative to C**, but the language and its ecosystem actually aim to address a broader set of problems: simplifying the systems programming toolchain, improving cross-compilation, and giving developers explicit control over performance and concurrency.
 
-This article summarizes what Zig is, how it works, how it compares to languages like Swift, and why it is gaining traction for infrastructure and systems tooling.
+This article summarises what Zig is, how it works, how it compares to languages like Swift, and why it is gaining traction for infrastructure and systems tooling.
 
 [[toc]]
 
 ## What is Zig?
 
-Zig is a systems programming language created by **Andrew Kelley** around 2015. Its design goals include:
+Zig is a systems programming language created by **Andrew Kelley** around 2016. Its design goals include:
 
 - **C-like performance**
 - **Explicit memory management**
@@ -39,6 +41,8 @@ C
 ↓ modernize
 Zig
 ```
+
+Worth noting: this framing understates Zig slightly. Features like `comptime` and structured error handling give Zig capabilities that go meaningfully beyond C — it's not purely a simplification, but a rethinking.
 
 Zig is not trying to replace languages like Rust or Go. Instead, its stated goal is much more specific:
 
@@ -175,8 +179,8 @@ Both Zig and Swift use LLVM, but their designs differ significantly.
 | Compiler backend | LLVM | LLVM |
 | Runtime | minimal | substantial runtime |
 | Memory model | manual | ARC |
-| Concurrency | primitives only | structured concurrency |
-| Task scheduling | manual | runtime managed |
+| Concurrency | std.Io (see below) | structured concurrency |
+| Task scheduling | user-defined or std.Io impl | runtime managed |
 
 Swift provides a high-level runtime including:
 
@@ -185,13 +189,9 @@ Swift provides a high-level runtime including:
 - task scheduling
 - automatic reference counting
 
-Zig intentionally avoids these abstractions.
+Zig intentionally avoids baking these abstractions into the language itself.
 
 ## Concurrency in Zig
-
-Zig does not provide a built-in concurrency runtime like Swift or Go.
-
-Instead, it exposes **low-level primitives** that developers can build upon.
 
 ### Threads
 
@@ -210,43 +210,49 @@ pub fn main() !void {
 }
 ```
 
-This maps directly to:
+This maps directly to POSIX threads on Linux/macOS and Windows threads on Windows.
 
-- POSIX threads
-- Windows threads
+### Async I/O: The New Model
 
-### Async / Await
+Zig's approach to async has evolved significantly. The old coroutine-based `async`/`await` syntax was removed from the language in 2024, and a new model — `std.Io` — landed in late 2025 and is slated for Zig 0.16.0.
 
-Zig also supports async functions.
+The new design is worth understanding, because it reflects Zig's philosophy well.
 
-However, its async model is **coroutine-based**, not runtime-scheduled.
-
-Example:
+The key idea is that I/O is abstracted behind a `std.Io` interface, similar to how memory allocation is abstracted behind `std.mem.Allocator`. You set up an I/O implementation once in `main()`, and pass it through your application:
 
 ```zig
-async fn handle_connection(socket: Socket) void {
-    const data = await socket.read();
-    await socket.write(data);
-}
+var threaded: std.Io.Threaded = .init(gpa);
+defer threaded.deinit();
+const io = threaded.io();
 ```
 
-In Zig:
+Async work is then expressed as:
 
+```zig
+var a = io.async(doWork, .{ io, "task a" });
+var b = io.async(doWork, .{ io, "task b" });
+
+a.await(io);
+b.await(io);
 ```
-async function
-   ↓
-compiled to coroutine state machine
-   ↓
-user-defined scheduler resumes execution
+
+`io.async` decouples the *calling* of a function from the *returning* of it. The new model also introduces a meaningful distinction between **asynchrony** and **concurrency**:
+
+- `io.async` — expresses that work can overlap, but does not guarantee parallel execution
+- `io.concurrent` — explicitly requests concurrent execution (may return `error.ConcurrencyUnavailable`)
+
+This distinction matters. An async task on a single-threaded I/O backend can deadlock if it expects to run in parallel with another task; `io.concurrent` makes that requirement explicit and failable.
+
+Cancellation is also a first-class primitive, designed to work naturally with Zig's `defer`:
+
+```zig
+var a = io.async(doWork, .{ gpa, io, "task a" });
+defer a.cancel(io) catch {};
 ```
 
-Unlike Swift or Go:
+This means if an error causes early return, outstanding tasks are cleaned up automatically.
 
-- Zig does **not** provide a task scheduler
-- Zig does **not** provide thread pools
-- Zig does **not** provide goroutines
-
-The programmer decides how tasks are scheduled.
+The `std.Io` interface is still evolving — IoUring and KQueue backends are in progress — but the design direction is clear: async I/O in Zig remains **explicit and composable**, with the scheduler chosen at the application level rather than baked into the language runtime.
 
 ## Why Systems Engineers Prefer This Model
 
@@ -275,9 +281,7 @@ The goal is to avoid:
 - cross-thread communication
 - unpredictable scheduling
 
-General-purpose runtimes may move tasks between threads automatically, which can break performance guarantees.
-
-Zig allows developers to build **custom runtimes tailored to their system**.
+General-purpose runtimes may move tasks between threads automatically, which can break performance guarantees. Zig's `std.Io` model — where the I/O implementation is chosen and configured explicitly — lets developers build scheduling strategies tailored to their system, rather than working around a runtime's assumptions.
 
 ## Real Systems Built with Zig
 
@@ -295,21 +299,11 @@ These systems benefit from:
 
 ## Why Zig is Popular for CLI Tools
 
-Zig has also become popular for command-line utilities.
-
-Several characteristics make it well suited for CLI development.
+Zig has also become popular for command-line utilities. Several characteristics make it well suited for CLI development.
 
 ### Small Binaries
 
-Zig produces extremely small static binaries.
-
-Typical sizes:
-
-| Language | Binary Size |
-| -------- | ----------- |
-| Rust | 8-15 MB |
-| Go | 6-10 MB |
-| Zig | ~1-2 MB |
+Zig produces extremely small static binaries. As a rough guide, Zig binaries tend to be in the low single-digit megabytes — often smaller than equivalent Go or Rust binaries, though exact sizes vary significantly based on build settings and what's included.
 
 ### Fast Startup
 
@@ -319,9 +313,7 @@ Because Zig has:
 - minimal runtime
 - minimal initialization
 
-programs start almost instantly.
-
-This is ideal for CLI tools that run briefly.
+programs start almost instantly. This is ideal for CLI tools that run briefly.
 
 ### Easy Distribution
 
@@ -337,11 +329,7 @@ No external dependencies are required.
 
 ## Compile-Time Execution (`comptime`)
 
-Zig also includes a powerful feature called **comptime**.
-
-Parts of a program can run during compilation.
-
-Example:
+Zig includes a powerful feature called **comptime**: parts of a program can run during compilation.
 
 ```zig
 fn add(comptime T: type, a: T, b: T) T {
@@ -349,20 +337,15 @@ fn add(comptime T: type, a: T, b: T) T {
 }
 ```
 
-This allows:
+This allows generics, compile-time validation, code generation, and reflection. But what makes `comptime` notable isn't just what it does — it's *how* it does it.
 
-- generics
-- compile-time validation
-- code generation
-- reflection
+Languages like C++ achieve similar outcomes through templates, a separate compile-time mini-language with notoriously complex syntax. Rust uses procedural macros, which are effectively separate programs. Zig's `comptime` replaces all of this with a single mechanism: **normal Zig code that runs at compile time**. There's no separate syntax to learn, no macro system, no template specialisation rules. The same language you write runtime code in is the language you write compile-time code in.
 
-Unlike C++ templates, comptime simply runs **normal code during compilation**.
+This is one of Zig's most genuinely novel contributions to language design.
 
 ## Zig as a Modern Systems Toolchain
 
-The most ambitious part of Zig is not just the language itself.
-
-It is the attempt to modernize the **entire systems programming toolchain**.
+The most ambitious part of Zig is not just the language itself, but the attempt to modernise the **entire systems programming toolchain**.
 
 Traditional C ecosystems accumulated decades of complexity:
 
@@ -383,7 +366,7 @@ zig
 
 ## Final Thoughts
 
-Zig sits in an interesting space in the programming language landscape.
+Zig sits in an interesting space in the programming language landscape:
 
 ```
 Swift → application systems language
@@ -391,19 +374,6 @@ Rust  → safe systems language
 Zig   → modern C replacement
 ```
 
-Rather than competing directly with high-level languages, Zig focuses on improving the **foundations of systems programming**:
+Rather than competing directly with high-level languages, Zig focuses on improving the **foundations of systems programming**: simpler toolchains, explicit control, reproducible builds, and portable compilation.
 
-- simpler toolchains
-- explicit control
-- reproducible builds
-- portable compilation
-
-As a result, many engineers are exploring Zig for building:
-
-- infrastructure tools
-- databases
-- proxies
-- build systems
-- networking software
-
-Whether it ultimately replaces C remains to be seen, but it is already reshaping how developers think about the systems programming toolchain.
+The language is still maturing — the async I/O story alone has gone through multiple design iterations — but the direction is consistent. Whether it ultimately replaces C remains to be seen, but it is already reshaping how developers think about the systems programming toolchain.
