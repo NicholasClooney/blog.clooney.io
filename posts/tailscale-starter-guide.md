@@ -1,5 +1,5 @@
 ---
-title: "A Short Guide to Tailscale: Secure Networking Made Simple"
+title: "A Not So Short Guide to Tailscale: Secure Networking Made Simple"
 date: 2025-10-01
 eleventyNavigation:
   key: tailscale-starter-guide
