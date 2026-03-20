@@ -43,7 +43,7 @@ active:
     url: https://etho.clooney.io/
     repo: https://github.com/TheClooneyCollection/project-etho
     image:
-      src: /assets/project-etho.png
+      src: /assets/images/projects/project-etho.png
       alt: Screenshot of Project Etho showing the January 2026 timeline and video cards
     tech:
       - Eleventy
@@ -60,7 +60,7 @@ active:
     url: null
     repo: https://github.com/TheClooneyCollection/private-ingress-engine-template
     image:
-      src: /assets/private-ingress-engine-diagram.png
+      src: /assets/images/projects/private-ingress-engine-diagram.png
       alt: Private Ingress Engine Diagram
     tech:
       - Docker
