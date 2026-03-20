@@ -36,11 +36,11 @@ As you can see, it is a pretty complicated task. I wasn't expecting perfection. 
 
 <img
   alt= "GPT Prompt Part 1"
-  src="/assets/gpt-instructions-1.png"
+  src="/assets/images/posts/gpt-umami/gpt-instructions-1.png"
 />
 <img
   alt= "GPT Prompt Part 2"
-  src="/assets/gpt-instructions-2.png"
+  src="/assets/images/posts/gpt-umami/gpt-instructions-2.png"
 />
 
 But GPT delivered! OVER DELIVERED!
@@ -49,7 +49,7 @@ Here’s GPT mapping the work into a multi-step plan before touching a single fi
 
 <img
   alt= "GPT Planning the Workflow"
-  src="/assets/gpt-making-plans.png"
+  src="/assets/images/posts/gpt-umami/gpt-making-plans.png"
 />
 
 ---
@@ -66,7 +66,7 @@ What really impressed me was how well it handled the more intricate instructions
 
 <img
   alt= "GPT Reading the Repos"
-  src="/assets/gpt-reading.png"
+  src="/assets/images/posts/gpt-umami/gpt-reading.png"
 />
 
 - It ran shell commands when needed to inspect files and capture commit SHAs:
@@ -75,14 +75,14 @@ What really impressed me was how well it handled the more intricate instructions
 
 <img
   alt= "GPT Running Commands"
-  src="/assets/gpt-running-commands.png"
+  src="/assets/images/posts/gpt-umami/gpt-running-commands.png"
 />
 
 - And it assembled an outline that matched what I’d been procrastinating on:
 
 <img
   alt= "GPT Drafting the Outline"
-  src="/assets/gpt-drafting-outline.png"
+  src="/assets/images/posts/gpt-umami/gpt-drafting-outline.png"
 />
 
 
