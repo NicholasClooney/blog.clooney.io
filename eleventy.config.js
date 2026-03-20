@@ -220,7 +220,7 @@ const fetchTextWithCacheRecovery = async (url, options = {}, context = {}) => {
   }
 };
 
-const markTodoBlockquotes = (tokens = []) => {
+const markTodoBlockquotes = (tokens = [], isProductionBuild = false) => {
   for (let i = 0; i < tokens.length; i += 1) {
     const token = tokens[i];
     if (!token || token.type !== 'blockquote_open') continue;
@@ -238,11 +238,16 @@ const markTodoBlockquotes = (tokens = []) => {
 
     if (/\bTODO\b/i.test(text)) {
       token.attrJoin('class', 'todo-quote');
+      if (isProductionBuild) {
+        token.attrSet('hidden', '');
+      }
     }
 
     if (j > i) i = j;
   }
 };
+
+const isProductionBuild = process.env.ELEVENTY_ENV === 'production';
 
 const md = new MarkdownIt({
   html: true,
@@ -276,11 +281,9 @@ const md = new MarkdownIt({
     slugify,
   });
 
-if (process.env.ELEVENTY_ENV !== 'production') {
-  md.core.ruler.after('block', 'todo-blockquotes', (state) => {
-    markTodoBlockquotes(state.tokens);
-  });
-}
+md.core.ruler.after('block', 'todo-blockquotes', (state) => {
+  markTodoBlockquotes(state.tokens, isProductionBuild);
+});
 
 export default function (eleventyConfig) {
   const shouldSkipHref = (href) => {
