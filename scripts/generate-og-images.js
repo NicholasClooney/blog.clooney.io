@@ -277,14 +277,14 @@ function createHashForPost(data) {
 }
 
 async function collectPosts() {
-  const files = await readdir(POSTS_DIR, { withFileTypes: true });
+  const files = await readdir(POSTS_DIR, { withFileTypes: true, recursive: true });
   const markdownFiles = files.filter(
     (entry) => entry.isFile() && entry.name.endsWith('.md'),
   );
   const posts = [];
 
   for (const file of markdownFiles) {
-    const filePath = path.join(POSTS_DIR, file.name);
+    const filePath = path.join(file.parentPath, file.name);
     const slug = path.basename(file.name, path.extname(file.name));
     const raw = await readFile(filePath, 'utf8');
     const { data, content } = matter(raw);
