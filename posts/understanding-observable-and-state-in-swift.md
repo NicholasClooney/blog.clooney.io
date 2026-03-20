@@ -37,6 +37,9 @@ A coordinator that tracks a drag gesture: which habit is being dragged, where it
 
 For each stored property (`draggedHabit`, `dragLocation`, `pendingDrop`), the macro rewrites the property into a computed accessor backed by private storage and routed through an `ObservationRegistrar`:
 
+<img alt="Diagram showing how the @Observable macro expands stored properties into tracked accessors backed by an ObservationRegistrar" src="/assets/images/posts/swift-observable/observable_macro_expansion.svg" />
+
+
 ```swift
 // Synthesised by the macro; you never write this yourself
 
