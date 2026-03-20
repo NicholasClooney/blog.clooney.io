@@ -32,7 +32,7 @@ It looked like this:
 
 <img
   alt= "My Iterm Setup"
-  src="/assets/my-iterm-setup.png"
+  src="/assets/images/posts/iphone-ssh/my-iterm-setup.png"
 />
 
 
@@ -84,7 +84,7 @@ Once the Mac and iPhone joined the same tailnet, Instantly, both devices had pri
 
 <img
   alt= "Tailscale iOS App"
-  src="/assets/tailscale-iOS.jpeg"
+  src="/assets/images/posts/iphone-ssh/tailscale-iOS.jpeg"
   eleventy:widths="360"
   eleventy:sizes="360px"
 />
@@ -95,7 +95,7 @@ Being able to whisper `ssh/mosh nicholas@<tailscale-ip>` and drop straight into 
 
 <img
   alt= "SSH"
-  src="/assets/ssh.jpg"
+  src="/assets/images/posts/iphone-ssh/ssh.jpg"
   eleventy:widths="360"
   eleventy:sizes="360px"
 />
@@ -109,7 +109,7 @@ Serve (or Funnel) can still publish to my tailnet if I ever need it for things l
 
 <img
   alt= "Tailscale Serve"
-  src="/assets/tailscale-serve.jpg"
+  src="/assets/images/posts/iphone-ssh/tailscale-serve.jpg"
   eleventy:widths="360"
   eleventy:sizes="360px"
 />
@@ -158,13 +158,13 @@ Same tmux "screen" (Codex). Just different sizes.
 
 <img
   alt= "Codex Mac"
-  src="/assets/codex-mac.png"
+  src="/assets/images/posts/iphone-ssh/codex-mac.png"
   eleventy:widths="360"
   eleventy:sizes="360px"
 />
 <img
   alt= "Codex iPhone"
-  src="/assets/codex-iPhone.jpeg"
+  src="/assets/images/posts/iphone-ssh/codex-iPhone.jpeg"
   eleventy:widths="240"
   eleventy:sizes="240px"
 />
