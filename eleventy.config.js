@@ -18,6 +18,7 @@ import yaml from 'js-yaml';
 import excerpt from './lib/excerpt.js';
 
 const OG_FORCE_ENV = process.env.OG_FORCE === 'true';
+const ELEVENTY_FETCH_CACHE_DIR = path.resolve('.cache');
 
 const parseBlobUrl = (githubBlobUrl) => {
   const url = new URL(githubBlobUrl);
@@ -132,6 +133,90 @@ const loadSiteData = () => {
     return data && typeof data === 'object' ? data : {};
   } catch {
     return {};
+  }
+};
+
+const isEleventyFetchMetadataFile = (entryName) =>
+  typeof entryName === 'string' &&
+  entryName.startsWith('eleventy-fetch-') &&
+  path.extname(entryName) === '';
+
+const isEleventyFetchCacheParseError = (error) =>
+  error instanceof SyntaxError &&
+  typeof error.message === 'string' &&
+  error.message.includes('after JSON');
+
+const looksLikeGitCommitRef = (value) =>
+  typeof value === 'string' && /^[a-f0-9]{40}$/i.test(value);
+
+const removeCorruptEleventyFetchCacheEntries = (
+  cacheDir = ELEVENTY_FETCH_CACHE_DIR,
+) => {
+  if (!fs.existsSync(cacheDir)) return [];
+
+  const removed = [];
+  const entries = fs.readdirSync(cacheDir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    if (!entry.isFile() || !isEleventyFetchMetadataFile(entry.name)) {
+      continue;
+    }
+
+    const metadataPath = path.join(cacheDir, entry.name);
+    try {
+      JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
+    } catch {
+      removed.push(entry.name);
+
+      for (const sibling of fs.readdirSync(cacheDir)) {
+        if (sibling === entry.name || sibling.startsWith(`${entry.name}.`)) {
+          fs.rmSync(path.join(cacheDir, sibling), { force: true });
+        }
+      }
+    }
+  }
+
+  return removed;
+};
+
+const fetchTextWithCacheRecovery = async (url, options = {}, context = {}) => {
+  try {
+    try {
+      return await EleventyFetch(url, {
+        ...options,
+        type: 'text',
+      });
+    } catch (error) {
+      if (!isEleventyFetchCacheParseError(error)) {
+        throw error;
+      }
+
+      const removed = removeCorruptEleventyFetchCacheEntries();
+      if (removed.length === 0) {
+        throw error;
+      }
+
+      console.warn(
+        `[11ty/github] Removed corrupt eleventy-fetch cache entries: ${removed.join(', ')}`,
+      );
+
+      return EleventyFetch(url, {
+        ...options,
+        type: 'text',
+      });
+    }
+  } catch (error) {
+    if (
+      looksLikeGitCommitRef(context.gitRef) &&
+      typeof error?.message === 'string' &&
+      error.message.includes('Bad response')
+    ) {
+      console.warn(
+        `[11ty/github] Failed to fetch GitHub content for commit ${context.gitRef}. Do you have commits not in the remote?`,
+      );
+    }
+
+    throw error;
   }
 };
 
@@ -294,9 +379,10 @@ export default function (eleventyConfig) {
     async function (url, style = 'light') {
       const meta = parseBlobUrl(url);
 
-      const fetched = await EleventyFetch(meta.raw, {
+      const fetched = await fetchTextWithCacheRecovery(meta.raw, {
         duration: '1d',
-        type: 'text',
+      }, {
+        gitRef: meta.branch,
       });
       const source = typeof fetched === 'string' ? fetched : String(fetched);
 
