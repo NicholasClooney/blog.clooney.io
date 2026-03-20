@@ -1,6 +1,4 @@
 ---
-draft: true
-
 title: "Building ProjectDawn with Claude and Codex: An AI-Assisted iOS Devlog Deep Dive"
 date: 2026-03-19
 eleventyNavigation:
@@ -21,6 +19,8 @@ This post is part personal log, part technical retrospective. It covers the tool
 [[toc]]
 
 ## What Is ProjectDawn?
+
+> TODO: pics here pls
 
 ProjectDawn is a daily habit logging app with a simple, opinionated premise: **if it's on the timeline, it happened.** No reminders, no streaks, no gamification. Just a vertical timeline for your day and a tray of habits you can drag onto it. Logging a habit is a physical gesture: drag, drop, done.
 
