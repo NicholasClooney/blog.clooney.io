@@ -85,7 +85,7 @@ In my setup, everything runs in Docker. Tailscale runs in Docker (though it's ju
 
 <img
   alt= "Dockhand - Containers"
-  src="/assets/dockhand-containers.png"
+  src="/assets/images/posts/private-ingress/dockhand-containers.png"
 />
 
 On top of that, I managed to eliminate local host port mappings entirely by using a shared network interface across these containers. No exposed ports on the host, no loose ends.
@@ -109,7 +109,7 @@ Private Ingress Engine puts Caddy and your apps behind a Tailscale-only boundary
 
 <img
   alt= "Private Ingress Diagram"
-  src="/assets/private-ingress-diagram.png"
+  src="/assets/images/posts/private-ingress/private-ingress-diagram.png"
 />
 
 - Caddy is the ingress point for your private services.
@@ -202,7 +202,7 @@ Concrete rewrite example:
 
 <img
   alt="DNS Rewrites in NextDNS"
-  src="/assets/nextdns-rewrites.png"
+  src="/assets/images/posts/private-ingress/nextdns-rewrites.png"
 />
 
 #### Option 2: Pi-hole + Tailscale DNS

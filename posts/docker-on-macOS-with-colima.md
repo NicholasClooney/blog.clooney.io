@@ -87,7 +87,7 @@ docker run --rm hello-world
 
 <img
   alt= "Docker Hello World"
-  src="/assets/docker-hello-world.png"
+  src="/assets/images/posts/docker-colima/docker-hello-world.png"
 />
 
 Runs a test container and removes it immediately when finished (`--rm` flag).

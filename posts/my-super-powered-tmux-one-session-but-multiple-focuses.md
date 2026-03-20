@@ -91,14 +91,14 @@ When the MacBook Pro is churning through a heavy build in the study, I flip open
 
 <img
   alt="Monitoring my MacBook from the iPad via tmux and macmon"
-  src="/assets/tmux-on-iPad.jpeg"
+  src="/assets/images/posts/tmux-focus/tmux-on-iPad.jpeg"
 />
 
 Back on the Mac, Mission Control gives each desktop its own grouped session so I can dedicate full-screen spaces to specific projects. This is what a pair of grouped sessions looks like—same windows, each with its own focus.
 
 <img
   alt="Two grouped tmux sessions on macOS with independent focuses"
-  src="/assets/tmux-on-mac.png"
+  src="/assets/images/posts/tmux-focus/tmux-on-mac.png"
 />
 
 ## Quality-of-life tweaks

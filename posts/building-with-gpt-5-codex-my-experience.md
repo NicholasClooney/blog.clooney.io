@@ -44,7 +44,7 @@ One of the best moments was asking Codex to transform my private projects, as sh
 - Project: https://github.com/TheClooneyCollection/project-luna
 - Demo: https://princessluna.pages.dev/
 
-<img height="450" alt="image" src="/assets/project-luna.png" />
+<img height="450" alt="image" src="/assets/images/projects/project-luna.png" />
 
 Started as a personal tool for my own cat, Luna. With Codex’s help, it quickly became a polished, shareable template for anyone who needs a lost pet page. My role was sketching the structure and clarifying how details should be presented, while Codex handled renaming and layout.
 
@@ -53,7 +53,7 @@ Started as a personal tool for my own cat, Luna. With Codex’s help, it quickly
 - Project: https://github.com/TheClooneyCollection/project-joy
 - Demo: https://project-joy.pages.dev/
 
-<img height="450" alt="image" src="/assets/project-joy.png" />
+<img height="450" alt="image" src="/assets/images/projects/project-joy.png" />
 
 
 What began as a simple HTML/CSS surprise gift became an interactive, styled 11ty site with animations and hover effects. I provided the concept and nudged the creative direction; Codex generated the styling and made the site feel polished.
@@ -63,8 +63,8 @@ What began as a simple HTML/CSS surprise gift became an interactive, styled 11ty
 - Project: https://github.com/TheClooneyCollection/project-top-secret
 - Demo: https://project-top-secret.pages.dev/
 
-<img height="450" alt="image" src="/assets/project-top-secret-gate.png" />
-<img height="450" alt="image" src="/assets/project-top-secret-unlocked.png" />
+<img height="450" alt="image" src="/assets/images/projects/project-top-secret-gate.png" />
+<img height="450" alt="image" src="/assets/images/projects/project-top-secret-unlocked.png" />
 
 
 To keep the birthday content semi-private, I built an encryption/decryption setup — Node.js for encrypting, and a browser Q&A for decrypting. I set the goals and requirements, while Codex wrote most of the boilerplate and ensured the flow was secure but simple.
@@ -74,7 +74,7 @@ To keep the birthday content semi-private, I built an encryption/decryption setu
 - Project: https://github.com/NicholasClooney/11ty-subspace-builder
 - Demo: https://blog.nicholas.clooney.io/
 
-<img height="450" alt="image" src="/assets/blog.png" />
+<img height="450" alt="image" src="/assets/images/projects/blog.png" />
 
 Built as a fast Eleventy blog starter with Tachyons utility classes. It includes theme switching, accessible navigation, and a responsive layout. My focus was creating a flexible, theme-aware base while Codex handled the structure and reusable components.
 
