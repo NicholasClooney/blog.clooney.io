@@ -2,7 +2,7 @@ profile:
   name: Nicholas Clooney
   role: # Developer experience & static site tinkering
   image:
-    src: /assets/images/nicholas.jpeg
+    src: /assets/images/profile/nicholas.jpeg
     alt: Portrait placeholder for Nicholas Clooney
 intro:
   paragraphs:
