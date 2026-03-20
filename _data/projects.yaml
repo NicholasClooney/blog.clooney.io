@@ -7,7 +7,7 @@ active:
     url: https://subspace-builder.nicholas.clooney.io/
     repo: https://github.com/TheClooneyCollection/11ty-subspace-builder
     image:
-      src: /assets/subspace-builder-v1.12.0.png
+      src: /assets/images/projects/subspace-builder-v1.12.0.png
       alt: Screenshot of the 11ty Subspace Builder homepage with recent posts listed
     tech:
       - Eleventy
@@ -26,7 +26,7 @@ active:
     url: https://blog.nicholas.clooney.io/
     repo: https://github.com/NicholasClooney/blog.clooney.io
     image:
-      src: /assets/digital-garden.png
+      src: /assets/images/projects/digital-garden.png
       alt: Screenshot of Nicholas Clooney’s digital garden about page in the blue theme
     tech:
       - Eleventy
@@ -71,7 +71,7 @@ active:
     url: null
     repo: https://github.com/NicholasClooney/ansible-role-umami
     image:
-      src: /assets/umami.png
+      src: /assets/images/projects/umami.png
       alt: Screenshot of an Umami analytics dashboard showing Subspace Builder metrics
     tech:
       - Ansible

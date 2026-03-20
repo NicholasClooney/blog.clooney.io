@@ -237,10 +237,10 @@ const markTodoBlockquotes = (tokens = [], isProductionBuild = false) => {
     }
 
     if (/\bTODO\b/i.test(text)) {
-      token.attrJoin('class', 'todo-quote');
-      if (isProductionBuild) {
-        token.attrJoin('class', 'prod');
-      }
+      token.attrSet(
+        'class',
+        isProductionBuild ? 'todo-quote prod' : 'todo-quote',
+      );
     }
 
     if (j > i) i = j;
