@@ -20,7 +20,9 @@ This post is part personal log, part technical retrospective. It covers the tool
 
 ## What Is ProjectDawn?
 
-> TODO: pics here pls
+| Overview | Expanded habit tray |
+| --- | --- |
+| <img alt="ProjectDawn main timeline view with logged habits and the collapsed tray at the bottom" src="/assets/images/posts/building-project-dawn/overview.png" style="display: block; margin: 0 auto; max-height: 400px; width: auto; max-width: 100%;" /> | <img alt="ProjectDawn habit library shown as an expanded bottom sheet over the timeline" src="/assets/images/posts/building-project-dawn/expanded-sheet.png" style="display: block; margin: 0 auto; max-height: 400px; width: auto; max-width: 100%;" /> |
 
 ProjectDawn is a daily habit logging app with a simple, opinionated premise: **if it's on the timeline, it happened.** No reminders, no streaks, no gamification. Just a vertical timeline for your day and a tray of habits you can drag onto it. Logging a habit is a physical gesture: drag, drop, done.
 
@@ -31,6 +33,11 @@ It's a small app with a focused scope, but the interactions between the tray and
 ## The Tech Stack
 
 ### Claude + Codex: A Division of Labor
+
+<img
+  alt="Claude and Codex working side by side in a tmux session while building ProjectDawn"
+  src="/assets/images/posts/building-project-dawn/claude-and-codex.png"
+/>
 
 I used two different AI tools throughout this project, and the division emerged naturally from how each one felt to work with.
 
@@ -91,6 +98,11 @@ Before any code is written, I use both to think out loud. What is this app actua
 **2. UI mockups and component decisions.**
 Both Claude and Codex can produce rough UI mockups directly in their chat interfaces, which is useful for validating layout ideas fast. More importantly, this is where I lock in the native component decisions: which SwiftUI primitives to reach for and which to avoid. For ProjectDawn, this is where the choice to use a persistent `.sheet` for the habit tray was made (and, as it turned out, where a future footgun was quietly loaded).
 
+<img
+  alt="ProjectDawn UI and interaction mockups showing the default state, dragging state, and placed state"
+  src="/assets/images/posts/building-project-dawn/ui-ux.png"
+/>
+
 **3. PRD.**
 Once the concept is validated, I ask Claude to write a formal Product Requirements Document. I read it carefully, push back where something is wrong or missing, and iterate until it accurately reflects what I want to build. This document becomes the north star for everything that follows.
 
@@ -108,15 +120,15 @@ Code review happens one of a few ways depending on what I'm looking at: reading 
 
 ### Structure Guides Quality
 
-One thing that took me a while to appreciate: the structure you set up around AI-generated code has a big effect on the quality of what comes out.
+The most important thing is you can set up around AI-generated code is the structure and it has a huge impact on the quality of what comes out.
 
-For this personal project, the bar is deliberately lower. But for production-grade projects, I set up linters, formatters, and automation before writing a line of code: [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) and [SwiftLint](https://github.com/realm/SwiftLint) for style and idioms, CI/CD pipelines, and [Danger](https://danger.systems/) to enforce test coverage and flag undocumented changes. When those guardrails are in place, the AI's output has to pass them too. It produces more consistent code not because you asked nicely, but because the tools enforce it automatically.
+For this personal project, the bar is deliberately lower. But for production-grade projects, I set up linters, formatters, and automation, i.e. [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) and [SwiftLint](https://github.com/realm/SwiftLint) for style and idioms, CI/CD pipelines, and [Danger](https://danger.systems/) to enforce test coverage and flag undocumented changes. When those guardrails are in place, the AI's output has to pass them too. It produces more consistent code not because you asked nicely, but because the tools enforce it automatically.
 
-The lesson: if you want AI-generated code that meets a certain standard, make that standard enforceable by tooling, not just by eye.
+The key takeaway: if you want AI-generated code that meets a certain standard, make that standard enforceable by tooling, not just by eye.
 
-## The Part That Actually Works (and Impressed Me)
+## The Part That Works and Quite Impressive
 
-The interaction that surprised me most was the drag coordination between the habit tray and the timeline, and the fact that it works cleanly across two separate modules.
+The design and implementation that surprised me the most was the drag coordination between the habit tray and the timeline, and the fact that it works cleanly across two separate modules. Claude has done a fantastic job producing a technical design document laying out how the components should interact with concrete coding to support its ideas.
 
 When a user drags a habit pill from the tray, the gesture originates inside `HabitTray`. But the drop target (the time slot grid) lives inside `Timeline`. These are different modules, compiled as separate static frameworks, with no direct dependency between them. The app needs to somehow pass "a habit is being dragged, and it's currently hovering over slot 34" from one side to the other in real time.
 
@@ -130,7 +142,7 @@ The solution is a shared `HabitDragCoordinator` in the `Interaction` module, an 
 
 The result: dragging a pill from the tray causes time slots in the timeline to highlight in real time, with a haptic snap on each slot transition. When the finger lifts, `DayView` reads the hovered slot, computes the exact timestamp, and inserts a `HabitInstance` into SwiftData. The tray doesn't know about the timeline. The timeline doesn't know about the tray. `DayView` acts as the coordinator of coordinators.
 
-I did not write a single line of that wiring. Claude designed the architecture; Codex implemented it. The fact that it works the first time you run it, with the haptics and the highlight and the drop all feeling right, was genuinely one of those moments where you look at the screen and think, _we actually built something_.
+I did not write a single line of that wiring. Claude designed the architecture; Codex implemented it. The fact that it works the first time you run it, with the haptics and the highlight and the drop all feeling right, was genuinely one of those moments where you look at the screen and think, _AI is certainly getting smarter everyday_.
 
 ## What I Learned Along the Way
 
@@ -144,6 +156,8 @@ That document shaped how Codex implemented the feature. Having it written down a
 
 The slowness is real, though. There were stretches where I was waiting on Claude to finish a planning pass and couldn't move forward. It's not a dealbreaker (thinking carefully takes time), but it's worth knowing this isn't a "vibe-code at 60 fps" kind of workflow.
 
+<video controls muted playsinline preload="metadata" aria-label="Screen recording showing Claude spending a long time thinking through ProjectDawn implementation details" style="width: 100%; height: auto;"><source src="/assets/images/posts/building-project-dawn/claude-thinking-a-lot.mp4" type="video/mp4" />Your browser does not support the video tag.</video>
+
 ### Gotcha #1: The GCD Trap
 
 One of the first places I had to step in was around concurrency. Claude had generated some timing logic using `DispatchQueue.main.async`, the old Grand Central Dispatch pattern that most modern Swift code has moved away from. It worked, but it was out of place in a codebase that was otherwise using `async/await` and `Task.sleep`.
@@ -152,7 +166,9 @@ It wasn't a _wrong_ choice exactly (GCD isn't broken), but it was an _inconsiste
 
 It illustrated something I kept coming back to: **the AI will choose the first plausible solution, not necessarily the idiomatic one.** You need a human in the loop who knows what "right" looks like in context.
 
-### Gotcha #2: The Sheet That Eats Your Alert
+### Gotcha #2: The Alert That Eats Your Sheet
+
+<video controls autoplay loop muted playsinline preload="metadata" aria-label="Screen recording showing the ProjectDawn delete confirmation bug in the timeline while the tray sheet is presented" style="display: block; margin: 0 auto; max-height: 400px; width: auto; max-width: 100%;"><source src="/assets/images/posts/building-project-dawn/bug.mp4" type="video/mp4" />Your browser does not support the video tag.</video>
 
 This one was more dramatic.
 
