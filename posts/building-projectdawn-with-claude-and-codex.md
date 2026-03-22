@@ -158,6 +158,8 @@ The slowness is real, though. There were stretches where I was waiting on Claude
 
 <video controls muted playsinline preload="metadata" aria-label="Screen recording showing Claude spending a long time thinking through ProjectDawn implementation details" style="width: 100%; height: auto;"><source src="/assets/images/posts/building-project-dawn/claude-thinking-a-lot.mp4" type="video/mp4" />Your browser does not support the video tag.</video>
 
+<p class="tc"><em>Claude thinking slowly.</em></p>
+
 ### Gotcha #1: The GCD Trap
 
 One of the first places I had to step in was around concurrency. Claude had generated some timing logic using `DispatchQueue.main.async`, the old Grand Central Dispatch pattern that most modern Swift code has moved away from. It worked, but it was out of place in a codebase that was otherwise using `async/await` and `Task.sleep`.
@@ -169,6 +171,8 @@ It illustrated something I kept coming back to: **the AI will choose the first p
 ### Gotcha #2: The Alert That Eats Your Sheet
 
 <video controls autoplay loop muted playsinline preload="metadata" aria-label="Screen recording showing the ProjectDawn delete confirmation bug in the timeline while the tray sheet is presented" style="display: block; margin: 0 auto; max-height: 400px; width: auto; max-width: 100%;"><source src="/assets/images/posts/building-project-dawn/bug.mp4" type="video/mp4" />Your browser does not support the video tag.</video>
+
+<p class="tc"><em>The alert eating the sheet live!</em></p>
 
 This one was more dramatic.
 
