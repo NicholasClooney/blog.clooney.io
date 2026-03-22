@@ -18,10 +18,10 @@ It was a lovely Sunday morning in London. I brought my MacBook Air outside and s
 
 [[toc]]
 
-# When DNS Was Innocent: Chasing a Parsec Failure Through TLS, VPNs, and a Phone Hotspot
+## Starting With the Wrong Suspect
 
 
-A familiar suspicion came to mind straight away. I thought I was running into the same kind of Tailscale DNS problem I had previously hit and documented in `macos-browsers-cant-load-websites-dns-resolver-state`. But as I dug further, it turned out to be something else entirely, and honestly, something much more surprising.
+A familiar suspicion came to mind straight away. I thought I was running into the same kind of Tailscale DNS problem I had previously hit and documented in [an earlier post about macOS browser resolver state](/posts/macos-browsers-cant-load-websites-dns-resolver-state/). But as I dug further, it turned out to be something else entirely, and honestly, something much more surprising.
 
 A strange networking bug showed up with a very convincing red herring.
 
