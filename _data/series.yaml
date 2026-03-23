@@ -1,4 +1,44 @@
 ---
+- id: swift-series
+  title: Swift & SwiftUI Series
+  intro: >
+    A new Swift series focused on practical SwiftUI mental models, commonly used components, state and
+    data flow, and patterns.
+  posts:
+    - /posts/understanding-observable-and-state-in-swift/
+
+- id: networking-infra
+  title: Networking & Infrastructure Series
+  intro: >
+    Posts about private networking, self-hosted infrastructure, Docker-on-macOS
+    workflows, and the real-world debugging stories that shaped how I run and
+    access my services.
+  posts:
+    - /posts/a-everywhere-accessible-but-publicly-invisible-ingress-engine/
+    - /posts/tailscale-starter-guide/
+    - /posts/how-tailscale-revolutionized-my-mobile-workflow/
+    - /posts/accidentally-exposed-my-umami-dashboard/
+    - /posts/macos-browsers-cant-load-websites-dns-resolver-state/
+    - /posts/parsec-hotspot-tls-investigation/
+    - /posts/deploying-umami-ansible-docker/
+    - /posts/debugging-umami/
+    - /posts/docker-on-macOS-with-colima/
+    - /posts/running-eleventy-puppeteer-docker-colima/
+    - /posts/networking-deep-dive/
+
+- id: ai-assisted-engineering
+  title: AI-Assisted Engineering Series
+  intro: >
+    A running set of posts on building with AI as a real collaborator, from
+    small site experiments and remote workflows to pair-writing and shipping
+    larger personal software projects.
+  posts:
+    - /posts/building-projectdawn-with-claude-and-codex/
+    - /posts/behind-the-scenes-gpt-umami-post/
+    - /posts/ssh-from-iPhone-to-Mac/
+    - /posts/building-with-gpt-5-codex-my-experience/
+    - /posts/building-my-own-subspace-builder/
+
 - id: subspace-builder
   title: Subspace Builder Series
   intro: >
