@@ -14,6 +14,14 @@ tags:
 
 Send Workers / Pages build status (succeeded / failed) to a webhook using Cloudflare Email Routing and an Email Worker as the glue layer. Discord is used as the example destination, but the same pattern works for Slack, Telegram, Linear, or any other service that accepts an incoming webhook.
 
+Here is the kind of Discord message this setup produces:
+
+<img
+  alt="Discord showing a Cloudflare Builds webhook message with a successful build embed"
+  src="/assets/images/posts/cloudflare-email-to-webhook/discord-webhook-message.png"
+  style="display: block; margin: 0 auto; width: 400px; height: auto; max-width: 100%;"
+/>
+
 [[toc]]
 
 ---
