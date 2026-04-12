@@ -11,7 +11,8 @@ main {
 html.theme[data-theme='grape'] main,
 html.theme[data-theme='deep-blue'] main,
 html.theme[data-theme='midnight'] main,
-html.theme[data-theme='charcoal'] main {
+html.theme[data-theme='charcoal'] main,
+html.theme[data-theme='terminal'] main {
   --hljs-fg: #c9d1d9;
   --hljs-comment: #8b949e;
   --hljs-keyword: #ff7b72;

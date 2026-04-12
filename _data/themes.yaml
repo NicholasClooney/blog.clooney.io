@@ -36,6 +36,15 @@
   accent: "#FFA3D7"
   project:
     tagActiveColor: "#2D113B"
+- id: charcoal
+  label: Charcoal (near-white / mid-gray)
+  classes:
+    - near-white
+    - bg-mid-gray
+  midtoneClass: light-silver
+  accent: "#CCCCCC"
+  project:
+    tagActiveColor: "#1A1A1A"
 - id: deep-blue
   label: Deep Blue (white / dark-blue)
   classes:
@@ -54,12 +63,12 @@
   accent: "#96CCFF"
   project:
     tagActiveColor: "#001B44"
-- id: charcoal
-  label: Charcoal (near-white / mid-gray)
+- id: terminal
+  label: Terminal (green / near-black)
   classes:
     - near-white
-    - bg-mid-gray
-  midtoneClass: light-silver
-  accent: "#CCCCCC"
+    - bg-near-black
+  midtoneClass: light-green
+  accent: "#33FF66"
   project:
-    tagActiveColor: "#1A1A1A"
+    tagActiveColor: "#0A2A0A"
