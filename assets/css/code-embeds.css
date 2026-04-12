@@ -130,26 +130,54 @@ html.theme[data-theme='terminal'] .gh-embed:not(.gh-embed--light) {
 
 .gh-embed--dark .gh-embed__copy,
 html.theme[data-theme='grape'] .gh-embed:not(.gh-embed--light) .gh-embed__copy,
-html.theme[data-theme='deep-blue'] .gh-embed:not(.gh-embed--light) .gh-embed__copy,
-html.theme[data-theme='midnight'] .gh-embed:not(.gh-embed--light) .gh-embed__copy,
-html.theme[data-theme='charcoal'] .gh-embed:not(.gh-embed--light) .gh-embed__copy,
-html.theme[data-theme='terminal'] .gh-embed:not(.gh-embed--light) .gh-embed__copy {
+html.theme[data-theme='deep-blue']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy,
+html.theme[data-theme='midnight']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy,
+html.theme[data-theme='charcoal']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy,
+html.theme[data-theme='terminal']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy {
   background: rgba(110, 118, 129, 0.12);
   border-color: rgba(110, 118, 129, 0.4);
 }
 
 .gh-embed--dark .gh-embed__copy:hover,
 .gh-embed--dark .gh-embed__copy:focus,
-html.theme[data-theme='grape'] .gh-embed:not(.gh-embed--light) .gh-embed__copy:hover,
-html.theme[data-theme='grape'] .gh-embed:not(.gh-embed--light) .gh-embed__copy:focus,
-html.theme[data-theme='deep-blue'] .gh-embed:not(.gh-embed--light) .gh-embed__copy:hover,
-html.theme[data-theme='deep-blue'] .gh-embed:not(.gh-embed--light) .gh-embed__copy:focus,
-html.theme[data-theme='midnight'] .gh-embed:not(.gh-embed--light) .gh-embed__copy:hover,
-html.theme[data-theme='midnight'] .gh-embed:not(.gh-embed--light) .gh-embed__copy:focus,
-html.theme[data-theme='charcoal'] .gh-embed:not(.gh-embed--light) .gh-embed__copy:hover,
-html.theme[data-theme='charcoal'] .gh-embed:not(.gh-embed--light) .gh-embed__copy:focus,
-html.theme[data-theme='terminal'] .gh-embed:not(.gh-embed--light) .gh-embed__copy:hover,
-html.theme[data-theme='terminal'] .gh-embed:not(.gh-embed--light) .gh-embed__copy:focus {
+html.theme[data-theme='grape']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy:hover,
+html.theme[data-theme='grape']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy:focus,
+html.theme[data-theme='deep-blue']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy:hover,
+html.theme[data-theme='deep-blue']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy:focus,
+html.theme[data-theme='midnight']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy:hover,
+html.theme[data-theme='midnight']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy:focus,
+html.theme[data-theme='charcoal']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy:hover,
+html.theme[data-theme='charcoal']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy:focus,
+html.theme[data-theme='terminal']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy:hover,
+html.theme[data-theme='terminal']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy:focus {
   background: rgba(110, 118, 129, 0.24);
   border-color: rgba(240, 246, 252, 0.3);
 }
@@ -261,16 +289,36 @@ html.theme[data-theme='terminal'] .gh-embed:not(.gh-embed--light) .gh-embed__cop
 
 .gh-embed--dark .gh-embed__toggle:hover,
 .gh-embed--dark .gh-embed__toggle:focus,
-html.theme[data-theme='grape'] .gh-embed:not(.gh-embed--light) .gh-embed__toggle:hover,
-html.theme[data-theme='grape'] .gh-embed:not(.gh-embed--light) .gh-embed__toggle:focus,
-html.theme[data-theme='deep-blue'] .gh-embed:not(.gh-embed--light) .gh-embed__toggle:hover,
-html.theme[data-theme='deep-blue'] .gh-embed:not(.gh-embed--light) .gh-embed__toggle:focus,
-html.theme[data-theme='midnight'] .gh-embed:not(.gh-embed--light) .gh-embed__toggle:hover,
-html.theme[data-theme='midnight'] .gh-embed:not(.gh-embed--light) .gh-embed__toggle:focus,
-html.theme[data-theme='charcoal'] .gh-embed:not(.gh-embed--light) .gh-embed__toggle:hover,
-html.theme[data-theme='charcoal'] .gh-embed:not(.gh-embed--light) .gh-embed__toggle:focus,
-html.theme[data-theme='terminal'] .gh-embed:not(.gh-embed--light) .gh-embed__toggle:hover,
-html.theme[data-theme='terminal'] .gh-embed:not(.gh-embed--light) .gh-embed__toggle:focus {
+html.theme[data-theme='grape']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__toggle:hover,
+html.theme[data-theme='grape']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__toggle:focus,
+html.theme[data-theme='deep-blue']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__toggle:hover,
+html.theme[data-theme='deep-blue']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__toggle:focus,
+html.theme[data-theme='midnight']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__toggle:hover,
+html.theme[data-theme='midnight']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__toggle:focus,
+html.theme[data-theme='charcoal']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__toggle:hover,
+html.theme[data-theme='charcoal']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__toggle:focus,
+html.theme[data-theme='terminal']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__toggle:hover,
+html.theme[data-theme='terminal']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__toggle:focus {
   background: rgba(110, 118, 129, 0.2);
   border-color: rgba(110, 118, 129, 0.5);
   box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
@@ -328,4 +376,24 @@ main pre:not(.gh-embed__pre) code {
 main pre:not(.gh-embed__pre) code.hljs {
   padding: 0;
   background: transparent;
+}
+
+main .code-block {
+  position: relative;
+  margin: 1.25rem 0;
+}
+
+main .code-block > pre.code-block__pre {
+  margin: 0;
+}
+
+main .code-block__actions {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+}
+
+main .code-block__copy {
+  min-width: 4.5rem;
 }

@@ -20,6 +20,11 @@ import excerpt from './lib/excerpt.js';
 
 const OG_FORCE_ENV = process.env.OG_FORCE === 'true';
 const ELEVENTY_FETCH_CACHE_DIR = path.resolve('.cache');
+const SITE_DATA_URL = new URL('./_data/site.yaml', import.meta.url);
+const siteDataCache = {
+  mtimeMs: null,
+  data: {},
+};
 
 const parseBlobUrl = (githubBlobUrl) => {
   const url = new URL(githubBlobUrl);
@@ -121,17 +126,85 @@ const guessLanguageByExt = (filePath) => {
   return map[ext] || 'plaintext';
 };
 
+const normalizeLanguage = (value) => {
+  if (typeof value !== 'string') return '';
+  return value
+    .trim()
+    .split(/\s+/, 1)[0]
+    .toLowerCase()
+    .replace(/[^a-z0-9-]+/g, '');
+};
+
+const highlightCode = (code, language) => {
+  if (language && hljs.getLanguage(language)) {
+    try {
+      return hljs.highlight(code, { language }).value;
+    } catch {
+      return escapeHtml(code);
+    }
+  }
+
+  try {
+    return hljs.highlightAuto(code).value;
+  } catch {
+    return escapeHtml(code);
+  }
+};
+
+const countCodeLines = (value) => {
+  if (typeof value !== 'string' || value.length === 0) return 0;
+  const normalized = value.endsWith('\n') ? value.slice(0, -1) : value;
+  return normalized.length === 0 ? 0 : normalized.split('\n').length;
+};
+
+const getNumericSetting = (value, fallback) => {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value;
+  }
+  const parsed = Number.parseInt(value, 10);
+  return Number.isFinite(parsed) ? parsed : fallback;
+};
+
+const getCodeBlockCopyLineThreshold = () =>
+  getNumericSetting(loadSiteData()?.codeBlock?.copyButtonLineThreshold, 10);
+
+const renderMarkdownCodeBlock = (code, language = '') => {
+  const normalizedLanguage = normalizeLanguage(language);
+  const highlighted = highlightCode(code, normalizedLanguage);
+  const lineCount = countCodeLines(code);
+  const shouldShowCopy = lineCount > getCodeBlockCopyLineThreshold();
+  const languageClass = normalizedLanguage
+    ? ` language-${normalizedLanguage}`
+    : '';
+  const codeClass = `hljs${languageClass}`;
+  const pre = `<pre class="code-block__pre"><code class="${codeClass.trim()}">${highlighted}</code></pre>`;
+
+  if (!shouldShowCopy) {
+    return pre;
+  }
+
+  return `<div class="code-block code-block--copyable">
+\t<div class="code-block__actions">
+\t\t<button class="code-block__copy gh-embed__copy" type="button" data-clipboard>Copy</button>
+\t</div>
+\t${pre}
+</div>`;
+};
+
 const slugify = (value) =>
   encodeURIComponent(String(value).trim().toLowerCase().replace(/\s+/g, '-'));
 
 const loadSiteData = () => {
   try {
-    const file = fs.readFileSync(
-      new URL('./_data/site.yaml', import.meta.url),
-      'utf8',
-    );
+    const stats = fs.statSync(SITE_DATA_URL);
+    if (siteDataCache.mtimeMs === stats.mtimeMs) {
+      return siteDataCache.data;
+    }
+    const file = fs.readFileSync(SITE_DATA_URL, 'utf8');
     const data = yaml.load(file);
-    return data && typeof data === 'object' ? data : {};
+    siteDataCache.mtimeMs = stats.mtimeMs;
+    siteDataCache.data = data && typeof data === 'object' ? data : {};
+    return siteDataCache.data;
   } catch {
     return {};
   }
@@ -178,7 +251,11 @@ const buildFingerprintedAssetPath = (pathname, fingerprint) => {
   return `${pathname.slice(0, -ext.length)}.${fingerprint}${ext}`;
 };
 
-const registerFingerprintedAsset = (pathname, sourcePath, fingerprintedPath) => {
+const registerFingerprintedAsset = (
+  pathname,
+  sourcePath,
+  fingerprintedPath,
+) => {
   fingerprintedAssets.set(fingerprintedPath, {
     pathname,
     sourcePath,
@@ -347,18 +424,7 @@ const md = new MarkdownIt({
   html: true,
   linkify: true,
   highlight(code, language) {
-    if (language && hljs.getLanguage(language)) {
-      try {
-        return hljs.highlight(code, { language }).value;
-      } catch {
-        return escapeHtml(code);
-      }
-    }
-    try {
-      return hljs.highlightAuto(code).value;
-    } catch {
-      return escapeHtml(code);
-    }
+    return highlightCode(code, normalizeLanguage(language));
   },
 })
   .use(MarkdownItAnchor, {
@@ -378,6 +444,16 @@ const md = new MarkdownIt({
 md.core.ruler.after('block', 'todo-blockquotes', (state) => {
   markTodoBlockquotes(state.tokens, isProductionBuild);
 });
+
+md.renderer.rules.fence = (tokens, idx) => {
+  const token = tokens[idx];
+  return renderMarkdownCodeBlock(token.content, token.info);
+};
+
+md.renderer.rules.code_block = (tokens, idx) => {
+  const token = tokens[idx];
+  return renderMarkdownCodeBlock(token.content);
+};
 
 export default function (eleventyConfig) {
   const shouldSkipHref = (href) => {
@@ -490,7 +566,9 @@ export default function (eleventyConfig) {
       .sort(([a], [b]) => b - a)
       .map(([count, tags]) => ({
         count,
-        tags: tags.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' })),
+        tags: tags.sort((a, b) =>
+          a.localeCompare(b, undefined, { sensitivity: 'base' }),
+        ),
       }));
   });
 
@@ -507,11 +585,15 @@ export default function (eleventyConfig) {
     async function (url, style = 'auto') {
       const meta = parseBlobUrl(url);
 
-      const fetched = await fetchTextWithCacheRecovery(meta.raw, {
-        duration: '1d',
-      }, {
-        gitRef: meta.branch,
-      });
+      const fetched = await fetchTextWithCacheRecovery(
+        meta.raw,
+        {
+          duration: '1d',
+        },
+        {
+          gitRef: meta.branch,
+        },
+      );
       const source = typeof fetched === 'string' ? fetched : String(fetched);
 
       let code = source;
@@ -522,16 +604,8 @@ export default function (eleventyConfig) {
       code = trimSharedIndent(code);
 
       const language = guessLanguageByExt(meta.filePath);
-      const normalizedLanguage =
-        typeof language === 'string'
-          ? language.toLowerCase().replace(/[^a-z0-9-]+/g, '')
-          : '';
-      let highlighted;
-      try {
-        highlighted = hljs.highlight(code, { language }).value;
-      } catch {
-        highlighted = escapeHtml(code);
-      }
+      const normalizedLanguage = normalizeLanguage(language);
+      const highlighted = highlightCode(code, language);
 
       const highlightedLines = highlighted.split('\n');
       const lineCount = highlightedLines.length;
@@ -555,15 +629,11 @@ export default function (eleventyConfig) {
       const languageClass = normalizedLanguage
         ? ` language-${normalizedLanguage}`
         : '';
-      const siteData = loadSiteData();
       const collapseThresholdRaw =
-        siteData?.githubEmbed?.collapseLineThreshold ??
+        loadSiteData()?.githubEmbed?.collapseLineThreshold ??
         this?.ctx?.site?.githubEmbed?.collapseLineThreshold ??
         this?.ctx?.data?.site?.githubEmbed?.collapseLineThreshold;
-      const collapseThreshold =
-        typeof collapseThresholdRaw === 'number'
-          ? collapseThresholdRaw
-          : parseInt(collapseThresholdRaw, 10);
+      const collapseThreshold = getNumericSetting(collapseThresholdRaw, 0);
       const shouldCollapse =
         Number.isFinite(collapseThreshold) &&
         collapseThreshold > 0 &&

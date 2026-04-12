@@ -16,6 +16,9 @@ theme:
 githubEmbed:
   collapseLineThreshold: 15
 
+codeBlock:
+  copyButtonLineThreshold: 10
+
 # tracking with umami
 umami:
   source: https://analytics.clooney.ninja/script.js

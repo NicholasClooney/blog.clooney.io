@@ -82,12 +82,19 @@ document.addEventListener('click', (event) => {
 
   const button = event.target.closest('[data-clipboard]');
   if (!button) return;
-  const embed = button.closest('.gh-embed');
-  if (!embed) return;
-  const content = embed.querySelectorAll('.gh-embed__ol > li > code');
-  const text = Array.from(content)
-    .map((node) => node.textContent)
-    .join('\n');
+  const container = button.closest('.gh-embed, .code-block');
+  if (!container) return;
+
+  let text = '';
+  if (container.classList.contains('gh-embed')) {
+    const content = container.querySelectorAll('.gh-embed__ol > li > code');
+    text = Array.from(content)
+      .map((node) => node.textContent)
+      .join('\n');
+  } else {
+    text = container.querySelector('pre code')?.textContent || '';
+  }
+
   if (!text) return;
   void navigator.clipboard?.writeText(text);
   const original = button.textContent;
