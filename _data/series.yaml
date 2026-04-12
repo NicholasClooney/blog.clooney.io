@@ -25,6 +25,7 @@
     - /posts/docker-on-macOS-with-colima/
     - /posts/running-eleventy-puppeteer-docker-colima/
     - /posts/networking-deep-dive/
+    - /posts/cloudflare-build-notifications-email-worker/
 
 - id: ai-assisted-engineering
   title: AI-Assisted Engineering Series
