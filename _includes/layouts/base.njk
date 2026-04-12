@@ -60,15 +60,13 @@
 	{% set pageStylesheets = stylesheets if stylesheets is defined else [] %}
 	{% if pageStylesheets %}
 		{% for href in pageStylesheets %}
-			<link rel="stylesheet" href="{{ href }}">
+			<link rel="stylesheet" href="{{ href | assetUrl }}">
 		{% endfor %}
 	{% endif %}
 
 </head>
 <body>
-	<main>
-		{{ content | safe }}
-	</main>
+	{{ content | safe }}
 	{% include "layouts/partials/theme-preview-script.njk" %}
 	{% set pageScripts = scripts if scripts is defined else [] %}
 	{% if pageScripts %}
