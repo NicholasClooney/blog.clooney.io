@@ -12,6 +12,8 @@ excerpt: |
   Quick reference on Python and JS/TS email tooling, threading headers, local test servers, and where Mailpit fits.
 ---
 
+[[toc]]
+
 ## Python Standard Library
 
 Python has first-class email support baked in:
