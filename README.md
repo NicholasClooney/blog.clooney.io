@@ -54,6 +54,7 @@ npm run build
 This sets `ELEVENTY_ENV=production` and writes the static output to the `_site/` directory. Deploy those files to any static host or CDN.
 
 ## Docker
+
 - `compose.yml` uses the stock `node:25-bookworm-slim` image and installs dependencies at container start.
 - Default mode (public ports): `docker compose up -d`
 - Dev: `http://127.0.0.1:8080`
@@ -65,7 +66,7 @@ This sets `ELEVENTY_ENV=production` and writes the static output to the `_site/`
 ## Social Preview Images
 
 - `scripts/generate-og-images.js` runs before each Eleventy build to produce 1200×630 Open Graph cards using Satori (HTML template) and Resvg. We stick with Satori’s HTML helper instead of JSX so the pipeline stays zero-transpile and works out-of-the-box in Node.
-- Templates blend Lexend (heading) + Inter (body) from the `@fontsource/*` packages and use the Sun theme palette (soft yellow gradient, amber accents, black typography); tweak `buildTemplate` to adjust the look.
+- Templates blend Lexend (heading) + Inter (body) with Noto Sans SC/TC fallback for Chinese text, all from `@fontsource/*`, and use the Sun theme palette (soft yellow gradient, amber accents, black typography); tweak `buildTemplate` to adjust the look.
 - Headlines/excerpts auto-resize and truncate when needed so long titles (e.g. “The Joy (and Frustrations) of Building Small Sites with GPT-5 Codex”) stay legible without breaking the layout.
 - Content hashing keeps regeneration cheap—changes to a post’s title, excerpt, or the template version trigger a refresh, otherwise cached PNGs in `.cache/og/` are reused.
 - Use `npm run og` to generate cards manually, `npm run og -- --force` (or `OG_FORCE=true npx @11ty/eleventy`) to rebuild everything, and check the emitted file map in `_data/ogImages.json`.

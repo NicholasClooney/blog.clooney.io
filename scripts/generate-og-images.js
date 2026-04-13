@@ -18,6 +18,14 @@ const TEMPLATE_VERSION = 'v3';
 const WIDTH = 1200;
 const HEIGHT = 630;
 const require = createRequire(import.meta.url);
+const TITLE_FONT_STACK = "'Lexend', 'Noto Sans SC', 'Noto Sans TC', 'Inter'";
+const BODY_FONT_STACK = "'Inter', 'Noto Sans SC', 'Noto Sans TC'";
+const FONT_FAMILIES = new Map([
+  ['@fontsource/lexend', 'Lexend'],
+  ['@fontsource/inter', 'Inter'],
+  ['@fontsource/noto-sans-sc', 'Noto Sans SC'],
+  ['@fontsource/noto-sans-tc', 'Noto Sans TC'],
+]);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -50,17 +58,30 @@ async function loadFont(packageName, fileName, weight) {
   return { name: fontFamily(packageName), data, weight, style: 'normal' };
 }
 
+function fontFile(packageName, subset, weight) {
+  const packageId = packageName.replace('@fontsource/', '');
+  return `${packageId}-${subset}-${weight}-normal.woff`;
+}
+
+function loadSubsetFont(packageName, subset, weight) {
+  return loadFont(packageName, fontFile(packageName, subset, weight), weight);
+}
+
 function fontFamily(packageName) {
-  if (packageName.includes('lexend')) return 'Lexend';
-  if (packageName.includes('inter')) return 'Inter';
-  return 'Sans';
+  return FONT_FAMILIES.get(packageName) ?? 'Sans';
 }
 
 async function loadFonts() {
   return Promise.all([
-    loadFont('@fontsource/lexend', 'lexend-latin-700-normal.woff', 700),
-    loadFont('@fontsource/inter', 'inter-latin-500-normal.woff', 500),
-    loadFont('@fontsource/inter', 'inter-latin-400-normal.woff', 400),
+    loadSubsetFont('@fontsource/lexend', 'latin', 700),
+    loadSubsetFont('@fontsource/inter', 'latin', 500),
+    loadSubsetFont('@fontsource/inter', 'latin', 400),
+    loadSubsetFont('@fontsource/noto-sans-sc', 'chinese-simplified', 700),
+    loadSubsetFont('@fontsource/noto-sans-sc', 'chinese-simplified', 500),
+    loadSubsetFont('@fontsource/noto-sans-sc', 'chinese-simplified', 400),
+    loadSubsetFont('@fontsource/noto-sans-tc', 'chinese-traditional', 700),
+    loadSubsetFont('@fontsource/noto-sans-tc', 'chinese-traditional', 500),
+    loadSubsetFont('@fontsource/noto-sans-tc', 'chinese-traditional', 400),
   ]);
 }
 
@@ -191,7 +212,7 @@ function buildTemplate({ title, excerpt: excerptText }) {
         padding: 72px 80px;
         background: linear-gradient(135deg, #fff9c4, #ffd166);
         color: #111111;
-        font-family: 'Lexend';
+        font-family: ${TITLE_FONT_STACK};
       "
     >
       <div
@@ -205,7 +226,7 @@ function buildTemplate({ title, excerpt: excerptText }) {
         <div
           style="
             font-size: ${fittedExcerpt.fontSize}px;
-            font-family: 'Inter';
+            font-family: ${BODY_FONT_STACK};
             font-weight: 400;
             line-height: ${fittedExcerpt.lineHeight};
             color: rgba(17, 17, 17, 0.78);
@@ -223,7 +244,7 @@ function buildTemplate({ title, excerpt: excerptText }) {
         ></div>
         <div
           style="
-            font-family: 'Inter';
+            font-family: ${BODY_FONT_STACK};
             font-weight: 500;
             font-size: 28px;
             color: #d97706;
