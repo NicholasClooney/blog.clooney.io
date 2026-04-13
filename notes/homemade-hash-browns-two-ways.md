@@ -44,13 +44,13 @@ Wash and peel your potatoes.
 
 #### Step 2: Par-Cook the Batons
 
-Heat a cast iron skillet with oil over **low heat** on a ceramic stove, about **5/10**. Stir-fry the potato batons slowly and patiently until *just* cooked through. They are ready when a chopstick or spoon meets only gentle resistance, or when the edges just start to turn golden.
+Heat a cast iron skillet with oil over **medium heat**. I used about **5/10** on my ceramic stove. Stir-fry the potato batons slowly and patiently until *just* cooked through. They are ready when a chopstick or spoon meets only gentle resistance, or when the edges just start to turn golden.
 
 Remove from the pan and transfer to a small bowl. Toss with **salt and cornstarch** to coat.
 
 #### Step 3: Squeeze Out the Raw Grated Potato
 
-Wrap the grated potato in a clean cloth or press it by hand to squeeze out as much water as possible.
+Squeeze out as much water as possible. You can do this simply with your hands, or wrap the grated potato in a kitchen towel first and press it out that way. If you use a towel, just be a little mindful, because it can tear.
 
 ### Shaping: Two Versions
 
@@ -64,7 +64,7 @@ Place some cooked batons in a bowl and use a spoon to partially smash them. Aim 
 
 #### Step 4: Pan-Fry to Golden
 
-Return everything to the pan over **low heat, 5/10**. Pan-fry patiently and do not rush. Wait until one side is **deep golden**, then flip. Fry until both sides reach your desired level of crispness.
+Return everything to the pan over **medium heat**. I used about **5/10** on my ceramic stove. Pan-fry patiently and do not rush. Wait until one side is **deep golden**, then flip. Fry until both sides reach your desired level of crispness.
 
 ### Finishing
 
@@ -105,13 +105,13 @@ Transfer to a plate, add a pinch of **flaky sea salt**, and blot with paper towe
 
 #### 第二步：把土豆条炒至半熟
 
-炒锅加油，小火加热，陶瓷灶台大约 **5/10 火力**。下土豆条，慢慢翻炒，耐心等待，直到用筷子或勺子稍微用力能戳得动，或者边缘开始出现一点点金黄就可以了。
+炒锅加油，用**中火**加热；我用的是陶瓷灶台，大约 **5/10 火力**。下土豆条，慢慢翻炒，耐心等待，直到用筷子或勺子稍微用力能戳得动，或者边缘开始出现一点点金黄就可以了。
 
 出锅放入小碗，趁热拌入**盐和玉米淀粉**，让每根土豆条都裹上。
 
 #### 第三步：挤干土豆泥的水分
 
-用布或直接用手把刨好的土豆泥或细丝包起来，尽量把水分挤压出去。
+尽量把水分挤出来。可以直接用手挤，也可以先用厨房纸巾把刨好的土豆泥或细丝包起来再压挤。如果用厨房纸巾，稍微留意一点就好，因为它有时候会破。
 
 ### 整形：两种版本
 
@@ -125,7 +125,7 @@ Transfer to a plate, add a pinch of **flaky sea salt**, and blot with paper towe
 
 #### 第四步：慢煎至金黄
 
-把两种薯饼都放回锅中，小火慢慢煎，大约 **5/10 火力**。等一面煎至**深金黄色**再翻面，两面都达到你想要的焦脆程度就可以出锅了。
+把两种薯饼都放回锅中，用**中火**慢慢煎；我用的是陶瓷灶台，大约 **5/10 火力**。等一面煎至**深金黄色**再翻面，两面都达到你想要的焦脆程度就可以出锅了。
 
 ### 最后收尾
 
