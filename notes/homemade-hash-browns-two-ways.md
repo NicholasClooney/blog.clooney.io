@@ -72,7 +72,7 @@ Transfer to a plate, add a pinch of **flaky sea salt**, and blot with paper towe
 
 ---
 
-## 自制薯饼两种做法
+## Chinese version: 自制薯饼两种做法
 
 我刚刚做了好好吃的**自制薯饼（Hash Brown）**，而且有两个版本，都超级好吃。
 
