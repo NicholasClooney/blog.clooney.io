@@ -4,6 +4,10 @@ date: 2026-04-13
 eleventyNavigation:
   key: small-digital-garden-feels-like-home
 tags:
+  - personal
+  - reflection
+  - thoughts
+  - digital-garden
   - eleventy
   - workflow
   - ai-assisted
