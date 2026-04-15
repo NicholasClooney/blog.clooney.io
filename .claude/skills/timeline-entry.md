@@ -36,7 +36,7 @@ One paragraph, 2-4 sentences. First-person, conversational, specific. Name the t
 
 If the entry is about a post or article the user wrote, the first sentence must link to it using its URL path (e.g. `[Post Title](/posts/post-slug/)`). Never write a timeline entry about a published post or article without linking to it.
 
-If the entry is about a shipped feature or release, the body must link to either the release tag (e.g. `[v1.2.3](https://github.com/owner/repo/releases/tag/v1.2.3)`) or the commit (e.g. `[abc1234](https://github.com/owner/repo/commit/abc1234)`). Never write a shipped timeline entry without linking to the release tag or commit.
+If the entry is about a shipped feature or release, the body must link to the release tag if one exists (e.g. `[v1.2.3](https://github.com/owner/repo/releases/tag/v1.2.3)`), falling back to the commit only when no tag covers it (e.g. `[abc1234](https://github.com/owner/repo/commit/abc1234)`). To find the tag: run `git tag --sort=-version:refname | head -10` in the repo, then `git log {commit}..{tag} --oneline` to confirm the commit is included. Never write a shipped timeline entry without linking to the release tag or commit.
 
 ## From a blog post
 
@@ -54,6 +54,7 @@ If the entry is about a shipped feature or release, the body must link to either
 3. Lock date and time to the commit timestamp
 4. Infer status: code/tooling → `shipped`, content/docs → `published`, planning → `thinking`
 5. Confirm status with user if ambiguous
+6. Find the release tag: run `git tag --sort=-version:refname | head -10`, then verify with `git log {commit}..{tag} --oneline` to confirm the commit falls under that tag. Prefer the tag link over the raw commit link.
 
 ## Checklist
 
@@ -64,4 +65,4 @@ If the entry is about a shipped feature or release, the body must link to either
 - File name matches `YYYY-MM-DD-{status}-{slug}.md`
 - Body is one paragraph, first-person, specific
 - If the entry is about a post/article the user wrote, the body links to it in the first sentence
-- If the entry is `shipped`, the body links to the release tag or commit
+- If the entry is `shipped`, the body links to the release tag if one exists, otherwise the commit
