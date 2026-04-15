@@ -350,6 +350,76 @@ const removeCorruptEleventyFetchCacheEntries = (
   return removed;
 };
 
+const extractFrontMatter = (content) => {
+  const match = String(content).match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  return match ? match[1] : null;
+};
+
+const getFrontMatterFields = (frontMatter) => {
+  const fields = new Map();
+
+  for (const line of frontMatter.split(/\r?\n/)) {
+    const match = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
+    if (match) {
+      fields.set(match[1], match[2]);
+    }
+  }
+
+  return fields;
+};
+
+const isQuotedYamlScalar = (value) => {
+  const trimmed = String(value || '').trim();
+  return (
+    /^"[^"]*"\s*(?:#.*)?$/.test(trimmed) || /^'[^']*'\s*(?:#.*)?$/.test(trimmed)
+  );
+};
+
+const validateTimelineEntryDateTimeQuotes = (timelineDir = 'timeline') => {
+  const timelinePath = path.resolve(timelineDir);
+  if (!fs.existsSync(timelinePath)) return;
+
+  const examples = {
+    date: 'date: "YYYY-MM-DD"',
+    time: 'time: "HH:MM"',
+  };
+  const failures = [];
+
+  for (const entry of fs.readdirSync(timelinePath, { withFileTypes: true })) {
+    if (!entry.isFile() || path.extname(entry.name) !== '.md') continue;
+
+    const entryPath = path.join(timelinePath, entry.name);
+    const relativePath = path.relative(process.cwd(), entryPath);
+    const frontMatter = extractFrontMatter(fs.readFileSync(entryPath, 'utf8'));
+
+    if (!frontMatter) {
+      failures.push(`${relativePath}: missing YAML front matter`);
+      continue;
+    }
+
+    const fields = getFrontMatterFields(frontMatter);
+
+    for (const field of ['date', 'time']) {
+      const value = fields.get(field);
+      if (value === undefined) {
+        failures.push(
+          `${relativePath}: missing ${field} (expected ${examples[field]})`,
+        );
+      } else if (!isQuotedYamlScalar(value)) {
+        failures.push(
+          `${relativePath}: ${field} must be quoted (expected ${examples[field]})`,
+        );
+      }
+    }
+  }
+
+  if (failures.length > 0) {
+    throw new Error(
+      `Timeline entry front matter must quote date and time values so YAML does not coerce dates before sorting:\n  - ${failures.join('\n  - ')}`,
+    );
+  }
+};
+
 const fetchTextWithCacheRecovery = async (url, options = {}, context = {}) => {
   try {
     try {
@@ -484,11 +554,37 @@ export default function (eleventyConfig) {
     return path;
   };
 
-  const excludedTags = new Set(['all', 'nav', 'post', 'posts', 'notes', 'timeline']);
+  const excludedTags = new Set([
+    'all',
+    'nav',
+    'post',
+    'posts',
+    'notes',
+    'timeline',
+  ]);
   const filterTagList = (tags = []) =>
     (Array.isArray(tags) ? tags : [tags])
       .map((tag) => (typeof tag === 'string' ? tag : null))
       .filter((tag) => tag && !excludedTags.has(tag));
+
+  const toIsoDatePart = (value) => {
+    if (typeof value === 'string') {
+      return value.split('T')[0];
+    }
+    if (value instanceof Date && !Number.isNaN(value.getTime())) {
+      return value.toISOString().split('T')[0];
+    }
+    return '';
+  };
+
+  const getTimelineSortKey = (entry) => {
+    const date = toIsoDatePart(entry?.data?.date) || toIsoDatePart(entry?.date);
+    const time =
+      typeof entry?.data?.time === 'string' && entry.data.time.trim()
+        ? entry.data.time.trim()
+        : '00:00';
+    return `${date}T${time}`;
+  };
 
   eleventyConfig.on('eleventy.after', ({ dir }) => {
     emitFingerprintedAssets(dir?.output || '_site');
@@ -582,9 +678,7 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addCollection('timeline', (collectionApi) =>
     collectionApi.getFilteredByTag('timeline').sort((a, b) => {
-      const aKey = `${a.date.toISOString().split('T')[0]}T${a.data.time || '00:00'}`;
-      const bKey = `${b.date.toISOString().split('T')[0]}T${b.data.time || '00:00'}`;
-      return aKey.localeCompare(bKey);
+      return getTimelineSortKey(a).localeCompare(getTimelineSortKey(b));
     }),
   );
 
@@ -799,6 +893,7 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.on('eleventy.before', async () => {
+    validateTimelineEntryDateTimeQuotes();
     const { generateOgImages } = await import(
       './scripts/generate-og-images.js'
     );
