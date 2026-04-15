@@ -581,7 +581,11 @@ export default function (eleventyConfig) {
   );
 
   eleventyConfig.addCollection('timeline', (collectionApi) =>
-    collectionApi.getFilteredByTag('timeline'),
+    collectionApi.getFilteredByTag('timeline').sort((a, b) => {
+      const aKey = `${a.date.toISOString().split('T')[0]}T${a.data.time || '00:00'}`;
+      const bKey = `${b.date.toISOString().split('T')[0]}T${b.data.time || '00:00'}`;
+      return aKey.localeCompare(bKey);
+    }),
   );
 
   eleventyConfig.addAsyncShortcode(
