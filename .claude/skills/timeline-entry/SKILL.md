@@ -1,6 +1,7 @@
-# Timeline Entry
-
-Create a timeline entry for something shipped, published, or in progress.
+---
+name: timeline entry
+description: Create a timeline entry for something shipped, published, or in progress.
+---
 
 ## File naming
 
