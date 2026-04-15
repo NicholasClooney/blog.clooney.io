@@ -4,7 +4,7 @@ date: "2026-04-13"
 time: "22:51"
 tags:
   - timeline
-  - published
+  - thinking
   - personal
   - reflection
 ---
