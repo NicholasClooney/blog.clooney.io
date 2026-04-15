@@ -36,6 +36,8 @@ One paragraph, 2-4 sentences. First-person, conversational, specific. Name the t
 
 If the entry is about a post or article the user wrote, the first sentence must link to it using its URL path (e.g. `[Post Title](/posts/post-slug/)`). Never write a timeline entry about a published post or article without linking to it.
 
+If the entry is about a shipped feature or release, the body must link to either the release tag (e.g. `[v1.2.3](https://github.com/owner/repo/releases/tag/v1.2.3)`) or the commit (e.g. `[abc1234](https://github.com/owner/repo/commit/abc1234)`). Never write a shipped timeline entry without linking to the release tag or commit.
+
 ## From a blog post
 
 1. Read the post front matter: extract `title`, `date`, `tags`
@@ -62,3 +64,4 @@ If the entry is about a post or article the user wrote, the first sentence must 
 - File name matches `YYYY-MM-DD-{status}-{slug}.md`
 - Body is one paragraph, first-person, specific
 - If the entry is about a post/article the user wrote, the body links to it in the first sentence
+- If the entry is `shipped`, the body links to the release tag or commit
