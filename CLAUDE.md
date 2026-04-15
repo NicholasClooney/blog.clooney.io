@@ -13,6 +13,8 @@ This applies to this repo and to every downstream site built on it.
 - Bringing `main` (or upstream builder changes) into a branch: `git rebase main` (or rebase onto the upstream ref), never `git merge main` or `git pull` without `--rebase`.
 - Keep each commit as written; don't squash a branch into one commit when landing it.
 
+If you are working in the **blog.clooney.io** site, read `claude.blog.md` for editorial workflows including how to write and log timeline entries.
+
 ## Script usage
 
 To check the latest Cloudflare Pages deployment, run:
