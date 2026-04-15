@@ -1,6 +1,6 @@
 ---
 title: Cloudflare Build Notifications via Email Routing and Email Worker
-date: 2026-04-12
+date: "2026-04-12"
 time: "22:20"
 tags:
   - timeline
