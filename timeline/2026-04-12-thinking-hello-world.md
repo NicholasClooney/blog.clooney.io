@@ -1,6 +1,6 @@
 ---
 title: Hello, timeline
-date: 2026-04-12
+date: "2026-04-12"
 time: "00:01"
 tags:
   - timeline

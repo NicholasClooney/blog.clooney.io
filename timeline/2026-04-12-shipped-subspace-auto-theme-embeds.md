@@ -1,6 +1,6 @@
 ---
 title: Auto theme-switching code blocks and GitHub embeds (subspace)
-date: 2026-04-12
+date: "2026-04-12"
 time: "15:49"
 tags:
   - timeline
