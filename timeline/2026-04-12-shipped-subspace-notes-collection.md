@@ -1,5 +1,5 @@
 ---
-title: Notes collection with OG images (subspace)
+title: "feat: Notes collection with OG images (subspace)"
 date: "2026-04-12"
 time: "10:11"
 tags:
