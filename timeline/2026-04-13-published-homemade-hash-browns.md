@@ -1,5 +1,5 @@
 ---
-title: Homemade Hash Browns, Two Ways
+title: "note: Homemade Hash Browns, Two Ways"
 date: "2026-04-13"
 time: "12:16"
 tags:
