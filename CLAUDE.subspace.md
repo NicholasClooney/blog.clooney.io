@@ -118,6 +118,12 @@ New gated nav items follow the same hardcoded pattern (matching how drafts are h
 | `_data/themes.yaml` | theme definitions (id, label, classes, accent) |
 | `_data/series.yaml` | series metadata |
 
+## Skills
+
+| Skill | Trigger |
+|-------|---------|
+| `/release` | Cut a new versioned release — see `.claude/skills/release/SKILL.md` for the full convention (semver, commit format, `gh release` title/body rules). |
+
 ## Active feature branches
 
 - `feature/timeline` — production timeline feed (use this for merging)
