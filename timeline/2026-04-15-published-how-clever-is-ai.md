@@ -1,5 +1,5 @@
 ---
-title: The Limits of AI and Where Humans Shine
+title: "blog: The Limits of AI and Where Humans Shine"
 date: "2026-04-15"
 time: "14:22"
 tags:
