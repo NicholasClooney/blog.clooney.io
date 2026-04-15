@@ -1,5 +1,5 @@
 ---
-title: Release skill for Subspace
+title: "skill: Release skill for Subspace"
 date: "2026-04-15"
 time: "11:59"
 tags:
