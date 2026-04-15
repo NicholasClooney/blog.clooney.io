@@ -14,4 +14,4 @@ For edits limited to `notes/`, work directly on `main` by default. Use a feature
 
 ## Timeline entries
 
-Use the `/timeline-entry` skill. It covers file naming, front matter, status tags, and workflows from a blog post or GitHub commit.
+Use the repo-local timeline entry skill at `.claude/skills/timeline-entry/SKILL.md` (`/timeline-entry` in Claude). It covers file naming, front matter, status tags, and workflows from a blog post or GitHub commit.
