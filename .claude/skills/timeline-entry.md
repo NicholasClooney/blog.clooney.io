@@ -13,14 +13,16 @@ timeline/YYYY-MM-DD-{status}-{slug}.md
 ```yaml
 ---
 title: Optional short title
-date: YYYY-MM-DD
-time: "HH:MM"     # required — 24-hour format (e.g. "15:42")
+date: "YYYY-MM-DD" # required; keep quoted so YAML treats it as a string
+time: "HH:MM"      # required; keep quoted, 24-hour format (e.g. "15:42")
 tags:
   - timeline
   - {status}       # shipped | published | thinking  (exactly one)
   - {topic-tags}   # optional
 ---
 ```
+
+Keep `date` and `time` quoted. Unquoted YAML dates are parsed as JavaScript `Date` objects before Eleventy collection sorting runs, which can break within-day ordering.
 
 ## Status tags
 
@@ -58,8 +60,9 @@ If the entry is about a shipped feature or release, the body must link to the re
 
 ## Checklist
 
-- Date is explicit `YYYY-MM-DD` from the commit, not today
-- Time is explicit `HH:MM` (24-hour) from the commit timestamp
+- Date is explicit quoted `"YYYY-MM-DD"` from the commit, not today
+- Time is explicit quoted `"HH:MM"` (24-hour) from the commit timestamp
+- Build validation fails if `date` or `time` is left unquoted
 - Exactly one status tag
 - `timeline` tag present
 - File name matches `YYYY-MM-DD-{status}-{slug}.md`
