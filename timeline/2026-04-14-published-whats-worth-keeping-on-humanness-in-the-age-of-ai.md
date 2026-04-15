@@ -1,6 +1,7 @@
 ---
 title: "What's Worth Keeping: On Humanness in the Age of AI"
 date: 2026-04-14
+time: "22:44"
 tags:
   - timeline
   - published
