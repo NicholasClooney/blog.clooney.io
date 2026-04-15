@@ -34,6 +34,7 @@
     small site experiments and remote workflows to pair-writing and shipping
     larger personal software projects.
   posts:
+    - /posts/how-clever-is-ai/
     - /posts/building-projectdawn-with-claude-and-codex/
     - /posts/behind-the-scenes-gpt-umami-post/
     - /posts/ssh-from-iPhone-to-Mac/
