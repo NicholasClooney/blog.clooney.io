@@ -1,5 +1,5 @@
 ---
-title: Timeline-entry skill
+title: "skill: Timeline-entry skill"
 date: "2026-04-15"
 time: "14:50"
 tags:
