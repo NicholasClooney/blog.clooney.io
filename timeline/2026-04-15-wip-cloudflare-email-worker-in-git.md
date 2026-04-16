@@ -5,7 +5,7 @@ time: "18:14"
 parent: "/timeline/2026-04-12-published-cloudflare-build-notifications/"
 tags:
   - timeline
-  - thinking
+  - wip
   - cloudflare
   - workers
   - email

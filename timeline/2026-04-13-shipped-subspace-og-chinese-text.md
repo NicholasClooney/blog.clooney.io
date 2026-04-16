@@ -1,5 +1,5 @@
 ---
-title: "feat: OG image support for Chinese text (subspace)"
+title: "feature: OG image support for Chinese text (subspace)"
 date: "2026-04-13"
 time: "12:36"
 tags:
