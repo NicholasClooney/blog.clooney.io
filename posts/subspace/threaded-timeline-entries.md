@@ -14,6 +14,8 @@ I love this because it is fully under my own control and open to my own creative
 
 There is also a simpler reason I enjoy this feature so much: I really enjoy building Subspace Builder itself. Writing and creating in Markdown, backed by a Git repo, is still one of my favorite combinations of technology for making things. Timeline entries gave that workflow a lighter-weight publishing surface, and relational entries push it further by turning the feed from a flat log into a threaded record of work.
 
+The implementation behind this lives in [PR #17](https://github.com/TheClooneyCollection/11ty-subspace-builder/pull/17), if you want to follow the feature work itself.
+
 
 <p class="tc f6 theme-midtone mt2">
   This is what the feature looks like in practice: a timeline feed that can show both entry type and thread context at a glance.
