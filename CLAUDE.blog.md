@@ -6,7 +6,7 @@ Read this file when doing any editorial work on blog.clooney.io. Also read `CLAU
 
 - `posts/` — long-form writing
 - `notes/` — short observations
-- `timeline/` — captain's log: shipped, published, thinking
+- `timeline/` — captain's log: shipped, published, wip, idea, thinking
 
 ## Git workflow
 
