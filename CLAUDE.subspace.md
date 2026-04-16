@@ -57,6 +57,8 @@ tags:
   - timeline    # always present (set by timeline/timeline.json)
   - shipped     # green  — something released
   - published   # blue   — post or writing went out
+  - wip         # purple — work in progress
+  - idea        # yellow — rough concept worth tracking
   - thinking    # amber  — idea, musing, planning
   # any other tags are topic tags and get archive pages
 ```

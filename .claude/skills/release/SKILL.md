@@ -12,7 +12,14 @@ Cut a new release for this repo following the established convention.
    - Minor (`x.N.0`) — new features or visible additions (most common)
    - Major (`N.0.0`) — breaking changes
 
-2. **Bump `package.json`** — update `"version"` to the new version.
+2. **Bump every repo-owned release version reference** to the new version.
+   - Always update `package.json`
+   - Always update the mirrored root version fields in `package-lock.json`
+     - top-level `"version"`
+     - `packages[""].version`
+   - If more repo files mirror the release version in future, update those too
+
+   Verify with a search for the old version before committing so you do not leave stale release numbers behind.
 
 3. **Commit the version bump** on the current branch:
    ```

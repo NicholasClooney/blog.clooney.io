@@ -20,6 +20,8 @@ permalink: /timeline/
   /* Color driven by tag */
   .timeline-entry[data-type="shipped"]    { --timeline-color: #27ae60; }
   .timeline-entry[data-type="published"]  { --timeline-color: #2980b9; }
+  .timeline-entry[data-type="wip"]        { --timeline-color: #8e44ad; }
+  .timeline-entry[data-type="idea"]       { --timeline-color: #f1c40f; }
   .timeline-entry[data-type="thinking"]   { --timeline-color: #e67e22; }
 
   .timeline-dot {
@@ -70,6 +72,8 @@ permalink: /timeline/
         {% set entryType = "default" %}
         {% if "shipped" in (entry.data.tags | default([])) %}{% set entryType = "shipped" %}
         {% elif "published" in (entry.data.tags | default([])) %}{% set entryType = "published" %}
+        {% elif "wip" in (entry.data.tags | default([])) %}{% set entryType = "wip" %}
+        {% elif "idea" in (entry.data.tags | default([])) %}{% set entryType = "idea" %}
         {% elif "thinking" in (entry.data.tags | default([])) %}{% set entryType = "thinking" %}
         {% endif %}
         <article class="timeline-entry" data-type="{{ entryType }}">
