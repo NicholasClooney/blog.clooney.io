@@ -18,13 +18,12 @@ date: "YYYY-MM-DD" # required; keep quoted so YAML treats it as a string
 time: "HH:MM"      # required; keep quoted, 24-hour format (e.g. "15:42")
 parent: "/timeline/YYYY-MM-DD-status-slug/" # optional; quote the canonical timeline path
 tags:
-  - timeline
   - {status}       # shipped | published | wip | idea | thinking  (exactly one)
   - {topic-tags}   # optional
 ---
 ```
 
-Keep `date` and `time` quoted. Unquoted YAML dates are parsed as JavaScript `Date` objects before Eleventy collection sorting runs, which can break within-day ordering.
+Keep `date` and `time` quoted. Unquoted YAML dates are parsed as JavaScript `Date` objects before Eleventy collection sorting runs, which can break within-day ordering. The repo supplies the `timeline` content-type tag via `timeline/timeline.json`, so file-local front matter only needs the status tag plus any topic tags.
 
 ## Status tags
 
@@ -69,7 +68,7 @@ If the entry is about a shipped feature or release, the body must link to the re
 - `parent` is present when the entry is relational, and it is a quoted canonical timeline path
 - Build validation fails if `date` or `time` is left unquoted
 - Exactly one status tag
-- `timeline` tag present
+- Timeline collection tag present, either from `timeline/timeline.json` or explicit file tags
 - File name matches `YYYY-MM-DD-{status}-{slug}.md`
 - Body is one paragraph, first-person, specific
 - If the entry is about a post/article the user wrote, the body links to it in the first sentence
