@@ -1,5 +1,5 @@
 ---
-title: "feat: Random month navigation on Project Etho"
+title: "feature: Random month navigation on Project Etho"
 date: "2026-04-14"
 time: "09:14"
 tags:
