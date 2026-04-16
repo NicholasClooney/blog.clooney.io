@@ -16,7 +16,7 @@ excerpt: |
 
 It started, as a lot of things do, at 3am on WhatsApp.
 
-I'd been telling my friend Andrew about the timeline feature I'd been building for my blog — a personal log, colour-coded by entry type, populated by an agent skill I wrote. He said he needed something similar, and I told him to steal it. Then I mentioned I'd been really enjoying iterating my digital garden: shaping it however I want, no limits.
+I'd been telling my friend [Andrew](https://github.com/voltrevo) about the timeline feature I'd been building for my blog — a personal log, colour-coded by entry type, populated by an agent skill I wrote. He said he needed something similar, and I told him to steal it. Then I mentioned I'd been really enjoying iterating my digital garden: shaping it however I want, no limits.
 
 His response: *"this makes me want to bring you into the ethereum ecosystem"*
 
@@ -147,4 +147,4 @@ More soon.
 
 ---
 
-*Thanks to Andrew Morris for the 3am rabbit hole.*
+*Thanks to [Andrew Morris](https://github.com/voltrevo) for the 3am rabbit hole.*
