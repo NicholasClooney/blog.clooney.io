@@ -2,10 +2,10 @@
 title: "wip: ProjectSpire Lab decompile setup"
 date: "2026-04-15"
 time: "22:56"
-parent: "/timeline/2026-04-15-thinking-projectspire-mod-tooling-ideas/"
+parent: "/timeline/2026-04-15-idea-projectspire-mod-tooling-ideas/"
 tags:
   - timeline
-  - thinking
+  - wip
   - project-spire
   - games
   - modding
