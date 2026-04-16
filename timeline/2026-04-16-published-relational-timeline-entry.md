@@ -1,11 +1,11 @@
 ---
-title: Published the first threaded timeline update
+title: "feature: Published the first threaded timeline update"
 date: "2026-04-16"
 time: "10:30"
 parent: "/timeline/2026-04-14-shipped-timeline/"
 tags:
   - timeline
-  - published
+  - shipped
 ---
 
 Published the first follow-up entry in the new threaded timeline model.
