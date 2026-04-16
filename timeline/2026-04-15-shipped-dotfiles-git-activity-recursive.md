@@ -1,5 +1,5 @@
 ---
-title: "feat: Recursive git-activity"
+title: "feature: Recursive git-activity"
 date: "2026-04-15"
 time: "16:34"
 tags:
