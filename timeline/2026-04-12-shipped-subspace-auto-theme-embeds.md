@@ -1,5 +1,5 @@
 ---
-title: "feat: Auto theme-switching code blocks and GitHub embeds (subspace)"
+title: "feature: Auto theme-switching code blocks and GitHub embeds (subspace)"
 date: "2026-04-12"
 time: "15:49"
 tags:

@@ -4,7 +4,7 @@ date: "2026-04-15"
 time: "10:40"
 tags:
   - timeline
-  - thinking
+  - idea
   - project-spire
   - games
   - modding
