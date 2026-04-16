@@ -1,6 +1,6 @@
 ---
 name: timeline entry
-description: Create a timeline entry for something shipped, published, or in progress.
+description: Create a timeline entry for something shipped, published, wip, idea, or thinking.
 ---
 
 ## File naming
@@ -19,7 +19,7 @@ time: "HH:MM"      # required; keep quoted, 24-hour format (e.g. "15:42")
 parent: "/timeline/YYYY-MM-DD-status-slug/" # optional; quote the canonical timeline path
 tags:
   - timeline
-  - {status}       # shipped | published | thinking  (exactly one)
+  - {status}       # shipped | published | wip | idea | thinking  (exactly one)
   - {topic-tags}   # optional
 ---
 ```
@@ -32,7 +32,9 @@ Keep `date` and `time` quoted. Unquoted YAML dates are parsed as JavaScript `Dat
 |---|---|---|
 | `shipped` | green | Built and released something: code, feature, tool, site change |
 | `published` | blue | Wrote and published content: post, note, essay |
-| `thinking` | amber | Exploring an idea, planning, or musing |
+| `wip` | purple | Work is actively in progress and you want to log the current state |
+| `idea` | yellow | You want to capture a concrete concept or direction before it becomes active work |
+| `thinking` | amber | You are still exploring, planning, or musing without a concrete work-in-progress yet |
 
 ## Entry body
 
@@ -56,7 +58,7 @@ If the entry is about a shipped feature or release, the body must link to the re
 1. Run `git show {commit} --stat` for changed files and message
 2. Run `git log {commit} -1 --format="%ad" --date=format:"%Y-%m-%d %H:%M"` for exact date and time
 3. Lock date and time to the commit timestamp
-4. Infer status: code/tooling → `shipped`, content/docs → `published`, planning → `thinking`
+4. Infer status: code/tooling → `shipped`, content/docs → `published`, active work → `wip`, concrete concept/direction → `idea`, open-ended planning/musing → `thinking`
 5. Confirm status with user if ambiguous
 6. Find the release tag: run `git tag --sort=-version:refname | head -10`, then verify with `git log {commit}..{tag} --oneline` to confirm the commit falls under that tag. Prefer the tag link over the raw commit link.
 
@@ -72,3 +74,4 @@ If the entry is about a shipped feature or release, the body must link to the re
 - Body is one paragraph, first-person, specific
 - If the entry is about a post/article the user wrote, the body links to it in the first sentence
 - If the entry is `shipped`, the body links to the release tag if one exists, otherwise the commit
+- Use the exact status type in both the filename and the status tag. Do not use `thinking` as a catch-all when the entry is better described as `wip` or `idea`.
