@@ -10,7 +10,7 @@ Read this file when doing any editorial work on blog.clooney.io. Also read `CLAU
 
 ## Git workflow
 
-For edits limited to `notes/`, work directly on `main` by default. Use a feature branch only if the user asks.
+For editorial edits limited to `posts/`, `notes/`, or `timeline/`, work directly on `main` by default. Use a feature branch only if the user asks.
 
 ## Timeline entries
 
