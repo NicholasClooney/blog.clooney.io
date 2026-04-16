@@ -16,6 +16,7 @@ timeline/YYYY-MM-DD-{status}-{slug}.md
 title: Optional short title
 date: "YYYY-MM-DD" # required; keep quoted so YAML treats it as a string
 time: "HH:MM"      # required; keep quoted, 24-hour format (e.g. "15:42")
+parent: "/timeline/YYYY-MM-DD-status-slug/" # optional; quote the canonical timeline path
 tags:
   - timeline
   - {status}       # shipped | published | thinking  (exactly one)
@@ -63,6 +64,7 @@ If the entry is about a shipped feature or release, the body must link to the re
 
 - Date is explicit quoted `"YYYY-MM-DD"` from the commit, not today
 - Time is explicit quoted `"HH:MM"` (24-hour) from the commit timestamp
+- `parent` is present when the entry is relational, and it is a quoted canonical timeline path
 - Build validation fails if `date` or `time` is left unquoted
 - Exactly one status tag
 - `timeline` tag present
