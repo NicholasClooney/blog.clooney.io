@@ -36,6 +36,7 @@ Use these existing prefixes for timeline entry titles:
 | Published blog post/article | `blog:` | For long-form writing in `posts/` |
 | Published note | `note:` | For short-form writing in `notes/` or note-like content |
 | Shipped feature/tool/site change | `feature:` | Default for shipped product or code work |
+| Shipped bug fix | `fix:` | Use when the shipped change is primarily a bug fix rather than a net-new feature |
 | Shipped skill/workflow | `skill:` | Use when the shipped thing is a repo skill or workflow |
 | Work in progress | `wip:` | Keep lowercase to match existing entries |
 | Idea/direction | `idea:` | For concrete concepts not yet in active implementation |
@@ -44,6 +45,7 @@ Use these existing prefixes for timeline entry titles:
 Examples:
 
 - `title: "feature: Random month navigation on Project Etho"`
+- `title: "fix: Earlier thread siblings on timeline entry pages (subspace)"`
 - `title: "skill: Timeline-entry skill"`
 - `title: "blog: Cloudflare Build Notifications via Email Routing and Email Worker"`
 - `title: "note: Smart AI Token Consumption"`
@@ -83,7 +85,7 @@ If the entry is about a shipped feature or release, the body must link to the re
 2. Run `git log {commit} -1 --format="%ad" --date=format:"%Y-%m-%d %H:%M"` for exact date and time
 3. Lock date and time to the commit timestamp
 4. Infer status: code/tooling → `shipped`, content/docs → `published`, active work → `wip`, concrete concept/direction → `idea`, open-ended planning/musing → `thinking`
-5. Choose the title prefix that matches the entry type: `feature:`, `skill:`, `blog:`, `note:`, `wip:`, `idea:`, or `thoughts:`
+5. Choose the title prefix that matches the entry type: `feature:`, `fix:`, `skill:`, `blog:`, `note:`, `wip:`, `idea:`, or `thoughts:`
 6. Confirm status with user if ambiguous
 7. Find the release tag: run `git tag --sort=-version:refname | head -10`, then verify with `git log {commit}..{tag} --oneline` to confirm the commit falls under that tag. Prefer the tag link over the raw commit link.
 
