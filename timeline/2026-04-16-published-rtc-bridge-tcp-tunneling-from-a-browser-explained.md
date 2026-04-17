@@ -2,6 +2,7 @@
 title: "blog: rtc-bridge — TCP tunneling from a browser, explained"
 date: "2026-04-16"
 time: "21:55"
+parent: "/timeline/2026-04-16-published-webrtc-how-it-actually-works/"
 tags:
   - published
   - networking
