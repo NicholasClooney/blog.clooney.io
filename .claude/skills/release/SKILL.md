@@ -21,14 +21,18 @@ Cut a new release for this repo following the established convention.
 
    Verify with a search for the old version before committing so you do not leave stale release numbers behind.
 
-3. **Commit the version bump** on the current branch:
+3. **Keep the implementation commit separate from the release commit.**
+   - Feature, bug fix, refactor, and content changes should already be committed with their own intentional commit message before starting the release step.
+   - The release commit should contain only the version bump and any repo-owned release metadata changes.
+
+4. **Commit the version bump** on the current branch:
    ```
    chore: release vX.Y.Z
    ```
 
-4. **Push** the commit.
+5. **Push** the commit.
 
-5. **Create a GitHub release** via `gh release create`:
+6. **Create a GitHub release** via `gh release create`:
    - Tag: `vX.Y.Z`
    - Title: `11ty Subspace Builder: vX.Y.Z - <short feature name>`
    - Body: bullet points describing what changed (imperative, concise), followed by a compare URL:
