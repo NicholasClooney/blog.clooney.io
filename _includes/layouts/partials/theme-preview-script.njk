@@ -2,6 +2,9 @@
 	(function() {
 		const themeConfig = {{ themes | dump | safe }};
 		const themeTarget = document.documentElement;
+		const defaultThemeId = themeTarget.dataset.defaultTheme;
+		const autoLightThemeId = themeTarget.dataset.autoLightTheme || defaultThemeId;
+		const autoDarkThemeId = themeTarget.dataset.autoDarkTheme || defaultThemeId;
 		const themeMap = themeConfig.reduce((map, theme) => {
 			map[theme.id] = theme.classes;
 			return map;
@@ -17,16 +20,72 @@
 			defaultMidtoneClass,
 			...Object.values(themeMidtoneMap)
 		])).filter(Boolean);
-		const storageKey = 'theme';
+		const storageKey = 'themePreference';
 		const previewResetDelay = {{ previewResetDelay }};
-		let activeTheme = themeTarget.dataset.theme;
+		const previewHoverDelay = {{ siteThemeConfig.previewHoverDelay if siteThemeConfig.previewHoverDelay is defined else 120 }};
+		const modePreferenceMap = {
+			auto: 'auto',
+			light: autoLightThemeId,
+			dark: autoDarkThemeId
+		};
+		const modeSequence = ['auto', 'light', 'dark'];
+		let activePreference = themeTarget.dataset.themePreference || 'auto';
 		let previewButtons = [];
+		let modeToggleButton;
 		let previewResetTimeout;
+		let previewHoverTimeout;
+		let systemThemeQuery;
 
-		function updateActivePreview(id) {
+		function getSystemThemeId() {
+			if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				return themeMap[autoDarkThemeId] ? autoDarkThemeId : defaultThemeId;
+			}
+			return themeMap[autoLightThemeId] ? autoLightThemeId : defaultThemeId;
+		}
+
+		function resolveThemeId(preference) {
+			if (preference === 'auto') {
+				return getSystemThemeId();
+			}
+			return themeMap[preference] ? preference : defaultThemeId;
+		}
+
+		function getModeForPreference(preference) {
+			if (preference === 'auto') return 'auto';
+			if (preference === autoDarkThemeId) return 'dark';
+			if (preference === autoLightThemeId) return 'light';
+			return null;
+		}
+
+		function updateModeToggle(preference) {
+			if (!modeToggleButton) return;
+			const mode = getModeForPreference(preference);
+			const label = mode ? mode.charAt(0).toUpperCase() + mode.slice(1) : 'Custom';
+			modeToggleButton.dataset.themeMode = mode || 'custom';
+			modeToggleButton.setAttribute('aria-label', `Theme mode: ${label}`);
+			modeToggleButton.setAttribute('title', `Theme mode: ${label}`);
+			modeToggleButton.setAttribute('aria-pressed', String(Boolean(mode)));
+			modeToggleButton.classList.toggle('o-60', !mode);
+			if (mode) {
+				modeToggleButton.setAttribute('data-active', '');
+			} else {
+				modeToggleButton.removeAttribute('data-active');
+			}
+			const labelNode = modeToggleButton.querySelector('.theme-mode-label');
+			if (labelNode) labelNode.textContent = label;
+		}
+
+		function cycleThemeMode() {
+			const currentMode = getModeForPreference(activePreference) || 'custom';
+			const currentIndex = modeSequence.indexOf(currentMode);
+			const nextMode = modeSequence[(currentIndex + 1) % modeSequence.length];
+			applyTheme(nextMode === 'custom' ? 'auto' : modePreferenceMap[nextMode]);
+		}
+
+		function updateActivePreview(preference) {
 			if (!previewButtons.length) return;
 			previewButtons.forEach(button => {
-				const isActive = button.dataset.themePreview === id;
+				const isActive = button.dataset.themePreview === preference;
 				if (isActive) {
 					button.setAttribute('data-active', '');
 				} else {
@@ -44,20 +103,28 @@
 			previewResetTimeout = undefined;
 		}
 
+		function clearPreviewHover() {
+			if (!previewHoverTimeout) return;
+			clearTimeout(previewHoverTimeout);
+			previewHoverTimeout = undefined;
+		}
+
 		function schedulePreviewReset() {
 			clearPreviewReset();
 			previewResetTimeout = setTimeout(() => {
-				applyTheme(activeTheme, { persist: false, syncSelect: true, preview: true });
+				applyTheme(activePreference, { persist: false, syncSelect: true, preview: true });
 			}, previewResetDelay);
 		}
 
-		function applyTheme(id, options = {}) {
-			if (!themeMap[id]) return;
+		function applyTheme(preference, options = {}) {
 			const { persist = true, syncSelect = true, preview = false } = options;
+			const resolvedThemeId = resolveThemeId(preference);
+			if (!themeMap[resolvedThemeId]) return;
 			themeTarget.classList.remove(...allThemeClasses);
-			themeTarget.classList.add(...themeMap[id]);
-			themeTarget.dataset.theme = id;
-			const midtoneClass = themeMidtoneMap[id] || defaultMidtoneClass;
+			themeTarget.classList.add(...themeMap[resolvedThemeId]);
+			themeTarget.dataset.theme = resolvedThemeId;
+			themeTarget.dataset.themePreference = preference;
+			const midtoneClass = themeMidtoneMap[resolvedThemeId] || defaultMidtoneClass;
 			if (allMidtoneClasses.length) {
 				document.querySelectorAll('.theme-midtone').forEach(element => {
 					element.classList.remove(...allMidtoneClasses);
@@ -65,11 +132,13 @@
 				});
 			}
 			if (!preview) {
-				activeTheme = id;
-				updateActivePreview(id);
+				activePreference = preference;
+				updateActivePreview(preference);
+				updateModeToggle(preference);
 				if (persist) {
 					try {
-						localStorage.setItem(storageKey, id);
+						localStorage.setItem(storageKey, preference);
+						localStorage.setItem('theme', resolvedThemeId);
 					} catch (error) {
 						/* localStorage may be unavailable; ignore persistence */
 					}
@@ -77,17 +146,26 @@
 			}
 			if (syncSelect) {
 				document.querySelectorAll('[data-theme-select]').forEach(select => {
-					if (select.value !== id) select.value = id;
+					if (select.value !== preference) select.value = preference;
 				});
 			}
 		}
 
-		function previewTheme(id) {
+		function previewTheme(preference) {
 			clearPreviewReset();
-			applyTheme(id, { persist: false, syncSelect: false, preview: true });
+			applyTheme(preference, { persist: false, syncSelect: false, preview: true });
+		}
+
+		function schedulePreviewTheme(preference) {
+			clearPreviewHover();
+			previewHoverTimeout = setTimeout(() => {
+				previewHoverTimeout = undefined;
+				previewTheme(preference);
+			}, previewHoverDelay);
 		}
 
 		function cancelPreview(event) {
+			clearPreviewHover();
 			if (event && event.relatedTarget && event.relatedTarget.closest && event.relatedTarget.closest('[data-theme-preview]')) {
 				return;
 			}
@@ -95,11 +173,16 @@
 		}
 
 		function initTheme() {
-			let initial = themeTarget.dataset.defaultTheme;
+			let initial = themeTarget.dataset.themePreference || 'auto';
 			try {
 				const stored = localStorage.getItem(storageKey);
-				if (stored && themeMap[stored]) {
+				if (stored === 'auto' || themeMap[stored]) {
 					initial = stored;
+				} else {
+					const legacyStoredTheme = localStorage.getItem('theme');
+					if (legacyStoredTheme === 'auto' || themeMap[legacyStoredTheme]) {
+						initial = legacyStoredTheme;
+					}
 				}
 			} catch (error) {
 				/* ignore storage issues and fall back to default */
@@ -107,14 +190,21 @@
 			applyTheme(initial, { persist: false, syncSelect: false });
 		}
 
-		applyTheme(activeTheme, { persist: false, syncSelect: false, preview: true });
+		applyTheme(activePreference, { persist: false, syncSelect: false, preview: true });
 
 		document.addEventListener('DOMContentLoaded', () => {
 			initTheme();
+			modeToggleButton = document.querySelector('[data-theme-mode-toggle]');
+			if (modeToggleButton) {
+				modeToggleButton.addEventListener('click', () => {
+					clearPreviewReset();
+					cycleThemeMode();
+				});
+			}
 			const themeSelects = document.querySelectorAll('[data-theme-select]');
 			themeSelects.forEach(select => {
-				if (!themeMap[select.value]) {
-					select.value = themeTarget.dataset.theme;
+				if (select.value !== 'auto' && !themeMap[select.value]) {
+					select.value = themeTarget.dataset.themePreference;
 				}
 				select.addEventListener('change', event => {
 					applyTheme(event.target.value);
@@ -127,11 +217,12 @@
 				const themeId = button.dataset.themePreview;
 				const enterEvent = supportsPointer ? 'pointerenter' : 'mouseenter';
 				const leaveEvent = supportsPointer ? 'pointerleave' : 'mouseleave';
-				button.addEventListener(enterEvent, () => previewTheme(themeId));
+				button.addEventListener(enterEvent, () => schedulePreviewTheme(themeId));
 				button.addEventListener(leaveEvent, cancelPreview);
-				button.addEventListener('focus', () => previewTheme(themeId));
+				button.addEventListener('focus', () => schedulePreviewTheme(themeId));
 				button.addEventListener('blur', cancelPreview);
 				button.addEventListener('click', event => {
+					clearPreviewHover();
 					clearPreviewReset();
 					applyTheme(themeId);
 					if (event && event.detail && event.detail > 0) {
@@ -140,7 +231,22 @@
 				});
 			});
 
-			updateActivePreview(themeTarget.dataset.theme);
+			if (window.matchMedia) {
+				systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+				const handleSystemThemeChange = () => {
+					if (activePreference === 'auto') {
+						applyTheme('auto', { persist: false, syncSelect: true });
+					}
+				};
+				if (systemThemeQuery.addEventListener) {
+					systemThemeQuery.addEventListener('change', handleSystemThemeChange);
+				} else if (systemThemeQuery.addListener) {
+					systemThemeQuery.addListener(handleSystemThemeChange);
+				}
+			}
+
+			updateModeToggle(themeTarget.dataset.themePreference || 'auto');
+			updateActivePreview(themeTarget.dataset.themePreference || 'auto');
 		});
 	})();
 </script>
