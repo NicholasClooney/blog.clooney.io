@@ -2,6 +2,7 @@
 title: "feature: Timeline archive pages (subspace)"
 date: "2026-04-17"
 time: "14:32"
+parent: "/timeline/2026-04-14-shipped-timeline/"
 tags:
   - timeline
   - shipped
