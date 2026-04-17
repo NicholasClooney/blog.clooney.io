@@ -539,6 +539,54 @@ const getTimelineAncestorEntries = (entryOrRef, entries = []) => {
   return ancestors;
 };
 
+const getTimelineEarlierThreadEntries = (entryOrRef, entries = []) => {
+  const timelineEntries = Array.isArray(entries) ? entries : [];
+  const entryMap = buildTimelineEntryMap(timelineEntries);
+  const childMap = buildTimelineChildMap(timelineEntries);
+  const currentEntry =
+    typeof entryOrRef === 'string'
+      ? entryMap.get(getTimelineEntryRef(entryOrRef))
+      : entryOrRef;
+
+  if (!currentEntry) return [];
+
+  const pathToCurrent = [];
+  let cursor = currentEntry;
+
+  while (cursor) {
+    pathToCurrent.unshift(cursor);
+
+    const parentRef = getTimelineParentRef(cursor);
+    if (!parentRef) break;
+
+    cursor = entryMap.get(parentRef);
+    if (!cursor) break;
+  }
+
+  if (pathToCurrent.length <= 1) return [];
+
+  const earlierEntries = [];
+
+  for (let index = 0; index < pathToCurrent.length - 1; index += 1) {
+    const pathEntry = pathToCurrent[index];
+    const nextPathEntry = pathToCurrent[index + 1];
+
+    earlierEntries.push(pathEntry);
+
+    const siblingEntries = childMap.get(getTimelineEntryRef(pathEntry)) || [];
+
+    for (const siblingEntry of siblingEntries) {
+      if (getTimelineEntryRef(siblingEntry) === getTimelineEntryRef(nextPathEntry)) {
+        break;
+      }
+
+      earlierEntries.push(siblingEntry);
+    }
+  }
+
+  return earlierEntries.reverse();
+};
+
 const getTimelineDescendantCount = (entryOrRef, entries = []) => {
   const rootRef = getTimelineEntryRef(entryOrRef);
   if (!rootRef) return 0;
@@ -1096,6 +1144,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter(
     'timelineAncestorEntries',
     (entryOrRef, entries = []) => getTimelineAncestorEntries(entryOrRef, entries),
+  );
+  eleventyConfig.addFilter(
+    'timelineEarlierThreadEntries',
+    (entryOrRef, entries = []) => getTimelineEarlierThreadEntries(entryOrRef, entries),
   );
   eleventyConfig.addFilter(
     'timelineDescendantCount',
