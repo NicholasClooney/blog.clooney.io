@@ -2,7 +2,7 @@
 title: "fix: Earlier thread siblings on timeline entry pages (subspace)"
 date: "2026-04-17"
 time: "22:10"
-parent: "/timeline/2026-04-16-published-relational-timeline-entry/"
+parent: "/timeline/2026-04-14-shipped-timeline/"
 tags:
   - timeline
   - shipped
