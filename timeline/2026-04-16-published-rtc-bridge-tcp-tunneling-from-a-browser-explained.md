@@ -1,5 +1,5 @@
 ---
-title: rtc-bridge — TCP tunneling from a browser, explained
+title: "blog: rtc-bridge — TCP tunneling from a browser, explained"
 date: "2026-04-16"
 time: "21:55"
 tags:
