@@ -13,7 +13,7 @@ timeline/YYYY-MM-DD-{status}-{slug}.md
 
 ```yaml
 ---
-title: Optional short title
+title: "{prefix}: Short title"
 date: "YYYY-MM-DD" # required; keep quoted so YAML treats it as a string
 time: "HH:MM"      # required; keep quoted, 24-hour format (e.g. "15:42")
 parent: "/timeline/YYYY-MM-DD-status-slug/" # optional; quote the canonical timeline path
@@ -24,6 +24,30 @@ tags:
 ```
 
 Keep `date` and `time` quoted. Unquoted YAML dates are parsed as JavaScript `Date` objects before Eleventy collection sorting runs, which can break within-day ordering. The repo supplies the `timeline` content-type tag via `timeline/timeline.json`, so file-local front matter only needs the status tag plus any topic tags.
+
+Do not invent a new title style when an existing prefix fits. Match the prefixes already used in `timeline/` entries.
+
+## Title prefixes
+
+Use these existing prefixes for timeline entry titles:
+
+| Entry type | Use this title prefix | Notes |
+|---|---|---|
+| Published blog post/article | `blog:` | For long-form writing in `posts/` |
+| Published note | `note:` | For short-form writing in `notes/` or note-like content |
+| Shipped feature/tool/site change | `feature:` | Default for shipped product or code work |
+| Shipped skill/workflow | `skill:` | Use when the shipped thing is a repo skill or workflow |
+| Work in progress | `wip:` | Keep lowercase to match existing entries |
+| Idea/direction | `idea:` | For concrete concepts not yet in active implementation |
+| Thinking/musing | `thoughts:` | Use this existing title prefix even though the status tag is `thinking` |
+
+Examples:
+
+- `title: "feature: Random month navigation on Project Etho"`
+- `title: "skill: Timeline-entry skill"`
+- `title: "blog: Cloudflare Build Notifications via Email Routing and Email Worker"`
+- `title: "note: Smart AI Token Consumption"`
+- `title: "thoughts: A Small Digital Garden That Feels Like Home"`
 
 ## Status tags
 
@@ -49,8 +73,9 @@ If the entry is about a shipped feature or release, the body must link to the re
 2. Run `git log --follow --format="%ad" --date=format:"%Y-%m-%d %H:%M" -- {file}` to get the commit timestamp
 3. Status: `published`
 4. Lock date and time to the commit timestamp (commit time is authoritative — history is never rewritten with altered timestamps)
-5. Carry over meaningful topic tags (skip `post`, `posts`, `all`, `nav`)
-6. Confirm date, time, status, and tags with user before writing
+5. Use `blog:` for posts and `note:` for notes in the timeline entry title
+6. Carry over meaningful topic tags (skip `post`, `posts`, `all`, `nav`)
+7. Confirm date, time, status, title prefix, and tags with user before writing
 
 ## From a GitHub commit
 
@@ -58,13 +83,15 @@ If the entry is about a shipped feature or release, the body must link to the re
 2. Run `git log {commit} -1 --format="%ad" --date=format:"%Y-%m-%d %H:%M"` for exact date and time
 3. Lock date and time to the commit timestamp
 4. Infer status: code/tooling → `shipped`, content/docs → `published`, active work → `wip`, concrete concept/direction → `idea`, open-ended planning/musing → `thinking`
-5. Confirm status with user if ambiguous
-6. Find the release tag: run `git tag --sort=-version:refname | head -10`, then verify with `git log {commit}..{tag} --oneline` to confirm the commit falls under that tag. Prefer the tag link over the raw commit link.
+5. Choose the title prefix that matches the entry type: `feature:`, `skill:`, `blog:`, `note:`, `wip:`, `idea:`, or `thoughts:`
+6. Confirm status with user if ambiguous
+7. Find the release tag: run `git tag --sort=-version:refname | head -10`, then verify with `git log {commit}..{tag} --oneline` to confirm the commit falls under that tag. Prefer the tag link over the raw commit link.
 
 ## Checklist
 
 - Date is explicit quoted `"YYYY-MM-DD"` from the commit, not today
 - Time is explicit quoted `"HH:MM"` (24-hour) from the commit timestamp
+- Title uses an existing prefix style already present in `timeline/`
 - `parent` is present when the entry is relational, and it is a quoted canonical timeline path
 - Build validation fails if `date` or `time` is left unquoted
 - Exactly one status tag
