@@ -196,7 +196,18 @@ html.theme[data-theme='terminal']
   transition: max-height 0.24s ease;
 }
 
+.code-block--collapsible .code-block__pre {
+  position: relative;
+  max-height: none;
+  transition: max-height 0.24s ease;
+}
+
 .gh-embed--collapsed .gh-embed__pre {
+  overflow: hidden;
+  max-height: var(--gh-collapse-height, 0px);
+}
+
+.code-block--collapsed .code-block__pre {
   overflow: hidden;
   max-height: var(--gh-collapse-height, 0px);
 }
@@ -213,6 +224,21 @@ html.theme[data-theme='terminal']
 }
 
 .gh-embed--collapsed .gh-embed__pre::after {
+  opacity: 1;
+}
+
+.code-block--collapsible .code-block__pre::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.24s ease;
+  background: linear-gradient(180deg, transparent 0%, var(--code-bg) 70%);
+}
+
+.code-block--collapsed .code-block__pre::after {
   opacity: 1;
 }
 
@@ -387,6 +413,10 @@ main .code-block > pre.code-block__pre {
   margin: 0;
 }
 
+main .code-block--collapsible > pre.code-block__pre {
+  padding-bottom: 4.5rem;
+}
+
 main .code-block__actions {
   position: absolute;
   top: 0.75rem;
@@ -396,4 +426,17 @@ main .code-block__actions {
 
 main .code-block__copy {
   min-width: 4.5rem;
+}
+
+main .code-block--collapsible .code-block__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 6rem;
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  z-index: 2;
+  margin: 0;
 }

@@ -1,19 +1,40 @@
-const computeCollapseHeight = (embed) => {
-  const threshold = Number.parseInt(embed.dataset.collapseThreshold, 10);
+const computeCollapseHeight = (container) => {
+  const threshold = Number.parseInt(container.dataset.collapseThreshold, 10);
   if (!Number.isFinite(threshold) || threshold <= 0) {
     return;
   }
-  const list = embed.querySelector('.gh-embed__ol');
-  const pre = embed.querySelector('.gh-embed__pre');
-  if (!list || !pre) {
+  const pre = container.querySelector('.gh-embed__pre, .code-block__pre');
+  if (!pre) {
     return;
   }
-  const items = list.querySelectorAll(':scope > li');
-  if (items.length === 0) {
+
+  const list = container.querySelector('.gh-embed__ol');
+  let anchor = null;
+  if (list) {
+    const items = list.querySelectorAll(':scope > li');
+    if (items.length === 0) {
+      return;
+    }
+    const index = Math.min(items.length, threshold) - 1;
+    anchor = items[index];
+  } else {
+    const code = pre.querySelector('code');
+    if (!code) {
+      return;
+    }
+    const computed = window.getComputedStyle(code);
+    const lineHeight = Number.parseFloat(computed.lineHeight);
+    if (!Number.isFinite(lineHeight) || lineHeight <= 0) {
+      return;
+    }
+    const verticalPadding =
+      Number.parseFloat(window.getComputedStyle(pre).paddingTop || '0') +
+      Number.parseFloat(window.getComputedStyle(pre).paddingBottom || '0');
+    const height = lineHeight * threshold + verticalPadding;
+    pre.style.setProperty('--gh-collapse-height', `${height}px`);
     return;
   }
-  const index = Math.min(items.length, threshold) - 1;
-  const anchor = items[index];
+
   if (!anchor) {
     return;
   }
@@ -21,60 +42,71 @@ const computeCollapseHeight = (embed) => {
   pre.style.setProperty('--gh-collapse-height', `${height}px`);
 };
 
-const setupCollapsibleEmbeds = () => {
+const setupCollapsibleContent = () => {
   document
-    .querySelectorAll('.gh-embed[data-collapse-threshold]')
-    .forEach((embed) => {
+    .querySelectorAll('.gh-embed[data-collapse-threshold], .code-block[data-collapse-threshold]')
+    .forEach((container) => {
       const threshold = Number.parseInt(
-        embed.dataset.collapseThreshold || '',
+        container.dataset.collapseThreshold || '',
         10,
       );
-      const lineCount = Number.parseInt(embed.dataset.lineCount || '', 10);
+      const lineCount = Number.parseInt(container.dataset.lineCount || '', 10);
       if (!Number.isFinite(threshold) || !Number.isFinite(lineCount)) {
         return;
       }
       if (lineCount <= threshold) {
-        embed.classList.remove('gh-embed--collapsible', 'gh-embed--collapsed');
-        const pre = embed.querySelector('.gh-embed__pre');
+        container.classList.remove(
+          'gh-embed--collapsible',
+          'gh-embed--collapsed',
+          'code-block--collapsible',
+          'code-block--collapsed',
+        );
+        const pre = container.querySelector('.gh-embed__pre, .code-block__pre');
         pre?.style.removeProperty('--gh-collapse-height');
         return;
       }
-      if (embed.dataset.collapseSetup === 'true') {
-        computeCollapseHeight(embed);
+      if (container.dataset.collapseSetup === 'true') {
+        computeCollapseHeight(container);
         return;
       }
-      embed.dataset.collapseSetup = 'true';
-      computeCollapseHeight(embed);
-      const pre = embed.querySelector('.gh-embed__pre');
+      container.dataset.collapseSetup = 'true';
+      computeCollapseHeight(container);
+      const pre = container.querySelector('.gh-embed__pre, .code-block__pre');
       if (pre && 'ResizeObserver' in window) {
-        const observer = new ResizeObserver(() => computeCollapseHeight(embed));
+        const observer = new ResizeObserver(() => computeCollapseHeight(container));
         observer.observe(pre);
       }
     });
 };
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', setupCollapsibleEmbeds);
+  document.addEventListener('DOMContentLoaded', setupCollapsibleContent);
 } else {
-  setupCollapsibleEmbeds();
+  setupCollapsibleContent();
 }
-window.addEventListener('load', setupCollapsibleEmbeds);
-window.addEventListener('resize', setupCollapsibleEmbeds, { passive: true });
+window.addEventListener('load', setupCollapsibleContent);
+window.addEventListener('resize', setupCollapsibleContent, { passive: true });
 
 document.addEventListener('click', (event) => {
   const toggle = event.target.closest('[data-collapse-toggle]');
   if (toggle) {
-    const embed = toggle.closest('.gh-embed--collapsible');
-    if (embed) {
-      const collapsed = embed.classList.toggle('gh-embed--collapsed');
+    const container = toggle.closest(
+      '.gh-embed--collapsible, .code-block--collapsible',
+    );
+    if (container) {
+      const collapsed = container.classList.contains('gh-embed--collapsible')
+        ? container.classList.toggle('gh-embed--collapsed')
+        : container.classList.toggle('code-block--collapsed');
       const expandLabel = toggle.dataset.expandLabel || 'Expand';
       const collapseLabel = toggle.dataset.collapseLabel || 'Collapse';
       toggle.textContent = collapsed ? expandLabel : collapseLabel;
       toggle.setAttribute('aria-expanded', String(!collapsed));
       if (collapsed) {
-        embed.querySelector('.gh-embed__pre')?.scrollTo({ top: 0 });
+        container
+          .querySelector('.gh-embed__pre, .code-block__pre')
+          ?.scrollTo({ top: 0 });
       } else {
-        computeCollapseHeight(embed);
+        computeCollapseHeight(container);
       }
     }
     return;

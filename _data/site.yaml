@@ -20,6 +20,7 @@ githubEmbed:
   collapseLineThreshold: 15
 
 codeBlock:
+  collapseLineThreshold: 15
   copyButtonLineThreshold: 10
 
 # tracking with umami

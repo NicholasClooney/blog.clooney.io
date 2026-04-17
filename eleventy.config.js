@@ -168,26 +168,52 @@ const getNumericSetting = (value, fallback) => {
 const getCodeBlockCopyLineThreshold = () =>
   getNumericSetting(loadSiteData()?.codeBlock?.copyButtonLineThreshold, 10);
 
+const getCodeBlockCollapseLineThreshold = () =>
+  getNumericSetting(loadSiteData()?.codeBlock?.collapseLineThreshold, 0);
+
 const renderMarkdownCodeBlock = (code, language = '') => {
   const normalizedLanguage = normalizeLanguage(language);
   const highlighted = highlightCode(code, normalizedLanguage);
   const lineCount = countCodeLines(code);
   const shouldShowCopy = lineCount > getCodeBlockCopyLineThreshold();
+  const collapseThreshold = getCodeBlockCollapseLineThreshold();
+  const shouldCollapse =
+    Number.isFinite(collapseThreshold) &&
+    collapseThreshold > 0 &&
+    lineCount > collapseThreshold;
   const languageClass = normalizedLanguage
     ? ` language-${normalizedLanguage}`
     : '';
   const codeClass = `hljs${languageClass}`;
+  const collapseClasses = shouldCollapse
+    ? ' code-block--collapsible code-block--collapsed'
+    : '';
+  const collapseAttributes = shouldCollapse
+    ? ` data-collapse-threshold="${collapseThreshold}" data-line-count="${lineCount}"`
+    : '';
+  const toggleButton = shouldCollapse
+    ? `
+\t<button class="code-block__toggle gh-embed__toggle" type="button" data-collapse-toggle aria-expanded="false" data-expand-label="Expand" data-collapse-label="Collapse">
+\t\tExpand
+\t</button>`
+    : '';
   const pre = `<pre class="code-block__pre"><code class="${codeClass.trim()}">${highlighted}</code></pre>`;
 
-  if (!shouldShowCopy) {
+  if (!shouldShowCopy && !shouldCollapse) {
     return pre;
   }
 
-  return `<div class="code-block code-block--copyable">
+  const actions = shouldShowCopy
+    ? `
 \t<div class="code-block__actions">
 \t\t<button class="code-block__copy gh-embed__copy" type="button" data-clipboard>Copy</button>
-\t</div>
+\t</div>`
+    : '';
+
+  return `<div class="code-block${collapseClasses}"${collapseAttributes}>
+\t${actions}
 \t${pre}
+\t${toggleButton}
 </div>`;
 };
 
