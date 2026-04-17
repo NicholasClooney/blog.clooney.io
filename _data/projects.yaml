@@ -75,7 +75,7 @@ active:
       Data-driven resume built with Eleventy, featuring responsive web and
       print-friendly layouts plus automatic PDF export via Puppeteer.
     url: https://resume.nicholas.clooney.io/
-    repo: https://github.com/NicholasClooney/project-resume
+    repo: https://github.com/TheClooneyCollection/project-resume
     tech:
       - Eleventy
       - JavaScript
