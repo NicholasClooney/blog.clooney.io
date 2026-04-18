@@ -12,6 +12,8 @@ Read this file when doing any editorial work on blog.clooney.io. Also read `CLAU
 
 For editorial edits limited to `posts/`, `notes/`, or `timeline/`, work directly on `main` by default. Use a feature branch only if the user asks.
 
+Use the repo-local commit message skill at `.claude/skills/commit-message/SKILL.md` (`/commit-message` in Claude). It documents the conventional prefix format used across this repo.
+
 ## Post and note workflow
 
 Use the repo-local workflow skill at `.claude/skills/post-and-note-workflow/SKILL.md` (`/post-and-note-workflow` in Claude). It makes the timeline-entry requirement explicit for new and published writing in `posts/` and `notes/`.
