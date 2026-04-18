@@ -25,6 +25,8 @@ tags:
 
 Keep `date` and `time` quoted. Unquoted YAML dates are parsed as JavaScript `Date` objects before Eleventy collection sorting runs, which can break within-day ordering. The repo supplies the `timeline` content-type tag via `timeline/timeline.json`, so file-local front matter only needs the status tag plus any topic tags.
 
+`parent` is optional, but when an entry continues an existing feature thread, prefer the thread's established anchor entry rather than the most recent related entry. Before choosing a `parent`, inspect recent related entries in `timeline/` and reuse the same anchor when one is already established. Only start a new sub-thread when the user explicitly asks for that or the work clearly changes direction.
+
 Do not invent a new title style when an existing prefix fits. Match the prefixes already used in `timeline/` entries.
 
 ## Title prefixes
@@ -88,6 +90,9 @@ If the entry is about a shipped feature or release, the body must link to the re
 5. Choose the title prefix that matches the entry type: `feature:`, `fix:`, `skill:`, `blog:`, `note:`, `wip:`, `idea:`, or `thoughts:`
 6. Confirm status with user if ambiguous
 7. Find the release tag: run `git tag --sort=-version:refname | head -10`, then verify with `git log {commit}..{tag} --oneline` to confirm the commit falls under that tag. Prefer the tag link over the raw commit link.
+8. If the work continues an existing timeline thread, inspect recent related entries and inherit their established `parent`.
+9. Do not pick the nearest chronologically related entry as `parent` unless it is already the thread anchor reused by other entries in that feature area.
+10. When multiple related entries exist, prefer the oldest shipped entry that started the feature thread.
 
 ## Checklist
 
@@ -95,6 +100,7 @@ If the entry is about a shipped feature or release, the body must link to the re
 - Time is explicit quoted `"HH:MM"` (24-hour) from the commit timestamp
 - Title uses an existing prefix style already present in `timeline/`
 - `parent` is present when the entry is relational, and it is a quoted canonical timeline path
+- If similar timeline entries already exist for the same feature thread, `parent` matches their established anchor rather than a newer follow-up entry
 - Build validation fails if `date` or `time` is left unquoted
 - Exactly one status tag
 - Timeline collection tag present, either from `timeline/timeline.json` or explicit file tags
@@ -103,3 +109,7 @@ If the entry is about a shipped feature or release, the body must link to the re
 - If the entry is about a post/article the user wrote, the body links to it in the first sentence
 - If the entry is `shipped`, the body links to the release tag if one exists, otherwise the commit
 - Use the exact status type in both the filename and the status tag. Do not use `thinking` as a catch-all when the entry is better described as `wip` or `idea`.
+
+## Project example
+
+- Timeline follow-ups for the initial timeline launch and later archive or navigation additions should usually parent back to `/timeline/2026-04-14-shipped-timeline/` when they are continuations of that same feature thread.
