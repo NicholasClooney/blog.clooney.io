@@ -18,6 +18,7 @@ Personal blog and digital garden for Nicholas Clooney. Built on Eleventy v3.
 posts/subspace/   blog posts (Markdown)
 notes/            short-form notes
 timeline/         personal timeline / captain's log entries
+docs/             feature and planning documentation
 src/              page templates (njk)
 _includes/
   layouts/        base.njk, home.njk + partials
@@ -66,6 +67,9 @@ tags:
 
 Timeline `date` and `time` values must stay quoted strings. Unquoted YAML dates are parsed as JavaScript `Date` objects before Eleventy collection sorting runs, which can break within-day ordering.
 Timeline parent references use the entry URL path (`page.url`), including the trailing slash.
+Timeline feature documentation lives in `docs/feature-timeline.md`.
+If you change any timeline implementation detail, update `docs/feature-timeline.md` in the same change.
+Timeline archive indexes currently exist at `/timeline/weeks/` and `/timeline/months/`.
 
 ## Theme system
 
