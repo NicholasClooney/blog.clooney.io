@@ -6,6 +6,8 @@ parent: "/timeline/2026-04-14-shipped-timeline/"
 tags:
   - timeline
   - shipped
+  - subspace
+  - timeline-page
 ---
 
 Published the first follow-up entry in the new threaded timeline model.

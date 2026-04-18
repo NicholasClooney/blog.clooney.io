@@ -321,6 +321,25 @@ const formatCalendarWeekRangeLabel = (weekStart) => {
 const formatCalendarWeekLabel = (isoYear, week) =>
   `Calendar Week ${String(week).padStart(2, '0')} · ${isoYear}`;
 
+const timelineReservedArchiveSlugs = new Set(['months', 'weeks']);
+const timelineTypeTags = new Set([
+  'shipped',
+  'published',
+  'wip',
+  'idea',
+  'thinking',
+]);
+const timelineArchiveExcludedTags = new Set([
+  'all',
+  'nav',
+  'post',
+  'posts',
+  'notes',
+  'timeline',
+  'testing',
+  ...timelineTypeTags,
+]);
+
 const getTimelineSortKey = (entry) => {
   const date = toIsoDatePart(entry?.data?.date) || toIsoDatePart(entry?.date);
   const time =
@@ -336,6 +355,68 @@ const getSortedTimelineEntries = (collectionApi) => {
 
   return [...timelineEntries].sort((a, b) =>
     getTimelineSortKey(a).localeCompare(getTimelineSortKey(b)),
+  );
+};
+
+const getTimelineTopicTags = (tags = []) =>
+  (Array.isArray(tags) ? tags : [tags])
+    .map((tag) => (typeof tag === 'string' ? tag : null))
+    .filter((tag) => tag && !timelineArchiveExcludedTags.has(tag))
+    .filter((tag, index, values) => values.indexOf(tag) === index);
+
+const getTimelineEntrySlug = (entry) => {
+  const url = typeof entry?.url === 'string' ? entry.url : '';
+  const match = url.match(/^\/timeline\/([^/]+)\/$/);
+  return match ? match[1] : null;
+};
+
+const buildTimelineTagArchives = (entries) => {
+  const archives = new Map();
+  const timelineEntrySlugs = new Set(
+    entries.map((entry) => getTimelineEntrySlug(entry)).filter(Boolean),
+  );
+  const conflictingTags = [];
+
+  for (const entry of entries) {
+    const tags = getTimelineTopicTags(entry?.data?.tags || []);
+
+    for (const tag of tags) {
+      const slug = slugify(tag);
+
+      if (timelineReservedArchiveSlugs.has(slug)) {
+        conflictingTags.push(
+          `"${tag}" resolves to reserved timeline path "/timeline/${slug}/"`,
+        );
+        continue;
+      }
+
+      if (timelineEntrySlugs.has(slug)) {
+        conflictingTags.push(
+          `"${tag}" resolves to "/timeline/${slug}/", which conflicts with an existing timeline entry URL`,
+        );
+        continue;
+      }
+
+      if (!archives.has(tag)) {
+        archives.set(tag, {
+          tag,
+          slug,
+          entries: [],
+        });
+      }
+
+      archives.get(tag).entries.push(entry);
+    }
+  }
+
+  if (conflictingTags.length) {
+    throw new Error(
+      `Invalid timeline topic tag routes:\n  - ${conflictingTags.join('\n  - ')}`,
+    );
+  }
+
+  return Array.from(archives.values()).sort((a, b) =>
+    a.tag.localeCompare(b.tag, undefined, { sensitivity: 'base' }),
   );
 };
 
@@ -1248,6 +1329,9 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection('timeline', (collectionApi) =>
     getSortedTimelineEntries(collectionApi),
   );
+  eleventyConfig.addCollection('timelineTagArchives', (collectionApi) =>
+    buildTimelineTagArchives(getSortedTimelineEntries(collectionApi)),
+  );
 
   eleventyConfig.addCollection('timelineMonths', (collectionApi) =>
     buildTimelineMonthArchives(getSortedTimelineEntries(collectionApi)),
@@ -1384,6 +1468,9 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter('filterTags', filterTagList);
+  eleventyConfig.addFilter('timelineTopicTags', (tags = []) =>
+    getTimelineTopicTags(filterTagList(tags)),
+  );
 
   eleventyConfig.addFilter('slug', (value) => {
     if (!value) return '';

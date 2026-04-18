@@ -190,7 +190,7 @@
 {% endmacro %}
 
 {% macro renderTimelineEntry(entry, timelineEntries=[], compact=false, showRelationships=true, showTags=true, muted=false) %}
-  {% set entryTags = (entry.data.tags | default([])) | filterTags %}
+  {% set entryTags = (entry.data.tags | default([])) | timelineTopicTags %}
   {% set parentEntry = entry | timelineParentEntry(timelineEntries) %}
   {% set relationshipCount = entry | timelineDescendantCount(timelineEntries) %}
   {% set followUpText = "1 follow-up" if relationshipCount == 1 else (relationshipCount ~ " follow-ups") %}
@@ -227,7 +227,7 @@
           {% endif %}
           {% if showTags and entryTags | length %}
             <div class="timeline-tags">
-              {% for tag in entryTags %}<a href="/tags/{{ tag | slug }}/">#{{ tag }}</a>{% endfor %}
+              {% for tag in entryTags %}<a href="/timeline/{{ tag | slug }}/">#{{ tag }}</a>{% endfor %}
             </div>
           {% endif %}
         </div>
