@@ -1,0 +1,65 @@
+---
+layout: layouts/home.njk
+title: Timeline Weeks
+description: Timeline entries grouped into both month-banded and ISO calendar weeks.
+showPostHeader: false
+permalink: /timeline/weeks/
+---
+
+{% set timelineMonthArchives = collections.timelineMonths | default([]) | reverse %}
+{% set monthWeekArchives = collections.timelineWeeks | default([]) %}
+{% set calendarWeekArchives = collections.timelineCalendarWeeks | default([]) | reverse %}
+
+<section class="mw7">
+  <h1 class="f3 f2-ns lh-title mt0 mb4">
+    <a class="link dim theme-text" href="/timeline/">Timeline</a>
+  </h1>
+  <h2 class="f3 f2-ns lh-title mt0 mb2">Timeline Weeks</h2>
+  <p class="f6 f5-ns theme-midtone mt0 mb4">
+    Month-banded weeks and ISO calendar week pages grouped by month. ISO weeks that cross a month boundary appear in both months.
+  </p>
+
+  {% if timelineMonthArchives | length %}
+    <div>
+      {% for month in timelineMonthArchives %}
+        <section class="{% if not loop.first %}mt5{% endif %}">
+          <h2 class="f4 f3-ns lh-title mt0 mb3">
+            <a class="link dim theme-text" href="/timeline/months/{{ month.key }}/">{{ month.label }}</a>
+          </h2>
+
+          {% if month.weeks | length %}
+            <div class="mb3">
+              <p class="f6 theme-midtone mt0 mb2">Month-banded weeks</p>
+              <div class="flex flex-wrap">
+                {% for week in month.weeks | reverse %}
+                  {% for archive in monthWeekArchives %}
+                    {% if archive.key == week.key %}
+                      <a class="timeline-relationship mr2 mb2" href="/timeline/weeks/{{ week.key }}/">
+                        {{ week.rangeLabel }} ({{ archive.entries | length }})
+                      </a>
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+
+          <div>
+            <p class="f6 theme-midtone mt0 mb2">ISO calendar weeks</p>
+            <div class="flex flex-wrap">
+              {% for week in calendarWeekArchives %}
+                {% if week.startMonthKey == month.key or week.endMonthKey == month.key %}
+                  <a class="timeline-relationship mr2 mb2" href="/timeline/weeks/{{ week.key }}/">
+                    {{ week.rangeLabel }} ({{ week.entries | length }})
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="theme-midtone">No timeline weeks yet.</p>
+  {% endif %}
+</section>

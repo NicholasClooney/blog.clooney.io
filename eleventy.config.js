@@ -500,6 +500,8 @@ const buildTimelineCalendarWeekArchives = (entries) => {
     if (!date) continue;
 
     const weekStart = getWeekStartUtc(date);
+    const weekEnd = new Date(weekStart);
+    weekEnd.setUTCDate(weekEnd.getUTCDate() + 6);
     const { isoYear, week, key } = getIsoWeekData(date);
 
     if (!archives.has(key)) {
@@ -510,6 +512,8 @@ const buildTimelineCalendarWeekArchives = (entries) => {
         label: formatCalendarWeekLabel(isoYear, week),
         rangeLabel: formatCalendarWeekRangeLabel(weekStart),
         weekStartDate: toIsoDatePart(weekStart),
+        startMonthKey: formatTimelineMonthKey(weekStart),
+        endMonthKey: formatTimelineMonthKey(weekEnd),
         entries: [],
       });
     }
