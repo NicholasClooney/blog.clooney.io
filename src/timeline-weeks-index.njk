@@ -6,8 +6,9 @@ showPostHeader: false
 permalink: /timeline/weeks/
 ---
 
+{% from "components/timeline-week-pill.njk" import renderTimelineWeekPill %}
+
 {% set timelineMonthArchives = collections.timelineMonths | default([]) | reverse %}
-{% set monthWeekArchives = collections.timelineWeeks | default([]) %}
 {% set calendarWeekArchives = collections.timelineCalendarWeeks | default([]) | reverse %}
 
 <section class="mw7">
@@ -32,13 +33,7 @@ permalink: /timeline/weeks/
               <p class="f6 theme-midtone mt0 mb2">Month-banded weeks</p>
               <div class="flex flex-wrap">
                 {% for week in month.weeks | reverse %}
-                  {% for archive in monthWeekArchives %}
-                    {% if archive.key == week.key %}
-                      <a class="timeline-relationship mr2 mb2" href="/timeline/weeks/{{ week.key }}/">
-                        {{ week.rangeLabel }} ({{ archive.entries | length }})
-                      </a>
-                    {% endif %}
-                  {% endfor %}
+                  {{ renderTimelineWeekPill(week, week.entryCount) }}
                 {% endfor %}
               </div>
             </div>
@@ -49,9 +44,7 @@ permalink: /timeline/weeks/
             <div class="flex flex-wrap">
               {% for week in calendarWeekArchives %}
                 {% if week.startMonthKey == month.key or week.endMonthKey == month.key %}
-                  <a class="timeline-relationship mr2 mb2" href="/timeline/weeks/{{ week.key }}/">
-                    {{ week.rangeLabel }} ({{ week.entries | length }})
-                  </a>
+                  {{ renderTimelineWeekPill(week, week.entries | length) }}
                 {% endif %}
               {% endfor %}
             </div>

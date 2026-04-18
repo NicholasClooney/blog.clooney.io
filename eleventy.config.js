@@ -446,12 +446,16 @@ const buildTimelineMonthArchives = (entries) => {
     const archive = archives.get(key);
     archive.entries.push(entry);
 
-    if (!archive.weeks.some((weekMeta) => weekMeta.week === week)) {
+    const existingWeek = archive.weeks.find((weekMeta) => weekMeta.week === week);
+    if (existingWeek) {
+      existingWeek.entryCount += 1;
+    } else {
       archive.weeks.push({
         key: `${key}W${week}`,
         week,
         label: formatTimelineWeekLabel(year, month, week),
         rangeLabel: formatTimelineWeekRangeLabel(year, month, week),
+        entryCount: 1,
       });
     }
   }

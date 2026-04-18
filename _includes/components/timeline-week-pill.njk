@@ -1,0 +1,5 @@
+{% macro renderTimelineWeekPill(week, entryCount = null) %}
+  <a class="timeline-relationship mr2 mb2" href="/timeline/weeks/{{ week.key }}/">
+    {{ week.rangeLabel }}{% if entryCount is not none %} ({{ entryCount }}){% endif %}
+  </a>
+{% endmacro %}
