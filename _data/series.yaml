@@ -6,6 +6,7 @@
     data flow, and patterns.
   posts:
     - /posts/understanding-observable-and-state-in-swift/
+    - /posts/swiftui-in-the-wild-memory-concurrency-and-the-gaps-in-the-docs/
 
 - id: networking-infra
   title: Networking & Infrastructure Series
