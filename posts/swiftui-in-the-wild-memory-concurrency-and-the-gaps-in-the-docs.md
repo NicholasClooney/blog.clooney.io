@@ -123,6 +123,35 @@ The critical mistake to avoid is using `try? await Task.sleep(...)`. That silent
 
 On actor context: if `performCount` touches UI or view-model state, it should be `@MainActor`-isolated. If your view model is already `@MainActor` as above, you generally do not need extra `MainActor.run` calls. Just make sure `performCount` is properly isolated.
 
+### Using `.task(id:)` to avoid manual task management
+
+The pattern above works, but you're doing the task lifecycle yourself — storing the task, cancelling it, recreating it. SwiftUI's `.task(id:)` modifier handles all of that automatically.
+
+When the `id` value changes, SwiftUI cancels the previous task and starts a new one. When the view disappears, it cancels too. This means your async function can be written without any of that boilerplate:
+
+```swift
+func debouncedCountAsync(text: String) async throws {
+    try await Task.sleep(for: .milliseconds(300))
+    self.performCount(text: text)
+}
+```
+
+No stored task reference. No manual cancel. No `[weak self]` dance. The `CancellationError` from `Task.sleep` propagates naturally — `.task` expects this and handles it silently.
+
+Wire it up in the view:
+
+```swift
+.task(id: text) {
+    try? await viewModel.debouncedCountAsync(text: text)
+}
+```
+
+The `try?` here is intentional and correct — unlike in the manual pattern where swallowing cancellation was the bug, here cancellation is already being managed externally by `.task`. You're only suppressing the error at the call site; the sleep itself still throws and exits cleanly when cancelled.
+
+`.task` without an `id` runs once on appear. `.task(id:)` runs on appear *and* every time `id` changes — which is exactly the reactivity you want for debouncing a search field or any other frequently-updating value.
+
+The tradeoff: this ties your debounce logic to the view layer. The manual `Task`-based approach remains useful when you need debouncing inside a view model or service with no SwiftUI view in scope.
+
 ## 3. Async work in button actions
 
 SwiftUI's `Button` does not natively accept an `async` action closure, so there are a few patterns depending on how much control you need.
@@ -141,23 +170,7 @@ Button("Fetch") {
 
 The `Task` inherits the actor context of the view, usually the main actor, so UI updates are safe. The downside is that if the user taps again, a second task launches alongside the first.
 
-### Option 2: `.task(id:)`
-
-Auto-cancelling, driven by state.
-
-```swift
-@State private var fetchID = 0
-
-Button("Fetch") { fetchID += 1 }
-    .task(id: fetchID) {
-        guard fetchID > 0 else { return }
-        await fetchData()
-    }
-```
-
-Whenever `fetchID` changes, SwiftUI cancels the previous task and starts a new one. This is useful for search, debounce, or anything where only the latest request matters.
-
-### Option 3: `@State Task`
+### Option 2: `@State Task`
 
 Manual control, most flexible.
 
@@ -177,7 +190,6 @@ You manage the lifecycle yourself, which means more boilerplate but more control
 | Pattern | Auto-cancel on retap | Lifecycle ownership |
 | --- | --- | --- |
 | `Task {}` in action | No | Manual |
-| `.task(id:)` | Yes | SwiftUI |
 | `@State Task` | Yes, manual | Manual |
 
 ## 4. Storing a `Task` in a SwiftUI view
