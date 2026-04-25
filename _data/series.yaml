@@ -7,6 +7,7 @@
   posts:
     - /posts/understanding-observable-and-state-in-swift/
     - /posts/swiftui-in-the-wild-memory-concurrency-and-the-gaps-in-the-docs/
+    - /posts/three-ways-to-pass-an-observable-object-in-swiftui/
 
 - id: networking-infra
   title: Networking & Infrastructure Series
