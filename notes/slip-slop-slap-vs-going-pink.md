@@ -10,7 +10,11 @@ excerpt: |
   A note on why Australia and the UK treat sun safety so differently, and why the death statistics tell a more surprising story than the weather suggests.
 ---
 
-These observations are mine, but I used AI to do the research and write the first draft. I checked the result, edited it, and am publishing the version I actually stand behind here.
+These observations are mine, but I used AI to do the research and write the first draft. I did a partial round of human fact-checking and found some of the numbers were already outdated, so I made edits where I caught problems. I stopped around "Slip, Slop, Slap - The Campaign That Changed a Nation", though, because I do not have the time or energy to keep fact-checking this note, and I do not want to ask AI to do another pass on itself either.
+
+So take this with a grain of salt. It is a useful reminder that AI is powerful, but, like humans, it still makes mistakes. For a personal research note like this, I am comfortable publishing with some uncertainty or possible inaccuracy. For serious journalism, though, I am left wondering what tooling, process, or editorial infrastructure is needed to make AI-assisted work treat factual accuracy with absolute respect.
+
+---
 
 Walk down a beach in Sydney in January and you'll see sunscreen dispensers, UV warning signs, and hats on almost every child. Walk through a park in London on the first warm day of May and you'll see people stripped to the waist, soaking up every ray - some of them visibly burning. Two countries, both predominantly fair-skinned, both English-speaking. So why do they treat sun safety so differently?
 
@@ -28,9 +32,9 @@ Australia and New Zealand have the highest skin cancer rates in the world,[^2] a
 
 The UK's numbers are lower - but they're rising fast, and the mortality picture is alarming.
 
-Around **17,500 people** are diagnosed with melanoma in the UK each year, a figure that has increased by almost a third over the last decade alone.[^3] Melanoma is now the **5th most common cancer** in the UK,[^3] and incidence rates are projected to climb a further **8% by 2038-2040**.[^4]
+Around **15,400 people** are diagnosed with melanoma in the UK each year, a figure that has increased by almost a third over the last decade alone.[^3] Melanoma is now the **5th most common cancer** in the UK,[^3] and incidence rates are projected to climb a further **8% by 2038-2040**.[^4]
 
-Then comes the statistic that should give everyone pause: **around 3,500 people die from skin cancer in the UK every year - more than in Australia**,[^5] despite Australia diagnosing far more cases. Over a recent five-year study period, there were **8,100 British deaths** from malignant melanoma compared to **4,900 in Australia**.[^6]
+Then comes the statistic that should give everyone pause: **around 2,600 people die from melanoma in the UK every year**,[^5] despite Australia diagnosing far more cases. Over a recent five-year study period, there were **8,100 British deaths** from malignant melanoma compared to **4,900 in Australia**.[^6]
 
 More cases. Fewer deaths. How?
 
@@ -78,7 +82,7 @@ The UK's higher death toll relative to its case count reflects a systemic proble
 
 Melanoma caught at **Stage 1 is over 95% survivable at five years**.[^10] Caught late, survival rates drop dramatically. The UK's problem isn't just that people are getting skin cancer - it's that they're finding it too late.
 
-Melanoma incidence in Britain has risen faster than any other common cancer,[^3] and **rates of skin cancer are doubling every 10-20 years**.[^5] An estimated **17,000 of the ~20,800 annual UK melanoma cases are preventable** - almost 9 in 10 caused by excess UV exposure from sun and sunbeds.[^9]
+Melanoma incidence in Britain has risen faster than any other common cancer[^3]. An estimated **17,000 of the ~20,800 annual UK melanoma cases are preventable** - almost 9 in 10 caused by excess UV exposure from sun and sunbeds.[^9]
 
 ### The UK Is Trying to Catch Up
 
@@ -109,7 +113,7 @@ When you see someone going pink on a British park bench, the casual attitude mak
 [^2]: Wikipedia - [Skin Cancer in Australia](https://en.wikipedia.org/wiki/Skin_cancer_in_Australia)
 [^3]: Royal Marsden NHS - [Skin Cancer: Incidence and Risk Factors](https://www.royalmarsden.nhs.uk/information-gps/gp-resources/skin-cancer/skin-cancer-incidence-and-risk-factors)
 [^4]: Cancer Research UK - [Melanoma Skin Cancer Incidence Statistics](https://www.cancerresearchuk.org/health-professional/cancer-statistics/statistics-by-cancer-type/melanoma-skin-cancer/incidence)
-[^5]: SKCIN - [The Facts About Skin Cancer in the UK](https://www.skcin.org/skincancerinformation/theproblemandfacts.htm)
+[^5]: Cancer Research UK — [Melanoma Skin Cancer Mortality Statistics](https://www.cancerresearchuk.org/health-professional/cancer-statistics/statistics-by-cancer-type/melanoma-skin-cancer/mortality)
 [^6]: Cancer Research UK News - [Britain Has More Skin Cancer Deaths Than Australia](https://news.cancerresearchuk.org/2003/03/27/britain-has-more-skin-cancer-deaths-than-australia/)
 [^7]: Cancer Council Australia - [UV Radiation Prevention Policy](https://wiki.cancer.org.au/skincancerstats/Skin_cancer_incidence_and_mortality)
 [^8]: Skin Cancer Clinic - [Skin Cancer Rates Around the World](https://www.myskincentre.com.au/article/skin-cancer-rates-around-world/)
