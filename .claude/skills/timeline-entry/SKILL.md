@@ -69,6 +69,8 @@ One paragraph, 2-4 sentences. First-person, conversational, specific. Name the t
 
 If the entry is about a post or article the user wrote, the first sentence must link to it using its URL path (e.g. `[Post Title](/posts/post-slug/)`). Never write a timeline entry about a published post or article without linking to it.
 
+When referring to a repository by name, always link the repository name to its canonical repo URL. Repeat the link for later repo-name mentions in the same entry rather than leaving a bare repo reference.
+
 If the entry is about a shipped feature or release, the body must link to the release tag if one exists (e.g. `[v1.2.3](https://github.com/owner/repo/releases/tag/v1.2.3)`), falling back to the commit only when no tag covers it (e.g. `[abc1234](https://github.com/owner/repo/commit/abc1234)`). To find the tag: run `git tag --sort=-version:refname | head -10` in the repo, then `git log {commit}..{tag} --oneline` to confirm the commit is included. Never write a shipped timeline entry without linking to the release tag or commit.
 
 ## From a blog post
@@ -107,6 +109,7 @@ If the entry is about a shipped feature or release, the body must link to the re
 - File name matches `YYYY-MM-DD-{status}-{slug}.md`
 - Body is one paragraph, first-person, specific
 - If the entry is about a post/article the user wrote, the body links to it in the first sentence
+- Every named repository reference links to the canonical repo URL
 - If the entry is `shipped`, the body links to the release tag if one exists, otherwise the commit
 - Use the exact status type in both the filename and the status tag. Do not use `thinking` as a catch-all when the entry is better described as `wip` or `idea`.
 
