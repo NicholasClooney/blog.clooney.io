@@ -7,12 +7,18 @@ Cut a new release for this repo following the established convention.
 
 ## Steps
 
-1. **Determine the next version** using semver:
+1. **Synchronize release state before choosing a version.**
+   - Run `git pull --ff-only` on the release branch.
+   - Run `git fetch origin --tags`.
+   - Check the latest local tags after fetching, because some releases may have been created directly with `gh release create` or other GitHub release commands.
+   - If local release metadata and remote tags disagree, use the fetched remote tags as the source of truth before determining the next version.
+
+2. **Determine the next version** using semver:
    - Patch (`x.x.N`) — bug fixes, copy changes, dependency bumps
    - Minor (`x.N.0`) — new features or visible additions (most common)
    - Major (`N.0.0`) — breaking changes
 
-2. **Bump every repo-owned release version reference** to the new version.
+3. **Bump every repo-owned release version reference** to the new version.
    - Always update `package.json`
    - Always update the mirrored root version fields in `package-lock.json`
      - top-level `"version"`
@@ -21,18 +27,18 @@ Cut a new release for this repo following the established convention.
 
    Verify with a search for the old version before committing so you do not leave stale release numbers behind.
 
-3. **Keep the implementation commit separate from the release commit.**
+4. **Keep the implementation commit separate from the release commit.**
    - Feature, bug fix, refactor, and content changes should already be committed with their own intentional commit message before starting the release step.
    - The release commit should contain only the version bump and any repo-owned release metadata changes.
 
-4. **Commit the version bump** on the current branch:
+5. **Commit the version bump** on the current branch:
    ```
    chore: release vX.Y.Z
    ```
 
-5. **Push** the commit.
+6. **Push** the commit.
 
-6. **Create a GitHub release** via `gh release create`:
+7. **Create a GitHub release** via `gh release create`:
    - Tag: `vX.Y.Z`
    - Title: `11ty Subspace Builder: vX.Y.Z - <short feature name>`
    - Body: bullet points describing what changed (imperative, concise), followed by a compare URL:
