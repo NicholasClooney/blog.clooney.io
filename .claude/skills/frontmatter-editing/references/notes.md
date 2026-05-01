@@ -24,3 +24,4 @@ draft: true # optional; hides the note in production but keeps it visible in dev
 - Use topic tags only in file front matter. The content-type tag is supplied by `notes/notes.json`.
 - `excerpt` is optional but preferred when you want tighter control over summaries, feeds, or cards.
 - `draft` is optional.
+- Include `[[toc]]` in the body before the first section heading.
