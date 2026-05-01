@@ -27,8 +27,8 @@ ogImage:
   staticEntries:
     - key: /timeline
       slug: timeline
-      title: Timeline
-      excerpt: A personal timeline log, color-coded by entry type.
+      title: Nicholas's Timeline
+      excerpt: Captain's log for the things I ship, write, wonder about, and occasionally over-engineer.
 
 # tracking with umami
 umami:
