@@ -145,6 +145,16 @@ Shared timeline entry rendering lives in:
 Shared week pill rendering lives in:
 - `_includes/components/timeline-week-pill.njk`
 
+## Social Preview Images
+
+The Open Graph image pipeline generates cards for:
+- `/timeline/` as `/assets/og/timeline.png`
+- each Markdown timeline entry in `timeline/`
+
+The `/timeline/` card text is configured in `_data/site.yaml` under `ogImage.staticEntries`.
+Timeline entry pages resolve generated cards through `timeline/timeline.11tydata.js`.
+Timeline archive pages do not currently get generated cards.
+
 ## Week Index Behavior
 
 `/timeline/weeks/` is the index for all generated week pages.

@@ -9,6 +9,7 @@ import { html } from 'satori-html';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import matter from 'gray-matter';
+import yaml from 'js-yaml';
 
 import excerpt from '../lib/excerpt.js';
 import MarkdownIt from 'markdown-it';
@@ -33,11 +34,13 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const CONTENT_DIRECTORIES = [
   { name: 'posts', dir: path.join(ROOT_DIR, 'posts') },
   { name: 'notes', dir: path.join(ROOT_DIR, 'notes') },
+  { name: 'timeline', dir: path.join(ROOT_DIR, 'timeline') },
 ];
 const OUTPUT_DIR = path.join(ROOT_DIR, 'assets', 'og');
 const CACHE_DIR = path.join(ROOT_DIR, '.cache', 'og');
 const MANIFEST_PATH = path.join(CACHE_DIR, 'manifest.json');
 const DATA_PATH = path.join(ROOT_DIR, '_data', 'ogImages.json');
+const SITE_DATA_PATH = path.join(ROOT_DIR, '_data', 'site.yaml');
 
 const CLI_FORCE =
   process.argv.includes('--force') || process.env.OG_FORCE === 'true';
@@ -120,6 +123,39 @@ async function writeManifest(manifest) {
 async function writeDataFile(map) {
   const payload = JSON.stringify(map, null, 2);
   await writeFile(DATA_PATH, `${payload}\n`, 'utf8');
+}
+
+async function readSiteData() {
+  if (!(await fileExists(SITE_DATA_PATH))) {
+    return {};
+  }
+
+  const raw = await readFile(SITE_DATA_PATH, 'utf8');
+  return yaml.load(raw) || {};
+}
+
+async function collectStaticEntries() {
+  const siteData = await readSiteData();
+  const entries = siteData?.ogImage?.staticEntries;
+
+  if (!Array.isArray(entries)) {
+    return [];
+  }
+
+  return entries
+    .map((entry) => ({
+      key: entry?.key,
+      slug: entry?.slug,
+      title: entry?.title,
+      excerpt: entry?.excerpt,
+    }))
+    .filter(
+      (entry) =>
+        entry.key &&
+        entry.slug &&
+        entry.title &&
+        typeof entry.excerpt === 'string',
+    );
 }
 
 function stripHtml(text) {
@@ -318,7 +354,7 @@ function toOutputFilename(contentKey) {
 }
 
 async function collectEntries() {
-  const entries = [];
+  const entries = await collectStaticEntries();
 
   for (const { name, dir } of CONTENT_DIRECTORIES) {
     if (!(await fileExists(dir))) continue;

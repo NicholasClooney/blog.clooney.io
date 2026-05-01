@@ -11,16 +11,18 @@ export default {
         : undefined;
     },
     ogImage: (data) => {
-      const { ogImage, ogImages, page } = data;
+      const { ogImage, page } = data;
       if (ogImage) return ogImage;
 
-      const key = page?.filePathStem;
-      if (key && ogImages?.[key]) return ogImages[key];
+      const inputPath = page?.inputPath || '';
+      const slug = inputPath
+        .split(/[\\/]/)
+        .filter(Boolean)
+        .pop()
+        ?.replace(/\.md$/, '');
+      if (!slug) return undefined;
 
-      const slug = page?.fileSlug;
-      if (!slug || !ogImages) return undefined;
-
-      return ogImages[slug];
+      return `/assets/og/timeline--${slug}.png`;
     },
   },
 };

@@ -70,7 +70,7 @@ This sets `ELEVENTY_ENV=production` and writes the static output to the `_site/`
 - Headlines/excerpts auto-resize and truncate when needed so long titles (e.g. “The Joy (and Frustrations) of Building Small Sites with GPT-5 Codex”) stay legible without breaking the layout.
 - Content hashing keeps regeneration cheap—changes to a post’s title, excerpt, or the template version trigger a refresh, otherwise cached PNGs in `.cache/og/` are reused.
 - Use `npm run og` to generate cards manually, `npm run og -- --force` (or `OG_FORCE=true npx @11ty/eleventy`) to rebuild everything, and check the emitted file map in `_data/ogImages.json`.
-- Posts automatically receive an `ogImage` field via computed data, so layouts and feeds can reference `{{ ogImage }}` without manual front matter tweaks.
+- Posts, notes, and timeline entries automatically receive an `ogImage` field via computed data, so layouts and feeds can reference `{{ ogImage }}` without manual front matter tweaks. Static cards such as the timeline root page are configured in `_data/site.yaml` under `ogImage.staticEntries`.
 
 ## Project Structure
 

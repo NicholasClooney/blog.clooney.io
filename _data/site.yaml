@@ -23,6 +23,13 @@ codeBlock:
   collapseLineThreshold: 15
   copyButtonLineThreshold: 10
 
+ogImage:
+  staticEntries:
+    - key: /timeline
+      slug: timeline
+      title: Timeline
+      excerpt: A personal timeline log, color-coded by entry type.
+
 # tracking with umami
 umami:
   source: https://analytics.clooney.ninja/script.js
