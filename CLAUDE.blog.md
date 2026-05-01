@@ -17,6 +17,7 @@ Use the repo-local commit message skill at `.claude/skills/commit-message/SKILL.
 ## Post and note workflow
 
 Use the repo-local workflow skill at `.claude/skills/post-and-note-workflow/SKILL.md` (`/post-and-note-workflow` in Claude). It makes the timeline-entry requirement explicit for new and published writing in `posts/` and `notes/`.
+Posts and notes must include `[[toc]]` in the body before the first section heading.
 
 ## Front matter
 
