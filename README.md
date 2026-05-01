@@ -6,7 +6,7 @@ https://subspace-builder.nicholas.clooney.io/
 
 ## Features
 
-- Powered by Eleventy 3 with Markdown-it, auto-generated heading anchors, and computed content metadata
+- Powered by Eleventy 3 with Markdown-it, footnotes, auto-generated heading anchors, and computed content metadata
 - Tachyons-based, theme-aware typography and color palettes with runtime switching for site chrome, code blocks, and GitHub embeds
 - Responsive navigation with a mobile hamburger menu, dark-theme-safe icon styling, and paginated home-page browsing
 - Dedicated content surfaces for posts, drafts, notes, tags, projects, and curated series pages with per-post series backlinks
@@ -123,6 +123,7 @@ Your post content starts here. Eleventy handles Markdown -> HTML conversion.
 ```
 
 Posts automatically pick up the layout defined in `posts/posts.json`. The `excerpt` field is optional; without it, the `excerpt` filter trims the rendered HTML.
+Markdown footnotes now work too, using standard `[^1]` references plus `[^1]: note text` definitions, or inline `^[note text]` syntax.
 
 ## Components & Enhancements
 

@@ -79,6 +79,65 @@
 	html.theme.white blockquote.todo-quote {
 		--todo-quote-fg: #111;
 	}
+	html.theme .footnotes {
+		margin-top: 2rem;
+		padding-top: 1rem;
+		border-top: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+		font-size: 0.95rem;
+	}
+	html.theme .footnotes-sep {
+		display: none;
+	}
+	html.theme .footnotes-list {
+		counter-reset: footnotes;
+		list-style: none;
+		padding-left: 0;
+		margin: 0.75rem 0 0;
+	}
+	html.theme .footnote-item {
+		counter-increment: footnotes;
+		display: grid;
+		grid-template-columns: auto 1fr;
+		column-gap: 0.55rem;
+		align-items: baseline;
+		padding: 0.25rem 0.45rem;
+		margin: 0.35rem 0;
+	}
+	html.theme .footnote-item::before {
+		content: counter(footnotes) ".";
+		grid-column: 1;
+		grid-row: 1;
+	}
+	html.theme .footnote-item > p {
+		grid-column: 2;
+		margin: 0;
+	}
+	html.theme .footnote-item:target {
+		outline: 3px solid var(--footnote-target-outline, var(--accent));
+		outline-offset: 0.2rem;
+		border-radius: 0.35rem;
+	}
+	html.theme .footnote-ref,
+	html.theme .footnote-backref {
+		text-decoration: none;
+		font-weight: 700;
+	}
+	html.theme .footnote-ref {
+		font-size: 0.8em;
+		vertical-align: super;
+	}
+	html.theme .footnote-backref {
+		margin-left: 0.25rem;
+	}
+	html.theme .footnote-ref a,
+	html.theme .footnote-backref {
+		color: var(--accent);
+	}
+	@supports (color: color-mix(in srgb, #000 0%, transparent)) {
+		html.theme {
+			--footnote-target-outline: color-mix(in srgb, var(--accent) 62%, transparent);
+		}
+	}
 	/*
 		Eleventy Img transform adds width/height attrs;
 		Reset the height so images stay proportional at narrow widths

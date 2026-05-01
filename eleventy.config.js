@@ -13,6 +13,7 @@ import fs from 'node:fs';
 // Bake our own Markdown anchors
 import MarkdownIt from 'markdown-it';
 import MarkdownItAnchor from 'markdown-it-anchor';
+import MarkdownItFootnote from 'markdown-it-footnote';
 import MarkdownItTocDoneRight from 'markdown-it-toc-done-right';
 // Use yaml for data
 import yaml from 'js-yaml';
@@ -1132,6 +1133,7 @@ const md = new MarkdownIt({
     return highlightCode(code, normalizeLanguage(language));
   },
 })
+  .use(MarkdownItFootnote)
   .use(MarkdownItAnchor, {
     slugify,
     permalink: MarkdownItAnchor.permalink.ariaHidden({
