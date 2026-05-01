@@ -10,9 +10,22 @@ excerpt: |
   A note on why Australia and the UK treat sun safety so differently, and why the death statistics tell a more surprising story than the weather suggests.
 ---
 
-These observations are mine, but I used AI to do the research and write the first draft. I did a partial round of human fact-checking and found some of the numbers were already outdated, so I made edits where I caught problems. I stopped around "Slip, Slop, Slap - The Campaign That Changed a Nation", though, because I do not have the time or energy to keep fact-checking this note, and I do not want to ask AI to do another pass on itself either.
+These observations are mine, but I, the human Editor in Chief at clooney.io 😜,  used AI to do the research and write the first draft. I did a partial round of human fact-checking and found some of the numbers were already outdated, so I made edits where I caught problems. I stopped around "Slip, Slop, Slap - The Campaign That Changed a Nation", though, because I do not have the time or energy to keep fact-checking this note, and I do not want to ask AI to do another pass on itself either.
 
 So take this with a grain of salt. It is a useful reminder that AI is powerful, but, like humans, it still makes mistakes. For a personal research note like this, I am comfortable publishing with some uncertainty or possible inaccuracy. For serious journalism, though, I am left wondering what tooling, process, or editorial infrastructure is needed to make AI-assisted work treat factual accuracy with absolute respect.
+
+By the way, here's the 1981 Australian TV ads "Slip! Slop! Slap!" that I found on YouTube. Enjoy!
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe
+    src="https://www.youtube.com/embed/b7nocIenCYg?start=8"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+    title="Slip Slop Slap"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
 
 ---
 
@@ -47,6 +60,17 @@ That culture didn't happen by accident.
 ### Slip, Slop, Slap - The Campaign That Changed a Nation
 
 In 1981, a seagull named Sid appeared in Australian TV ads singing a catchy jingle: *"Slip on a shirt! Slop on some sunscreen! Slap on a hat!"* The Slip, Slop, Slap campaign (later expanded to add *Slide* on sunglasses and *Seek* shade) became one of the most successful public health interventions in history, embedding sun safety into Australian childhood the way seatbelts and bike helmets did in other countries.[^2]
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe
+    src="https://www.youtube.com/embed/b7nocIenCYg?start=8"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+    title="Slip Slop Slap"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
 
 The SunSmart program launched in 1987 and now operates across every Australian state through Cancer Councils.[^2] In 2006, the first government-funded mass media skin cancer initiative launched nationally - delivered through radio, television, and print.[^2]
 
