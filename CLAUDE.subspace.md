@@ -47,7 +47,10 @@ date:
 tags:
 excerpt:        # optional; falls back to first 2 paragraphs
 draft: true     # hidden in production, visible in dev
+hidden: true    # notes only: public by URL, omitted from /notes/, listed at /notes/hidden/
 ```
+
+Notes under `notes/hidden/` inherit `hidden: true` from `notes/hidden/hidden.json`.
 
 **Timeline entries** (`timeline/`)
 ```yaml

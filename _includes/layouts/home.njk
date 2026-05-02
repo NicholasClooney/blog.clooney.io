@@ -18,6 +18,7 @@ layout: layouts/base.njk
 {% set isNoteDetailPage = isNotePage and currentUrl != '/notes/' %}
 {% set isTimelineDetailPage = isTimelinePage and currentUrl != '/timeline/' %}
 {% set isArticlePage = isPostDetailPage or isNoteDetailPage %}
+{% set showComments = comments if comments is defined else true %}
 {% set timelineEntries = collections.timeline | default([]) %}
 {% set currentTimelineEntry = page.url | timelineEntryByRef(timelineEntries) if isTimelineDetailPage else null %}
 {% set timelineEarlierThread = currentTimelineEntry | timelineEarlierThreadEntries(timelineEntries) if currentTimelineEntry else [] %}
@@ -393,7 +394,7 @@ layout: layouts/base.njk
           {% endif %}
         </section>
       {% endif %}
-      {% if isArticlePage and giscusConfig.repo %}
+      {% if isArticlePage and showComments and giscusConfig.repo %}
         <script src="https://giscus.app/client.js"
                 data-repo="{{ giscusConfig.repo }}"
                 data-repo-id="{{ giscusConfig.repoId }}"

@@ -1,0 +1,14 @@
+---
+layout: layouts/home.njk
+title: Unlisted Notes
+description: Notes that are public by URL but omitted from the main notes index.
+permalink: /notes/hidden/
+comments: false
+---
+
+{% from "components/post-list.njk" import renderPostList %}
+
+<section class="mw7 center">
+  <h1 class="f3 f2-ns lh-title mt0 mb0">Unlisted Notes</h1>
+  {{ renderPostList(collections.hiddenNotes, "No unlisted notes found.") | safe }}
+</section>

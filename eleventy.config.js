@@ -1333,7 +1333,15 @@ export default function (eleventyConfig) {
   );
 
   eleventyConfig.addCollection('notes', (collectionApi) =>
-    collectionApi.getFilteredByTag('notes'),
+    collectionApi
+      .getFilteredByTag('notes')
+      .filter((item) => !item?.data?.hidden),
+  );
+
+  eleventyConfig.addCollection('hiddenNotes', (collectionApi) =>
+    collectionApi
+      .getFilteredByTag('notes')
+      .filter((item) => item?.data?.hidden),
   );
 
   eleventyConfig.addCollection('timeline', (collectionApi) =>
