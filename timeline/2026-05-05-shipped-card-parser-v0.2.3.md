@@ -22,3 +22,46 @@ The pattern that emerged: I'd spot a class of issue on a specific card, explain 
 What GPT-5.5 is good at in this loop is the mechanical throughput. Regex extraction, threading new state through a resolution pipeline, mirroring changes to the audit script, regenerating 55 JSON files, splitting work into clean commits. The domain knowledge, the quality bar, and the architectural decisions all come from the human side. GPT-5.5 doesn't know what `CalculatedVar` means in the game engine or why display vars like `HasRider` matter for conditional text. It doesn't need to, once I describe the shape of the problem clearly enough.
 
 The productivity gain isn't just speed. It's that I can stay at the architectural level, thinking about which cards are still wrong and why, without losing momentum to implementation mechanics. The feedback loop stays tight: inspect, identify, describe, implement, verify, repeat.
+
+## Example: resolved card output
+
+Here's what a fully resolved card looks like now. Ball Lightning's [`resolved` block](https://github.com/NicholasClooney/ProjectSpire/blob/04f9c2ae41d969d4b92b046e9bb02c902c0bc19a/Lab/data/v0.103.2/cards/ball_lightning.json#L51-L131) shows the base and upgraded display states, with structured text runs that carry source variable references and style annotations:
+
+```json
+"resolved": {
+  "base": {
+    "title": "Ball Lightning",
+    "cost": 1,
+    "energy_cost": { "kind": "int", "value": 1 },
+    "description": {
+      "plain": "Deal 7 damage.\nChannel 1 Lightning.",
+      "runs": [
+        { "text": "Deal " },
+        { "text": "7", "source_var": "Damage" },
+        { "text": " damage.\n" },
+        { "text": "Channel", "style": "gold" },
+        { "text": " 1 " },
+        { "text": "Lightning", "style": "gold" },
+        { "text": "." }
+      ]
+    }
+  },
+  "upgraded": {
+    "title": "Ball Lightning+",
+    "cost": 1,
+    "energy_cost": { "kind": "int", "value": 1 },
+    "description": {
+      "plain": "Deal 10 damage.\nChannel 1 Lightning.",
+      "runs": [
+        { "text": "Deal " },
+        { "text": "10", "source_var": "Damage", "style": "green" },
+        { "text": " damage.\n" },
+        { "text": "Channel", "style": "gold" },
+        { "text": " 1 " },
+        { "text": "Lightning", "style": "gold" },
+        { "text": "." }
+      ]
+    },
+    "changed": ["description"]
+  }
+}
