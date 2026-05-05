@@ -25,43 +25,6 @@ The productivity gain isn't just speed. It's that I can stay at the architectura
 
 ## Example: resolved card output
 
-Here's what a fully resolved card looks like now. Ball Lightning's [`resolved` block](https://github.com/NicholasClooney/ProjectSpire/blob/04f9c2ae41d969d4b92b046e9bb02c902c0bc19a/Lab/data/v0.103.2/cards/ball_lightning.json#L51-L131) shows the base and upgraded display states, with structured text runs that carry source variable references and style annotations:
+Here's what a fully resolved card looks like now. Ball Lightning's resolved block shows the base and upgraded display states, with structured text runs that carry source variable references and style annotations:
 
-```json
-"resolved": {
-  "base": {
-    "title": "Ball Lightning",
-    "cost": 1,
-    "energy_cost": { "kind": "int", "value": 1 },
-    "description": {
-      "plain": "Deal 7 damage.\nChannel 1 Lightning.",
-      "runs": [
-        { "text": "Deal " },
-        { "text": "7", "source_var": "Damage" },
-        { "text": " damage.\n" },
-        { "text": "Channel", "style": "gold" },
-        { "text": " 1 " },
-        { "text": "Lightning", "style": "gold" },
-        { "text": "." }
-      ]
-    }
-  },
-  "upgraded": {
-    "title": "Ball Lightning+",
-    "cost": 1,
-    "energy_cost": { "kind": "int", "value": 1 },
-    "description": {
-      "plain": "Deal 10 damage.\nChannel 1 Lightning.",
-      "runs": [
-        { "text": "Deal " },
-        { "text": "10", "source_var": "Damage", "style": "green" },
-        { "text": " damage.\n" },
-        { "text": "Channel", "style": "gold" },
-        { "text": " 1 " },
-        { "text": "Lightning", "style": "gold" },
-        { "text": "." }
-      ]
-    },
-    "changed": ["description"]
-  }
-}
+https://github.com/NicholasClooney/ProjectSpire/blob/04f9c2ae41d969d4b92b046e9bb02c902c0bc19a/Lab/data/v0.103.2/cards/ball_lightning.json#L51-L131
