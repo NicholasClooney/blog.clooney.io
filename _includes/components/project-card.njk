@@ -30,11 +30,16 @@
           {{ project.summary }}
         </p>
       {% endif %}
-      {% if project.repo or project.url %}
+      {% if project.repo or project.url or project.timeline %}
         <div class="project-card__links mt0 mb3">
           {% if project.url %}
             <div class="project-card__link-item">
               <a class="project-card__url link dim" href="{{ project.url }}">Link</a>
+            </div>
+          {% endif %}
+          {% if project.timeline %}
+            <div class="project-card__link-item">
+              <a class="project-card__timeline link dim" href="{{ project.timeline }}">Timeline</a>
             </div>
           {% endif %}
           {% if project.repo %}
