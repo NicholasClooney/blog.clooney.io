@@ -27,4 +27,4 @@ The productivity gain isn't just speed. It's that I can stay at the architectura
 
 Here's what a fully resolved card looks like now. Ball Lightning's resolved block shows the base and upgraded display states, with structured text runs that carry source variable references and style annotations:
 
-https://github.com/NicholasClooney/ProjectSpire/blob/04f9c2ae41d969d4b92b046e9bb02c902c0bc19a/Lab/data/v0.103.2/cards/ball_lightning.json#L51-L131
+{% github "https://github.com/NicholasClooney/ProjectSpire/blob/04f9c2ae41d969d4b92b046e9bb02c902c0bc19a/Lab/data/v0.103.2/cards/ball_lightning.json#L51-L131" %}
