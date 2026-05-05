@@ -36,6 +36,32 @@ active:
       - Nunjucks
       - YAML
 
+  - name: ProjectSpire
+    summary: |
+      Multi-language effort to turn Slay the Spire 2 internals into usable tooling:
+      C#/Godot mods, Swift apps, Python parsers, recovered game resources,
+      generated JSON data, audits, and documentation tied together across
+      decompiled source and live game behavior.
+
+      A lot of the work uses AI as an engineering partner to inspect source,
+      generate parsers, catch edge cases through audits, and iteratively turn
+      human discoveries into repeatable code and data workflows.
+    url: null
+    timeline: https://blog.nicholas.clooney.io/timeline/project-spire/
+    repo: https://github.com/NicholasClooney/ProjectSpire
+    image:
+      src: /assets/images/projects/project-spire-ball-lightning.webp
+      alt: ProjectSpire ball lightning artwork
+    tech:
+      - C#
+      - Godot
+      - Swift
+      - Python
+      - JSON
+      - AI
+      - Modding
+      - Documentation
+
   - name: Project Etho
     summary: |
       Beautiful static timeline that tracks Etho's appearances across the web,
