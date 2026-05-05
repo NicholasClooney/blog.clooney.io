@@ -91,6 +91,33 @@ Use `var(--accent)` for theme-aware accent color in custom CSS. Use the `theme-t
 - Never add cross-page links before both pages exist.
 - Always run `npm run build` to verify before committing.
 
+## Commit messages
+
+Use Conventional Commits:
+
+```
+type(optional-scope): concise imperative summary
+```
+
+Keep the summary lowercase after the colon unless it starts with a proper noun. Prefer the established repo types:
+
+- `feat:` for new user-facing behavior
+- `fix:` for bug fixes
+- `docs:` for documentation-only changes
+- `content:` for post, note, timeline, or copy changes
+- `chore:` for maintenance and release work
+
+Use a scope when it adds useful context, as in `feat(theme): ...` or `docs(timeline): ...`.
+
+Concrete examples from recent history:
+
+- `feat: add hidden notes index`
+- `fix: wrap long prose links on mobile`
+- `docs: update release workflow sync step`
+- `feat(theme): add auto/light/dark theme mode control and configurable delayed previews`
+- `content: prefix timeline feature titles`
+- `chore: release v1.32.1`
+
 ## Feature-flagged nav items
 
 Nav visibility can be controlled from `site.yaml` without touching templates. Pattern used for timeline:
