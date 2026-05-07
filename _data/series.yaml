@@ -44,6 +44,7 @@
     - /posts/ssh-from-iPhone-to-Mac/
     - /posts/building-with-gpt-5-codex-my-experience/
     - /posts/building-my-own-subspace-builder/
+    - /posts/building-ai-agent-workflows-that-accumulate-context/
 
 - id: subspace-builder
   title: Subspace Builder Series
