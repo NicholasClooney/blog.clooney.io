@@ -44,7 +44,9 @@ const computeCollapseHeight = (container) => {
 
 const setupCollapsibleContent = () => {
   document
-    .querySelectorAll('.gh-embed[data-collapse-threshold], .code-block[data-collapse-threshold]')
+    .querySelectorAll(
+      '.gh-embed[data-collapse-threshold], .code-block[data-collapse-threshold]',
+    )
     .forEach((container) => {
       const threshold = Number.parseInt(
         container.dataset.collapseThreshold || '',
@@ -73,7 +75,9 @@ const setupCollapsibleContent = () => {
       computeCollapseHeight(container);
       const pre = container.querySelector('.gh-embed__pre, .code-block__pre');
       if (pre && 'ResizeObserver' in window) {
-        const observer = new ResizeObserver(() => computeCollapseHeight(container));
+        const observer = new ResizeObserver(() =>
+          computeCollapseHeight(container),
+        );
         observer.observe(pre);
       }
     });
@@ -108,6 +112,26 @@ document.addEventListener('click', (event) => {
       } else {
         computeCollapseHeight(container);
       }
+    }
+    return;
+  }
+
+  const wrapToggle = event.target.closest('[data-wrap-toggle]');
+  if (wrapToggle) {
+    const container = wrapToggle.closest('.gh-embed, .code-block');
+    if (container) {
+      const wrapClass = container.classList.contains('gh-embed')
+        ? 'gh-embed--wrap'
+        : 'code-block--wrap';
+      const wrapped = container.classList.toggle(wrapClass);
+      const wrapLabel = wrapToggle.dataset.wrapLabel || 'Wrap';
+      const wrappedLabel = wrapToggle.dataset.wrappedLabel || 'Wrapped';
+      wrapToggle.textContent = wrapped ? wrappedLabel : wrapLabel;
+      wrapToggle.setAttribute('aria-pressed', String(wrapped));
+      container
+        .querySelector('.gh-embed__pre, .code-block__pre')
+        ?.scrollTo({ left: 0 });
+      computeCollapseHeight(container);
     }
     return;
   }

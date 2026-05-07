@@ -189,6 +189,7 @@ const renderMarkdownCodeBlock = (code, language = '') => {
   const collapseClasses = shouldCollapse
     ? ' code-block--collapsible code-block--collapsed'
     : '';
+  const wrapClass = ' code-block--wrap';
   const collapseAttributes = shouldCollapse
     ? ` data-collapse-threshold="${collapseThreshold}" data-line-count="${lineCount}"`
     : '';
@@ -199,19 +200,16 @@ const renderMarkdownCodeBlock = (code, language = '') => {
 \t</button>`
     : '';
   const pre = `<pre class="code-block__pre"><code class="${codeClass.trim()}">${highlighted}</code></pre>`;
-
-  if (!shouldShowCopy && !shouldCollapse) {
-    return pre;
-  }
-
-  const actions = shouldShowCopy
+  const copyButton = shouldShowCopy
     ? `
-\t<div class="code-block__actions">
-\t\t<button class="code-block__copy gh-embed__copy" type="button" data-clipboard>Copy</button>
-\t</div>`
+\t\t<button class="code-block__copy gh-embed__copy" type="button" data-clipboard>Copy</button>`
     : '';
+  const actions = `
+\t<div class="code-block__actions">
+\t\t<button class="code-block__wrap gh-embed__copy" type="button" data-wrap-toggle aria-pressed="true" data-wrap-label="Wrap" data-wrapped-label="Wrapped">Wrapped</button>${copyButton}
+\t</div>`;
 
-  return `<div class="code-block${collapseClasses}"${collapseAttributes}>
+  return `<div class="code-block${wrapClass}${collapseClasses}"${collapseAttributes}>
 \t${actions}
 \t${pre}
 \t${toggleButton}
@@ -1424,6 +1422,10 @@ export default function (eleventyConfig) {
       const collapseClasses = shouldCollapse
         ? ' gh-embed--collapsible gh-embed--collapsed'
         : '';
+      const wrapClass = normalizedLanguage === 'markdown' ? ' gh-embed--wrap' : '';
+      const shouldWrap = normalizedLanguage === 'markdown';
+      const wrapPressed = shouldWrap ? 'true' : 'false';
+      const wrapLabel = shouldWrap ? 'Wrapped' : 'Wrap';
       const collapseAttributes = shouldCollapse
         ? ` data-collapse-threshold="${collapseThreshold}" data-line-count="${lineCount}"`
         : '';
@@ -1435,13 +1437,14 @@ export default function (eleventyConfig) {
         : '';
 
       return `
-<div class="gh-embed gh-embed--${theme}${collapseClasses}"${collapseAttributes}>
+<div class="gh-embed gh-embed--${theme}${wrapClass}${collapseClasses}"${collapseAttributes}>
 	<div class="gh-embed__meta">
 		<a class="gh-embed__file" href="${meta.web}" target="_blank" rel="noopener noreferrer">
 			${meta.filePath}
 		</a>
 		<div class="gh-embed__actions">
 			<a class="gh-embed__raw" href="${meta.raw}" target="_blank" rel="noopener noreferrer">view raw</a>
+			<button class="gh-embed__wrap gh-embed__copy" type="button" data-wrap-toggle aria-pressed="${wrapPressed}" data-wrap-label="Wrap" data-wrapped-label="Wrapped">${wrapLabel}</button>
 			<button class="gh-embed__copy" data-clipboard>Copy</button>
 		</div>
 	</div>

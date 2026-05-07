@@ -128,6 +128,12 @@ html.theme[data-theme='terminal'] .gh-embed:not(.gh-embed--light) {
   border-color: rgba(27, 31, 36, 0.2);
 }
 
+.gh-embed__copy[aria-pressed='true'] {
+  background: rgba(9, 105, 218, 0.14);
+  border-color: rgba(9, 105, 218, 0.35);
+  color: var(--gh-link);
+}
+
 .gh-embed--dark .gh-embed__copy,
 html.theme[data-theme='grape'] .gh-embed:not(.gh-embed--light) .gh-embed__copy,
 html.theme[data-theme='deep-blue']
@@ -144,6 +150,27 @@ html.theme[data-theme='terminal']
   .gh-embed__copy {
   background: rgba(110, 118, 129, 0.12);
   border-color: rgba(110, 118, 129, 0.4);
+}
+
+.gh-embed--dark .gh-embed__copy[aria-pressed='true'],
+html.theme[data-theme='grape']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy[aria-pressed='true'],
+html.theme[data-theme='deep-blue']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy[aria-pressed='true'],
+html.theme[data-theme='midnight']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy[aria-pressed='true'],
+html.theme[data-theme='charcoal']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy[aria-pressed='true'],
+html.theme[data-theme='terminal']
+  .gh-embed:not(.gh-embed--light)
+  .gh-embed__copy[aria-pressed='true'] {
+  background: rgba(88, 166, 255, 0.16);
+  border-color: rgba(88, 166, 255, 0.42);
+  color: var(--gh-link);
 }
 
 .gh-embed--dark .gh-embed__copy:hover,
@@ -203,7 +230,8 @@ html.theme[data-theme='terminal']
 }
 
 .gh-embed--collapsed .gh-embed__pre {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   max-height: var(--gh-collapse-height, 0px);
 }
 
@@ -269,10 +297,16 @@ html.theme[data-theme='terminal']
 
 .gh-embed__ol > li > code {
   display: block;
+  min-width: 0;
   white-space: pre;
   -moz-tab-size: 2;
   tab-size: 2;
   color: inherit;
+}
+
+.gh-embed--wrap .gh-embed__ol > li > code {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
 
 .gh-embed__toggle {
@@ -399,6 +433,11 @@ main pre:not(.gh-embed__pre) code {
   color: inherit;
 }
 
+main .code-block--wrap > pre.code-block__pre code {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
 main pre:not(.gh-embed__pre) code.hljs {
   padding: 0;
   background: transparent;
@@ -411,6 +450,7 @@ main .code-block {
 
 main .code-block > pre.code-block__pre {
   margin: 0;
+  padding-top: 3rem;
 }
 
 main .code-block--collapsible > pre.code-block__pre {
