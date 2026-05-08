@@ -30,7 +30,7 @@ tags:
       style="width: 100%; height: auto; border-radius: 8px;"
     />
   </div>
-  <figcaption>Neow's Cafe browsing catalog-backed card data instead of bundled mock cards.</figcaption>
+  <figcaption style="text-align: center;">Neow's Cafe browsing catalog-backed card data instead of bundled mock cards.</figcaption>
 </figure>
 
 I spent today turning [ProjectSpire](https://github.com/NicholasClooney/ProjectSpire)'s iOS app *"Neow's Cafe"* from a mock-card browser into something much closer to a real Slay the Spire 2 card catalog.
