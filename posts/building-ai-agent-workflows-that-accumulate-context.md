@@ -60,7 +60,7 @@ An operating system does not do the work, it creates the conditions for work to 
 The root of the system is the repo-level agent instruction file. In ProjectSpire, `AGENTS.md` is a symlink to `CLAUDE.md`, and `CLAUDE.md` acts as the operating manual for any agent working in the project.
 
 {% github
-"https://github.com/NicholasClooney/ProjectSpire/blob/2b50e8c3ea9843588a7873004a89f3e6c2c76b39/CLAUDE.md#L11-L29"
+"https://github.com/NicholasClooney/ProjectSpire/blob/397bbfa/CLAUDE.md#L11-L29"
 %}
 
 What that file deliberately does *not* try to do is contain every possible instruction. It is a router. It points at durable places: implementation plans, Captain Logs, release-tag workflows, snapshot workflows, build conventions, timeline-writing workflows.
