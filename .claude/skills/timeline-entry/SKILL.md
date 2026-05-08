@@ -67,6 +67,8 @@ Examples:
 
 One paragraph, 2-4 sentences. First-person, conversational, specific. Name the thing, the decision, the outcome. No marketing language.
 
+When adding images to a timeline entry, center the caption text under the image or image group, e.g. `<figcaption style="text-align: center;">...`.
+
 If the entry is about a post or article the user wrote, the first sentence must link to it using its URL path (e.g. `[Post Title](/posts/post-slug/)`). Never write a timeline entry about a published post or article without linking to it.
 
 When referring to a repository by name, always link the repository name to its canonical repo URL. Repeat the link for later repo-name mentions in the same entry rather than leaving a bare repo reference.
@@ -108,6 +110,7 @@ If the entry is about a shipped feature or release, the body must link to the re
 - Timeline collection tag present, either from `timeline/timeline.json` or explicit file tags
 - File name matches `YYYY-MM-DD-{status}-{slug}.md`
 - Body is one paragraph, first-person, specific
+- Image captions are centered under the image or image group
 - If the entry is about a post/article the user wrote, the body links to it in the first sentence
 - Every named repository reference links to the canonical repo URL
 - If the entry is `shipped`, the body links to the release tag if one exists, otherwise the commit
