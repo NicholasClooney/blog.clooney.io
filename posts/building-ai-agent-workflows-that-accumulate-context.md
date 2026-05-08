@@ -89,7 +89,14 @@ The plan also records verification and assumptions, which matters because agent-
 "https://github.com/NicholasClooney/ProjectSpire/blob/2b50e8c3ea9843588a7873004a89f3e6c2c76b39/Documentation/Plans/0002%20-%20Neow%27s%20Cafe%20Card%20Catalog%20Integration.md#L80-L110"
 %}
 
-One open question I am still working through: how plans and devlogs relate to each other. Plans capture intent before the work. Devlogs capture what actually happened after it lands. In theory they are cleanly separate. In practice the boundary blurs. A plan evolves mid-execution, a devlog ends up recording a decision that should have been in the plan, and sometimes it is not obvious which document you actually need. The right shape for these two is something I am still figuring out. It is one of the genuine growing pains of building this out, and I am not going to pretend otherwise.
+~~One open question I am still working through: how plans and devlogs relate to each other. Plans capture intent before the work. Devlogs capture what actually happened after it lands. In theory they are cleanly separate. In practice the boundary blurs. A plan evolves before the execution, a devlog ends up recording a decision that could have been in the plan, and sometimes it is not obvious which document you actually need. The right shape for these two is something I am still actively figuring out. It is one of the genuine growing pains of building this out, and I am not going to pretend otherwise.~~
+
+**Update:** I think I've landed on what separates a plan from a devlog.
+
+A plan is the output of a deliberate planning session, for changes complex enough that the shape of the solution needs to be thought through before work begins.
+
+But not every change needs that. Adding a [custom typography system](https://github.com/NicholasClooney/ProjectSpire/commit/726c66d6cc61cace80901c79483992498a099fa4) or [light and dark themes](https://github.com/NicholasClooney/ProjectSpire/commit/81a52bb276109fb183e39e0b9f711bf5bd21064e) are not complex decisions, but they are worth a brief record of how and why they were done. That is what a devlog is for.
+
 
 ### Captain Logs: Where Craft Gets Captured
 
