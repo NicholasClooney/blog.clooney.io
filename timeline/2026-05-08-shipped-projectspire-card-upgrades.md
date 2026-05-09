@@ -14,7 +14,7 @@ tags:
 
 I shipped upgrade-aware card data across [Card Catalog v0.2.0](https://github.com/NicholasClooney/ProjectSpire/releases/tag/release/card-catalog/v0.2.0) and [Neow's Cafe v0.2.0](https://github.com/NicholasClooney/ProjectSpire/releases/tag/release/neows-cafe/v0.2.0) in [ProjectSpire](https://github.com/NicholasClooney/ProjectSpire).
 
-The catalog JSON now carries upgraded card values, and the app has a proper detailed card view where I can inspect those upgrades instead of only browsing the grid. Adding the upgraded Supress image to the repo makes the release feel more concrete: the data pipeline, bundled assets, and SwiftUI surface are now all showing the same upgraded state.
+The catalog JSON now carries upgraded card values, and the app has a proper detailed card view where I can inspect those upgrades instead of only browsing the cards in their base form in the grid.
 
 In the game, the numbers (`17` and `5`) in the text, would be highlighted with the color being green, because they are the upgraded from base values. That is next on my todo list.
 
