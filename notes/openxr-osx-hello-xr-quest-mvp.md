@@ -189,6 +189,19 @@ The Quest client initially showed the documented blue standby screen. Once `hell
 
 What I saw in the headset matched the expected sample output: a teal background with a few simple 3D cubes. That is enough to count as a successful native `macOS -> OpenXR-OSX -> Quest` path.
 
+Here is the short clip from that successful run:
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe
+    src="https://www.youtube.com/embed/slwVUBdZR1Y"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+    title="OpenXR-OSX hello_xr on Quest from macOS"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
+
 ## Host-side evidence
 
 The most useful host log lines from the successful run were:
