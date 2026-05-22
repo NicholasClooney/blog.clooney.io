@@ -13,6 +13,19 @@ excerpt: |
 
 This is the narrowest test I would try first if the goal is to prove that [`OpenXR-OSX`](https://github.com/demonixis/OpenXR-OSX) can drive a `Quest` headset from a native `macOS` `OpenXR` application.
 
+Here is the short clip from that successful run:
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe
+    src="https://www.youtube.com/embed/slwVUBdZR1Y"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+    title="OpenXR-OSX hello_xr on Quest from macOS"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
+
 [[toc]]
 
 ## Scope
