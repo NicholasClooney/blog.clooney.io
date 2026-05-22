@@ -37,14 +37,15 @@
     small site experiments and remote workflows to pair-writing and shipping
     larger personal software projects.
   posts:
-    - /posts/accelerated-speed-of-creation/
-    - /posts/how-clever-is-ai/
-    - /posts/building-projectdawn-with-claude-and-codex/
-    - /posts/behind-the-scenes-gpt-umami-post/
-    - /posts/ssh-from-iPhone-to-Mac/
-    - /posts/building-with-gpt-5-codex-my-experience/
     - /posts/building-my-own-subspace-builder/
+    - /posts/building-with-gpt-5-codex-my-experience/
+    - /posts/ssh-from-iPhone-to-Mac/
+    - /posts/behind-the-scenes-gpt-umami-post/
+    - /posts/building-projectdawn-with-claude-and-codex/
+    - /posts/how-clever-is-ai/
+    - /posts/accelerated-speed-of-creation/
     - /posts/building-ai-agent-workflows-that-accumulate-context/
+    - /posts/my-ai-assisted-terminal-setup-subspace-emacs-and-tmux-layout/
 
 - id: subspace-builder
   title: Subspace Builder Series
