@@ -2,6 +2,7 @@
 title: "note: Quest PCVR and Virtual Desktop / CrossOver findings"
 date: "2026-05-22"
 time: "19:53"
+parent: "/timeline/2026-05-19-published-meta-horizon-link-crossover-drive-check-bypass/"
 tags:
   - published
   - vr
