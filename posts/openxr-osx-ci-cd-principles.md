@@ -136,6 +136,8 @@ On my machine, the Metal Toolchain download was about `704.6 MB`.
 
 That is not small enough to treat casually in CI. It is a real cost, which is one reason I do not want the heavy runtime lane to run for every trivial docs or UI PR.
 
+Update: Well, actually... GitHub Actions' macOS images seem to have the Metal Toolchain built into it but still the build takes 3 minutes without any cache and 2 minutes with cache. So, I have decided to not always run this build.
+
 ### The runtime build depends on host-level graphics setup
 
 This is not a pure portable C++ project.
