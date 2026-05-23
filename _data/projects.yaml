@@ -36,6 +36,26 @@ active:
       - Nunjucks
       - YAML
 
+  - name: dotfiles
+    summary: |
+      Personal macOS dotfiles repo for terminal, tmux, Ghostty, Git, and a
+      hand-rolled Emacs setup, shipped as chronological release snapshots and
+      tuned around the workflows I actually use every day.
+    url: null
+    timeline: https://blog.nicholas.clooney.io/timeline/dotfiles/
+    repo: https://github.com/TheClooneyCollection/dotfiles
+    image:
+      src: /assets/images/projects/dotfiles-variant-2.png
+      alt: Stylized macOS developer workspace showing tmux, Ghostty, and Emacs as a dotfiles project illustration
+    tech:
+      - Emacs
+      - tmux
+      - Ghostty
+      - Git
+      - Shell
+      - macOS
+      - Dotfiles
+
   - name: ProjectSpire
     summary: |
       Multi-language effort to turn Slay the Spire 2 internals into usable tooling:
