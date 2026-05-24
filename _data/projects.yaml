@@ -163,6 +163,7 @@ active:
       - DevOps
       - Infra
 
+archive:
   - name: Project Lighthouse
     summary: |
       Infrastructure-as-code playbook that rebuilds the Project Lighthouse droplet
@@ -209,7 +210,6 @@ active:
       - Quest
       - VR
 
-archive:
   - name: Project Joy
     summary: |
       Celebration microsite starter that blends curated copy, galleries, video,
