@@ -56,6 +56,24 @@ active:
       - macOS
       - Dotfiles
 
+  - name: ghostty-theme-picker
+    summary: |
+      Keyboard-driven two-column Ghostty theme browser that lets me preview dark
+      and light themes side by side, star favorites, add or remove selections,
+      and move back and forward through jump history without leaving the terminal.
+    url: null
+    timeline: https://blog.nicholas.clooney.io/timeline/ghostty-theme-picker/
+    repo: https://github.com/NicholasClooney/ghostty-theme-picker
+    image:
+      src: /assets/images/projects/ghostty-theme-picker-cover.jpg
+      alt: Screenshot of ghostty-theme-picker showing a light-themed terminal with a code preview and side-by-side dark and light Ghostty theme lists
+    tech:
+      - Python
+      - TUI
+      - Ghostty
+      - Terminal
+      - Themes
+
   - name: ProjectSpire
     summary: |
       Multi-language effort to turn Slay the Spire 2 internals into usable tooling:
