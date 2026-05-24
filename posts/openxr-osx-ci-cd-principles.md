@@ -11,6 +11,7 @@ tags:
   - workflow
 excerpt: |
   The CI/CD principles I want for OpenXR-OSX: binary-first onboarding, visible trust signals, lightweight default PR checks, required heavy runtime verification when the runtime changes, and local scripts that mirror CI exactly.
+draft: true
 ---
 
 This post captures the principles I want to use for the `OpenXR-OSX` repo before turning them into actual `docs/`, `mise`, and `GitHub Actions` changes.
