@@ -2,6 +2,7 @@
 title: Testing Same-Day Note Ordering Evening
 date: 2026-05-23
 time: "20:57"
+draft: true
 tags:
   - workflow
 excerpt: An evening note fixture to verify same-day time ordering.

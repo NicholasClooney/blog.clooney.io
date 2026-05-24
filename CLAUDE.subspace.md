@@ -51,6 +51,7 @@ hidden: true    # notes only: public by URL, omitted from /notes/, listed at /no
 ```
 
 Notes under `notes/hidden/` inherit `hidden: true` from `notes/hidden/hidden.json`.
+Testing-only content must use `draft: true` so it does not leak into downstream/forked blogs. That applies to notes as well as posts, including same-day ordering fixtures.
 
 **Timeline entries** (`timeline/`)
 ```yaml

@@ -2,6 +2,7 @@
 title: Testing Same-Day Post Ordering Morning
 date: 2026-05-23
 time: "09:05"
+draft: true
 tags:
   - workflow
 excerpt: A morning post fixture to verify same-day time ordering.

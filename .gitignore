@@ -1,7 +1,9 @@
 /_site/
+/_site-dev/
 assets/og/
 _data/ogImages.json
 /.claude/worktrees
+/worktrees/
 
 # Playwright
 /test-results/

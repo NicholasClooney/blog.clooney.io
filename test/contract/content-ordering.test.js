@@ -3,6 +3,8 @@ import { DOMParser } from 'linkedom';
 import { ensureSiteBuilt, readSiteFile } from '../helpers/build-once.js';
 import { parsePage, selectAll } from '../helpers/parse.js';
 
+const DEV_MODE = { mode: 'dev' };
+
 const indexOfHref = (document, href) =>
   selectAll(document, 'article h2 a[href]').findIndex(
     (link) => link.getAttribute('href') === href,
@@ -14,7 +16,7 @@ describe('contract — same-day content ordering', () => {
   });
 
   it('renders same-day posts newest-first on the home page', () => {
-    const { document } = parsePage('/');
+    const { document } = parsePage('/', DEV_MODE);
     const eveningIndex = indexOfHref(
       document,
       '/posts/testing-post-order-evening/',
@@ -30,7 +32,7 @@ describe('contract — same-day content ordering', () => {
   });
 
   it('renders same-day notes newest-first on the notes page', () => {
-    const { document } = parsePage('/notes/');
+    const { document } = parsePage('/notes/', DEV_MODE);
     const eveningIndex = indexOfHref(
       document,
       '/notes/testing-note-order-evening/',
@@ -45,7 +47,7 @@ describe('contract — same-day content ordering', () => {
     expect(eveningIndex).toBeLessThan(morningIndex);
   });
 
-  it('renders same-day posts newest-first in feed.xml', () => {
+  it('keeps same-day draft post fixtures out of feed.xml', () => {
     const xml = readSiteFile('feed.xml');
     const document = new DOMParser().parseFromString(xml, 'text/xml');
     const titles = Array.from(document.querySelectorAll('item > title')).map(
@@ -54,8 +56,7 @@ describe('contract — same-day content ordering', () => {
     const eveningIndex = titles.indexOf('Testing Same-Day Post Ordering Evening');
     const morningIndex = titles.indexOf('Testing Same-Day Post Ordering Morning');
 
-    expect(eveningIndex).toBeGreaterThanOrEqual(0);
-    expect(morningIndex).toBeGreaterThanOrEqual(0);
-    expect(eveningIndex).toBeLessThan(morningIndex);
+    expect(eveningIndex).toBe(-1);
+    expect(morningIndex).toBe(-1);
   });
 });
