@@ -11,6 +11,7 @@ concurrency:
 
 jobs:
   test:
+    if: github.repository == 'TheClooneyCollection/11ty-subspace-builder'
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -29,13 +30,29 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Cache Eleventy data
+      - name: Cache Eleventy image derivatives
         uses: actions/cache@v4
         with:
-          path: .cache
-          key: eleventy-cache-${{ runner.os }}-${{ hashFiles('package-lock.json', 'eleventy.config.js', 'posts/**/*.md', 'notes/**/*.md', 'timeline/**/*.md', 'assets/images/**/*', 'assets/og/**/*') }}
+          path: .cache/@11ty/img
+          key: eleventy-img-${{ runner.os }}-${{ hashFiles('package-lock.json', 'eleventy.config.js', 'assets/images/**/*') }}
           restore-keys: |
-            eleventy-cache-${{ runner.os }}-
+            eleventy-img-${{ runner.os }}-
+
+      - name: Cache OG image artifacts
+        uses: actions/cache@v4
+        with:
+          path: .cache/og
+          key: og-images-${{ runner.os }}-${{ hashFiles('package-lock.json', 'scripts/generate-og-images.js', '_data/site.yaml', 'posts/**/*.md', 'notes/**/*.md', 'timeline/**/*.md') }}
+          restore-keys: |
+            og-images-${{ runner.os }}-
+
+      - name: Cache eleventy-fetch data
+        uses: actions/cache@v4
+        with:
+          path: .cache/eleventy-fetch-*
+          key: eleventy-fetch-${{ runner.os }}-${{ hashFiles('package-lock.json', 'eleventy.config.js', 'posts/**/*.md', 'notes/**/*.md', 'timeline/**/*.md') }}
+          restore-keys: |
+            eleventy-fetch-${{ runner.os }}-
 
       - name: Cache Playwright browsers
         id: playwright-cache

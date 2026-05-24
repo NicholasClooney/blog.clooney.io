@@ -50,8 +50,8 @@ Current state:
 - Playwright smoke coverage is implemented as a single `test/e2e/smoke.spec.js` spec
 
 In plan terms, all eight phases are substantially landed. The remaining
-follow-ups are infrastructure rather than test-design: CI wiring and
-optional further consolidation of shared constants.
+follow-ups are optional infrastructure polish rather than missing test-design
+work.
 
 ## Test Philosophy
 
@@ -209,6 +209,11 @@ Supporting helpers are used to:
 - build the site once for suites that inspect `_site`
 - parse built HTML by route
 - normalize unstable output in snapshots
+
+GitHub Actions restores dedicated caches for Eleventy image derivatives
+(`.cache/@11ty/img`), OG image artifacts (`.cache/og`), and `eleventy-fetch`
+responses so test runs can reuse build outputs without invalidating unrelated
+artifacts on every content edit.
 
 ## Test Layout
 
