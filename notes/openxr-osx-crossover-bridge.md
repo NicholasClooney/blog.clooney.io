@@ -1,6 +1,7 @@
 ---
 title: "Can CrossOver OpenXR Talk to OpenXR-OSX?"
 date: 2026-05-22
+time: "22:02"
 tags:
   - vr
   - quest
