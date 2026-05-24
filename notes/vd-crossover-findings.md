@@ -1,6 +1,7 @@
 ---
 title: "Virtual Desktop / CrossOver Findings"
 date: 2026-05-22
+time: "19:54"
 tags:
   - vr
   - virtual-desktop

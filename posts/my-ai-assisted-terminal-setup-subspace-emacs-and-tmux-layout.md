@@ -58,7 +58,7 @@ The key decision was to treat it as a clean rebuild rather than a conversion. Th
 
 The useful outcome isn't "a custom Emacs config." It's a config small enough to understand, strong enough to feel polished, familiar enough to preserve old habits, and flexible enough to evolve without framework drag.
 
-Full write-up of the migration, the module layout, the kept bindings, and the tricky parts in the companion note: [Lightweight Emacs from Spacemacs](/notes/lightweight-emacs-from-spacemacs/).
+Full write-up of the migration, the module layout, the kept bindings, and the tricky parts in the companion post: [Lightweight Emacs from Spacemacs](/posts/lightweight-emacs-from-spacemacs/).
 
 ## The through-line
 
