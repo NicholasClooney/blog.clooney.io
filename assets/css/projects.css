@@ -164,6 +164,13 @@ html.theme.near-white {
   line-height: 1.3;
 }
 
+.project-card__title-link,
+.project-card__title-link:hover,
+.project-card__title-link:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
 .project-card__summary {
   white-space: pre-line;
 }

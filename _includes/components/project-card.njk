@@ -4,6 +4,7 @@
   {% set tagSlugs = project.tagSlugs or [] %}
   {% set tags = project.tags or [] %}
   {% set image = project.image or {} %}
+  {% set primaryLink = project.url or project.repo or project.timeline %}
   <article
     class="project-card"
     data-project-card
@@ -22,7 +23,11 @@
     <div class="project-card__body">
       <header class="project-card__header">
         <h3 class="project-card__title theme-text">
-          {{ project.name }}
+          {% if primaryLink %}
+            <a class="project-card__title-link" href="{{ primaryLink }}">{{ project.name }}</a>
+          {% else %}
+            {{ project.name }}
+          {% endif %}
         </h3>
       </header>
       {% if project.summary %}
