@@ -61,6 +61,10 @@ active:
       Keyboard-driven two-column Ghostty theme browser that lets me preview dark
       and light themes side by side, star favorites, add or remove selections,
       and move back and forward through jump history without leaving the terminal.
+
+      One of the engineering ideas I like most in it is the functional core,
+      imperative shell split, which keeps most behavior pure and makes a TUI app
+      much more testable than it might look at first glance.
     url: null
     timeline: https://blog.nicholas.clooney.io/timeline/ghostty-theme-picker/
     repo: https://github.com/NicholasClooney/ghostty-theme-picker
