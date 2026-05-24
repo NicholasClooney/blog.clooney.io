@@ -3,6 +3,7 @@ title: "blog: Designing CI/CD for OpenXR-OSX"
 date: "2026-05-23"
 time: "06:42"
 parent: "/timeline/2026-05-19-published-meta-horizon-link-crossover-drive-check-bypass/"
+draft: true
 tags:
   - published
   - vr
