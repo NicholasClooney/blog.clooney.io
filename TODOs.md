@@ -1,0 +1,3 @@
+- Create VR series (blocked by subspace general series feature)
+- i need to fix some same date entries
+- Set up limited Cloudflare Pages build-status access using a read-only token or CLI workflow

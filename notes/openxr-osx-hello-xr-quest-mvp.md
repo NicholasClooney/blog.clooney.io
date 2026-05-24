@@ -1,6 +1,7 @@
 ---
 title: "Minimal OpenXR-OSX MVP: hello_xr on Quest from macOS"
 date: 2026-05-22
+time: "22:01"
 tags:
   - vr
   - quest
