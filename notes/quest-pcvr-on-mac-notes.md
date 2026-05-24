@@ -1,6 +1,7 @@
 ---
 title: "Quest PCVR on Apple Silicon Mac via CrossOver"
 date: 2026-05-22
+time: "19:53"
 tags:
   - vr
   - quest

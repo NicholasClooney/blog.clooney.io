@@ -1,6 +1,7 @@
 ---
 title: "Tmux 70/20/10 Layout Shortcuts"
 date: 2026-05-22
+time: "10:51"
 tags:
   - tmux
   - cli
