@@ -27,6 +27,10 @@ Use the repo-local front matter skill at `.claude/skills/frontmatter-editing/SKI
 - `notes/` -> `.claude/skills/frontmatter-editing/references/notes.md`
 - `timeline/` -> `.claude/skills/frontmatter-editing/references/timeline.md`
 
+## Dev server
+
+Use the repo-local dev server skill at `.claude/skills/dev-server/SKILL.md` (`/dev-server` in Claude). It covers running `npm run dev` and exposing it over Tailscale on the matching port.
+
 ## Timeline entries
 
 Use the repo-local timeline entry skill at `.claude/skills/timeline-entry/SKILL.md` (`/timeline-entry` in Claude). It covers file naming, front matter, status tags, and workflows from a blog post or GitHub commit.
