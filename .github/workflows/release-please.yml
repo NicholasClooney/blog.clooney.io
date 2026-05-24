@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   release-please:
+    if: github.repository == 'TheClooneyCollection/11ty-subspace-builder'
     runs-on: ubuntu-latest
 
     steps:
