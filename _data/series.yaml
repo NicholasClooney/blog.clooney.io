@@ -47,6 +47,19 @@
     - /posts/building-ai-agent-workflows-that-accumulate-context/
     - /posts/my-ai-assisted-terminal-setup-subspace-emacs-and-tmux-layout/
 
+- id: vr-on-macos
+  title: VR on macOS Series
+  intro: >
+    A chronological path through my recent VR experiments on macOS, blending
+    longer write-ups and shorter research notes on CrossOver, Quest PCVR, OpenXR,
+    and where the stack still breaks.
+  entries:
+    - /posts/meta-horizon-link-crossover-drive-check-bypass/
+    - /notes/quest-pcvr-on-mac-notes/
+    - /notes/vd-crossover-findings/
+    - /notes/openxr-osx-hello-xr-quest-mvp/
+    - /notes/openxr-osx-crossover-bridge/
+
 - id: subspace-builder
   title: Subspace Builder Series
   intro: >
