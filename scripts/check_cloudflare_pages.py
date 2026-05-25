@@ -27,6 +27,9 @@ DIM = "\033[2m"
 RESET = "\033[0m"
 
 
+SPINNER_FRAMES = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
+
+
 STATUS_ICONS = {
     "success": "✓",
     "failure": "✗",
@@ -60,7 +63,10 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=5,
         choices=(5, 10),
-        help="Polling interval in seconds while a build is running (default: 5)",
+        help=(
+            "API poll interval in seconds while a build is running "
+            "(default: 5). The dashboard itself refreshes every 1s."
+        ),
     )
     parser.add_argument(
         "--limit",
@@ -149,10 +155,17 @@ def format_clock(timestamp: str | None) -> str:
     return dt.astimezone().strftime("%H:%M:%S")
 
 
-def format_duration(started_on: str | None, ended_on: str | None) -> str:
+def format_duration(
+    started_on: str | None,
+    ended_on: str | None,
+    *,
+    now: datetime | None = None,
+) -> str:
     started = parse_iso(started_on)
-    ended = parse_iso(ended_on)
-    if not started or not ended:
+    if not started:
+        return "-"
+    ended = parse_iso(ended_on) or now
+    if not ended:
         return "-"
     total_seconds = max(0, int((ended - started).total_seconds()))
     minutes, seconds = divmod(total_seconds, 60)
@@ -221,8 +234,8 @@ def status_icon(status: str | None) -> str:
     return STATUS_ICONS.get(status or "", "●")
 
 
-def stage_duration(stage: dict[str, Any]) -> str:
-    return format_duration(stage.get("started_on"), stage.get("ended_on"))
+def stage_duration(stage: dict[str, Any], now: datetime | None = None) -> str:
+    return format_duration(stage.get("started_on"), stage.get("ended_on"), now=now)
 
 
 def stage_named(deployment: dict[str, Any], name: str) -> dict[str, Any]:
@@ -236,21 +249,29 @@ def is_terminal_status(status: str | None) -> bool:
     return status in {"success", "failure", "canceled", "cancelled", "skipped"}
 
 
-def print_overview(project: str, deployment: dict[str, Any]) -> None:
+def print_overview(
+    project: str,
+    deployment: dict[str, Any],
+    now: datetime | None = None,
+    spinner: str | None = None,
+) -> None:
     latest_stage = deployment.get("latest_stage") or {}
     trigger = (deployment.get("deployment_trigger") or {}).get("metadata") or {}
     status = latest_stage.get("status", "-")
     stage_name = latest_stage.get("name", "-")
 
-    icon = colorize(status_icon(status), status_color(status))
+    if spinner and not is_terminal_status(status):
+        icon = colorize(spinner, status_color(status))
+    else:
+        icon = colorize(status_icon(status), status_color(status))
     label = colorize(status.upper(), status_color(status))
     print(f"{BOLD}{project}{RESET}  {icon} {label} {DIM}·{RESET} {colorize(stage_name, CYAN)}")
     print()
 
     when = format_relative(deployment.get("created_on"))
     branch = trigger.get("branch", "-")
-    build = stage_duration(stage_named(deployment, "build"))
-    deploy = stage_duration(stage_named(deployment, "deploy"))
+    build = stage_duration(stage_named(deployment, "build"), now)
+    deploy = stage_duration(stage_named(deployment, "deploy"), now)
     commit = (trigger.get("commit_hash") or "-")[:8]
     message = shorten(first_line(trigger.get("commit_message")), 72)
     preview = deployment.get("url", "-")
@@ -261,16 +282,23 @@ def print_overview(project: str, deployment: dict[str, Any]) -> None:
     print(f"  {DIM}{'preview':<8}{RESET} {preview}")
 
 
-def print_stages(deployment: dict[str, Any]) -> None:
+def print_stages(
+    deployment: dict[str, Any],
+    now: datetime | None = None,
+    spinner: str | None = None,
+) -> None:
     stages = deployment.get("stages") or []
     if not stages:
         return
     print(f"\n{BOLD}stages{RESET}")
     for stage in stages:
         status = stage.get("status", "-")
-        icon = colorize(status_icon(status), status_color(status))
+        if spinner and status == "active":
+            icon = colorize(spinner, status_color(status))
+        else:
+            icon = colorize(status_icon(status), status_color(status))
         name = stage.get("name", "-")
-        duration = stage_duration(stage)
+        duration = stage_duration(stage, now)
         started = format_clock(stage.get("started_on"))
         if started == "-":
             print(f"  {icon} {DIM}{name}{RESET}")
@@ -325,25 +353,37 @@ def fetch_deployments(
 def watch_latest(
     project: str, account_id: str, token: str, interval: int
 ) -> tuple[list[dict[str, Any]], dict[str, str]]:
+    deployments, headers = fetch_deployments(project, account_id, token)
+    last_fetch = time.monotonic()
+    frame = 0
+
     while True:
-        deployments, headers = fetch_deployments(project, account_id, token)
         latest = deployments[0]
         status = (latest.get("latest_stage") or {}).get("status", "-")
+        now_dt = datetime.now(timezone.utc)
+        spinner = SPINNER_FRAMES[frame % len(SPINNER_FRAMES)]
 
         clear_screen()
-        print_overview(project, latest)
-        print_stages(latest)
+        print_overview(project, latest, now=now_dt, spinner=spinner)
+        print_stages(latest, now=now_dt, spinner=spinner)
 
-        now = datetime.now().astimezone().strftime("%H:%M:%S")
+        clock = now_dt.astimezone().strftime("%H:%M:%S")
         if is_terminal_status(status):
-            print(f"\n{DIM}finished at {now}{RESET}")
+            print(f"\n{DIM}finished at {clock}{RESET}")
             return deployments, headers
 
+        elapsed = time.monotonic() - last_fetch
+        next_poll = max(0, interval - int(elapsed))
         print(
-            f"\n{colorize('LIVE', BLUE)} "
-            f"{DIM}refresh {interval}s · updated {now} · ctrl-c to stop{RESET}"
+            f"\n{colorize(spinner, BLUE)} {colorize('LIVE', BLUE)} "
+            f"{DIM}poll in {next_poll}s · updated {clock} · ctrl-c to stop{RESET}"
         )
-        time.sleep(interval)
+
+        time.sleep(1)
+        frame += 1
+        if time.monotonic() - last_fetch >= interval:
+            deployments, headers = fetch_deployments(project, account_id, token)
+            last_fetch = time.monotonic()
 
 
 def main() -> None:
