@@ -214,6 +214,21 @@ def clear_screen() -> None:
         print("\033[2J\033[H", end="")
 
 
+def cursor_home() -> None:
+    if sys.stdout.isatty():
+        print("\033[H", end="")
+
+
+def pline(text: str = "") -> None:
+    print(f"{text}\033[K")
+
+
+def end_frame() -> None:
+    if sys.stdout.isatty():
+        sys.stdout.write("\033[J")
+        sys.stdout.flush()
+
+
 def colorize(text: str, color: str) -> str:
     return f"{color}{text}{RESET}"
 
@@ -265,8 +280,8 @@ def print_overview(
     else:
         icon = colorize(status_icon(status), status_color(status))
     label = colorize(status.upper(), status_color(status))
-    print(f"{BOLD}{project}{RESET}  {icon} {label} {DIM}·{RESET} {colorize(stage_name, CYAN)}")
-    print()
+    pline(f"{BOLD}{project}{RESET}  {icon} {label} {DIM}·{RESET} {colorize(stage_name, CYAN)}")
+    pline()
 
     when = format_relative(deployment.get("created_on"))
     branch = trigger.get("branch", "-")
@@ -276,10 +291,10 @@ def print_overview(
     message = shorten(first_line(trigger.get("commit_message")), 72)
     preview = deployment.get("url", "-")
 
-    print(f"  {DIM}{'when':<8}{RESET} {when:<22} {DIM}{'branch':<8}{RESET} {branch}")
-    print(f"  {DIM}{'build':<8}{RESET} {build:<22} {DIM}{'deploy':<8}{RESET} {deploy}")
-    print(f"  {DIM}{'commit':<8}{RESET} {commit}  {message}")
-    print(f"  {DIM}{'preview':<8}{RESET} {preview}")
+    pline(f"  {DIM}{'when':<8}{RESET} {when:<22} {DIM}{'branch':<8}{RESET} {branch}")
+    pline(f"  {DIM}{'build':<8}{RESET} {build:<22} {DIM}{'deploy':<8}{RESET} {deploy}")
+    pline(f"  {DIM}{'commit':<8}{RESET} {commit}  {message}")
+    pline(f"  {DIM}{'preview':<8}{RESET} {preview}")
 
 
 def print_stages(
@@ -290,7 +305,8 @@ def print_stages(
     stages = deployment.get("stages") or []
     if not stages:
         return
-    print(f"\n{BOLD}stages{RESET}")
+    pline()
+    pline(f"{BOLD}stages{RESET}")
     for stage in stages:
         status = stage.get("status", "-")
         if spinner and status == "active":
@@ -301,15 +317,16 @@ def print_stages(
         duration = stage_duration(stage, now)
         started = format_clock(stage.get("started_on"))
         if started == "-":
-            print(f"  {icon} {DIM}{name}{RESET}")
+            pline(f"  {icon} {DIM}{name}{RESET}")
         else:
-            print(f"  {icon} {name:<14} {duration:<10} {DIM}{started}{RESET}")
+            pline(f"  {icon} {name:<14} {duration:<10} {DIM}{started}{RESET}")
 
 
 def print_recent(deployments: list[dict[str, Any]], limit: int) -> None:
     if limit <= 0 or len(deployments) <= 1:
         return
-    print(f"\n{BOLD}recent{RESET}")
+    pline()
+    pline(f"{BOLD}recent{RESET}")
     for deployment in deployments[:limit]:
         latest_stage = deployment.get("latest_stage") or {}
         trigger = (deployment.get("deployment_trigger") or {}).get("metadata") or {}
@@ -319,7 +336,7 @@ def print_recent(deployments: list[dict[str, Any]], limit: int) -> None:
         env = deployment.get("environment", "-")
         short_id = deployment.get("short_id", "-")
         message = shorten(first_line(trigger.get("commit_message")), 56)
-        print(f"  {icon} {when:<10} {env:<11} {short_id:<10} {message}")
+        pline(f"  {icon} {when:<10} {env:<11} {short_id:<10} {message}")
 
 
 def print_rate_limit(headers: dict[str, str]) -> None:
@@ -327,9 +344,10 @@ def print_rate_limit(headers: dict[str, str]) -> None:
     rate_policy = headers.get("ratelimit-policy")
     if not rate_limit and not rate_policy:
         return
-    print(f"\n{BOLD}rate limit{RESET}")
-    print(f"  {DIM}{'current':<8}{RESET} {rate_limit or '-'}")
-    print(f"  {DIM}{'policy':<8}{RESET} {rate_policy or '-'}")
+    pline()
+    pline(f"{BOLD}rate limit{RESET}")
+    pline(f"  {DIM}{'current':<8}{RESET} {rate_limit or '-'}")
+    pline(f"  {DIM}{'policy':<8}{RESET} {rate_policy or '-'}")
 
 
 def fetch_deployments(
@@ -356,6 +374,8 @@ def watch_latest(
     deployments, headers = fetch_deployments(project, account_id, token)
     last_fetch = time.monotonic()
     frame = 0
+    first_frame = True
+    tick = 0.1
 
     while True:
         latest = deployments[0]
@@ -363,23 +383,31 @@ def watch_latest(
         now_dt = datetime.now(timezone.utc)
         spinner = SPINNER_FRAMES[frame % len(SPINNER_FRAMES)]
 
-        clear_screen()
+        if first_frame:
+            clear_screen()
+            first_frame = False
+        else:
+            cursor_home()
         print_overview(project, latest, now=now_dt, spinner=spinner)
         print_stages(latest, now=now_dt, spinner=spinner)
 
         clock = now_dt.astimezone().strftime("%H:%M:%S")
         if is_terminal_status(status):
-            print(f"\n{DIM}finished at {clock}{RESET}")
+            pline()
+            pline(f"{DIM}finished at {clock}{RESET}")
+            end_frame()
             return deployments, headers
 
         elapsed = time.monotonic() - last_fetch
         next_poll = max(0, interval - int(elapsed))
-        print(
-            f"\n{colorize(spinner, BLUE)} {colorize('LIVE', BLUE)} "
+        pline()
+        pline(
+            f"{colorize(spinner, BLUE)} {colorize('LIVE', BLUE)} "
             f"{DIM}poll in {next_poll}s · updated {clock} · ctrl-c to stop{RESET}"
         )
+        end_frame()
 
-        time.sleep(1)
+        time.sleep(tick)
         frame += 1
         if time.monotonic() - last_fetch >= interval:
             deployments, headers = fetch_deployments(project, account_id, token)
