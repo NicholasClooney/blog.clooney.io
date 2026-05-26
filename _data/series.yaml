@@ -4,7 +4,7 @@
   intro: >
     A new Swift series focused on practical SwiftUI mental models, commonly used components, state and
     data flow, and patterns.
-  posts:
+  entries:
     - /posts/understanding-observable-and-state-in-swift/
     - /posts/swiftui-in-the-wild-memory-concurrency-and-the-gaps-in-the-docs/
     - /posts/three-ways-to-pass-an-observable-object-in-swiftui/
@@ -16,7 +16,7 @@
     Posts about private networking, self-hosted infrastructure, Docker-on-macOS
     workflows, and the real-world debugging stories that shaped how I run and
     access my services.
-  posts:
+  entries:
     - /posts/a-everywhere-accessible-but-publicly-invisible-ingress-engine/
     - /posts/tailscale-starter-guide/
     - /posts/how-tailscale-revolutionized-my-mobile-workflow/
@@ -36,7 +36,7 @@
     A running set of posts on building with AI as a real collaborator, from
     small site experiments and remote workflows to pair-writing and shipping
     larger personal software projects.
-  posts:
+  entries:
     - /posts/building-my-own-subspace-builder/
     - /posts/building-with-gpt-5-codex-my-experience/
     - /posts/ssh-from-iPhone-to-Mac/
@@ -46,6 +46,7 @@
     - /posts/accelerated-speed-of-creation/
     - /posts/building-ai-agent-workflows-that-accumulate-context/
     - /posts/my-ai-assisted-terminal-setup-subspace-emacs-and-tmux-layout/
+    - /timeline/2026-05-26-thinking-multi-project-agent-orchestration/
 
 - id: vr-on-macos
   title: VR on macOS Series
