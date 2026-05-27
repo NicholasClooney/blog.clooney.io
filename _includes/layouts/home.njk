@@ -246,6 +246,7 @@ layout: layouts/base.njk
       {% if showThemeSelectors %}
       <div class="flex items-center flex-nowrap ml3-ns ml2" data-theme-selector>
         {% for theme in themes | reverse %}
+          {% if not theme.hidden %}
                   <button type="button"
                   class="theme-preview-button w2 h2 bn pointer br2 mr2 mb2 pa0 ba b--transparent bg-transparent flex items-center justify-center"
                   data-theme-preview="{{ theme.id }}"
@@ -254,6 +255,7 @@ layout: layouts/base.njk
               Aa
             </span>
           </button>
+          {% endif %}
         {% endfor %}
         <button type="button"
                 class="w2 h2 bn pointer br2 mr2 mb2 pa0 ba b--transparent bg-transparent flex items-center justify-center"
@@ -300,7 +302,7 @@ layout: layouts/base.njk
               {% endif %}
             {% endif %}
           {% endfor %}
-          {% if not (item.id == 'drafts' and environment == 'production') and not (item.id == 'timeline' and not site.timeline.showInNav) %}
+          {% if not item.hidden and not (item.id == 'drafts' and environment == 'production') and not (item.id == 'timeline' and not site.timeline.showInNav) %}
             {% set displayLabel = item.label %}
             {% if item.id == 'drafts' %}
               {% set draftCount = (collections.drafts | default([])) | length %}
