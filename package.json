@@ -16,6 +16,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install chromium",
+    "starter:reset": "node ./scripts/starter-reset.js",
+    "starter:nicholas": "node ./scripts/starter-reset.js --keep-personal-branding",
     "fix-lfs": "git lfs fetch upstream --all && git lfs push origin --all && git lfs pull",
     "og": "node ./scripts/generate-og-images.js",
     "tracker": "npm run --workspace post-share-tracker start"

@@ -53,6 +53,30 @@ npm run build
 
 This sets `ELEVENTY_ENV=production` and writes the static output to the `_site/` directory. Deploy those files to any static host or CDN.
 
+### Starter reset wizard
+
+```bash
+npm run starter:reset
+```
+
+This interactive reset wizard helps downstream users clear sample posts, notes,
+timeline entries, projects, images, and personal site metadata while optionally
+adding starter placeholders back in. Each menu accepts `all`, `skip`, or mixed
+numeric selections like `1 3 5`.
+
+If you want to keep the current author/profile/projects layer and related
+images, run:
+
+```bash
+npm run starter:reset -- --keep-personal-branding
+```
+
+For Nicholas's local workflow, there is also a shortcut:
+
+```bash
+npm run starter:nicholas
+```
+
 ## Docker
 
 - `compose.yml` uses the stock `node:25-bookworm-slim` image and installs dependencies at container start.
