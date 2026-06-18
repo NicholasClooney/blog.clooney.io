@@ -9,6 +9,7 @@
     - /posts/swiftui-in-the-wild-memory-concurrency-and-the-gaps-in-the-docs/
     - /posts/three-ways-to-pass-an-observable-object-in-swiftui/
     - /posts/the-confident-lie-what-ai-got-wrong-about-viewbuilder/
+    - /posts/swiftui-state-async-and-patterns-refresher/
 
 - id: networking-infra
   title: Networking & Infrastructure Series
