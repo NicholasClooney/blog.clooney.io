@@ -11,21 +11,33 @@ eleventyComputed:
 ---
 
 {% from "components/post-list.njk" import renderPostList with context %}
+{% set base = '/' if site.home.target == 'blog' else '/blog/' %}
+{% set pageCount = pagination.pages | length %}
+{% set hasPreviousPage = pagination.pageNumber > 0 %}
+{% set hasNextPage = pagination.pageNumber + 1 < pageCount %}
+{% set previousHref = null %}
+{% set nextHref = null %}
+{% if hasPreviousPage %}
+  {% set previousHref = base if pagination.pageNumber == 1 else base ~ 'page/' ~ pagination.pageNumber ~ '/' %}
+{% endif %}
+{% if hasNextPage %}
+  {% set nextHref = base ~ 'page/' ~ (pagination.pageNumber + 2) ~ '/' %}
+{% endif %}
 
 <section class="mw7 center">
   <h1 class="f3 f2-ns lh-title mt0 mb0">{{ ui.pages.home.heading }}</h1>
   {{ renderPostList(pagination.items, ui.pages.home.emptyMessage, false) | safe }}
-  {% if pagination.pages | length > 1 %}
+  {% if pageCount > 1 %}
     <nav class="flex justify-between items-center f6 theme-midtone mt4">
       <div>
-        {% if pagination.href.previous %}
-          <a class="link dim theme-text" href="{{ pagination.href.previous }}">{{ ui.shared.pagination.previous }}</a>
+        {% if previousHref %}
+          <a class="link dim theme-text" href="{{ previousHref }}">{{ ui.shared.pagination.previous }}</a>
         {% endif %}
       </div>
-      <div>{{ ui.shared.pagination.page }} {{ pagination.pageNumber + 1 }} {{ ui.shared.pagination.of }} {{ pagination.pages | length }}</div>
+      <div>{{ ui.shared.pagination.page }} {{ pagination.pageNumber + 1 }} {{ ui.shared.pagination.of }} {{ pageCount }}</div>
       <div>
-        {% if pagination.href.next %}
-          <a class="link dim theme-text" href="{{ pagination.href.next }}">{{ ui.shared.pagination.next }}</a>
+        {% if nextHref %}
+          <a class="link dim theme-text" href="{{ nextHref }}">{{ ui.shared.pagination.next }}</a>
         {% endif %}
       </div>
     </nav>

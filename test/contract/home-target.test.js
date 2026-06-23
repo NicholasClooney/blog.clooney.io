@@ -71,4 +71,20 @@ describe('contract — site.home.target', () => {
       expect(hrefById.get(id)).toBe(canonicalUrl);
     }
   });
+
+  it('blog pagination links use emitted urls, not template paths', () => {
+    if (target !== 'blog') return;
+
+    const pagesToCheck = ['/', '/page/2/', '/page/3/', '/page/4/', '/page/5/'];
+
+    for (const urlPath of pagesToCheck) {
+      const { document } = parsePage(urlPath);
+      const paginationLinks = selectAll(document, 'nav a[href]');
+
+      for (const link of paginationLinks) {
+        const href = link.getAttribute('href') || '';
+        expect(href.startsWith('/src/'), `${urlPath} contains template-path href ${href}`).toBe(false);
+      }
+    }
+  });
 });
