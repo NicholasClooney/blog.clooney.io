@@ -56,6 +56,34 @@ active:
       - macOS
       - Dotfiles
 
+  - name: EDControlRoom
+    summary: |
+      Commander-assist platform for Elite Dangerous that combines a real-time
+      Control Room UI, game-state monitoring, and workflow automation.
+
+      Rather than flying the ship autonomously, it focuses on reducing
+      repetitive cockpit tasks such as station operations, hauling loops,
+      refueling, and routine interactions while keeping the commander in
+      control of navigation and piloting.
+
+      Built primarily in Python, the project explores accessibility,
+      quality-of-life tooling, orchestration, diagnostics, computer vision, and
+      human-in-the-loop automation for complex game workflows.
+    url: null
+    repo: https://github.com/TheClooneyCollection/EDControlRoom
+    image:
+      src: /assets/images/projects/EDControlRoom.png
+      alt: Screenshot of EDControlRoom showing the commander-assist Control Room interface for Elite Dangerous
+      fit: contain
+    tech:
+      - Python
+      - Elite Dangerous
+      - Automation
+      - Accessibility
+      - Computer Vision
+      - Diagnostics
+      - Orchestration
+
   - name: ghostty-theme-picker
     summary: |
       Keyboard-driven two-column Ghostty theme browser that lets me preview dark
