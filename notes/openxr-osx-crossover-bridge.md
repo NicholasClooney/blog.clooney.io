@@ -193,6 +193,47 @@ So the likely distinction is:
 
 If this bridge ever existed, the first version would probably be forced into a copy-based frame transport. That might be enough to prove architecture, but it would still leave open whether the latency budget is good enough for actual VR use.
 
+## Update: Reusing the existing D3D-to-Metal translation seam
+
+The graphics marshalling section above assumes the bridge has to invent its own frame transport from scratch. It doesn't have to. CrossOver already solves "Windows D3D texture becomes a real Mac-native GPU resource" for every game that runs through it — that's exactly the seam a proxy runtime could tap into instead of building a parallel transport.
+
+### The three translation layers CrossOver has today
+
+- **D3DMetal** — Apple's Game Porting Toolkit, D3D11/12 → Metal directly. Closed source. Not patchable, dead end for this.
+- **DXVK + MoltenVK** — open source, D3D → Vulkan → Metal. MoltenVK backs its images with IOSurface for presentation in some paths.
+- **DXMT** — newer, open source, Metal-native D3D11 implementation with no Vulkan intermediate hop. The most promising target of the three, since it's both open and closest to the metal (no pun intended).
+
+### Why this changes the shape of the problem
+
+Every normal `Present()` call in a DXVK/DXMT-backed app already produces a real host-side Metal texture. That's the mechanism the original note was missing — the translation layer is already crossing the exact boundary the bridge needs.
+
+The complication is that OpenXR swapchains aren't app-owned the way a normal D3D swapchain is. The **runtime** creates the images via `xrEnumerateSwapchainImages` and hands them to the app to render into. So the shim DLL, sitting where the real OpenXR runtime should be, would need to:
+
+1. Request swapchain textures from the D3D device through DXMT/DXVK, the same way any game requests render targets
+2. Reach into the translation layer's internal texture object and pull out the underlying `IOSurface` reference
+
+### Where IOSurface does the heavy lifting
+
+`IOSurface` is a native macOS primitive built specifically for passing GPU memory between processes. Once the shim has the IOSurface ID, it only needs to send that ID across the IPC channel — not pixels. The host daemon calls `IOSurfaceLookup()` on its side and hands the surface directly to OpenXR-OSX/Metal.
+
+That's a real zero-copy path for the data plane, not the "shared memory ring buffer and hope synchronization lines up" scenario from the section above.
+
+### Revised likely-failure order
+
+This doesn't remove the loader, session, and timing problems described earlier — it only changes what the frame transport looks like. Rough ranking of where a bridge attempt would still hit trouble, revised:
+
+1. Loader/runtime negotiation mismatches (unchanged)
+2. `xrGetSystem` / form-factor mismatches (unchanged)
+3. `xrCreateSession` graphics binding mismatches (unchanged)
+4. Getting DXMT (or DXVK) to hand over swapchain textures on the shim's terms rather than the app's — this replaces the old "swapchain/image transport" blocker
+5. Extracting and validly sharing the IOSurface handle across the bottle/host boundary without the translation layer fighting back
+6. Timing and compositor behavior (unchanged)
+7. Latency (unchanged, though likely improved vs. a copy-based transport)
+
+### Bottom line
+
+Doesn't make this a config toggle. But it does turn "invent a frame transport" into "extract a handle that already exists," which is a meaningfully smaller scope than the copy-based worst case in the original note — provided DXMT's internals are accessible enough to grab the IOSurface out of a swapchain texture it creates.
+
 ## Likely failure order
 
 If I actually tried to build this bridge, I would expect the blockers to arrive in roughly this order:
