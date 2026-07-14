@@ -23,7 +23,7 @@ excerpt: |
   precedence, and the GL.iNet 0x8000 mark leak.
 ---
 
-I am visiting family in China for a few weeks, and I want my internet freedom back. That is really the whole motivation for this post. Living behind the Great Firewall is a routing problem in disguise. You want the open internet by default, you want Taobao and WeChat and your bank to stay fast, and you want it to keep working when you plug into hotel ethernet or a repeater to somebody's home wifi. For a long time I solved this per-device with [Quantumult X](https://quantumult-x.com/) on my Apple gear and a [v2ray](https://www.v2ray.com/) vmess proxy on a Debian VPS. That works great for phones and laptops. It does nothing for a Switch, a TV, an Apple TV, or the wife's Windows machine.
+I am visiting family in China for a few weeks, and I want my internet freedom back. That is really the whole motivation for this post. Living behind the Great Firewall is a routing problem in disguise. You want the open internet by default, you want Taobao and WeChat and your bank to stay fast, and you want it to keep working when you plug into hotel ethernet or a repeater to somebody's home wifi. For a long time I solved this per-device with [Quantumult X](https://quantumult.app/x/) on my Apple gear and a [v2ray](https://www.v2fly.org/en_US/) vmess proxy on a Debian VPS. That works great for phones and laptops. It does nothing for a Switch, a TV, an Apple TV, or the wife's Windows machine.
 
 The fix was to move the split down to the network itself: a [GL.iNet Slate 7](https://www.gl-inet.com/products/gl-be3600/) that carries Tailscale as its default route to the same Debian VPS (which now doubles as a Tailscale exit node), with [policy-based routing](https://openwrt.org/docs/guide-user/network/routing/pbr) sending Chinese destinations direct out the physical uplink. It was not plug and play. Getting there took a few debugging sessions I want to write down while they are still fresh.
 
@@ -40,7 +40,7 @@ The fix was to move the split down to the network itself: a [GL.iNet Slate 7](ht
 - **The three gotchas**, none documented anywhere obvious, any one of which silently breaks LAN clients while leaving the router itself working fine:
     - The `tailscale0` firewall zone needs MASQUERADE turned on (and a `lan -> tailscale0` forwarding entry) before LAN traffic can egress through it at all.
     - Tailscale's exit-node IP rule outranks PBR by default, so every packet gets tunneled even the ones you marked to go direct.
-    - GL.iNet's `vpn_table` stamps every LAN packet with fwmark `0x8000`, which collides with any early PBR rule that matches on that mark.
+    - GL.iNet's `vpn_table` stamps every unmarked LAN packet with fwmark `0x8000`, which collides with any early PBR rule that matches on that mark.
 
 ## The Bigger Picture
 
@@ -96,7 +96,7 @@ The `sleep 180 && tailscale set --exit-node=` line at the bottom is the safety n
 
 ### 2. China split routing via PBR + fwmark
 
-The [PBR package](https://openwrt.org/docs/guide-user/services/vpn/pbr) is doing the actual work here. A custom user script, deployed as `/usr/share/pbr/pbr.user.china`, does four things on every PBR reload:
+The [PBR package](https://openwrt.org/docs/guide-user/network/routing/pbr) is doing the actual work here. A custom user script, deployed as `/usr/share/pbr/pbr.user.china`, does four things on every PBR reload:
 
 1. Downloads the China IPv4 CIDR list from `https://ispip.clang.cn/all_cn_ipv46.txt`.
 2. Picks the active direct uplink dynamically from `wan`, `secondwan`, `wwan`, `tethering`. Explicitly ignores tunnel devices (`tailscale*`, `wg*`, `tun*`, `ppp*`) so it cannot accidentally pick the tunnel as its "direct" path.
