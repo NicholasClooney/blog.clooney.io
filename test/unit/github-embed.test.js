@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import {
   parseBlobUrl,
+  parseGistUrl,
+  parseGithubUrl,
   trimSharedIndent,
   guessLanguageByExt,
 } from '../../lib/markdown/github-embed.js';
@@ -38,6 +40,59 @@ describe('parseBlobUrl', () => {
   it('joins nested file paths', () => {
     const r = parseBlobUrl('https://github.com/u/r/blob/main/a/b/c.js');
     expect(r.filePath).toBe('a/b/c.js');
+  });
+});
+
+describe('parseGistUrl', () => {
+  it('parses a gist URL without a revision', () => {
+    const r = parseGistUrl('https://gist.github.com/u/abc123?file=a.js');
+    expect(r.user).toBe('u');
+    expect(r.repo).toBe('abc123');
+    expect(r.branch).toBe('abc123');
+    expect(r.filePath).toBe('a.js');
+    expect(r.raw).toBe('https://gist.githubusercontent.com/u/abc123/raw/a.js');
+    expect(r.start).toBe(null);
+    expect(r.end).toBe(null);
+  });
+
+  it('pins to a revision SHA when present', () => {
+    const r = parseGistUrl('https://gist.github.com/u/abc123/deadbeef?file=a.js');
+    expect(r.branch).toBe('deadbeef');
+    expect(r.raw).toBe(
+      'https://gist.githubusercontent.com/u/abc123/raw/deadbeef/a.js',
+    );
+  });
+
+  it('parses a line range #L10-L20', () => {
+    const r = parseGistUrl(
+      'https://gist.github.com/u/abc123?file=a.js#L10-L20',
+    );
+    expect(r.start).toBe(10);
+    expect(r.end).toBe(20);
+  });
+
+  it('throws when the ?file= param is missing', () => {
+    expect(() => parseGistUrl('https://gist.github.com/u/abc123')).toThrow(
+      /file=/,
+    );
+  });
+
+  it('throws when the URL is missing user or gist id', () => {
+    expect(() => parseGistUrl('https://gist.github.com/u?file=a.js')).toThrow(
+      /gist URL/,
+    );
+  });
+});
+
+describe('parseGithubUrl', () => {
+  it('routes blob URLs to parseBlobUrl', () => {
+    const r = parseGithubUrl('https://github.com/u/r/blob/main/a.js');
+    expect(r.raw).toBe('https://raw.githubusercontent.com/u/r/main/a.js');
+  });
+
+  it('routes gist URLs to parseGistUrl', () => {
+    const r = parseGithubUrl('https://gist.github.com/u/abc123?file=a.js');
+    expect(r.raw).toBe('https://gist.githubusercontent.com/u/abc123/raw/a.js');
   });
 });
 

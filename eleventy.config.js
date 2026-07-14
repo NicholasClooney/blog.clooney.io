@@ -25,6 +25,7 @@ import {
 import { markTodoBlockquotes } from './lib/markdown/todo-blockquote.js';
 import {
   parseBlobUrl,
+  parseGithubUrl,
   trimSharedIndent,
   guessLanguageByExt,
 } from './lib/markdown/github-embed.js';
@@ -484,7 +485,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addAsyncShortcode(
     'github',
     async function (url, style = 'auto') {
-      const meta = parseBlobUrl(url);
+      const meta = parseGithubUrl(url);
 
       const fetched = await fetchTextWithCacheRecovery(
         meta.raw,
