@@ -4,6 +4,7 @@ assets/og/
 _data/ogImages.json
 /.claude/worktrees
 /worktrees/
+/.maestri/
 __pycache__/
 
 # Playwright
