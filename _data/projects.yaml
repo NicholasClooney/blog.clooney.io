@@ -1,5 +1,31 @@
 ---
 active:
+  - name: tmux-agents
+    summary: |
+      Your sub agents shouldn't disappear when the task ends. Each Claude or
+      Codex sub agent runs in its own tmux window, with a live preview and the
+      option to switch in and give direction. Agents exchange tasks and replies
+      through tmux-ask; panes stay until closed, and conversations can be resumed
+      afterward.
+
+      A status line flags agents that need attention, and a setup skill lets an
+      agent handle installation and walk through a quick start. Built with tmux
+      and Bash, extracted from my dotfiles with its full history, and MIT licensed.
+    url: null
+    timeline: https://blog.nicholas.clooney.io/timeline/tmux-agents/
+    repo: https://github.com/TheClooneyCollection/tmux-agents
+    image:
+      src: /assets/images/projects/tmux-agents.png
+      alt: tmux-agents showing sub agent status, parent agents, and a live preview of a Codex session
+      fit: contain
+    tech:
+      - Bash
+      - tmux
+      - Claude Code
+      - Codex
+      - AI Agents
+      - Terminal
+
   - name: 11ty Subspace Builder
     summary: |
       Warp-speed Eleventy blog starter with Tachyons themes, accessible navigation,
