@@ -11,32 +11,33 @@ tags:
   - workflow
 excerpt: |
   Built-in sub-agents hand you a summary and the work behind it is gone.
-  tmux-agents runs every Claude or Codex sub-agent in its own tmux pane
-  instead, so you can watch it, step in, and pick its conversation up later.
+  tmux-agents gives every delegated task its own Claude or Codex session in
+  a tmux pane instead, so you can watch it, step in, and pick its
+  conversation up later.
 ---
 
 Both of my last two posts, about the [worktree pool](/posts/i-gave-my-coding-agents-a-shared-worktree-pool/) and the [agent that only talks to me](/posts/the-agent-that-only-talks-to-me/), quietly depend on one tool. It's time it got a post of its own.
 
-[tmux-agents](https://github.com/TheClooneyCollection/tmux-agents) runs every Claude or Codex sub-agent in its own tmux pane, and lets agents send each other tasks and replies. I [shipped v1.0.0 yesterday](/timeline/2026-10-01-shipped-tmux-agents/). It's MIT licensed, and it's just tmux and bash.
+[tmux-agents](https://github.com/TheClooneyCollection/tmux-agents) lets Claude and Codex delegate work to other agents you can actually see. Instead of a built-in sub-agent, each delegated task gets its own full Claude or Codex session in its own tmux pane. I'll call these spawned agents. Agents can also send each other tasks and replies. I [shipped v1.0.0 yesterday](/timeline/2026-10-01-shipped-tmux-agents/). It's MIT licensed, and it's just tmux and bash.
 
 <figure style="text-align: center;">
   <img
     src="/assets/images/projects/tmux-agents.png"
-    alt="The tmux-agents list: sub-agents with their status and parent agent, and a live preview of the selected Codex session"
+    alt="The tmux-agents list: spawned agents with their status and parent agent, and a live preview of the selected Codex session"
     style="display: block; width: 100%; height: auto;"
   />
-  <figcaption>The agent list (<code>prefix + a</code>): every sub-agent, what it's doing, who started it, and a live preview of its session.</figcaption>
+  <figcaption>The agent list (<code>prefix + a</code>): every spawned agent, what it's doing, who started it, and a live preview of its session.</figcaption>
 </figure>
 
 [[toc]]
 
 ## Why I built it
 
-I was building my Stone Age remake with Claude and Codex, and both kept delegating work to sub-agents. Built-in sub-agents run out of sight. What I mostly saw was their final report. The work behind it, the files they read, the dead ends, the moment they misunderstood the task, was gone.
+I was building my Stone Age remake with Claude and Codex, and both kept delegating work to built-in sub-agents. Those run out of sight. What I mostly saw was their final report. The work behind it, the files they read, the dead ends, the moment they misunderstood the task, was gone.
 
 I wanted three things instead:
 
-- **Watch** a sub-agent work while it works.
+- **Watch** a delegated agent while it works.
 - **Step in** when it needs me or drifts off course.
 - **Come back** to its conversation later.
 
@@ -48,13 +49,13 @@ So the core idea is observability and record keeping. Every agent is a full sess
 
 **Agents talk to each other.** I tell Claude "connect codex and have it review this diff". The request lands in Codex's pane as a new message. When Codex is done, the reply comes back to Claude the same way, and Claude carries on.
 
-**Sub-agents are real sessions.** When an agent spawns a sub-agent, it opens in a hidden tmux window for the project, not in my layout. Each one is a full Claude or Codex session with its whole history on screen. I can approve a permission prompt, ask a follow-up, or correct it mid-task.
+**Spawned agents are real sessions.** When an agent delegates a task, it opens in a hidden tmux window for the project, not in my layout. Each one is a full Claude or Codex session with its whole history on screen. I can approve a permission prompt, ask a follow-up, or correct it mid-task.
 
-**One key shows everyone.** `prefix + a` opens a list of all sub-agents with their status, their parent and a live preview. Enter opens one in a popup, and `prefix + d` takes me back.
+**One key shows everyone.** `prefix + a` opens a list of all spawned agents with their status, their parent and a live preview. Enter opens one in a popup, and `prefix + d` takes me back.
 
 **A glance tells me who needs me.** A line above the tmux status bar counts the agents per project, and turns red or amber when one is waiting for permission or for me.
 
-**Nothing gets lost.** Panes stay until I close them. Closed sub-agents stay in the list for a week and can be reopened with their whole conversation, and the sessions also show up in `codex resume` and `claude --resume`.
+**Nothing gets lost.** Panes stay until I close them. Closed spawned agents stay in the list for a week and can be reopened with their whole conversation, and the sessions also show up in `codex resume` and `claude --resume`.
 
 <figure>
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1rem; align-items: start;">
@@ -65,17 +66,26 @@ So the core idea is observability and record keeping. Every agent is a full sess
 </figure>
 
 <figure>
-  <img src="/assets/images/timeline/tmux-agents/popup.png" alt="A hidden Codex sub-agent opened in a popup from the list" style="display: block; width: 100%; height: auto;" />
-  <figcaption style="text-align: center;">Enter on a sub-agent in the list opens it in a popup, so I can answer it or give direction.</figcaption>
+  <img src="/assets/images/timeline/tmux-agents/popup.png" alt="A hidden spawned Codex agent opened in a popup from the list" style="display: block; width: 100%; height: auto;" />
+  <figcaption style="text-align: center;">Enter on a spawned agent in the list opens it in a popup, so I can answer it or give direction.</figcaption>
 </figure>
 
 ## How I use it
 
 Today was a good example.
 
-On the Stone Age project, I talk to a main Claude agent. It hands work to a coordinator Claude, which hands it to Codex, which fans it out to its own sub-agents. At busy moments that's around ten agents at once, all visible from one list. That setup is what the [last post](/posts/the-agent-that-only-talks-to-me/) is about.
+On the Stone Age project, I talk to a main Claude agent. It hands work to a coordinator Claude, which hands it to Codex, which fans it out to its own spawned agents. At busy moments that's around ten agents at once, all visible from one list. That setup is what the [last post](/posts/the-agent-that-only-talks-to-me/) is about.
 
 This blog has its own small team. One Claude writes the drafts, and a Codex in the next pane publishes them: it builds the site, adds the timeline entry, commits, pushes and checks the deploy. When a post needed a change to the [subspace builder](https://github.com/NicholasClooney/11ty-subspace-builder) this site is built on, the writing Claude sent the request to a third Claude working in that repo, and got back a summary and two commit hashes. I watched all of it happen in panes next to each other, and stepped in a few times.
+
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/posts/meet-tmux-agents/blog-agent-team.png"
+    alt="Three tmux panes: the writing Claude on the left, the publishing Codex top right, and the subspace builder Claude bottom right receiving a request from the writing Claude"
+    style="display: block; width: 100%; height: auto;"
+  />
+  <figcaption>This blog's team: the writing Claude (left), the publishing Codex (top right), and the Claude working in the subspace builder repo (bottom right), receiving a request.</figcaption>
+</figure>
 
 ## Try it
 
@@ -105,7 +115,7 @@ You don't need any of this to use it, but a few choices shape how it behaves. Th
 
 ## Where it is today
 
-I'm still testing the wider workflow, especially using these tmux agents in place of built-in sub-agents everywhere. So this is a tool I use every day, not a finished product with a settled list of rough edges.
+I'm still testing the wider workflow, especially using spawned agents in place of built-in sub-agents everywhere. So this is a tool I use every day, not a finished product with a settled list of rough edges.
 
 A few limits I already know about:
 
@@ -119,4 +129,4 @@ One problem that did come up, worktrees filling my disk, turned out to belong to
 
 ## Why I like it
 
-Running several agents at once is fun when you can see them. tmux-agents turned my sub-agents from black boxes into colleagues in the next pane: I can look over their shoulder, answer their questions, and find their work again tomorrow. If you already live in tmux and use Claude or Codex, give it a try, and tell me what breaks.
+Running several agents at once is fun when you can see them. tmux-agents turned the agents I delegate to from black boxes into colleagues in the next pane: I can look over their shoulder, answer their questions, and find their work again tomorrow. If you already live in tmux and use Claude or Codex, give it a try, and tell me what breaks.
