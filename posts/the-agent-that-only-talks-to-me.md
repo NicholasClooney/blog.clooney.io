@@ -63,6 +63,94 @@ Nothing about the existing agents had to change. The old Claude kept its history
 
 I also deliberately did not connect the new main agent to Codex. If it could talk to Codex directly, Codex's reports would start flowing into my conversation again, and I'd be back where I started. The main agent has exactly one peer: the coordinator.
 
+<style>
+  .agents-vs { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 1rem; align-items: stretch; }
+  .agents-vs-panel { border: 2px solid currentColor; border-radius: 12px; padding: 1rem 0.75rem; }
+  .agents-vs-panel svg { display: block; width: 100%; height: auto; font-family: inherit; }
+  .agents-vs-divider { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+  .agents-vs-divider::before, .agents-vs-divider::after { content: ""; flex: 1; border-left: 2px dashed currentColor; opacity: 0.4; }
+  .agents-vs-badge { width: 3rem; height: 3rem; border-radius: 50%; background: var(--accent, #E7040F); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; letter-spacing: 1px; }
+  @media (max-width: 640px) {
+    .agents-vs { grid-template-columns: minmax(0, 1fr); }
+    .agents-vs-divider { flex-direction: row; }
+    .agents-vs-divider::before, .agents-vs-divider::after { border-left: 0; border-top: 2px dashed currentColor; }
+  }
+</style>
+<figure style="margin: 1.5rem 0;">
+  <div class="agents-vs">
+    <div class="agents-vs-panel">
+      <svg viewBox="0 0 420 470" role="img" aria-labelledby="agents-before-title">
+      <title id="agents-before-title">Before: I talk to one Claude agent that also runs the project and relays to Codex and its sub-agents</title>
+      <defs>
+        <marker id="agents-arrow-b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor" />
+        </marker>
+      </defs>
+      <text x="210" y="22" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor" letter-spacing="2">BEFORE</text>
+      <rect x="130" y="40" width="160" height="44" rx="22" fill="none" stroke="currentColor" stroke-width="2" />
+      <text x="210" y="68" text-anchor="middle" font-size="17" font-weight="700" fill="currentColor">Me</text>
+      <line x1="210" y1="88" x2="210" y2="120" stroke="currentColor" stroke-width="2" marker-start="url(#agents-arrow-b)" marker-end="url(#agents-arrow-b)" />
+      <rect x="80" y="124" width="260" height="170" rx="10" fill="none" stroke="var(--accent, #E7040F)" stroke-width="3" />
+      <text x="210" y="152" text-anchor="middle" font-size="17" font-weight="700" fill="var(--accent, #E7040F)">Claude</text>
+      <text x="210" y="172" text-anchor="middle" font-size="13" fill="currentColor" opacity="0.75">one agent, one history, doing it all</text>
+      <text x="104" y="202" font-size="14" fill="currentColor">· my questions and decisions</text>
+      <text x="104" y="224" font-size="14" fill="currentColor">· Codex reports</text>
+      <text x="104" y="246" font-size="14" fill="currentColor">· merges and tests</text>
+      <text x="104" y="268" font-size="14" fill="currentColor">· server restarts, file edits</text>
+      <line x1="210" y1="298" x2="210" y2="330" stroke="currentColor" stroke-width="2" marker-start="url(#agents-arrow-b)" marker-end="url(#agents-arrow-b)" />
+      <rect x="110" y="334" width="200" height="44" rx="10" fill="none" stroke="currentColor" stroke-width="2" />
+      <text x="210" y="362" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor">Codex</text>
+      <path d="M150 378 L90 420 M210 378 L210 420 M270 378 L330 420" stroke="currentColor" stroke-width="1.5" fill="none" />
+      <rect x="40" y="420" width="100" height="34" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" />
+      <rect x="160" y="420" width="100" height="34" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" />
+      <rect x="280" y="420" width="100" height="34" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" />
+      <text x="90" y="442" text-anchor="middle" font-size="13" fill="currentColor">sub-agent</text>
+      <text x="210" y="442" text-anchor="middle" font-size="13" fill="currentColor">sub-agent</text>
+      <text x="330" y="442" text-anchor="middle" font-size="13" fill="currentColor">sub-agent</text>
+    </svg>
+    </div>
+    <div class="agents-vs-divider" aria-hidden="true"><span class="agents-vs-badge">VS</span></div>
+    <div class="agents-vs-panel">
+      <svg viewBox="0 0 420 520" role="img" aria-labelledby="agents-after-title">
+      <title id="agents-after-title">After: I talk only to a main Claude agent, which hands work to a coordinator Claude, which talks to Codex and its sub-agents. The main agent and Codex are deliberately not connected.</title>
+      <defs>
+        <marker id="agents-arrow-a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor" />
+        </marker>
+      </defs>
+      <text x="210" y="22" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor" letter-spacing="2">AFTER</text>
+      <rect x="130" y="40" width="160" height="44" rx="22" fill="none" stroke="currentColor" stroke-width="2" />
+      <text x="210" y="68" text-anchor="middle" font-size="17" font-weight="700" fill="currentColor">Me</text>
+      <line x1="210" y1="88" x2="210" y2="120" stroke="currentColor" stroke-width="2" marker-start="url(#agents-arrow-a)" marker-end="url(#agents-arrow-a)" />
+      <rect x="80" y="124" width="260" height="62" rx="10" fill="none" stroke="var(--accent, #E7040F)" stroke-width="3" />
+      <text x="210" y="152" text-anchor="middle" font-size="17" font-weight="700" fill="var(--accent, #E7040F)">Main Claude</text>
+      <text x="210" y="173" text-anchor="middle" font-size="13" fill="currentColor" opacity="0.75">only talks to me, no coding</text>
+      <line x1="210" y1="190" x2="210" y2="222" stroke="currentColor" stroke-width="2" marker-start="url(#agents-arrow-a)" marker-end="url(#agents-arrow-a)" />
+      <rect x="80" y="226" width="260" height="128" rx="10" fill="none" stroke="currentColor" stroke-width="2" />
+      <text x="210" y="254" text-anchor="middle" font-size="17" font-weight="700" fill="currentColor">Coordinator Claude</text>
+      <text x="104" y="284" font-size="14" fill="currentColor">· Codex reports</text>
+      <text x="104" y="306" font-size="14" fill="currentColor">· merges and tests</text>
+      <text x="104" y="328" font-size="14" fill="currentColor">· server restarts, file edits</text>
+      <line x1="210" y1="358" x2="210" y2="390" stroke="currentColor" stroke-width="2" marker-start="url(#agents-arrow-a)" marker-end="url(#agents-arrow-a)" />
+      <rect x="110" y="394" width="200" height="44" rx="10" fill="none" stroke="currentColor" stroke-width="2" />
+      <text x="210" y="422" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor">Codex</text>
+      <path d="M150 438 L90 476 M210 438 L210 476 M270 438 L330 476" stroke="currentColor" stroke-width="1.5" fill="none" />
+      <rect x="40" y="476" width="100" height="34" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" />
+      <rect x="160" y="476" width="100" height="34" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" />
+      <rect x="280" y="476" width="100" height="34" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" />
+      <text x="90" y="498" text-anchor="middle" font-size="13" fill="currentColor">sub-agent</text>
+      <text x="210" y="498" text-anchor="middle" font-size="13" fill="currentColor">sub-agent</text>
+      <text x="330" y="498" text-anchor="middle" font-size="13" fill="currentColor">sub-agent</text>
+      <path d="M340 155 C 381 155, 381 200, 381 272 M381 300 C 381 380, 381 416, 310 416" stroke="currentColor" stroke-width="1.5" fill="none" stroke-dasharray="5 4" opacity="0.6" />
+      <circle cx="381" cy="286" r="11" fill="none" stroke="var(--accent, #E7040F)" stroke-width="2" />
+      <path d="M376 281 L386 291 M386 281 L376 291" stroke="var(--accent, #E7040F)" stroke-width="2.5" />
+      <text x="404" y="286" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.75" transform="rotate(90 404 286)">not connected</text>
+    </svg>
+    </div>
+  </div>
+  <figcaption style="text-align: center;">Before, the agent I talked to was also running the project. After, I only talk to the main agent, and the coordinator handles the rest. The main agent and Codex are not connected, on purpose.</figcaption>
+</figure>
+
 <figure style="text-align: center;">
   <img
     src="/assets/images/posts/the-agent-that-only-talks-to-me/main-and-coordinator.png"
