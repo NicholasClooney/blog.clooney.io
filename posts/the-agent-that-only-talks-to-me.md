@@ -59,6 +59,15 @@ I added another Claude agent. That was the whole change.
 
 I opened a new pane in the same tmux window, connected it to the existing Claude agent, and told it its role: you are now the main agent. You only talk to me. You don't write code, you don't run the project. Anything that needs doing, you hand to the other Claude, which is now the coordinator between us and the main Codex agent.
 
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/posts/the-agent-that-only-talks-to-me/main-and-coordinator.png"
+    alt="Three tmux panes: the main Claude agent on the left chatting with me, the coordinator Claude top right, and the main Codex agent bottom right sending requests to its sub-agents"
+    style="display: block; width: 100%; height: auto;"
+  />
+  <figcaption>After: the main Claude on the left only chats with me. The coordinator (top right) talks to the main Codex agent (bottom right), which talks to its sub-agents.</figcaption>
+</figure>
+
 Nothing about the existing agents had to change. The old Claude kept its history, its connection to Codex, and its work in progress. It just stopped being the one I talk to.
 
 I also deliberately did not connect the new main agent to Codex. If it could talk to Codex directly, Codex's reports would start flowing into my conversation again, and I'd be back where I started. The main agent has exactly one peer: the coordinator.
@@ -150,17 +159,6 @@ I also deliberately did not connect the new main agent to Codex. If it could tal
   </div>
   <figcaption style="text-align: center;">Before, the agent I talked to was also running the project. After, I only talk to the main agent, and the coordinator handles the rest. The main agent and Codex are not connected, on purpose.</figcaption>
 </figure>
-
-<figure style="text-align: center;">
-  <img
-    src="/assets/images/posts/the-agent-that-only-talks-to-me/main-and-coordinator.png"
-    alt="Three tmux panes: the main Claude agent on the left chatting with me, the coordinator Claude top right, and the main Codex agent bottom right sending requests to its sub-agents"
-    style="display: block; width: 100%; height: auto;"
-  />
-  <figcaption>After: the main Claude on the left only chats with me. The coordinator (top right) talks to the main Codex agent (bottom right), which talks to its sub-agents.</figcaption>
-</figure>
-
-In that screenshot the main agent asks me to decide whether some quest NPCs are shared across the server or tracked per character. I answer "B", and it passes the decision on to the coordinator. When the coordinator replies that Codex has it and the decision is written down, the main agent tells me in one line: this one's done, nothing needed from you.
 
 ## Writing the roles down
 
