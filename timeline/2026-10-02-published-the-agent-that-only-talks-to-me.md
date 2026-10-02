@@ -2,6 +2,7 @@
 title: "blog: Messy Chat with Your Agents? You Just Need One More. Really."
 date: "2026-10-02"
 time: "19:32"
+parent: "/timeline/2026-10-01-shipped-tmux-agents/"
 tags:
   - published
   - ai
