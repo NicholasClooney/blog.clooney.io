@@ -48,6 +48,12 @@ giscus:
 home:
   target: blog # id matching a sidebarNav entry whose page should render at /
 
+series:
+  # initial sort on series detail pages: curated, reverse, date-asc, date-desc
+  # a series in _data/series.yaml can override it with its own defaultSort
+  # "x of y" positions on content pages always follow the declared order
+  defaultSort: curated
+
 timeline:
   showInNav: true  # set to true to show Timeline in the sidebar nav
 

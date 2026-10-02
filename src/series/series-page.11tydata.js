@@ -1,7 +1,10 @@
 import {
+  SERIES_SORTS,
   describeSeries,
   getVisibleSeriesList,
+  resolveSeriesDefaultSort,
   resolveSeriesEntries,
+  sortSeriesEntries,
 } from '../../lib/series.js';
 
 const reportedMessages = new Set();
@@ -62,7 +65,19 @@ export default {
         );
       }
 
+      const { sort: defaultSort, invalid: invalidSorts } =
+        resolveSeriesDefaultSort(seriesItem, data.site);
+
+      if (invalidSorts.length) {
+        reportSeriesIssue(
+          `[11ty/series] ${seriesLabel} has an invalid ${invalidSorts.join(' and ')}; expected one of ${SERIES_SORTS.join(', ')}`,
+          { environment },
+        );
+      }
+
       return {
+        defaultSort,
+        sortedEntries: sortSeriesEntries(entries, defaultSort),
         duplicateUrls,
         draftUrls,
         missingUrls,

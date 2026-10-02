@@ -73,6 +73,12 @@ Timeline archive indexes currently exist at `/timeline/weeks/` and `/timeline/mo
 Timeline page copy, relationship labels, and archive labels live in `_data/ui.yaml` under `pages.timeline`.
 Timeline featured tags and category metadata live in `_data/timeline.yaml`.
 
+## Series
+
+Series are declared in `_data/series.yaml` as ordered `entries:` URL lists. The declared order always drives the "x of y" position on content pages and the list numbers on series pages.
+Series detail pages open with `site.series.defaultSort` (`curated`, `reverse`, `date-asc`, `date-desc`; default `curated`). A series can override it with its own `defaultSort`. The initial HTML is rendered in that order, and `assets/js/series-sort.js` mirrors `sortSeriesEntries` in `lib/series.js`.
+Date sorts use the date plus front matter `time` (missing time counts as `00:00`), then fall back to declared order.
+
 ## Theme system
 
 8 named themes (sun, default, mint, grape, charcoal, deep-blue, midnight, terminal). Switching is runtime via JS — no page reload. Each theme sets:

@@ -54,21 +54,46 @@ describe('/series/', () => {
       expect(textOf(h1)).toContain(seriesDef.title);
     });
 
-    it('renders entries in the order declared in _data/series.yaml', () => {
-      const seriesLinks = selectAll(seriesDoc, 'a[href]').map((a) =>
-        a.getAttribute('href'),
+    const renderedEntries = (doc) =>
+      selectAll(doc, '[data-series-entry]').map((item) => ({
+        href: item.querySelector('h2 a')?.getAttribute('href'),
+        value: item.getAttribute('value'),
+      }));
+
+    const pressedSort = (doc) =>
+      selectAll(doc, '[data-series-sort][aria-pressed="true"]').map((button) =>
+        button.getAttribute('data-series-sort'),
       );
-      const declaredOrder = seriesDef.entries;
-      // Filter links down to first occurrence of each declared entry.
-      const seen = new Set();
-      const ordered = [];
-      for (const href of seriesLinks) {
-        if (declaredOrder.includes(href) && !seen.has(href)) {
-          seen.add(href);
-          ordered.push(href);
-        }
-      }
-      expect(ordered).toEqual(declaredOrder);
+
+    it('renders entries in its defaultSort order without JS', () => {
+      expect(seriesDef.defaultSort).toBe('date-desc');
+      expect(seriesDoc.querySelector('[data-series-page]')?.getAttribute(
+        'data-series-default-sort',
+      )).toBe('date-desc');
+      expect(pressedSort(seriesDoc)).toEqual(['date-desc']);
+      expect(renderedEntries(seriesDoc).map(({ href }) => href)).toEqual([
+        '/timeline/2026-04-14-shipped-timeline/',
+        '/posts/v1.13-1.20-roundup/',
+        '/notes/testing-the-notes-collection/',
+      ]);
+    });
+
+    it('keeps declared positions as list numbers when re-sorted', () => {
+      const positions = Object.fromEntries(
+        renderedEntries(seriesDoc).map(({ href, value }) => [href, value]),
+      );
+      seriesDef.entries.forEach((href, index) => {
+        expect(positions[href]).toBe(String(index + 1));
+      });
+    });
+
+    it('defaults other series to curated declared order', () => {
+      const curatedDef = series.find((item) => item.id === 'subspace-builder');
+      const { document } = parsePage(`/series/${curatedDef.id}/`);
+      expect(pressedSort(document)).toEqual(['curated']);
+      expect(renderedEntries(document).map(({ href }) => href)).toEqual(
+        curatedDef.entries,
+      );
     });
 
     it('includes front matter time in the date sort key', () => {

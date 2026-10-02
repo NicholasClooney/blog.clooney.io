@@ -17,6 +17,7 @@
 - id: subspace-surfaces
   title: Subspace Surfaces
   devOnly: true
+  defaultSort: date-desc # overrides site.series.defaultSort for this series
   intro: >
     A cross-section of the site's publishing surfaces: long-form posts, shorter
     notes, and timeline updates in one curated path.

@@ -10,6 +10,8 @@ eleventyComputed:
 ---
 
 {% set seriesEntries = resolvedSeries.entries | default([]) %}
+{% set sortedEntries = resolvedSeries.sortedEntries | default([]) %}
+{% set defaultSort = resolvedSeries.defaultSort | default('curated') %}
 {% set sortOptions = [
   { id: 'curated', label: ui.shared.series.sortOptions.curated },
   { id: 'reverse', label: ui.shared.series.sortOptions.reverse },
@@ -17,7 +19,7 @@ eleventyComputed:
   { id: 'date-desc', label: ui.shared.series.sortOptions.dateDesc }
 ] %}
 
-<section class="mw7 center" data-series-page>
+<section class="mw7 center" data-series-page data-series-default-sort="{{ defaultSort }}">
   <header class="mb5">
     <p class="f6 ttu tracked theme-midtone mt0 mb2">{{ ui.shared.series.sectionLabel }}</p>
     <h1 class="f3 f2-ns lh-title mt0 mb3">{{ seriesItem.title }}</h1>
@@ -37,7 +39,7 @@ eleventyComputed:
               type="button"
               class="ba b--black-20 br-pill ph3 pv2 mr2 mb2 bg-transparent pointer theme-text"
               data-series-sort="{{ option.id }}"
-              aria-pressed="{% if loop.first %}true{% else %}false{% endif %}"
+              aria-pressed="{% if option.id == defaultSort %}true{% else %}false{% endif %}"
               disabled
             >
               {{ option.label }}
@@ -55,12 +57,13 @@ eleventyComputed:
 
   {% if seriesEntries | length %}
     <ol class="pl3 mt0 mb0" data-series-entries>
-      {% for entry in seriesEntries %}
+      {% for sortedEntry in sortedEntries %}
+        {% set entry = sortedEntry.entry %}
         <li
           class="mb4 pb4 bb b--black-10"
           data-series-entry
-          data-curated-index="{{ loop.index0 }}"
-          value="{{ loop.index }}"
+          data-curated-index="{{ sortedEntry.curatedIndex }}"
+          value="{{ sortedEntry.curatedIndex + 1 }}"
           data-date="{{ entry | collectionSortKey }}"
         >
           <article>

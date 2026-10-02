@@ -11,7 +11,9 @@
   }
 
   const validSorts = new Set(['curated', 'reverse', 'date-asc', 'date-desc']);
-  const defaultSort = 'curated';
+  const defaultSort = validSorts.has(root.dataset.seriesDefaultSort)
+    ? root.dataset.seriesDefaultSort
+    : 'curated';
   const paramKey = 'sort';
 
   const getCuratedIndex = (item) =>
