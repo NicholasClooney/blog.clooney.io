@@ -68,7 +68,10 @@ import {
   buildAssetUrl,
   emitFingerprintedAssets,
 } from './lib/assets/fingerprint.js';
-import { sortCollectionByDateAndTime } from './lib/content/sort.js';
+import {
+  getCollectionSortKey,
+  sortCollectionByDateAndTime,
+} from './lib/content/sort.js';
 import { assertNoBrokenInternalLinks } from './lib/build/link-check.js';
 import {
   filterTagList,
@@ -597,6 +600,9 @@ export default function (eleventyConfig) {
     if (Number.isNaN(date.getTime())) return '';
     return date.toISOString().split('T')[0];
   });
+
+  // Date plus optional front matter time (YYYY-MM-DDTHH:MM) for client-side sorts.
+  eleventyConfig.addFilter('collectionSortKey', getCollectionSortKey);
 
   eleventyConfig.addFilter('excerpt', excerpt);
 

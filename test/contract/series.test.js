@@ -71,6 +71,17 @@ describe('/series/', () => {
       expect(ordered).toEqual(declaredOrder);
     });
 
+    it('includes front matter time in the date sort key', () => {
+      const dates = Object.fromEntries(
+        selectAll(seriesDoc, '[data-series-entry]').map((item) => [
+          item.querySelector('h2 a')?.getAttribute('href'),
+          item.getAttribute('data-date'),
+        ]),
+      );
+      expect(dates['/timeline/2026-04-14-shipped-timeline/']).toBe('2026-04-14T15:42');
+      expect(dates['/notes/testing-the-notes-collection/']).toBe('2026-04-12T00:00');
+    });
+
     it('renders mixed-content entries on the generalized series page', () => {
       const hrefs = new Set(
         selectAll(seriesDoc, 'a[href]').map((a) => a.getAttribute('href')),

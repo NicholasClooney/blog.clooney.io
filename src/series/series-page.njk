@@ -61,7 +61,7 @@ eleventyComputed:
           data-series-entry
           data-curated-index="{{ loop.index0 }}"
           value="{{ loop.index }}"
-          data-date="{{ entry.date | machineDate }}"
+          data-date="{{ entry | collectionSortKey }}"
         >
           <article>
             <h2 class="f3 lh-title mb2 mt0">
