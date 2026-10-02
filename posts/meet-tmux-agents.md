@@ -19,6 +19,15 @@ Both of my last two posts, about the [worktree pool](/posts/i-gave-my-coding-age
 
 [tmux-agents](https://github.com/TheClooneyCollection/tmux-agents) runs every Claude or Codex sub-agent in its own tmux pane, and lets agents send each other tasks and replies. I [shipped v1.0.0 yesterday](/timeline/2026-10-01-shipped-tmux-agents/). It's MIT licensed, and it's just tmux and bash.
 
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/projects/tmux-agents.png"
+    alt="The tmux-agents list: sub-agents with their status and parent agent, and a live preview of the selected Codex session"
+    style="display: block; width: 100%; height: auto;"
+  />
+  <figcaption>The agent list (<code>prefix + a</code>): every sub-agent, what it's doing, who started it, and a live preview of its session.</figcaption>
+</figure>
+
 [[toc]]
 
 ## Why I built it
@@ -56,11 +65,8 @@ So the core idea is observability and record keeping. Every agent is a full sess
 </figure>
 
 <figure>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1rem; align-items: start;">
-    <img src="/assets/images/projects/tmux-agents.png" alt="The agent list showing sub-agents with their status and parent, and a live preview of the selected session" style="display: block; width: 100%; height: auto;" />
-    <img src="/assets/images/timeline/tmux-agents/popup.png" alt="A hidden Codex sub-agent opened in a popup from the list" style="display: block; width: 100%; height: auto;" />
-  </div>
-  <figcaption style="text-align: center;"><code>prefix + a</code> lists every sub-agent with a live preview. Enter opens one in a popup to answer it or give direction.</figcaption>
+  <img src="/assets/images/timeline/tmux-agents/popup.png" alt="A hidden Codex sub-agent opened in a popup from the list" style="display: block; width: 100%; height: auto;" />
+  <figcaption style="text-align: center;">Enter on a sub-agent in the list opens it in a popup, so I can answer it or give direction.</figcaption>
 </figure>
 
 ## How I use it
