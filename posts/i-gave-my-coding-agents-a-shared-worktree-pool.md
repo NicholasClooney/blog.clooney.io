@@ -8,6 +8,7 @@ tags:
   - git
   - workflow
   - tooling
+  - tmux-agents
 excerpt: |
   Claude, Codex and their sub-agents each got their own git worktree, and my
   disk quietly filled up with copies of an 8GB game project. The fix was a
@@ -16,6 +17,8 @@ excerpt: |
 ---
 
 I've been having a lot of fun building my Stone Age remake with Claude and Codex. Most days there are several agents going at once: one on a UI screen, one chasing an importer bug, a couple of sub-agents doing research or cleanup. Each of them works in its own git worktree, so nobody steps on anybody else's checkout.
+
+They all run through [tmux-agents](https://github.com/TheClooneyCollection/tmux-agents), the little tool I [shipped yesterday](/timeline/2026-10-01-shipped-tmux-agents/) (it's on my [projects page](/projects/) too). Every Claude or Codex sub-agent gets its own tmux pane, so I can watch them all work, step in when one needs me, and let them hand tasks to each other. It's what makes running this many agents at once feel easy, which is also part of how so many worktrees piled up.
 
 That part worked well. The part I hadn't thought about was what they left behind.
 
