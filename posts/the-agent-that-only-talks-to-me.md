@@ -1,5 +1,5 @@
 ---
-title: "The Agent That Only Talks to Me"
+title: "Messy Chat with Your Agents? You Just Need One More. Really."
 date: 2026-10-02
 time: "19:25"
 tags:
