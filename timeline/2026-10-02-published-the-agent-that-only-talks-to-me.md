@@ -1,7 +1,7 @@
 ---
 title: "blog: The Agent That Only Talks to Me"
 date: "2026-10-02"
-time: "19:31"
+time: "19:32"
 tags:
   - published
   - ai
