@@ -2,6 +2,7 @@
 title: "blog: Your Sub-Agents Shouldn't Disappear: Meet tmux-agents"
 date: "2026-10-02"
 time: "21:15"
+parent: "/timeline/2026-10-01-shipped-tmux-agents/"
 tags:
   - published
   - ai
