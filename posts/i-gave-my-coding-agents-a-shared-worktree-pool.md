@@ -20,6 +20,15 @@ I've been having a lot of fun building my Stone Age remake with Claude and Codex
 
 They all run through [tmux-agents](https://github.com/TheClooneyCollection/tmux-agents), the little tool I [shipped yesterday](/timeline/2026-10-01-shipped-tmux-agents/) (it's on my [projects page](/projects/) too). Every Claude or Codex sub-agent gets its own tmux pane, so I can watch them all work, step in when one needs me, and let them hand tasks to each other. It's what makes running this many agents at once feel easy, which is also part of how so many worktrees piled up.
 
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/projects/tmux-agents.png"
+    alt="The tmux-agents list showing sub agents with their status and parent, and a live preview of the selected session"
+    style="display: block; width: 100%; height: auto;"
+  />
+  <figcaption><code>prefix + a</code> in tmux-agents: every sub agent, its status, and a live preview.</figcaption>
+</figure>
+
 That part worked well. The part I hadn't thought about was what they left behind.
 
 [[toc]]
