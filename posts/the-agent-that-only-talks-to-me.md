@@ -72,6 +72,45 @@ Nothing about the existing agents had to change. The old Claude kept its history
 
 I also deliberately did not connect the new main agent to Codex. If it could talk to Codex directly, Codex's reports would start flowing into my conversation again, and I'd be back where I started. The main agent has exactly one peer: the coordinator.
 
+## Writing the roles down
+
+Telling the new agent its role worked for the moment. To make it stick, so that any agent reading the project knows who does what, I wrote the roles and the message rules into the project's `AGENTS.md`. This is the section, with the agent names left in:
+
+```markdown
+## Agent roles and messages
+
+Three agents work together in tmux panes: main agent → coordinator → worker.
+
+- **main agent (Claude, `claude-projects-stone-age-2`)**: interfaces with the user
+  and the other agents: clarifies intent, turns it into self-contained tasks and
+  relays user decisions. Does not investigate or implement.
+- **coordinator (Claude, `claude-projects-stone-age-1`)**: coordinates Codex and
+  owns the main checkout: merges Codex commits, runs importers, backs up saves,
+  relaunches the server, runs tests and records decisions in docs. Sends anything
+  that needs a user decision to the main agent, not to the user.
+- **worker (Codex, `codex-projects-stone-age-1` and its sub agents)**: main
+  implementer. Sub agents split work by file ownership to avoid conflicts.
+
+Messages:
+
+- Everything goes through `tmux-ask`. Long reports go in a file; the message is a
+  short summary plus the path.
+- The user reads coordinator→main agent messages directly, so the main agent does
+  not restate them; it surfaces a decision as a one-line summary plus options.
+- Mark FYIs "no reply needed". A decision request states the default and what is
+  blocked meanwhile.
+- An instruction the user gives directly to any agent wins; that agent tells the
+  others what changed.
+```
+
+A few of these rules turned out to matter more than I expected. "Sends anything that needs a user decision to the main agent, not to the user" is what keeps the coordinator from quietly becoming the agent I talk to again. "States the default and what is blocked meanwhile" means a decision request tells me what happens if I ignore it for an hour. And "an instruction the user gives directly to any agent wins" leaves me a way around the chain: I can still type into any pane when I need to, and the agent I talked to is responsible for telling the others.
+
+## Before and after
+
+**Before:** the coordinator was busy all the time. Messages kept coming in from Codex, it kept asking me for decisions, it kept running commands. Getting a question or a task to it meant waiting for a gap.
+
+**After:** I just talk to the main agent. It answers what it can, and dispatches the rest to the coordinator, which may in turn hand it to Codex. The coordinator's replies land in the main agent's pane, so I can read them as they arrive, and the main agent doesn't repeat them. It only steps in when something needs me, with a one-line summary and the options.
+
 <style>
   .agents-vs { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 1rem; align-items: stretch; }
   .agents-vs-panel { border: 2px solid currentColor; border-radius: 12px; padding: 1rem 0.75rem; }
@@ -159,45 +198,6 @@ I also deliberately did not connect the new main agent to Codex. If it could tal
   </div>
   <figcaption style="text-align: center;">Before, the agent I talked to was also running the project. After, I only talk to the main agent, and the coordinator handles the rest. The main agent and Codex are not connected, on purpose.</figcaption>
 </figure>
-
-## Writing the roles down
-
-Telling the new agent its role worked for the moment. To make it stick, so that any agent reading the project knows who does what, I wrote the roles and the message rules into the project's `AGENTS.md`. This is the section, with the agent names left in:
-
-```markdown
-## Agent roles and messages
-
-Three agents work together in tmux panes: main agent → coordinator → worker.
-
-- **main agent (Claude, `claude-projects-stone-age-2`)**: interfaces with the user
-  and the other agents: clarifies intent, turns it into self-contained tasks and
-  relays user decisions. Does not investigate or implement.
-- **coordinator (Claude, `claude-projects-stone-age-1`)**: coordinates Codex and
-  owns the main checkout: merges Codex commits, runs importers, backs up saves,
-  relaunches the server, runs tests and records decisions in docs. Sends anything
-  that needs a user decision to the main agent, not to the user.
-- **worker (Codex, `codex-projects-stone-age-1` and its sub agents)**: main
-  implementer. Sub agents split work by file ownership to avoid conflicts.
-
-Messages:
-
-- Everything goes through `tmux-ask`. Long reports go in a file; the message is a
-  short summary plus the path.
-- The user reads coordinator→main agent messages directly, so the main agent does
-  not restate them; it surfaces a decision as a one-line summary plus options.
-- Mark FYIs "no reply needed". A decision request states the default and what is
-  blocked meanwhile.
-- An instruction the user gives directly to any agent wins; that agent tells the
-  others what changed.
-```
-
-A few of these rules turned out to matter more than I expected. "Sends anything that needs a user decision to the main agent, not to the user" is what keeps the coordinator from quietly becoming the agent I talk to again. "States the default and what is blocked meanwhile" means a decision request tells me what happens if I ignore it for an hour. And "an instruction the user gives directly to any agent wins" leaves me a way around the chain: I can still type into any pane when I need to, and the agent I talked to is responsible for telling the others.
-
-## Before and after
-
-**Before:** the coordinator was busy all the time. Messages kept coming in from Codex, it kept asking me for decisions, it kept running commands. Getting a question or a task to it meant waiting for a gap.
-
-**After:** I just talk to the main agent. It answers what it can, and dispatches the rest to the coordinator, which may in turn hand it to Codex. The coordinator's replies land in the main agent's pane, so I can read them as they arrive, and the main agent doesn't repeat them. It only steps in when something needs me, with a one-line summary and the options.
 
 ## Why this works
 
