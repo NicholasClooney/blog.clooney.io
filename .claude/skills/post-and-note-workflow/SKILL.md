@@ -12,6 +12,7 @@ Use this workflow for editorial work in `posts/` and `notes/`.
 - Use timeline status `published` for blog posts, notes, essays, and other writing that is being published.
 - If the content already has a timeline entry, update it only if the relationship or metadata is wrong. Do not create duplicates.
 - Every post and note body must include `[[toc]]` before the first section heading.
+- Always add every new post or note to a series in `_data/series.yaml`, using `.claude/skills/series/SKILL.md`. Pick the best-fitting existing series; if none fits, propose a new one to the user rather than skipping this step.
 
 ## Workflow
 
@@ -20,5 +21,6 @@ Use this workflow for editorial work in `posts/` and `notes/`.
 3. Edit the content file and its front matter.
    - Add `[[toc]]` before the first section heading in every post and note.
 4. If the task creates or publishes the content, create or update the matching timeline entry in the same turn.
-5. Use `.claude/skills/timeline-entry/SKILL.md` for timeline file naming, timestamp rules, front matter, body style, and topic-tag carryover.
-6. Before finishing, verify that the content and timeline entry agree on title, URL path, and topic context.
+5. Add the content to a series in `_data/series.yaml` (see `.claude/skills/series/SKILL.md`).
+6. Use `.claude/skills/timeline-entry/SKILL.md` for timeline file naming, timestamp rules, front matter, body style, and topic-tag carryover.
+7. Before finishing, verify that the content, its series entry, and its timeline entry agree on title, URL path, and topic context.
