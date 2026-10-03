@@ -1,7 +1,7 @@
 ---
 title: "docs: tmux-agents v1.3.2 secondary role"
 date: "2026-10-03"
-time: "11:59"
+time: "12:00"
 parent: "/timeline/2026-10-01-shipped-tmux-agents/"
 tags:
   - shipped
