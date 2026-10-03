@@ -1,7 +1,7 @@
 ---
 title: "docs: tmux-agents v1.6.1 reply when the main work is done"
 date: "2026-10-03"
-time: "15:27"
+time: "15:28"
 parent: "/timeline/2026-10-01-shipped-tmux-agents/"
 tags:
   - shipped
