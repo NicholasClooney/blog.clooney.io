@@ -1,7 +1,7 @@
 ---
 title: "feature: tmux-agents v1.6.0 close an agent tree"
 date: "2026-10-03"
-time: "13:18"
+time: "13:19"
 parent: "/timeline/2026-10-01-shipped-tmux-agents/"
 tags:
   - shipped
