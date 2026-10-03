@@ -132,6 +132,19 @@ A few limits I already know about:
 - Some of the Codex support leans on Codex internals that could change in an update.
 - I've mostly used it on macOS. It's written for the bash 3.2 that macOS ships, and it hasn't seen much Linux yet.
 
+**Case in point:** the morning after I published this post, my agent list showed three spawned agents as **needs you**. None of them needed me. They had finished their tasks and were sitting idle. I'm still figuring out why.
+
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/posts/meet-tmux-agents/needs-you-bug.png"
+    alt="The tmux-agents list with three spawned agents marked needs you, and a preview of one of them idle after reporting back"
+    style="display: block; width: 100%; height: auto;"
+  />
+  <figcaption>Three spawned agents marked "needs you". All three had finished and were idle. The preview on the right shows one of them reporting back and then waiting for new work.</figcaption>
+</figure>
+
+This is the trade-off of how tmux-agents is built. With agents writing the code and no human review, bugs like this slip through. For a pet project I use every day, I'm fine with that. I'd rather iterate fast and fix things as they show up.
+
 One problem that did come up, worktrees filling my disk, turned out to belong to the surrounding workflow rather than to tmux-agents. That's the story of the [worktree pool](/posts/i-gave-my-coding-agents-a-shared-worktree-pool/).
 
 ## Why I like it
