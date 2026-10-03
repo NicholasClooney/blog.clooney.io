@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.40.1](https://github.com/TheClooneyCollection/11ty-subspace-builder/compare/v1.40.0...v1.40.1) (2026-10-03)
+
+
+### Bug Fixes
+
+* stop rendering CHANGELOG.md as a site page ([a8bf6d1](https://github.com/TheClooneyCollection/11ty-subspace-builder/commit/a8bf6d1cdabaa0061e0e5c3965e97c7c8395ebcd))
+
 ## [1.40.0](https://github.com/TheClooneyCollection/11ty-subspace-builder/compare/v1.39.0...v1.40.0) (2026-10-02)
 
 
