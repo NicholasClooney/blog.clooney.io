@@ -1,7 +1,7 @@
 ---
 title: "feature: tmux-agents v1.4.0 visible splits"
 date: "2026-10-03"
-time: "12:13"
+time: "12:14"
 parent: "/timeline/2026-10-01-shipped-tmux-agents/"
 tags:
   - shipped
