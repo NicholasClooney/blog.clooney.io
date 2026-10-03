@@ -52,6 +52,18 @@ There are other tools like this. [smux](https://github.com/ShawnPana/smux) and [
 
 Building something like this is also cheap now, because agents did almost all of the work. To be clear: I didn't write a single line of tmux-agents, and I didn't review its code either. I do skim the code now and then, and when something doesn't make sense, I ask the agents about it or have them change it. But my part was product engineering. I came up with the ideas, reviewed the specs the agents wrote, tried what they built, and kept iterating with them until it worked the way I wanted. The first version that did that, 1.0.0, took about half an hour to an hour.
 
+## What product engineering looked like
+
+A few examples of what "my part" meant in practice:
+
+- **Ideas from daily use.** The starting point was real agents in hidden panes, one key away. Then came smaller asks: could I just tell an agent to connect to Codex and hand it a task? That became `tmux-connect`. Panes that open without a name should get one automatically. The agent list needed a live preview and a second line per agent showing what it's doing. With the preview taking the right half, there was no room for a project column next to name, status and parent, so agents are grouped in a section per project instead. And spawned agents have ids, so why not reopen one after it's closed?
+- **Edge cases I hit and brought back.** An agent waiting on background tests shown as "needs you". A message stuck behind a pane I'd left in copy mode, which led to a 5-minute timeout. The needs-you bug further down this post.
+- **UX before code.** When I asked how reopening closed agents would look in the list, the agent started building. I stopped it and asked for the answer first. Then I picked "list them all, searchable, kept for 7 days" over a capped list.
+- **Saying no, and saying yes against advice.** I turned down showing top-level agents in the status line. I asked for a notice when connecting across windows, even though the agent leaned against it.
+- **Shipping.** Extract it into its own repo, review it privately on GitHub first, audit it for secrets, then go public under MIT with a Chinese README and an install skill. I wrote the README's pitch, sent the README back several times for being too busy or too detailed, and took the final screenshots myself.
+
+None of this is code. It's deciding what the tool should be, noticing when it isn't that yet, and steering until it is.
+
 ## What it feels like
 
 **Agents talk to each other.** I tell Claude "connect codex and have it review this diff". The request lands in Codex's pane as a new message. When Codex is done, the reply comes back to Claude the same way, and Claude carries on.
