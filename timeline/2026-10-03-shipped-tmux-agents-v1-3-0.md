@@ -1,7 +1,7 @@
 ---
 title: "feature: tmux-agents v1.3.0 agent ownership"
 date: "2026-10-03"
-time: "11:46"
+time: "11:47"
 parent: "/timeline/2026-10-01-shipped-tmux-agents/"
 tags:
   - shipped
