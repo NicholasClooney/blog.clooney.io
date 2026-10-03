@@ -49,7 +49,7 @@ So the core idea is observability and record keeping. Every agent is a full sess
 
 There are other tools like this. [smux](https://github.com/ShawnPana/smux) and [tmux-bridge-mcp](https://github.com/howardpen9/tmux-bridge-mcp) also let agents in tmux panes message each other. I built my own anyway. It's a tool I use every day, so I want to own its experience and its code, and add what I need without opening a pull request on someone else's project and waiting for a merge.
 
-Building something like this is also cheap now, because agents did almost all of the work. To be clear: I didn't write a single line of tmux-agents, and I didn't review its code either. My part was product engineering. I came up with the ideas, reviewed the specs the agents wrote, tried what they built, and kept iterating with them until it worked the way I wanted. The first version that did that, 1.0.0, took about half an hour to an hour.
+Building something like this is also cheap now, because agents did almost all of the work. To be clear: I didn't write a single line of tmux-agents, and I didn't review its code either. I do skim the code now and then, and when something doesn't make sense, I ask the agents about it or have them change it. But my part was product engineering. I came up with the ideas, reviewed the specs the agents wrote, tried what they built, and kept iterating with them until it worked the way I wanted. The first version that did that, 1.0.0, took about half an hour to an hour.
 
 ## What it feels like
 
