@@ -41,9 +41,15 @@ I wanted three things instead:
 - **Step in** when it needs me or drifts off course.
 - **Come back** to its conversation later.
 
-I already live in tmux, so the answer was right there: give every agent a real pane. I had also tried [Maestri](https://www.themaestri.app/en) for a while, which puts terminals on an infinite canvas. It's a nice app, but I didn't enjoy zooming, scrolling and navigating between terminals all day. tmux panes and a list I can pull up with one key fit how I work.
+I already live in tmux, so the answer was right there: give every agent a real pane. I had also [tried Maestri](/posts/two-small-wins-that-turned-out-to-be-the-same-win/) for a while, which puts terminals on an infinite canvas. It's a nice app, but I didn't enjoy zooming, scrolling and navigating between terminals all day. tmux panes and a list I can pull up with one key fit how I work.
 
 So the core idea is observability and record keeping. Every agent is a full session that you can see, and its history stays around afterward.
+
+## Why my own, and who wrote it
+
+There are other tools like this. [smux](https://github.com/ShawnPana/smux) and [tmux-bridge-mcp](https://github.com/howardpen9/tmux-bridge-mcp) also let agents in tmux panes message each other. I built my own anyway. It's a tool I use every day, so I want to own its experience and its code, and add what I need without opening a pull request on someone else's project and waiting for a merge.
+
+Building something like this is also cheap now, because agents did almost all of the work. To be clear: I didn't write a single line of tmux-agents, and I didn't review its code either. My part was product engineering. I came up with the ideas, reviewed the specs the agents wrote, tried what they built, and kept iterating with them until it worked the way I wanted. The first version that did that, 1.0.0, took about half an hour to an hour.
 
 ## What it feels like
 
