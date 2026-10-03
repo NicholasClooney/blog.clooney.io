@@ -21,6 +21,15 @@
     - /posts/the-agent-that-only-talks-to-me/
     - /posts/meet-tmux-agents/
 
+- id: product-engineering
+  title: Product Engineering
+  intro: >
+    Things I build by bringing the ideas, the specs and the judgement, while
+    agents write the code. Each entry is about the product and how it came
+    together, not about code I typed.
+  entries:
+    - /posts/meet-tmux-agents/
+
 - id: swift-series
   title: Swift & SwiftUI Series
   intro: >
