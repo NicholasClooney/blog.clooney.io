@@ -9,6 +9,7 @@ tags:
   - tmux
   - tooling
   - workflow
+  - product-engineering
 excerpt: |
   Built-in sub-agents hand you a summary and the work behind it is gone.
   tmux-agents gives every delegated task its own Claude or Codex session in
