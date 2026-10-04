@@ -38,3 +38,9 @@ Use the repo-local dev server skill at `.claude/skills/dev-server/SKILL.md` (`/d
 Use the repo-local timeline entry skill at `.claude/skills/timeline-entry/SKILL.md` (`/timeline-entry` in Claude). It covers file naming, front matter, status tags, and workflows from a blog post or GitHub commit.
 
 For post or note publication work, use that skill as part of the same task so the content and its timeline entry ship together.
+
+## Chinese (zh) version
+
+The site is getting a Simplified Chinese version under `/zh/`. Posts, notes and UI text are translated.
+
+Timeline entries are intentionally not translated. The Chinese site shows them in their original English. Do not create Chinese versions of timeline entries, and do not add translation steps to the timeline workflow, unless the user explicitly asks.
