@@ -7,6 +7,7 @@ tags:
   - agents
   - tmux-agents
   - tooling
+  - product-engineering
 excerpt: |
   借助 AI 快速推进，在真实使用表明有必要时，补上扎实的工程设计。对 tmux-agents 来说，就是先让 agent 名称兼作 id，直到行不通，再引入真正的 id 和防护措施，让我和 agent 不再重蹈覆辙。
 ---
