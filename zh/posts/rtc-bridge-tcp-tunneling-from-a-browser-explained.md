@@ -11,7 +11,7 @@ excerpt: "朋友做了一个工具，让浏览器通过 WebRTC 访问本地 TCP 
 
 我的朋友 Andrew（[voltrevo](https://github.com/voltrevo)）做了一个叫 [rtc-bridge](https://github.com/voltrevo/rtc-bridge) 的项目。它的介绍简洁得很吸引人：让浏览器通过 WebRTC 与本地 TCP 服务通信，无需开放端口，无需公网 IP，也无需在客户端安装任何东西。
 
-我花了一些时间和 AI 代理讨论它的原理，并与自己对 WebRTC 的理解交叉核对，参见[我关于 WebRTC 实际工作方式的笔记](/zh/notes/webrtc-how-it-actually-works/)。下面这份说明，就是我希望一开始就能看到的内容。
+我花了一些时间和 AI agent 讨论它的原理，并与自己对 WebRTC 的理解交叉核对，参见[我关于 WebRTC 实际工作方式的笔记](/zh/notes/webrtc-how-it-actually-works/)。下面这份说明，就是我希望一开始就能看到的内容。
 
 ---
 
@@ -107,7 +107,7 @@ rtc-bridge 最大的优势是客户端零安装。如果你想让别人从浏览
 
 ## 认证设计问题
 
-和我讨论的一位代理提出了一个具体方案：由协调器签发短期 JWT，节点在接受 `connect` 命令之前验证它。
+和我讨论的一位 agent 提出了一个具体方案：由协调器签发短期 JWT，节点在接受 `connect` 命令之前验证它。
 
 1. 用户向协调器完成认证，可以用 OAuth、会话或其他方式。
 2. 协调器检查 ACL，签发一个限定特定节点和服务的签名令牌。
