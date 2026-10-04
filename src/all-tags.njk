@@ -20,7 +20,7 @@ eleventyComputed:
           {% for tag in group.tags %}
             <li class="mr2 mb2">
               <a class="link dim f5 theme-text ba b--black-20 br-pill ph3 pv1 dib fw5"
-                 href="/tags/{{ tag | slug }}/">
+                 href="{{ ('/tags/' ~ (tag | slug) ~ '/') | i18nUrl(lang) }}">
                 {{ tag }}
               </a>
             </li>

@@ -22,7 +22,7 @@ eleventyComputed:
       {% for item in seriesList %}
         <article class="mb4 pb4 bb b--black-10">
           <h2 class="f3 lh-title mb2 mt0">
-            <a class="link dim theme-text" href="{{ ('/series/' ~ item.id ~ '/') | url }}">
+            <a class="link dim theme-text" href="{{ ('/series/' ~ item.id ~ '/') | i18nUrl(lang) | url }}">
               {{ item.title }}
             </a>
           </h2>
@@ -35,7 +35,7 @@ eleventyComputed:
             </p>
           {% endif %}
           <p class="mt0 mb0">
-            <a class="link dim fw5 theme-text underline" href="{{ ('/series/' ~ item.id ~ '/') | url }}">
+            <a class="link dim fw5 theme-text underline" href="{{ ('/series/' ~ item.id ~ '/') | i18nUrl(lang) | url }}">
               {{ ui.shared.series.read }}
             </a>
           </p>

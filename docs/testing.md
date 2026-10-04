@@ -28,6 +28,7 @@ If you only read one section, read this one. What we test, and how:
 | **Contract tests** | Every page type the site renders actually has the right shape in `_site/`: home + pagination, about, notes, hidden notes, drafts, projects, timeline index + entry, month/week/calendar-week archives, topic-tag archives, tag indexes, paginated tag archive, series, feed.xml; no unresolved `{{ }}` left in any HTML; no empty anchors anywhere | [`test/contract/`](../test/contract/) (19 files) running against the real built site |
 | **Snapshots** | Small reusable fragments render the same shape over time: project cards, tag chips, timeline entries (per-category color + parent/children badges), week pills, post list items, plus one full timeline entry body and one full post body with TOC + code blocks + GitHub embeds | [`test/snapshots/`](../test/snapshots/) |
 | **Fixtures** | Timeline relational logic and build-time failures, in isolation from real content: linear / branching / deep-tree threads, "earlier in thread" ordering, multi-category precedence; plus negative paths — orphan parent, cycle, self-parent, tag/entry slug collision, reserved slug, unquoted date | [`test/fixtures.test.js`](../test/fixtures.test.js) driving 11 tiny content sets in [`test/fixtures/`](../test/fixtures/) through the real [`eleventy.config.js`](../eleventy.config.js) via a recording harness |
+| **i18n fixtures** | Real isolated multilingual HTML/XML builds: locale merging, language isolation, switching, series fallback, alternate home sections, and disabled output equivalence | [`test/i18n.test.js`](../test/i18n.test.js) using the real config/templates with generated offline content |
 | **Unit tests** | Pure helpers extracted from `eleventy.config.js`: timeline refs / dates / sort / graph / validate / categories / archives, excerpt, slugify, markdown code-block / TODO blockquote / GitHub embed, asset fingerprint, link-check, content exclusion rules | [`test/unit/`](../test/unit/) (one per [`lib/`](../lib/) module) |
 | **Browser smoke** | Behavior only a real browser proves: homepage loads with no console errors or failed requests, theme toggle persists across reload, collapsible code-block Expand/Wrap toggles flip state, project card link is reachable, timeline detail page renders relationship sections | [`test/e2e/smoke.spec.js`](../test/e2e/smoke.spec.js) via Playwright (chromium only) |
 
@@ -160,6 +161,42 @@ Current fixture scenarios include:
 Use fixtures when the full site would make the scenario hard to reason about or
 when the expected outcome is a build-time throw.
 
+### Multi-language rendering fixtures
+
+[`test/i18n.test.js`](../test/i18n.test.js) builds isolated temporary sites with
+real `eleventy.config.js`, layouts, source templates, and content directory data.
+Unlike the timeline recording harness, these are actual Eleventy CLI builds and
+assertions on rendered HTML parsed with `linkedom`.
+
+The fixture includes Chinese (`zh-Hans`) and French (`fr-FR`), translated posts,
+notes, hidden notes, drafts, partial locale files, pagination, topic tags, and a
+mixed series. It checks default collection/feed isolation, counterparts resolved
+by final URL, translated series entries with original-language fallback, deep
+locale merging, shared timeline links, and internal-link validity in production
+and development. A separate pair of builds compares every HTML/XML page with
+configuration omitted and explicitly disabled, including dormant translation
+directories. Additional builds exercise notes and timeline as the home section.
+[`test/unit/i18n.test.js`](../test/unit/i18n.test.js) covers locale merge behavior,
+configuration validation, URL suffix preservation, available counterparts, and
+non-English default languages.
+
+Content and data are generated under a temporary directory and removed after
+each build. There are no remote images or GitHub embeds. The fixture substitutes
+only the copied OG image generator with a no-op; the real rendering pipeline,
+collection registration, plugins, and build-time link validation remain active.
+It does not prove OG image generation or disabled compatibility with historical
+releases; existing contracts and unchanged snapshots remain those regression
+gates.
+
+Run this fixture without rebuilding the full repository site:
+
+```sh
+VITEST_SKIP_BUILD=1 npx vitest run test/i18n.test.js test/unit/i18n.test.js
+```
+
+`VITEST_SKIP_BUILD` skips only the shared global setup. The isolated fixture
+builds still run, and the file is also included in the normal `npm test` suite.
+
 ### Unit Tests
 
 Unit tests are for pure helpers extracted from `eleventy.config.js`.
@@ -289,3 +326,4 @@ The current plan does not aim to provide:
 - [Test Suite Plan](./plans/0003-test-suite.md)
 - [Testing Static Generator Projects Research](./references/testing-static-generator-projects.md)
 - [Timeline Feature](./feature-timeline.md)
+- [Multi-language Content](./feature-i18n.md)

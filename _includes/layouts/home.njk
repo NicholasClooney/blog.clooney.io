@@ -10,7 +10,7 @@ layout: layouts/base.njk
 {% set autoLightThemeId = siteThemeConfig.autoLightId if siteThemeConfig.autoLightId is defined else defaultThemeId %}
 {% set autoDarkThemeId = siteThemeConfig.autoDarkId if siteThemeConfig.autoDarkId is defined else 'terminal' %}
 {% set giscusConfig = site.giscus or {} %}
-{% set currentUrl = page.url or '/' %}
+{% set currentUrl = page.url or '/' %}{% if site.i18n.enabled and lang and lang != site.i18n.defaultLanguage %}{% set languagePrefix = '/' ~ lang ~ '/' %}{% if currentUrl.indexOf(languagePrefix) == 0 %}{% set currentUrl = currentUrl.slice(languagePrefix.length - 1) %}{% endif %}{% endif %}
 {% set homeTargetId = site.home.target | default('blog') %}
 {% set isHomeRoot = currentUrl == '/' %}
 {% set isPostPage = currentUrl.indexOf('/posts/') == 0 or (isHomeRoot and homeTargetId == 'blog') %}
@@ -241,7 +241,7 @@ layout: layouts/base.njk
 
   <!-- Site Title + Mobile Hamburger -->
   <div class="pa4 flex items-center justify-between flex-wrap">
-    <a href="/" class="link dim f3 f2-ns fw6 ma0 tr tl-ns db theme-text">
+    <a href="{{ '/' | i18nUrl(lang) }}" class="link dim f3 f2-ns fw6 ma0 tr tl-ns db theme-text">
       {{ site.title }}
     </a>
     <div class="flex items-center mt3 mt0-ns flex-wrap justify-end">
@@ -287,7 +287,13 @@ layout: layouts/base.njk
     </div>
   </div>
 
-  <!-- Two-column layout -->
+{% set languageLinks = page.url | i18nLinks %}{% if languageLinks | length > 1 %}  <nav class="ph4 pb3 flex flex-wrap" aria-label="{{ ui.shared.languageSwitcher.label | default('Language') }}" data-language-switcher>
+    {% for languageLink in languageLinks %}
+      <a class="link dim theme-text mr3" href="{{ languageLink.url | url }}" lang="{{ languageLink.htmlLang }}" hreflang="{{ languageLink.htmlLang }}"{% if languageLink.code == lang %} aria-current="page"{% endif %}>{{ languageLink.label }}</a>
+    {% endfor %}
+  </nav>
+
+{% endif %}  <!-- Two-column layout -->
   <div class="flex flex-column flex-row-ns">
     <!-- Sidebar nav: hidden on mobile until toggle; no background color -->
     <nav id="sidebar" class="dn db-ns w-100 w-25-ns pa4">
@@ -315,7 +321,7 @@ layout: layouts/base.njk
             {% set displayLabel = item.label ~ ': ' ~ draftCount %}
           {% endif %}
           <li class="mb3 w-100">
-            <a href="{{ itemUrl }}"
+            <a href="{{ itemUrl if item.id == 'timeline' else (itemUrl | i18nUrl(lang)) }}"
                class="db pa1 link dim f4 lh-copy tr tl-ns theme-text{% if isActive %} underline{% endif %}"
                {% if isActive %}aria-current="page"{% endif %}>
               {{ displayLabel }}
@@ -352,7 +358,7 @@ layout: layouts/base.njk
               <ul class="list pl0 ma0">
                 {% for seriesItem in seriesLinks %}
                   <li{% if not loop.last %} class="mb2"{% endif %}>
-                    <a class="link dim fw6 theme-text underline" href="{{ seriesItem.url | url }}">
+                    <a class="link dim fw6 theme-text underline" href="{{ seriesItem.url | i18nUrl(lang) | url }}">
                       {{ seriesItem.title }}
                     </a>
                     <span class="theme-midtone">

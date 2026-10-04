@@ -49,7 +49,7 @@ eleventyComputed:
       {% endif %}
     </div>
     <p class="mt3 mb0">
-      <a class="link dim fw5 underline theme-text" href="{{ '/series/' | url }}">
+      <a class="link dim fw5 underline theme-text" href="{{ '/series/' | i18nUrl(lang) | url }}">
         {{ ui.shared.series.backToAll }}
       </a>
     </p>
@@ -68,7 +68,7 @@ eleventyComputed:
         >
           <article>
             <h2 class="f3 lh-title mb2 mt0">
-              <a class="link dim theme-text" href="{{ entry.url | url }}">{{ entry.data.title }}</a>
+              <a class="link dim theme-text" href="{{ entry.url | i18nUrl(lang) | url }}">{{ entry.data.title }}</a>
             </h2>
             {% if entry.date %}
               <p class="f6 theme-midtone mt0 mb3">
@@ -80,7 +80,7 @@ eleventyComputed:
               <ul class="list pl0 ma0 mb3 flex flex-wrap">
                 {% for tag in itemTags %}
                   <li class="mr2 mb2">
-                    <a class="link dim f6 theme-midtone ba b--black-20 br-pill ph2 pv1" href="/tags/{{ tag | slug }}/">
+                    <a class="link dim f6 theme-midtone ba b--black-20 br-pill ph2 pv1" href="{{ ('/tags/' ~ (tag | slug) ~ '/') | i18nUrl(lang) }}">
                       #{{ tag }}
                     </a>
                   </li>

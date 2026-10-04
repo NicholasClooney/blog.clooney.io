@@ -5,7 +5,7 @@
       {% for item in (list | reverse if reverse else list) %}
         <article class="mb4 pb4 bb b--black-10">
           <h2 class="f3 lh-title mb2">
-            <a class="link dim theme-text" href="{{ item.url | url }}">{{ item.data.title }}</a>
+            <a class="link dim theme-text" href="{{ item.url | i18nUrl(lang) | url }}">{{ item.data.title }}</a>
           </h2>
           {% if item.date %}
             <p class="f6 theme-midtone mt0 mb3">
@@ -17,7 +17,7 @@
             <ul class="list pl0 ma0 mb3 flex flex-wrap">
               {% for tag in itemTags %}
                 <li class="mr2 mb2">
-                  <a class="link dim f6 theme-midtone ba b--black-20 br-pill ph2 pv1" href="/tags/{{ tag | slug }}/">
+                  <a class="link dim f6 theme-midtone ba b--black-20 br-pill ph2 pv1" href="{{ ('/tags/' ~ (tag | slug) ~ '/') | i18nUrl(lang) }}">
                     #{{ tag }}
                   </a>
                 </li>

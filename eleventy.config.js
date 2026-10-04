@@ -17,6 +17,11 @@ import MarkdownItTocDoneRight from 'markdown-it-toc-done-right';
 import yaml from 'js-yaml';
 import excerpt from './lib/excerpt.js';
 import {
+  configureI18n,
+  collectionExclusions,
+  isTranslation,
+} from './lib/i18n/index.js';
+import {
   normalizeLanguage,
   highlightCode,
   getNumericSetting,
@@ -73,10 +78,7 @@ import {
   sortCollectionByDateAndTime,
 } from './lib/content/sort.js';
 import { assertNoBrokenInternalLinks } from './lib/build/link-check.js';
-import {
-  filterTagList,
-  isExcludedFromCollections,
-} from './lib/eleventy/excluded-content.js';
+import { filterTagList } from './lib/eleventy/excluded-content.js';
 
 const OG_FORCE_ENV = process.env.OG_FORCE === 'true';
 const ELEVENTY_FETCH_CACHE_DIR = path.resolve('.cache');
@@ -297,6 +299,7 @@ md.renderer.rules.code_block = (tokens, idx) => {
 };
 
 export default function (eleventyConfig) {
+  configureI18n(eleventyConfig, loadSiteData());
   const productionEnvironment = process.env.ELEVENTY_ENV === 'production';
 
   eleventyConfig.on('eleventy.after', ({ dir }) => {
@@ -356,7 +359,7 @@ export default function (eleventyConfig) {
   });
   eleventyConfig.addGlobalData('eleventyComputed', {
     eleventyExcludeFromCollections(data) {
-      return isExcludedFromCollections(data, productionEnvironment);
+      return collectionExclusions(data, productionEnvironment);
     },
     title(data) {
       const prefix = '🚧 DRAFT - ';
@@ -404,7 +407,9 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addCollection('tagList', (collectionApi) => {
     const tagSet = new Set();
-    for (const item of collectionApi.getAllSorted()) {
+    for (const item of collectionApi
+      .getAllSorted()
+      .filter((item) => !isTranslation(item))) {
       const tags = item?.data?.tags;
       if (!tags) continue;
       for (const tag of filterTagList(tags)) {
@@ -418,7 +423,9 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addCollection('tagGroups', (collectionApi) => {
     const tagCounts = new Map();
-    for (const item of collectionApi.getAllSorted()) {
+    for (const item of collectionApi
+      .getAllSorted()
+      .filter((item) => !isTranslation(item))) {
       const tags = item?.data?.tags;
       if (!tags) continue;
       for (const tag of filterTagList(tags)) {
@@ -441,7 +448,9 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.addCollection('drafts', (collectionApi) =>
-    collectionApi.getAllSorted().filter((item) => item?.data?.draft),
+    collectionApi
+      .getAllSorted()
+      .filter((item) => !isTranslation(item) && item?.data?.draft),
   );
 
   eleventyConfig.addCollection('posts', (collectionApi) =>
