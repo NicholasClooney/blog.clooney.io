@@ -23,8 +23,8 @@ Both of my last two posts, about the [worktree pool](/posts/i-gave-my-coding-age
 
 <figure style="text-align: center;">
   <img
-    src="/assets/images/projects/tmux-agents.png"
-    alt="The tmux-agents list: spawned agents with their status and parent agent, and a live preview of the selected Codex session"
+    src="/assets/images/projects/tmux-agents-list.png"
+    alt="The tmux-agents list for one window: dozens of spawned agents with their status and parent agent, and a live preview of the selected Codex session"
     style="display: block; width: 100%; height: auto;"
   />
   <figcaption>The agent list (<code>prefix + a</code>): every spawned agent, what it's doing, who started it, and a live preview of its session.</figcaption>
@@ -76,6 +76,15 @@ None of this is code. It's deciding what the tool should be, noticing when it is
 
 **A glance tells me who needs me.** A line above the tmux status bar counts the agents per project, and turns red or amber when one is waiting for permission or for me.
 
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/posts/meet-tmux-agents/status-chips.png"
+    alt="Two agent panes with the tmux-agents status line at the bottom, showing working and finished agents for each project"
+    style="display: block; width: 100%; height: auto;"
+  />
+  <figcaption>The line above the tmux status bar: how many agents are working and how many are done, in every project, at a glance.</figcaption>
+</figure>
+
 **Nothing gets lost.** Panes stay until I close them. Closed spawned agents stay in the list for a week and can be reopened with their whole conversation, and the sessions also show up in `codex resume` and `claude --resume`.
 
 <figure>
@@ -96,6 +105,15 @@ None of this is code. It's deciding what the tool should be, noticing when it is
 Today was a good example.
 
 On the Stone Age project, I talk to a main Claude agent. It hands work to a coordinator Claude, which hands it to Codex, which fans it out to its own spawned agents. At busy moments that's around ten agents at once, all visible from one list. That setup is what the [last post](/posts/the-agent-that-only-talks-to-me/) is about.
+
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/posts/meet-tmux-agents/all-windows.png"
+    alt="The tmux-agents list across all windows, grouped by project, with working and finished agents and a live preview of a Codex agent"
+    style="display: block; width: 100%; height: auto;"
+  />
+  <figcaption>The agent list across all windows, grouped by project: the builder's i18n work and the game's quest work side by side.</figcaption>
+</figure>
 
 This blog has its own small team. One Claude writes the drafts, and a Codex in the next pane publishes them: it builds the site, adds the timeline entry, commits, pushes and checks the deploy. When a post needed a change to the [subspace builder](https://github.com/NicholasClooney/11ty-subspace-builder) this site is built on, the writing Claude sent the request to a third Claude working in that repo, and got back a summary and two commit hashes. I watched all of it happen in panes next to each other, and stepped in a few times.
 

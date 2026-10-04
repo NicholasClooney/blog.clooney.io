@@ -71,8 +71,8 @@ active:
     timeline: https://blog.nicholas.clooney.io/timeline/tmux-agents/
     repo: https://github.com/TheClooneyCollection/tmux-agents
     image:
-      src: /assets/images/projects/tmux-agents.png
-      alt: tmux-agents showing sub agent status, parent agents, and a live preview of a Codex session
+      src: /assets/images/projects/tmux-agents-list.png
+      alt: The tmux-agents list for one window, showing many sub agents with their status, parent agents, and a live preview of a Codex session
       fit: contain
     tech:
       - Bash
