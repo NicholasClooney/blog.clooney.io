@@ -7,6 +7,7 @@ tags:
   - agents
   - tmux-agents
   - tooling
+  - product-engineering
 excerpt: |
   Move fast with AI, and add proper engineering when real usage shows you
   need it. For tmux-agents, that meant letting each agent's name double as
