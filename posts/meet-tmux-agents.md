@@ -62,13 +62,15 @@ A few examples of what "my part" meant in practice:
 - **Saying no, and saying yes against advice.** I turned down showing top-level agents in the status line. I asked for a notice when connecting across windows, even though the agent leaned against it.
 - **Shipping.** Extract it into its own repo, review it privately on GitHub first, audit it for secrets, then go public under MIT with a Chinese README and an install skill. I wrote the README's pitch, sent the README back several times for being too busy or too detailed, and took the final screenshots myself.
 
+Since v1.3.0, product decisions like these are also written down, one per file, in the repo's `docs/decisions/` folder.
+
 None of this is code. It's deciding what the tool should be, noticing when it isn't that yet, and steering until it is.
 
 ## What it feels like
 
 **Agents talk to each other.** I tell Claude "connect codex and have it review this diff". The request lands in Codex's pane as a new message. When Codex is done, the reply comes back to Claude the same way, and Claude carries on.
 
-**Spawned agents are real sessions.** When an agent delegates a task, it opens in a hidden tmux window for the project, not in my layout. Each one is a full Claude or Codex session with its whole history on screen. I can approve a permission prompt, ask a follow-up, or correct it mid-task.
+**Spawned agents are real sessions.** When an agent delegates a task, it opens in a hidden tmux window for the project, not in my layout (or, since v1.4.0, as a visible split when I want one). Each one is a full Claude or Codex session with its whole history on screen. I can approve a permission prompt, ask a follow-up, or correct it mid-task.
 
 **One key shows everyone.** `prefix + a` opens a list of all spawned agents with their status, their parent and a live preview. Enter opens one in a popup, and `prefix + d` takes me back.
 
@@ -134,6 +136,17 @@ You don't need any of this to use it, but a few choices shape how it behaves. Th
 
 ## Where it is today
 
+**Update, October 4:** it has moved fast since I wrote this post. By [v1.7.2](https://github.com/TheClooneyCollection/tmux-agents/releases/tag/v1.7.2):
+
+- **Connect across windows** ([v1.2.0](https://github.com/TheClooneyCollection/tmux-agents/releases/tag/v1.2.0)), so agents in different projects can talk to each other.
+- **Spawn an agent for another agent** ([v1.3.0](/timeline/2026-10-03-shipped-tmux-agents-v1-3-0/)), which is how I now set up my main agent, secondary and worker chain.
+- **Visible splits** ([v1.4.0](/timeline/2026-10-03-shipped-tmux-agents-v1-4-0/)): a spawned agent can open right next to its parent instead of in a hidden window.
+- **A list scoped to the current window** ([v1.5.0](/timeline/2026-10-03-shipped-tmux-agents-v1-5-0/)), with agents that need me pinned to the top from every window.
+- **Idle agents, and closing a whole subtree of agents at once** ([v1.6.0](/timeline/2026-10-03-shipped-tmux-agents-v1-6-0/)).
+- **A much faster agent list**, from about 4.5s to 0.1s, and **messages that wait** until their receiver is back ([v1.7.0](/timeline/2026-10-04-shipped-tmux-agents-v1-7-0/)).
+
+Every release is on the [tmux-agents timeline](/timeline/tmux-agents/).
+
 I'm still testing the wider workflow, especially using spawned agents in place of built-in sub-agents everywhere. So this is a tool I use every day, not a finished product with a settled list of rough edges.
 
 A few limits I already know about:
@@ -156,6 +169,8 @@ A few limits I already know about:
 </figure>
 
 This is the trade-off of how tmux-agents is built. With agents writing the code and no human review, bugs like this slip through. For a pet project I use every day, I'm fine with that. I'd rather iterate fast and fix things as they show up.
+
+**Update:** fixed the next day in [v1.2.1](/timeline/2026-10-03-shipped-tmux-agents-v1-2-1/). A parent agent had sent a new rule, as a request, to its sub-agents that had already finished their work. A request means work, and it expects a reply. A notice is just an FYI. The request put those sub-agents back to "working", but they had nothing to do, so when their turn ended, they showed as needing me. Parents now send FYIs as notices, and tests make sure normal workflows don't trigger "needs you".
 
 One problem that did come up, worktrees filling my disk, turned out to belong to the surrounding workflow rather than to tmux-agents. That's the story of the [worktree pool](/posts/i-gave-my-coding-agents-a-shared-worktree-pool/).
 
