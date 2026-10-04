@@ -44,21 +44,45 @@ describe('opt-in i18n rendered contracts', () => {
     },
   );
 
-  it('pairs a nested original by its final URL, and only links available counterparts', () => {
+  it('pairs by final URL and falls back to language homes for missing counterparts', () => {
     const paired = documentAt(production, '/posts/paired/');
     expect(hrefs(paired)).toContain('/zh/posts/paired/');
     expect(hrefs(paired)).toContain('/fr/posts/paired/');
     expect(hrefs(paired, '[data-language-switcher] a')).toEqual([
-      '/posts/paired/',
       '/zh/posts/paired/',
       '/fr/posts/paired/',
     ]);
     const only = documentAt(production, '/posts/english-only/');
-    expect(only.querySelector('[data-language-switcher]')).toBeNull();
-    expect(hrefs(only).filter((href) => /^\/(zh|fr)\//.test(href))).toEqual([]);
+    expect(hrefs(only, '[data-language-switcher] a')).toEqual(['/zh/', '/fr/']);
+    expect(hrefs(documentAt(production, '/timeline/event/'), '[data-language-switcher] a')).toEqual(['/zh/', '/fr/']);
     const translatedOnly = documentAt(production, '/fr/posts/extra-1/');
     expect(hrefs(translatedOnly)).not.toContain('/posts/extra-1/');
-    expect(hrefs(translatedOnly)).toContain('/zh/posts/extra-1/');
+    expect(hrefs(translatedOnly, '[data-language-switcher] a')).toEqual(['/', '/zh/posts/extra-1/']);
+  });
+
+  it('renders one accessible multi-language menu beside the header theme controls', () => {
+    for (const route of ['/posts/paired/', '/zh/posts/paired/', '/timeline/event/']) {
+      const doc = documentAt(production, route);
+      const switcher = doc.querySelector('[data-language-switcher]');
+      expect(doc.querySelectorAll('[data-language-switcher]')).toHaveLength(1);
+      const headerControls = doc.querySelector('#nav-toggle').parentElement;
+      expect(headerControls.contains(switcher)).toBe(true);
+      expect(headerControls.querySelector('[data-theme-selector]')).not.toBeNull();
+      expect(doc.querySelector('main [data-language-switcher]')).toBeNull();
+      expect(switcher.querySelector('[data-language-toggle]')).toBeNull();
+      const menu = doc.querySelector('details[data-language-menu]');
+      expect(menu).not.toBeNull();
+      expect(menu.querySelector('summary')?.getAttribute('aria-label')).toBe(route.startsWith('/zh/') ? '语言' : 'Language');
+      expect(doc.querySelectorAll('[data-language-switcher] a')).toHaveLength(2);
+      expect(switcher.getAttribute('aria-label')).toBe(route.startsWith('/zh/') ? '语言' : 'Language');
+      for (const link of switcher.querySelectorAll('a')) {
+        const expectedLang = link.getAttribute('href').startsWith('/zh/') ? 'zh-Hans'
+          : link.getAttribute('href').startsWith('/fr/') ? 'fr-FR' : 'en';
+        expect(link.getAttribute('lang')).toBe(expectedLang);
+        expect(link.getAttribute('hreflang')).toBe(expectedLang);
+        expect(link.hasAttribute('aria-current')).toBe(false);
+      }
+    }
   });
 
   it('isolates the original collections, tag indexes, and feed from translations', () => {
@@ -221,8 +245,10 @@ describe('i18n disabled compatibility', () => {
     });
     const disabled = buildI18nFixture({ enabled: false, translations: false });
     expect([...disabled.keys()].sort()).toEqual([...omitted.keys()].sort());
-    for (const [url, html] of omitted)
+    for (const [url, html] of omitted) {
       expect(disabled.get(url), url).toBe(html);
+      expect(html).not.toContain('data-language-switcher');
+    }
     expect([...disabled.keys()].some((url) => /^\/(zh|fr)\//.test(url))).toBe(
       false,
     );
@@ -415,5 +441,71 @@ describe('i18n templates without output', () => {
     });
     expect(pages.has('/zh/posts/paired/')).toBe(true);
     expect([...pages.keys()].some((url) => url.includes('disabled-output'))).toBe(false);
+  });
+});
+
+
+it('preserves internal AI notice line breaks after trimming and escaping', () => {
+  const pages = buildI18nFixture({
+    configure(dir) {
+      setTranslatedBy(dir, 'zh/posts/paired.md', 'ai');
+      editFixtureYaml(dir, '_data/locales/zh.yaml', (data) => {
+        data.ui.shared.translationNotice = {
+          ai: {
+            message: '  First <em>AI</em> sentence.\nLast <script>alert(1)</script> & sentence.\n',
+          },
+        };
+      });
+    },
+  });
+  const notice = documentAt(pages, '/zh/posts/paired/').querySelector('[data-translation-notice]');
+  const paragraph = notice.querySelector('p');
+  const original = paragraph.querySelector('[data-translation-original]');
+  expect(paragraph.querySelectorAll('br')).toHaveLength(1);
+  expect(paragraph.querySelector('em, script')).toBeNull();
+  const nodes = [...paragraph.childNodes];
+  const lineBreak = nodes.findIndex((node) => node.nodeName === 'BR');
+  expect(nodes.slice(0, lineBreak).map((node) => node.textContent).join('')).toBe('First <em>AI</em> sentence.');
+  expect(nodes.slice(lineBreak + 1, nodes.indexOf(original)).map((node) => node.textContent).join('')).toBe('Last <script>alert(1)</script> & sentence. ');
+  expect(original.previousSibling.nodeType).toBe(3);
+  expect(paragraph.lastChild).toBe(original);
+  expect(original.getAttribute('href')).toBe('/posts/paired/');
+});
+
+
+describe('two-language header toggle', () => {
+  it('links directly to the other language with short labels and home fallback', () => {
+    const pages = buildI18nFixture({
+      configure(dir) {
+        fs.rmSync(path.join(dir, 'fr'), { recursive: true });
+        editFixtureYaml(dir, '_data/site.yaml', (data) => {
+          data.i18n.languages = [
+            { code: 'en', label: 'English', htmlLang: 'en' },
+            { code: 'zh', label: '简体中文', shortLabel: '中', htmlLang: 'zh-Hans' },
+          ];
+        });
+      },
+    });
+    for (const [route, target, label, language, ariaLabel] of [
+      ['/posts/paired/', '/zh/posts/paired/', '中', 'zh-Hans', 'Language'],
+      ['/zh/posts/paired/', '/posts/paired/', 'English', 'en', '语言'],
+      ['/posts/english-only/', '/zh/', '中', 'zh-Hans', 'Language'],
+      ['/timeline/event/', '/zh/', '中', 'zh-Hans', 'Language'],
+      ['/zh/posts/extra-1/', '/', 'English', 'en', '语言'],
+    ]) {
+      const doc = documentAt(pages, route);
+      const toggle = doc.querySelector('a[data-language-toggle]');
+      expect(toggle, route).not.toBeNull();
+      expect(doc.querySelectorAll('[data-language-switcher] a')).toHaveLength(1);
+      expect(doc.querySelector('[data-language-menu]')).toBeNull();
+      expect(doc.querySelector('#nav-toggle').parentElement.contains(toggle)).toBe(true);
+      expect(toggle.getAttribute('href')).toBe(target);
+      expect(toggle.textContent.trim()).toBe(label);
+      expect(toggle.getAttribute('lang')).toBe(language);
+      expect(toggle.getAttribute('hreflang')).toBe(language);
+      expect(toggle.getAttribute('aria-label')).toBe(`${ariaLabel}: ${language === 'en' ? 'English' : '简体中文'}`);
+      expect(doc.querySelector('[data-language-switcher]').getAttribute('aria-label')).toBe(ariaLabel);
+      expect(pages.has(target)).toBe(true);
+    }
   });
 });

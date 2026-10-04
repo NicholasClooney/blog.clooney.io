@@ -1,0 +1,89 @@
+{%- set switchLinks = page.url | i18nSwitchLinks -%}
+{%- if switchLinks | length -%}
+{%- set switcherLabel = ui.shared.languageSwitcher.label | default('Language', true) -%}
+<nav class="flex items-center ml2" aria-label="{{ switcherLabel }}" data-language-switcher>
+  <style>
+    .header-language-controls,
+    .header-language-controls [data-theme-selector] {
+      max-width: 100%;
+      min-width: 0;
+    }
+    @media screen and (max-width: 30em) {
+      .header-language-controls [data-theme-selector] {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .header-language-controls [data-theme-selector] button {
+        flex-shrink: 0;
+      }
+    }
+    [data-language-switcher] {
+      --language-surface: #f5f5f5;
+      --language-panel: #f5f5f5;
+      --language-ink: #111;
+    }
+    html:is([data-theme="grape"], [data-theme="charcoal"], [data-theme="deep-blue"], [data-theme="midnight"], [data-theme="terminal"]) [data-language-switcher] {
+      --language-surface: rgba(255, 255, 255, 0.08);
+      --language-panel: #252525;
+      --language-ink: #f4f4f4;
+    }
+    html.theme [data-language-switcher] .language-control {
+      min-width: 2rem;
+      color: var(--language-ink);
+      background: var(--language-surface);
+      font: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    }
+    [data-language-switcher] .language-control:hover {
+      transform: translateY(-2px);
+    }
+    [data-language-switcher] a:focus-visible,
+    [data-language-switcher] summary:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+    [data-language-menu] { position: relative; }
+    [data-language-menu] summary { list-style: none; }
+    [data-language-menu] summary::-webkit-details-marker { display: none; }
+    [data-language-menu] summary::after {
+      content: '';
+      margin-left: 0.4rem;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid currentColor;
+    }
+    [data-language-menu][open] summary::after { transform: rotate(180deg); }
+    [data-language-menu] ul {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      z-index: 10;
+      min-width: 100%;
+      max-width: calc(100vw - 4rem);
+      width: max-content;
+      overflow-wrap: anywhere;
+      background: var(--language-panel);
+      color: var(--language-ink);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    html.theme [data-language-menu] a { color: inherit; }
+  </style>
+  {% if site.i18n.languages | length == 2 %}
+    {% set languageLink = switchLinks | first %}
+    <a class="language-control link h2 br2 mr2 mb2 ph2 flex items-center justify-center"
+       data-language-toggle href="{{ languageLink.url | url }}"
+       lang="{{ languageLink.htmlLang }}" hreflang="{{ languageLink.htmlLang }}"
+       aria-label="{{ switcherLabel }}: {{ languageLink.label }}">{{ languageLink.shortLabel }}</a>
+  {% else %}
+    <details class="mr2 mb2" data-language-menu>
+      <summary class="language-control h2 pointer br2 ph2 flex items-center justify-center" aria-label="{{ switcherLabel }}">{{ switcherLabel }}</summary>
+      <ul class="list ma0 pa2 br2">
+        {% for languageLink in switchLinks %}
+          <li><a class="db link dim pa2" href="{{ languageLink.url | url }}"
+                 lang="{{ languageLink.htmlLang }}" hreflang="{{ languageLink.htmlLang }}">{{ languageLink.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </details>
+  {% endif %}
+</nav>
+      {% endif -%}

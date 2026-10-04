@@ -4,7 +4,7 @@
     {%- set noticeUi = ui.shared.translationNotice.ai -%}
     {%- set originalLinks = page.url | i18nLinks -%}
       <aside class="mb4 pa3 bl bw2 f6 lh-copy theme-midtone" style="border-color: var(--accent)" data-translation-notice>
-        <p class="ma0">{{ noticeUi.message | escape }}{% for original in originalLinks %}{% if original.code == site.i18n.defaultLanguage %} <a class="link underline dim" style="color: var(--accent)" href="{{ original.url | url | escape }}" data-translation-original>{{ noticeUi.originalLink | escape }}</a>{% endif %}{% endfor %}</p>
+        <p class="ma0">{{ noticeUi.message | trim | escape | replace(r/\r\n|\r|\n/g, '<br>') | safe }}{% for original in originalLinks %}{% if original.code == site.i18n.defaultLanguage %} <a class="link underline dim" style="color: var(--accent)" href="{{ original.url | url | escape }}" data-translation-original>{{ noticeUi.originalLink | escape }}</a>{% endif %}{% endfor %}</p>
       </aside>
   {%- endif -%}
 {%- endif -%}

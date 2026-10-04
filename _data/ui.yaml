@@ -1,4 +1,6 @@
 shared:
+  languageSwitcher:
+    label: Language
   translationNotice:
     ai:
       message: This page was translated by AI.

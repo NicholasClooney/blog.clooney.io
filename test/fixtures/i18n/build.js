@@ -109,7 +109,7 @@ export function buildI18nFixture({
     writeYaml(dir, '_data/locales/zh.yaml', {
       ui: {
         pages: { notes: { heading: '中文笔记' } },
-        shared: { series: { sectionLabel: '中文系列' } },
+        shared: { series: { sectionLabel: '中文系列' }, languageSwitcher: { label: '语言' } },
       },
       nav: { blog: '博客', notes: '笔记' },
       series: { 'reading-path': { title: '中文阅读顺序' } },

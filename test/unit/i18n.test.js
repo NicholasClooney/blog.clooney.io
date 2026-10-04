@@ -25,8 +25,18 @@ describe('i18n configuration and locale merging', () => {
     expect(settings().languages[1]).toEqual({
       code: 'fr',
       label: 'fr',
+      shortLabel: 'FR',
       htmlLang: 'fr-FR',
     });
+  });
+
+  it('chooses shortLabel, then an explicit label, then the uppercase code', () => {
+    const config = settings({ languages: [
+      { code: 'en', label: 'English', shortLabel: 'EN' },
+      { code: 'fr', label: 'Français' },
+      { code: 'pt-BR' },
+    ] });
+    expect(config.languages.map(({ shortLabel }) => shortLabel)).toEqual(['EN', 'Français', 'PT-BR']);
   });
 
   it.each([
@@ -67,6 +77,7 @@ describe('i18n available URL resolution', () => {
     ]);
     for (const url of [false, undefined, null]) {
       expect(resolver.links(url)).toEqual([]);
+      expect(resolver.switchLinks(url)).toEqual([]);
       expect(resolver.url(url, 'fr')).toBe(url);
       expect(resolver.fallback(url, '/fr/posts/paired/')).toBe(url);
     }
@@ -110,6 +121,32 @@ describe('i18n available URL resolution', () => {
     expect(resolver.links('/posts/paired/')).toEqual([]);
   });
 
+  it('switches to other languages using counterparts before existing homepages', () => {
+    const resolver = createUrlResolver(settings());
+    resolver.update(['/', '/fr/', '/zh/', '/posts/paired/', '/fr/posts/paired/', '/timeline/']);
+    expect(resolver.switchLinks('/posts/paired/').map(({ code, url }) => [code, url])).toEqual([
+      ['fr', '/fr/posts/paired/'], ['zh', '/zh/'],
+    ]);
+    expect(resolver.switchLinks('/fr/posts/paired/').map(({ code, url }) => [code, url])).toEqual([
+      ['en', '/posts/paired/'], ['zh', '/zh/'],
+    ]);
+    expect(resolver.switchLinks('/timeline/').map(({ url }) => url)).toEqual(['/fr/', '/zh/']);
+    // AI notices must continue to receive only real counterparts.
+    expect(resolver.links('/timeline/')).toEqual([]);
+    expect(resolver.links('/posts/paired/').map(({ code }) => code)).toEqual(['en', 'fr']);
+  });
+
+  it('omits destinations with no built counterpart or homepage and drops stale destinations', () => {
+    const resolver = createUrlResolver(settings());
+    resolver.update(['/posts/paired/', '/fr/posts/paired/']);
+    expect(resolver.switchLinks('/posts/paired/').map(({ url }) => url)).toEqual(['/fr/posts/paired/']);
+    resolver.update(['/posts/paired/']);
+    expect(resolver.switchLinks('/posts/paired/')).toEqual([]);
+    const disabled = createUrlResolver(settings({ enabled: false }));
+    disabled.update(['/', '/fr/']);
+    expect(disabled.switchLinks('/')).toEqual([]);
+  });
+
   it('does not hardcode English as the default language', () => {
     const resolver = createUrlResolver(
       normalizeI18n({
@@ -120,7 +157,9 @@ describe('i18n available URL resolution', () => {
         },
       }),
     );
-    resolver.update(['/notes/example/', '/pt-BR/notes/example/']);
+    resolver.update(['/', '/pt-BR/', '/notes/example/', '/pt-BR/notes/example/']);
+    expect(resolver.switchLinks('/pt-BR/notes/example/').map(({ code, url }) => [code, url])).toEqual([['de', '/notes/example/']]);
+    expect(resolver.switchLinks('/pt-BR/notes/only/').map(({ url }) => url)).toEqual(['/']);
     expect(resolver.url('/pt-BR/notes/example/', 'de')).toBe('/notes/example/');
     expect(resolver.links('/notes/example/').map(({ code }) => code)).toEqual([
       'de',

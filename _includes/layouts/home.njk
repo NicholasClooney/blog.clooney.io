@@ -244,7 +244,7 @@ layout: layouts/base.njk
     <a href="{{ '/' | i18nUrl(lang) }}" class="link dim f3 f2-ns fw6 ma0 tr tl-ns db theme-text">
       {{ site.title }}
     </a>
-    <div class="flex items-center mt3 mt0-ns flex-wrap justify-end">
+    <div class="flex items-center mt3 mt0-ns flex-wrap justify-end{% if page.url | i18nSwitchLinks | length %} header-language-controls{% endif %}">
       {% if showThemeSelectors %}
       <div class="flex items-center flex-nowrap ml3-ns ml2" data-theme-selector>
         {% for theme in themes | reverse %}
@@ -277,7 +277,7 @@ layout: layouts/base.njk
         </button>
       </div>
       {% endif %}
-      <button id="nav-toggle" class="dib dn-ns bn bg-transparent pa2 pointer{% if showThemeSelectors %} ml3{% endif %} mt2 mt0-ns" aria-expanded="false" aria-controls="sidebar">
+      {% include "components/language-switcher.njk" %}<button id="nav-toggle" class="dib dn-ns bn bg-transparent pa2 pointer{% if showThemeSelectors %} ml3{% endif %} mt2 mt0-ns" aria-expanded="false" aria-controls="sidebar">
         <div class="burger">
           <div class="top-bun"></div>
           <div class="patty"></div>
@@ -287,13 +287,7 @@ layout: layouts/base.njk
     </div>
   </div>
 
-{% set languageLinks = page.url | i18nLinks %}{% if languageLinks | length > 1 %}  <nav class="ph4 pb3 flex flex-wrap" aria-label="{{ ui.shared.languageSwitcher.label | default('Language') }}" data-language-switcher>
-    {% for languageLink in languageLinks %}
-      <a class="link dim theme-text mr3" href="{{ languageLink.url | url }}" lang="{{ languageLink.htmlLang }}" hreflang="{{ languageLink.htmlLang }}"{% if languageLink.code == lang %} aria-current="page"{% endif %}>{{ languageLink.label }}</a>
-    {% endfor %}
-  </nav>
-
-{% endif %}  <!-- Two-column layout -->
+  <!-- Two-column layout -->
   <div class="flex flex-column flex-row-ns">
     <!-- Sidebar nav: hidden on mobile until toggle; no background color -->
     <nav id="sidebar" class="dn db-ns w-100 w-25-ns pa4">
