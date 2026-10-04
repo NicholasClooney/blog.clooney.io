@@ -170,7 +170,7 @@ A few limits I already know about:
 
 This is the trade-off of how tmux-agents is built. With agents writing the code and no human review, bugs like this slip through. For a pet project I use every day, I'm fine with that. I'd rather iterate fast and fix things as they show up.
 
-**Update:** fixed the next day in [v1.2.1](/timeline/2026-10-03-shipped-tmux-agents-v1-2-1/). A parent agent had sent a new rule, as a request, to its sub-agents that had already finished their work. A request means work, and it expects a reply. A notice is just an FYI. The request put those sub-agents back to "working", but they had nothing to do, so when their turn ended, they showed as needing me. Parents now send FYIs as notices, and tests make sure normal workflows don't trigger "needs you".
+**Update:** fixed the next day in [v1.2.1](/timeline/2026-10-03-shipped-tmux-agents-v1-2-1/). A parent agent had sent a new rule, as a request, to its sub-agents that had already finished their work. A request means work, and it expects a reply. It should have been a notice, which is just an FYI. The request put those sub-agents back to "working", but they had nothing to do, so when their turn ended, they showed as needing me. Parents now send FYIs as notices, and tests make sure normal workflows don't trigger "needs you".
 
 One problem that did come up, worktrees filling my disk, turned out to belong to the surrounding workflow rather than to tmux-agents. That's the story of the [worktree pool](/posts/i-gave-my-coding-agents-a-shared-worktree-pool/).
 
