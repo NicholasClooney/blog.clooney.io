@@ -401,3 +401,19 @@ describe('missing-translation fallback does not hide invalid links', () => {
     expect(`${result.stdout}\n${result.stderr}`).toContain(target);
   });
 });
+
+
+describe('i18n templates without output', () => {
+  it('builds with permalink: false and does not emit the disabled page', () => {
+    const pages = buildI18nFixture({
+      configure(dir) {
+        fs.writeFileSync(
+          path.join(dir, 'src/disabled-output.njk'),
+          '---\npermalink: false\n---\nNo output for this template.\n',
+        );
+      },
+    });
+    expect(pages.has('/zh/posts/paired/')).toBe(true);
+    expect([...pages.keys()].some((url) => url.includes('disabled-output'))).toBe(false);
+  });
+});

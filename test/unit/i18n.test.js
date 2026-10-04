@@ -56,6 +56,23 @@ describe('i18n configuration and locale merging', () => {
 });
 
 describe('i18n available URL resolution', () => {
+  it('ignores non-string URLs from templates without output', () => {
+    const resolver = createUrlResolver(settings());
+    resolver.update([
+      false,
+      undefined,
+      null,
+      '/posts/paired/',
+      '/fr/posts/paired/',
+    ]);
+    for (const url of [false, undefined, null]) {
+      expect(resolver.links(url)).toEqual([]);
+      expect(resolver.url(url, 'fr')).toBe(url);
+      expect(resolver.fallback(url, '/fr/posts/paired/')).toBe(url);
+    }
+    expect(resolver.links('/posts/paired/')).toHaveLength(2);
+  });
+
   it('retains queries and fragments and falls back to a built original', () => {
     const resolver = createUrlResolver(settings());
     resolver.update([
