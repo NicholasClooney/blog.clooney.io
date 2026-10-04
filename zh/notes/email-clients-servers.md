@@ -133,7 +133,7 @@ References: <xyz789@...> <abc123@...>       ← full chain of ancestor IDs
 | **Mailpit** | 带 Web UI 的轻量 SMTP 捕获工具，仅用于开发／测试 |
 | **smtp4dev** | 与 Mailpit 类似，支持跨平台 |
 | **Postfix + Dovecot** | 生产级 SMTP + IMAP，较重但功能完整 |
-| **Maildrop** | 极简的本地投递代理 |
+| **Maildrop** | 极简的本地投递 agent |
 
 ---
 
