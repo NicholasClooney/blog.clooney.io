@@ -19,6 +19,8 @@ excerpt: |
 
 The short version: move fast with AI, and add proper engineering when real usage shows you need it.
 
+There are really two problems here. One is technical: a name would be a poor fit for a unique id. The other is about how to work: how to keep shipping fast, and still know when it's time to stop and add structure.
+
 [[toc]]
 
 ## The shortcut
@@ -64,6 +66,12 @@ The fix shipped in [v1.9.0](https://github.com/TheClooneyCollection/tmux-agents/
 
 The ids stay out of my way. I still see and use names. Agents can look up ids with a command when they need one.
 
+## The product call: when to stop and add structure
+
+Name as id was a product decision as much as a technical one. It got tmux-agents into my hands fast, and using it every day is what told me where it needed to grow: running several agent chains, reopening agents days later, wanting to rename them.
+
+My part was the product side. AI wrote all the code. Name as id was fine until the agents and I started talking about renaming agents. Thinking it through, we realised that a new agent taking a name from an old session would overwrite that session's history. That could already have happened without anyone noticing. That was the moment to stop and do ids properly.
+
 ## Guard rails, built as problems showed up
 
 Fixing each bug wasn't enough. I wanted the next agent working on tmux-agents, or me, not to make the same kind of mistake. So over the same few days, each problem left something behind:
@@ -73,6 +81,8 @@ Fixing each bug wasn't enough. I wanted the next agent working on tmux-agents, o
 - **Decision records** in `docs/decisions/`, written before any change in behaviour.
 - **Rules in `AGENTS.md`:** flaky tests block a release, a published tag never moves, and an agent replies as soon as the main work is done.
 - **`tmux-ask` never drops a message.** If the receiver is gone, the message is saved and the sender is told.
+
+These are rules about how the project ships: which tests must pass before a release goes out, and that a published release tag is never moved to a different commit. That's the product engineering part. The agents write the code, and I decide what "done" and "safe" mean.
 
 ## Move fast, add proper engineering when needed
 
