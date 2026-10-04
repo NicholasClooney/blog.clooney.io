@@ -48,7 +48,13 @@ So the core idea is observability and record keeping. Every agent is a full sess
 
 ## Why my own, and who wrote it
 
-There are other tools like this. [smux](https://github.com/ShawnPana/smux) and [tmux-bridge-mcp](https://github.com/howardpen9/tmux-bridge-mcp) also let agents in tmux panes message each other. I built my own anyway. It's a tool I use every day, so I want to own its experience and its code, and add what I need without opening a pull request on someone else's project and waiting for a merge.
+There are other tools like this. [smux](https://github.com/ShawnPana/smux) and [tmux-bridge-mcp](https://github.com/howardpen9/tmux-bridge-mcp) also let agents in tmux panes message each other. That's their focus: getting agents to talk.
+
+What matters most to me is the right amount of visibility, and being able to look back. Not so much that it overwhelms me, and not hidden away either. That's why I don't want my agents using built-in sub-agents at all. As I said above, they're a black box to me: inside Claude Code and Codex, I can't easily see a sub-agent's full history. Maybe part of that is my own setup, but either way, I want that control back in my hands.
+
+So whenever my main agent needs to hand off a task, it gives it to a spawned agent: a separate Claude or Codex session in its own tmux pane. Those panes stay out of sight until I want them. Then I can open any of them, watch what it's doing right now, or scroll back through everything it has done.
+
+I also built my own because it's a tool I use every day, so I want to own its experience and its code, and add what I need without opening a pull request on someone else's project and waiting for a merge.
 
 Building something like this is also cheap now, because agents did almost all of the work. To be clear: I didn't write a single line of tmux-agents, and I didn't review its code either. I do skim the code now and then, and when something doesn't make sense, I ask the agents about it or have them change it. But my part was product engineering. I came up with the ideas, reviewed the specs the agents wrote, tried what they built, and kept iterating with them until it worked the way I wanted. The first version that did that, 1.0.0, took about half an hour to an hour.
 
