@@ -14,7 +14,7 @@ excerpt: |
   the agents and I don't repeat the mistake.
 ---
 
-[tmux-agents](https://github.com/TheClooneyCollection/tmux-agents) went from v1.0.0 to v1.8.0 in a few days. Early on, one shortcut kept things simple: an agent's name was also its id. As I used tmux-agents more, that shortcut stopped working. This post is about where it broke, and what I put in place to fix it.
+[tmux-agents](https://github.com/TheClooneyCollection/tmux-agents) went from v1.0.0 to v1.9.0 in a few days. Early on, one shortcut kept things simple: an agent's name was also its id. As I used tmux-agents more, that shortcut stopped working. This post is about where it broke, and what I put in place to fix it.
 
 The short version: move fast with AI, and add proper engineering when real usage shows you need it.
 
