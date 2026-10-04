@@ -1,7 +1,7 @@
 ---
 title: "feature: tmux-agents v1.7.0 durable messages and a faster list"
 date: "2026-10-04"
-time: "09:28"
+time: "09:29"
 parent: "/timeline/2026-10-01-shipped-tmux-agents/"
 tags:
   - shipped
