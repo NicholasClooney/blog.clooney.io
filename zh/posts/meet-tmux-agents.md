@@ -19,8 +19,8 @@ excerpt: "内置子 agent 交给你一份总结，背后的工作过程却消失
 
 <figure style="text-align: center;">
   <img
-    src="/assets/images/projects/tmux-agents.png"
-    alt="tmux-agents 列表：派生 agent 的状态、父 agent，以及所选 Codex 会话的实时预览"
+    src="/assets/images/projects/tmux-agents-list.png"
+    alt="单个窗口的 tmux-agents 列表：数十个派生 agent 的状态、父 agent，以及所选 Codex 会话的实时预览"
     style="display: block; width: 100%; height: auto;"
   />
   <figcaption>agent 列表（<code>prefix + a</code>）：每个派生 agent、正在做什么、由谁启动，以及会话的实时预览。</figcaption>
@@ -72,6 +72,15 @@ excerpt: "内置子 agent 交给你一份总结，背后的工作过程却消失
 
 **扫一眼就知道谁需要我。** tmux 状态栏上方的一行按项目统计 agent 数量，有 agent 等待权限或等我回应时，就变成红色或琥珀色。
 
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/posts/meet-tmux-agents/status-chips.png"
+    alt="两个 agent 窗格底部的 tmux-agents 状态行，显示各项目正在工作和已完成的 agent"
+    style="display: block; width: 100%; height: auto;"
+  />
+  <figcaption>tmux 状态栏上方的一行：每个项目有多少 agent 正在工作、多少已经完成，一眼就能看清。</figcaption>
+</figure>
+
 **东西不会丢。** 窗格一直保留，直到我关闭。关闭的派生 agent 仍在列表里保留一周，可以连同完整对话重新打开；会话也会出现在 `codex resume` 和 `claude --resume` 中。
 
 <figure>
@@ -92,6 +101,15 @@ excerpt: "内置子 agent 交给你一份总结，背后的工作过程却消失
 今天就是个很好的例子。
 
 在 Stone Age 项目里，我和主 Claude agent 交谈。它把工作交给 coordinator Claude，后者交给 Codex，Codex 再分派给自己的派生 agent。忙的时候，大约十个 agent 同时运行，一张列表里全能看见。[上一篇文章](/zh/posts/the-agent-that-only-talks-to-me/)讲的就是这套配置。
+
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/posts/meet-tmux-agents/all-windows.png"
+    alt="所有窗口的 tmux-agents 列表，按项目分组，显示正在工作和已完成的 agent，以及一个 Codex agent 的实时预览"
+    style="display: block; width: 100%; height: auto;"
+  />
+  <figcaption>所有窗口的 agent 列表，按项目分组：builder 的 i18n 工作和游戏的任务工作并排显示。</figcaption>
+</figure>
 
 这个博客也有自己的小团队。一个 Claude 起草文章，相邻窗格里的 Codex 负责发布：构建网站、添加时间线条目、提交、推送并检查部署。有篇文章需要修改网站依赖的 [subspace builder](https://github.com/NicholasClooney/11ty-subspace-builder)，写作 Claude 就把请求发给在那个仓库工作的第三个 Claude，收到一份总结和两个提交哈希。我看着这一切在相邻窗格里发生，中间也介入了几次。
 
