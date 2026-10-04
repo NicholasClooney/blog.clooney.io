@@ -1,0 +1,176 @@
+ui:
+  shared:
+    pagination:
+      previous: 上一页
+      next: 下一页
+      page: 第
+      of: 共
+      separator: "·"
+    counts:
+      entry:
+        singular: 条
+        plural: 条
+      post:
+        singular: 篇
+        plural: 篇
+    projectCard:
+      imageAltSuffix: 预览
+      links:
+        external: 链接
+        timeline: 时间线
+        repository: GitHub
+    postList:
+      emptyDefault: 暂无内容。
+    series:
+      partOf: 所属系列
+      sectionLabel: 系列
+      read: 阅读系列
+      backToAll: 返回所有系列
+      sortOptions:
+        curated: 推荐顺序
+        reverse: 推荐顺序倒序
+        dateAsc: 从旧到新
+        dateDesc: 从新到旧
+    theme:
+      previewAriaTemplate: "预览 {theme} 主题"
+      modeLabelTemplate: "主题模式：{mode}"
+      auto: 自动
+      custom: 自定义
+  pages:
+    home:
+      title: 首页
+      heading: 最新文章
+      emptyMessage: 暂无已发布文章，过段时间再来看看。
+    notes:
+      title: 随记
+      description: 简短记录、参考资料和还在琢磨的想法。
+      heading: 最新随记
+      emptyMessage: 暂无已发布随记。在 /notes/ 中添加一篇即可开始。
+    hiddenNotes:
+      title: 未列出的随记
+      description: 可通过链接访问，但不显示在随记主列表中的内容。
+      heading: 未列出的随记
+      emptyMessage: 暂无未列出的随记。
+    drafts:
+      title: 草稿
+      heading: 草稿
+      emptyMessage: 暂无草稿，写点新东西吧！
+    allTags:
+      title: 所有标签
+      heading: 所有标签
+      emptyMessage: 暂无标签。
+    tags:
+      taggedTitleTemplate: '标签：{tag}'
+      emptyMessage: 这个标签下暂无内容。
+    about:
+      title: 关于
+      heading: 关于
+      siteHeadingFallback: 关于本站
+    projects:
+      title: 项目
+      description: 正在做的项目和过去实验中的一些亮点。
+      heading: 项目
+      intro: 看看我正在做的项目，以及仍能带来灵感的旧实验。按技术筛选，直接找到你感兴趣的工具。
+      filterHeading: 按技术筛选
+      resetLabel: 所有项目
+      activeHeading: 活跃项目
+      activeDescription: 仍在维护，并经常更新。
+      activeEmptyMessage: 暂无符合此标签的活跃项目。
+      archivedHeading: 归档与提及
+      archivedDescription: 过去的项目和实验，仍影响着我现在做的东西。
+      archivedEmptyMessage: 暂无符合此标签的归档项目。
+      allEmptyMessage: 暂无符合此标签的项目，试试清除筛选条件。
+    series:
+      title: 系列
+      description: 将相关内容整理成系列，配有介绍，也可自由调整阅读顺序。
+      heading: 系列
+      intro: 把相关内容串成一条阅读路线。每个系列都提供我的推荐顺序，也可以在详情页切换为倒序或按日期排序。
+      emptyMessage: 暂无已发布系列。
+      detailEmptyMessage: 这个系列暂时还没有已发布内容。
+    timeline:
+      title: 时间线
+      description: 我的个人日志，用不同颜色区分条目类型。
+      labels:
+        root: 时间线
+        months: 按月
+        weeks: 按周
+      featuredTopicsAriaLabel: 时间线精选主题
+      entryCount:
+        singular: 条
+        plural: 条
+      relationships:
+        continuesFrom: 接续自
+        followUpSingularTemplate: "{count} 条后续"
+        followUpPluralTemplate: "{count} 条后续"
+      thread:
+        earlierInThread: 此线索的早期记录
+        followUps: 后续记录
+        continues: 后续还有……
+      emptyMessages:
+        mainHtml: 暂无条目。在 <code>timeline/</code> 中添加一个 Markdown 文件即可开始。
+        monthsIndex: 暂无按月归档。
+        monthArchive: 这个月暂无时间线条目。
+        weeksIndex: 暂无按周归档。
+        weekArchive: 这一周暂无时间线条目。
+        calendarWeekArchive: 这个日历周暂无时间线条目。
+        tagArchive: 这个主题下暂无时间线条目。
+      monthsIndex:
+        title: 时间线月归档
+        description: 按月整理的时间线归档。
+        intro: 时间线的月度归档页面。
+      monthArchive:
+        titleTemplate: "时间线：{label}"
+        descriptionTemplate: "{label}的时间线条目。"
+        countSuffix: 记录于本月。
+        monthBandedWeeksHeading: 本月的周归档
+        calendarWeeksNoteHtml: 日历周也收录在 <code>/timeline/weeks/</code> 中，使用 <code>2026-W16</code> 这样的编号。
+      weeksIndex:
+        title: 时间线周归档
+        description: 按月内周次和 ISO 日历周整理的时间线条目。
+        intro: 按月份整理的月内周归档和 ISO 日历周页面。跨月的 ISO 周会同时列在两个月中。
+        monthBandedWeeksHeading: 月内周归档
+        calendarWeeksHeading: ISO 日历周
+      weekArchive:
+        titleTemplate: "时间线：{label}"
+        descriptionTemplate: "{rangeLabel}的时间线条目。"
+      calendarWeekArchive:
+        titleTemplate: "时间线：{label}"
+        descriptionTemplate: "{rangeLabel}的时间线条目。"
+      tagArchive:
+        titleTemplate: "时间线：{tag}"
+        descriptionTemplate: "带有 {tag} 标签的时间线条目，按时间展示上下文。"
+        countSuffix: 沿时间线串起这个主题。
+nav:
+  blog: 博客
+  notes: 随记
+  series: 系列
+  drafts: 草稿
+  projects: 项目
+  tags: 标签
+  timeline: 时间线
+  about: 关于
+series:
+  ai-assisted-engineering:
+    title: AI 辅助工程系列
+    intro: 把 AI 当作真正的协作者来做东西，持续记录从小型网站实验、远程工作流，到一起写作和交付更大的个人软件项目的过程。
+  product-engineering:
+    title: 产品工程
+    intro: 我提供想法、需求和判断，代理负责写代码。每篇记录讲的都是产品是什么、它如何做出来，而不是我亲手敲了哪些代码。
+  swift-series:
+    title: Swift 与 SwiftUI 系列
+    intro: 一个新的 Swift 系列，围绕实用的 SwiftUI 理解方式、常用组件、状态与数据流，以及开发模式展开。
+  networking-infra:
+    title: 网络与基础设施系列
+    intro: 关于私有网络、自托管基础设施、macOS 上的 Docker 工作流，以及那些影响我如何运行和访问服务的真实排错经历。
+  vr-on-macos:
+    title: macOS 上的 VR 系列
+    intro: 按时间串起我最近在 macOS 上的 VR 实验，结合长文和简短研究笔记，记录 CrossOver、Quest PCVR、OpenXR，以及这套技术栈仍然卡在哪里。
+  subspace-builder:
+    title: Subspace Builder 系列
+    intro: Subspace Builder 完整的已发布开发记录，从首次发布，到塑造这个网站的工具、工作流和功能更新。
+  subspace-surfaces:
+    title: Subspace 内容形式
+    intro: 把网站里的长篇文章、简短随记和时间线更新放在一条阅读路线里，看看不同内容形式如何组合。
+site:
+  title: Nicholas Clooney
+  description: 记录我做出的东西、写下的想法、好奇的问题，以及偶尔折腾过头的工程实践。
