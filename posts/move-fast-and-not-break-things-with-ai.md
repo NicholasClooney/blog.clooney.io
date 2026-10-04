@@ -53,13 +53,13 @@ It could have happened at any time. It may even have happened already. But neith
 
 ## The fix: real ids
 
-The fix, in progress for v1.9.0, is the boring one:
+The fix shipped in [v1.9.0](https://github.com/TheClooneyCollection/tmux-agents/releases/tag/v1.9.0) on October 4 ([timeline entry](/timeline/2026-10-04-shipped-tmux-agents-v1-9-0/)), and it's the boring one:
 
 - Every agent gets a hidden, unique id when it's created.
 - Records, parent links and the message queue are keyed by that id.
 - Names become display labels: unique among live agents, and free to change.
 - `--resume-id` reopens one specific agent.
-- Old records keyed by name are migrated in place, once, so every conversation that could be resumed still can.
+- Old records keyed by name are migrated in place, once, so every conversation that could be resumed still can. On my own setup, the migration kept all 67 session records and all 64 resumable conversations, checked against the backup it makes first.
 
 The ids stay out of my way. I still see and use names. Agents can look up ids with a command when they need one.
 
