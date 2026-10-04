@@ -1,7 +1,7 @@
 ---
 title: "docs: tmux-agents v1.7.2 READMEs back in sync"
 date: "2026-10-04"
-time: "10:07"
+time: "10:08"
 parent: "/timeline/2026-10-01-shipped-tmux-agents/"
 tags:
   - shipped
