@@ -41,6 +41,12 @@ For post or note publication work, use that skill as part of the same task so th
 
 ## Chinese (zh) version
 
-The site is getting a Simplified Chinese version under `/zh/`. Posts, notes and UI text are translated.
+The site is bilingual: English at the existing URLs, Simplified Chinese under `/zh/`.
 
-Timeline entries are intentionally not translated. The Chinese site shows them in their original English. Do not create Chinese versions of timeline entries, and do not add translation steps to the timeline workflow, unless the user explicitly asks.
+- Every published post and note exists in both languages, with the same slug: `posts/**/<slug>.md` pairs with `zh/posts/<slug>.md`, and `notes/<slug>.md` with `zh/notes/<slug>.md`. The builder contract is in `docs/feature-i18n.md`.
+- A new post or note ships with its Chinese version in the same change. Never publish one language alone.
+- Every edit is kept in sync. When you change one language (text, title, excerpt, date/time, tags, images, links), make the matching change in the other language in the same commit.
+- Chinese front matter: title, date, time, tags (same English slugs), optional excerpt. Do not set lang, permalink, layout or the posts/notes tags. Chinese translations are AI translations and show the AI-translation notice by default (`i18n.translationNotice.default: ai`).
+- Translation style: natural Simplified Chinese in the author's voice. Keep "agent" in English (子 agent, 主 agent, 派生 agent), and keep code, commands, paths, URLs and product names unchanged. Put a space between Chinese and English. Don't use "——". Internal links to posts and notes point to their `/zh/` versions; timeline links stay English.
+- Timeline entries are intentionally not translated. The Chinese site shows them in their original English. Do not create Chinese versions of timeline entries unless the user explicitly asks.
+- Drafts (`draft: true`) don't need a Chinese version until they are published.
