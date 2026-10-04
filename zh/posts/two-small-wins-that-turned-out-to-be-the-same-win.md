@@ -17,21 +17,21 @@ excerpt: |
 
 ## 控制室搬上了画布
 
-我的简历流水线已经用同一种方式运行了一阵子。打开 Ghostty，里面运行 tmux，分成三个窗格：两个智能体干活，一个服务器生成简历。旁边再放一个浏览器，让我能看到生成的 PDF。我读一遍，形成意见，切回终端，找到正确的窗格，输入反馈，等待，然后再次切到浏览器。
+我的简历流水线已经用同一种方式运行了一阵子。打开 Ghostty，里面运行 tmux，分成三个窗格：两个 agent 干活，一个服务器生成简历。旁边再放一个浏览器，让我能看到生成的 PDF。我读一遍，形成意见，切回终端，找到正确的窗格，输入反馈，等待，然后再次切到浏览器。
 
 流水线本身没有问题，问题在它外围的反馈循环。
 
-今天，我把整套东西搬进了 [Maestri](https://www.themaestri.app/en)。这是一款围绕无限画布构建的 macOS 应用，终端是可以随意摆放的节点。对我最重要的是它称为 portal 的功能：嵌在画布中的窗口，可以容纳网站、iOS 模拟器或 Android 模拟器。于是，PDF 预览不再待在另一个应用里，而是坐在画布上，就在生成它的智能体旁边。
+今天，我把整套东西搬进了 [Maestri](https://www.themaestri.app/en)。这是一款围绕无限画布构建的 macOS 应用，终端是可以随意摆放的节点。对我最重要的是它称为 portal 的功能：嵌在画布中的窗口，可以容纳网站、iOS 模拟器或 Android 模拟器。于是，PDF 预览不再待在另一个应用里，而是坐在画布上，就在生成它的 agent 旁边。
 
 <figure style="text-align: center;">
   <img
     src="/assets/images/posts/two-small-wins/resume-pipeline-maestri-canvas.png"
-    alt="Maestri 画布中，两页简历预览旁排列着 Writer、Reviewer 智能体终端和生成器终端"
+    alt="Maestri 画布中，两页简历预览旁排列着 Writer、Reviewer agent 终端和生成器终端"
   />
-  <figcaption style="text-align: center;">一张画布上的简历流水线：左边是输出，旁边是智能体和生成器，反馈循环完整地留在同一个视图里。</figcaption>
+  <figcaption style="text-align: center;">一张画布上的简历流水线：左边是输出，旁边是 agent 和生成器，反馈循环完整地留在同一个视图里。</figcaption>
 </figure>
 
-全部变化就这些。相同的智能体，相同的流水线，相同的输出。但我不用再把一块屏幕三等分，也不用靠 alt-tab 切去浏览器才能闭合反馈循环。粗略感觉，现在我做的操作只有昨天的三分之一，而省掉的那些操作其实根本不算工作，只是在找路。
+全部变化就这些。相同的 agent，相同的流水线，相同的输出。但我不用再把一块屏幕三等分，也不用靠 alt-tab 切去浏览器才能闭合反馈循环。粗略感觉，现在我做的操作只有昨天的三分之一，而省掉的那些操作其实根本不算工作，只是在找路。
 
 我想坦诚说明这个数字：它是感受，不是测量结果。我没有计时。而且这只是使用新工具的第一天，新工具在第一天总比第三十天感觉更好。一个月后再来问我吧。
 
@@ -62,7 +62,7 @@ Handy 跨平台，而且刻意保持功能专一。Ghost Pepper 仅支持 Mac，
 <figure style="text-align: center;">
   <img
     src="/assets/images/posts/two-small-wins/blog-pipeline-maestri-canvas.png"
-    alt="Maestri 画布上同时显示博客 Writer 智能体、Eleventy 开发服务器和本文的实时浏览器预览"
+    alt="Maestri 画布上同时显示博客 Writer agent、Eleventy 开发服务器和本文的实时浏览器预览"
   />
   <figcaption style="text-align: center;">写这篇文章也是同样的结构：写作者、生成器和实时成品一起显示在画布上。</figcaption>
 </figure>
