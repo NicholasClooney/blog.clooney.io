@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.41.0](https://github.com/TheClooneyCollection/11ty-subspace-builder/compare/v1.40.1...v1.41.0) (2026-10-04)
+
+
+### Features
+
+* **i18n:** add opt-in localized content and navigation: `site.i18n` config, second languages under `/<code>/` (posts, notes, listings, tags, series), `_data/locales/<code>.yaml` UI overrides ([bbeafa7](https://github.com/TheClooneyCollection/11ty-subspace-builder/commit/bbeafa7c513ad207691122f624ec5324bacb6095))
+* **i18n:** add translation notices and missing-link fallback: `translatedBy: ai` notice linking to the original, untranslated `/<code>/` links fall back to the default-language page ([c90ae51](https://github.com/TheClooneyCollection/11ty-subspace-builder/commit/c90ae5169489d222d50c7c77e4e7858eec0ae3ee))
+* **i18n:** add header language controls and preserve notice line breaks ([6df6c61](https://github.com/TheClooneyCollection/11ty-subspace-builder/commit/6df6c610099d1a7c119c2305a0c1b30fd5643e9d))
+
+
+### Bug Fixes
+
+* **i18n:** handle templates without output paths ([3358dc5](https://github.com/TheClooneyCollection/11ty-subspace-builder/commit/3358dc572a4cac54acc235bfc8e5a5c96dcf687e))
+
+
+### Documentation
+
+* require linear git history ([d456dac](https://github.com/TheClooneyCollection/11ty-subspace-builder/commit/d456dacb62616b42a6dbd5a9b100cec4e29116e1))
+* add i18n plan, content contract and downstream guide (`docs/feature-i18n.md`) ([805bac8](https://github.com/TheClooneyCollection/11ty-subspace-builder/commit/805bac874902fd7a6c91a1fee317e991925d2b53))
+
 ## [1.40.1](https://github.com/TheClooneyCollection/11ty-subspace-builder/compare/v1.40.0...v1.40.1) (2026-10-03)
 
 
