@@ -64,6 +64,8 @@ mastodon:
     url: https://mastodon.social/@NicholasClooney
 
 i18n:
+  translationNotice:
+    default: ai
   enabled: true
   defaultLanguage: en
   languages:
