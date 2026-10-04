@@ -340,7 +340,7 @@ layout: layouts/base.njk
     </nav>
 
     <!-- Main content -->
-    <main class="w-100 w-75-ns pa4 lh-copy">
+    <main class="w-100 w-75-ns pa4 lh-copy">{% include "components/translation-notice.njk" %}
       {% if showPostHeader %}
         <header class="mb4">
           {% if page.date %}

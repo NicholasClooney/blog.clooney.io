@@ -176,6 +176,15 @@ locale merging, shared timeline links, and internal-link validity in production
 and development. A separate pair of builds compares every HTML/XML page with
 configuration omitted and explicitly disabled, including dormant translation
 directories. Additional builds exercise notes and timeline as the home section.
+Preview followup fixtures assert missing-translation href fallback in published
+HTML, preservation of query strings/fragments, useful warning context, unchanged
+existing targets, and real link-check failures when both targets are absent or
+fallback is inapplicable. They also cover AI notice front matter, site defaults,
+human opt-out, localized plain-text escaping, original links, missing originals,
+and exclusion from default-language pages and listings. The fixture helper's
+optional `configure(dir)` callback changes isolated inputs; `onBuild(result)`
+captures stdout, stderr, exit status, and rendered pages even on build failure,
+while the normal return value remains a URL-to-HTML `Map`.
 [`test/unit/i18n.test.js`](../test/unit/i18n.test.js) covers locale merge behavior,
 configuration validation, URL suffix preservation, available counterparts, and
 non-English default languages.
@@ -191,7 +200,7 @@ gates.
 Run this fixture without rebuilding the full repository site:
 
 ```sh
-VITEST_SKIP_BUILD=1 npx vitest run test/i18n.test.js test/unit/i18n.test.js
+VITEST_SKIP_BUILD=1 npx vitest run test/i18n.test.js test/unit/i18n*.test.js
 ```
 
 `VITEST_SKIP_BUILD` skips only the shared global setup. The isolated fixture

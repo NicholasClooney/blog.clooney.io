@@ -1,3 +1,6 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import yaml from 'js-yaml';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { parseHTML } from 'linkedom';
 import { buildI18nFixture } from './fixtures/i18n/build.js';
@@ -258,4 +261,143 @@ describe('localized alternate home sections', () => {
       ).toEqual([]);
     },
   );
+});
+
+// Customize only fixture inputs: all assertions exercise the real CLI build.
+const editFixtureYaml = (dir, file, edit) => {
+  const target = path.join(dir, file);
+  const data = yaml.load(fs.readFileSync(target, 'utf8'));
+  edit(data);
+  fs.writeFileSync(target, yaml.dump(data));
+};
+const setTranslatedBy = (dir, file, value) => {
+  const target = path.join(dir, file);
+  const source = fs.readFileSync(target, 'utf8');
+  fs.writeFileSync(target, source.replace(/^---\n/, `---\ntranslatedBy: ${value}\n`));
+};
+const appendFixture = (dir, file, body) =>
+  fs.appendFileSync(path.join(dir, file), `\n${body}\n`);
+
+const localizedNotice = {
+  message: '机器 <em>AI</em> & "reviewed"',
+  originalLink: '原文 <strong>source</strong> & details',
+};
+
+describe('i18n preview followups in real rendered output', () => {
+  let explicit;
+  let defaults;
+  let logs;
+  beforeAll(() => {
+    explicit = buildI18nFixture({
+      configure(dir) {
+        for (const file of [
+          'posts/nested/paired.md', 'zh/posts/paired.md', 'fr/posts/paired.md',
+          'zh/notes/short.md', 'fr/notes/short.md', 'zh/notes/hidden/secret.md',
+          'zh/posts/extra-1.md',
+        ]) setTranslatedBy(dir, file, 'ai');
+        setTranslatedBy(dir, 'fr/notes/hidden/secret.md', 'human');
+        editFixtureYaml(dir, '_data/locales/zh.yaml', (data) => {
+          data.ui.shared.translationNotice = { ai: localizedNotice };
+        });
+        appendFixture(dir, 'zh/posts/paired.md', `
+<a data-fallback href="/zh/posts/english-only/?from=translation&amp;mode=full#details">Original fallback</a>
+<a data-existing href="/zh/notes/short/?from=translation#details">Existing translation</a>
+<a data-unprefixed href="/posts/english-only/?from=original#details">Original link</a>`);
+      },
+      onBuild(result) { logs = result.stderr; },
+    });
+    defaults = buildI18nFixture({
+      configure(dir) {
+        editFixtureYaml(dir, '_data/site.yaml', (data) => {
+          data.i18n.translationNotice = { default: 'ai' };
+        });
+        setTranslatedBy(dir, 'zh/posts/paired.md', 'human');
+        setTranslatedBy(dir, 'fr/notes/short.md', 'human');
+      },
+    });
+  }, 120_000);
+
+  it('rewrites unavailable translations before link validation, preserving query and hash', () => {
+    const doc = documentAt(explicit, '/zh/posts/paired/');
+    expect(doc.querySelector('[data-fallback]').getAttribute('href')).toBe(
+      '/posts/english-only/?from=translation&mode=full#details',
+    );
+    expect(doc.querySelector('[data-existing]').getAttribute('href')).toBe(
+      '/zh/notes/short/?from=translation#details',
+    );
+    expect(doc.querySelector('[data-unprefixed]').getAttribute('href')).toBe(
+      '/posts/english-only/?from=original#details',
+    );
+    expect(logs).toMatch(/missing translation|fallback|falling back/i);
+    expect(logs).toContain('/zh/posts/paired/');
+    expect(logs).toContain('/zh/posts/english-only/');
+    expect(logs).toContain('/posts/english-only/');
+  });
+
+  it('renders English defaults on AI posts and notes and links final original URLs', () => {
+    for (const route of ['posts/paired/', 'notes/short/']) {
+      const doc = documentAt(explicit, `/fr/${route}`);
+      const notice = doc.querySelector('[data-translation-notice]');
+      expect(notice?.textContent).toContain('This page was translated by AI.');
+      expect(notice?.querySelector('[data-translation-original]')?.textContent.trim()).toBe('Read the original');
+      expect(notice?.querySelector('[data-translation-original]')?.getAttribute('href')).toBe(`/${route}`);
+    }
+  });
+
+  it('escapes both localized notice strings as plain text, including hidden notes', () => {
+    for (const route of ['posts/paired/', 'notes/short/', 'notes/hidden/secret/']) {
+      const notice = documentAt(explicit, `/zh/${route}`).querySelector('[data-translation-notice]');
+      expect(notice?.textContent).toContain(localizedNotice.message);
+      expect(notice?.querySelector('[data-translation-original]')?.textContent.trim()).toBe(localizedNotice.originalLink);
+      expect(notice?.querySelector('[data-translation-original]')?.getAttribute('href')).toBe(`/${route}`);
+      expect(notice?.querySelector('em, strong')).toBeNull();
+    }
+  });
+
+  it('omits notices for human or unspecified translations, originals, and lists', () => {
+    for (const route of [
+      '/fr/notes/hidden/secret/', '/fr/posts/extra-1/', '/zh/posts/extra-2/',
+      '/posts/paired/', '/notes/short/', '/timeline/event/',
+      '/', '/zh/', '/fr/', '/zh/notes/', '/zh/notes/hidden/',
+      '/zh/tags/shared-topic/', '/zh/series/reading-path/',
+    ]) expect(documentAt(explicit, route).querySelector('[data-translation-notice]'), route).toBeNull();
+  });
+
+  it('supports a site-wide AI default and human opt-out for posts and notes', () => {
+    for (const route of ['/fr/posts/paired/', '/zh/notes/short/']) {
+      const notice = documentAt(defaults, route).querySelector('[data-translation-notice]');
+      expect(notice?.textContent).toContain('This page was translated by AI.');
+      expect(notice?.querySelector('[data-translation-original]')?.getAttribute('href')).toBe(route.replace(/^\/(fr|zh)/, ''));
+    }
+    for (const route of ['/zh/posts/paired/', '/fr/notes/short/', '/posts/paired/', '/notes/short/', '/zh/', '/zh/notes/']) {
+      expect(documentAt(defaults, route).querySelector('[data-translation-notice]'), route).toBeNull();
+    }
+  });
+
+  it('shows text without a broken original link when no default counterpart exists', () => {
+    const notice = documentAt(explicit, '/zh/posts/extra-1/').querySelector('[data-translation-notice]');
+    expect(notice?.textContent).toContain(localizedNotice.message);
+    expect(notice?.querySelector('[data-translation-original]')).toBeNull();
+    expect(hrefs(documentAt(explicit, '/zh/posts/extra-1/'))).not.toContain('/posts/extra-1/');
+  });
+});
+
+describe('missing-translation fallback does not hide invalid links', () => {
+  it.each([
+    [true, 'zh/posts/paired.md', '/zh/posts/paired/', '/zh/posts/does-not-exist/'],
+    [false, 'posts/nested/paired.md', '/posts/paired/', '/zh/posts/english-only/'],
+    [true, 'posts/nested/paired.md', '/posts/paired/', '/zh/posts/english-only/'],
+  ])('keeps invalid hrefs and fails the real link checker (enabled=%s, source=%s)', (enabled, file, route, target) => {
+    let result;
+    expect(() => buildI18nFixture({
+      enabled,
+      configure(dir) {
+        appendFixture(dir, file, `<a data-invalid href="${target}?keep=yes#fragment">Missing target</a>`);
+      },
+      onBuild(build) { result = build; },
+    })).toThrow(/broken internal links|internal link/i);
+    expect(result.status).not.toBe(0);
+    expect(documentAt(result.pages, route).querySelector('[data-invalid]')?.getAttribute('href')).toBe(`${target}?keep=yes#fragment`);
+    expect(`${result.stdout}\n${result.stderr}`).toContain(target);
+  });
 });

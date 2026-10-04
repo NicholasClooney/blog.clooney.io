@@ -116,6 +116,63 @@ to its translation when present, otherwise to the original. Series can therefore
 mix translated posts, original posts, and original timeline entries. The sidebar
 links to the shared timeline; no translated timeline pages are generated.
 
+## Links to untranslated pages
+
+On a translated page, a link to the same language prefix falls back to the
+unprefixed default-language URL when the translated target is missing and the
+original exists. For example, `/zh/posts/example/?from=notes#details` becomes
+`/posts/example/?from=notes#details`. Query strings and fragments are preserved.
+Existing translations and links already pointing to an original stay unchanged.
+
+The build emits a warning identifying the source page, requested translation,
+and fallback destination. Rewriting happens before internal-link validation and
+updates the published HTML. If neither target exists, the link stays unchanged
+and the normal broken-link check fails the build. This fallback only applies to
+translated pages while i18n is enabled; it does not repair default-language pages
+or links to another translation language.
+
+## AI-translation notice
+
+Add this front matter to a translated post or note to show an AI notice near the
+top of the page, with a link to its default-language counterpart:
+
+```yaml
+translatedBy: ai
+```
+
+By default, `translatedBy: human` or an omitted value shows no notice. To treat
+translations with no value as AI translations, add an optional site-wide default
+to `_data/site.yaml`:
+
+```yaml
+i18n:
+  enabled: true
+  # Keep your defaultLanguage and languages configuration here.
+  translationNotice:
+    default: ai
+```
+
+A page with `translatedBy: human` opts out even when this default is enabled.
+Notices appear only on individual translated posts and notes (including hidden
+notes), never on originals or listing pages. If a translation has no built
+default-language counterpart, the notice shows its message without an original
+link.
+
+The English defaults in `_data/ui.yaml` are `This page was translated by AI.`
+and `Read the original`. Override either string in `_data/locales/<code>.yaml`:
+
+```yaml
+ui:
+  shared:
+    translationNotice:
+      ai:
+        message: 此页面由 AI 翻译。
+        originalLink: 阅读原文
+```
+
+These values are plain text, not HTML; markup characters are escaped. Omitted
+keys retain the base UI strings through the usual deep locale merge.
+
 ## Validation
 
 Run `npm run build` before publishing. The usual internal-link validation also

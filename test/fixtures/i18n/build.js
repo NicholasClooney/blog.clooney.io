@@ -32,6 +32,8 @@ export function buildI18nFixture({
   environment = 'production',
   translations = true,
   homeTarget = 'blog',
+  configure,
+  onBuild,
 } = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'subspace-i18n-'));
   try {
@@ -170,6 +172,8 @@ export function buildI18nFixture({
         }
       }
     }
+    // Customize isolated content/data without replacing the real build pipeline.
+    configure?.(dir);
     const cli = path.join(
       dependencyRoot,
       'node_modules/@11ty/eleventy/cmd.cjs',
@@ -180,10 +184,6 @@ export function buildI18nFixture({
       timeout: 60_000,
       env: { ...process.env, ELEVENTY_ENV: environment },
     });
-    if (result.status !== 0)
-      throw new Error(
-        `i18n fixture ${environment} build failed:\n${result.stdout}\n${result.stderr}\n${result.error || ''}`,
-      );
     const pages = new Map();
     const visit = (folder) => {
       for (const entry of fs.readdirSync(folder, { withFileTypes: true })) {
@@ -199,7 +199,13 @@ export function buildI18nFixture({
         }
       }
     };
-    visit(path.join(dir, '_site'));
+    if (fs.existsSync(path.join(dir, '_site'))) visit(path.join(dir, '_site'));
+    // Report failed builds too, including written HTML, before cleaning up.
+    onBuild?.({ ...result, pages });
+    if (result.status !== 0)
+      throw new Error(
+        `i18n fixture ${environment} build failed:\n${result.stdout}\n${result.stderr}\n${result.error || ''}`,
+      );
     return pages;
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });

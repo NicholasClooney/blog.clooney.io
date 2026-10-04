@@ -1,4 +1,8 @@
 shared:
+  translationNotice:
+    ai:
+      message: This page was translated by AI.
+      originalLink: Read the original
   pagination:
     previous: Previous
     next: Next
