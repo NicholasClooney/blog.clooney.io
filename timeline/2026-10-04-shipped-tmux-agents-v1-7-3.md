@@ -1,7 +1,7 @@
 ---
 title: "docs: tmux-agents v1.7.3 lessons from shipping"
 date: "2026-10-04"
-time: "10:32"
+time: "10:33"
 parent: "/timeline/2026-10-01-shipped-tmux-agents/"
 tags:
   - shipped
