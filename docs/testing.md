@@ -180,6 +180,10 @@ three-language expandable menu, header placement beside theme controls, omission
 of the current language, counterpart/homepage destinations, localized accessible
 names, and destination `lang`/`hreflang`. Additional builds exercise notes and
 timeline as the home section.
+A larger listing fixture checks each localized blog page separately (21 posts,
+10/10/1 per page), exact newest-first URLs, previous/next links, all 15 translated
+notes, and unchanged default-language listings. Distinct dates make ordering
+independent of filesystem enumeration.
 Preview followup fixtures assert missing-translation href fallback in published
 HTML, preservation of query strings/fragments, useful warning context, unchanged
 existing targets, and real link-check failures when both targets are absent or

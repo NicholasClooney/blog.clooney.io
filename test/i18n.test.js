@@ -509,3 +509,51 @@ describe('two-language header toggle', () => {
     }
   });
 });
+
+
+describe('localized listing page boundaries', () => {
+  let pages;
+  const listingHrefs = (route) =>
+    hrefs(documentAt(pages, route), 'main article h2 a');
+  const newestExtras = (kind, count) =>
+    Array.from({ length: count }, (_, index) => `/zh/${kind}/extra-${count - index}/`);
+
+  beforeAll(() => {
+    pages = buildI18nFixture({
+      configure(dir) {
+        // Keep the small shared fixture unchanged. Distinct dates make the
+        // expected newest-first order independent of filesystem enumeration.
+        for (const [kind, count] of [['posts', 20], ['notes', 14]]) {
+          for (let index = 1; index <= count; index++) {
+            fs.writeFileSync(path.join(dir, `zh/${kind}/extra-${index}.md`),
+              `---\ntitle: ZH ${kind} extra ${index}\ndate: '2026-05-${String(index).padStart(2, '0')}'\ntags: [shared-topic]\n---\n\nChinese listing fixture ${index}.\n`);
+          }
+        }
+      },
+    });
+  }, 120_000);
+
+  it.each([0, 1, 2])('renders exactly the expected posts on localized page %s', (page) => {
+    const expected = [...newestExtras('posts', 20), '/zh/posts/paired/'];
+    const route = page === 0 ? '/zh/' : `/zh/page/${page + 1}/`;
+    expect(listingHrefs(route)).toEqual(expected.slice(page * 10, (page + 1) * 10));
+    const pagination = documentAt(pages, route).querySelector('main section > nav');
+    expect(pagination?.textContent).toMatch(new RegExp(`Page\\s+${page + 1}\\s+of\\s+3`));
+    expect(hrefs(pagination)).toEqual([
+      ...(page > 0 ? [page === 1 ? '/zh/' : '/zh/page/2/'] : []),
+      ...(page < 2 ? [`/zh/page/${page + 2}/`] : []),
+    ]);
+  });
+
+  it('renders all fifteen translated notes in date order without hidden or default notes', () => {
+    expect(listingHrefs('/zh/notes/')).toEqual([
+      ...newestExtras('notes', 14), '/zh/notes/short/',
+    ]);
+  });
+
+  it('preserves default-language post and note listings', () => {
+    expect(listingHrefs('/').sort()).toEqual(['/posts/english-only/', '/posts/paired/']);
+    expect(listingHrefs('/notes/')).toEqual(['/notes/short/']);
+    expect(pages.has('/zh/page/4/')).toBe(false);
+  });
+});
