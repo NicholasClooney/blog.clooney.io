@@ -7,6 +7,8 @@ Use this workflow for editorial work in `posts/` and `notes/`.
 
 ## Rules
 
+- Every post and note is bilingual. Create or update its Simplified Chinese counterpart under `zh/posts/` or `zh/notes/` (same slug) in the same change, following the "Chinese (zh) version" section of `CLAUDE.blog.md`. Timeline entries stay English only.
+
 - When creating or publishing a new item in `posts/` or `notes/`, also create a matching timeline entry in `timeline/`.
 - Treat the timeline entry as part of the same editorial task, not an optional follow-up.
 - Use timeline status `published` for blog posts, notes, essays, and other writing that is being published.
@@ -23,4 +25,5 @@ Use this workflow for editorial work in `posts/` and `notes/`.
 4. If the task creates or publishes the content, create or update the matching timeline entry in the same turn.
 5. Add the content to a series in `_data/series.yaml` (see `.claude/skills/series/SKILL.md`).
 6. Use `.claude/skills/timeline-entry/SKILL.md` for timeline file naming, timestamp rules, front matter, body style, and topic-tag carryover.
-7. Before finishing, verify that the content, its series entry, and its timeline entry agree on title, URL path, and topic context.
+7. Create or update the Chinese counterpart (`zh/posts/<slug>.md` or `zh/notes/<slug>.md`) so both languages match.
+8. Before finishing, verify that the English and Chinese versions, the series entry and the timeline entry agree on title, URL path and topic context.
