@@ -53,7 +53,7 @@ So its history turned into a stream of everything. A reply from Codex with a com
 
 Worse, I often had to wait for my turn. If Claude was in the middle of handling a Codex reply or running commands, my question sat behind that work. The agent I was supposed to be talking to was the busiest one in the room.
 
-## The fix: one more pane
+## The fix: one more agent
 
 I added another Claude agent. That was the whole change.
 
@@ -104,6 +104,20 @@ Messages:
 ```
 
 A few of these rules turned out to matter more than I expected. "Sends anything that needs a user decision to the main agent, not to the user" is what keeps the coordinator from quietly becoming the agent I talk to again. "States the default and what is blocked meanwhile" means a decision request tells me what happens if I ignore it for an hour. And "an instruction the user gives directly to any agent wins" leaves me a way around the chain: I can still type into any pane when I need to, and the agent I talked to is responsible for telling the others.
+
+### Now it's a skill
+
+Those rules have since moved out of one project's `AGENTS.md` and into tmux-agents itself, as the [agent-chain skill](https://github.com/TheClooneyCollection/tmux-agents/blob/main/skills/agent-chain/SKILL.md). Tell your agent "start the chain", and it sets up the same three roles in one window: itself as the main agent on the left, a secondary (what I called the coordinator above) top right, and a Codex worker bottom right. The worker splits bigger tasks across its own spawned agents.
+
+A few rules changed with real use. FYIs are now sent as notices, which don't expect a reply, instead of requests marked "no reply needed", because a request still puts the receiver back to work. And when work crosses projects, each project's secondary is its interface: requests go secondary to secondary, and each project's agents only edit their own files.
+
+You can install tmux-agents, the agent-chain skill included, with the [skills CLI](https://skills.sh):
+
+```sh
+npx skills add TheClooneyCollection/tmux-agents -g
+```
+
+Then tell your agent "set up tmux-agents" to install the commands and configure tmux.
 
 ## Before and after
 

@@ -50,7 +50,7 @@ Codex 是这个项目的主要实现者。这个月 Pro 计划拿到了不错的
 
 更糟的是，我经常得等轮到自己。如果 Claude 正在处理 Codex 回复或执行命令，我的问题就排在这些工作后面。本该与我交流的 agent，成了屋里最忙的那个。
 
-## 解决办法：再加一个窗格
+## 解决办法：再加一个 agent
 
 我又加了一个 Claude agent。全部改动就是这个。
 
@@ -101,6 +101,20 @@ Messages:
 ```
 
 有几条规则比预想中更重要。“凡是需要用户决定的事，都交给主 agent，而不是用户”，防止 coordinator 悄悄又变成我的直接对话对象。“说明默认选择和期间被阻塞的工作”，让我知道如果一小时不理这条决策请求，会发生什么。而“用户直接给任何 agent 的指令优先”，则保留了绕过链条的通道：必要时，我仍能在任意窗格输入，收到指令的 agent 负责告知其他成员。
+
+### 现在它成了一个 skill
+
+这些规则后来从单个项目的 `AGENTS.md` 里搬了出来，变成了 tmux-agents 自带的 [agent-chain skill](https://github.com/TheClooneyCollection/tmux-agents/blob/main/skills/agent-chain/SKILL.md)。跟你的 agent 说一句「start the chain」，它就会在同一个窗口里搭好同样的三个角色：它自己是左边的主 agent，右上是 secondary（也就是上面说的 coordinator），右下是一个 Codex worker。任务大一些时，worker 会把活分给它自己派生的 agent。
+
+用下来，有几条规则也改了。只是告知一声的消息，现在用 notice 发，不需要回复；以前是发一个标着「no reply needed」的 request，但 request 还是会让对方重新开始干活。另外，工作跨项目时，每个项目的 secondary 就是它对外的接口：请求在 secondary 之间传递，每个项目的 agent 只改自己项目的文件。
+
+你可以用 [skills CLI](https://skills.sh) 安装 tmux-agents，agent-chain skill 也包含在内：
+
+```sh
+npx skills add TheClooneyCollection/tmux-agents -g
+```
+
+然后跟你的 agent 说「set up tmux-agents」，它会安装命令并配置 tmux。
 
 ## 前后对比
 
