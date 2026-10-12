@@ -21,6 +21,7 @@
     - /posts/the-agent-that-only-talks-to-me/
     - /posts/meet-tmux-agents/
     - /posts/move-fast-and-not-break-things-with-ai/
+    - /posts/start-the-chain/
 
 - id: product-engineering
   title: Product Engineering
@@ -31,6 +32,7 @@
   entries:
     - /posts/meet-tmux-agents/
     - /posts/move-fast-and-not-break-things-with-ai/
+    - /posts/start-the-chain/
 
 - id: swift-series
   title: Swift & SwiftUI Series
