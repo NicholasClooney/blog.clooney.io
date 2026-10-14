@@ -73,7 +73,7 @@ key 也只通过 `env` 设置给 `claude` 这一个进程，不会泄露到我�
 
 ## 它是怎么做出来的
 
-这些代码我一行都没写。是 private-ingress-engine 项目的 agent chain 写的：一个主 agent、一个 secondary 和一个 Codex worker，根据我一连串的要求：
+这些代码我一行都没写。是代理所在的那个私有仓库的 agent chain 写的：一个主 agent、一个 secondary 和一个 Codex worker，根据我一连串的要求：
 
 1. 把 CLIProxyAPI 搭成一个固定版本、纳入 git 管理的 Docker Compose 配置。
 2. 给我一条可以直接复制测试的 `claude` 命令。
@@ -83,7 +83,7 @@ key 也只通过 `env` 设置给 `claude` 这一个进程，不会泄露到我�
 6. 我还是想要 `claude-astra`，所以把 `claude-codex` 里通用的部分抽成一个基础函数。
 7. 全部存进我的 dotfiles。
 
-每个要求都让这些函数变了一点。最后一步跨了项目。我的 dotfiles 有自己的 chain，所以 private-ingress-engine 的 secondary 给 dotfiles 的 secondary 发了一个请求，正是我上一篇里讲的 [secondary 对 secondary 规则](/zh/posts/start-the-chain/#%E8%B7%A8%E9%A1%B9%E7%9B%AE)。dotfiles 的 secondary 加上了这六个函数，检查了它们和已有的函数没有冲突、env 文件不会进 git，又在一个新的 shell 里做了冒烟测试，然后提交。
+每个要求都让这些函数变了一点。最后一步跨了项目。我的 dotfiles 有自己的 chain，所以代理项目的 secondary 给 dotfiles 的 secondary 发了一个请求，正是我上一篇里讲的 [secondary 对 secondary 规则](/zh/posts/start-the-chain/#%E8%B7%A8%E9%A1%B9%E7%9B%AE)。dotfiles 的 secondary 加上了这六个函数，检查了它们和已有的函数没有冲突、env 文件不会进 git，又在一个新的 shell 里做了冒烟测试，然后提交。
 
 ### 还是做了我们自己的
 
