@@ -76,7 +76,7 @@ The key is also only set for the `claude` process, through `env`, so it doesn't 
 
 ## How it came together
 
-I didn't write any of this. The private-ingress-engine project's agent chain did, a main agent, a secondary and a Codex worker, from a series of my requests:
+I didn't write any of this. The agent chain in the private repo where the proxy lives did, a main agent, a secondary and a Codex worker, from a series of my requests:
 
 1. Set up CLIProxyAPI as a pinned, git-tracked Docker Compose stack.
 2. Give me a `claude` command I can copy and test.
@@ -86,7 +86,7 @@ I didn't write any of this. The private-ingress-engine project's agent chain did
 6. I still want `claude-astra`, so pull the generic part of `claude-codex` into a base.
 7. Save it all into my dotfiles.
 
-Each request reshaped the functions a bit. That last step crossed projects. My dotfiles have their own chain, so the private-ingress-engine secondary sent one request to the dotfiles secondary, the same [secondary-to-secondary rule](/posts/start-the-chain/#across-projects) from my last post. The dotfiles secondary added the six functions, checked that none clashed with existing ones and that the env file stays out of git, and smoke-tested them in a fresh shell. Then it committed them.
+Each request reshaped the functions a bit. That last step crossed projects. My dotfiles have their own chain, so the proxy project's secondary sent one request to the dotfiles secondary, the same [secondary-to-secondary rule](/posts/start-the-chain/#across-projects) from my last post. The dotfiles secondary added the six functions, checked that none clashed with existing ones and that the env file stays out of git, and smoke-tested them in a fresh shell. Then it committed them.
 
 ### Building our own anyway
 
