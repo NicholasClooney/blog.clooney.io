@@ -33,6 +33,8 @@ Use the repo-local front matter skill at `.claude/skills/frontmatter-editing/SKI
 
 Use the repo-local dev server skill at `.claude/skills/dev-server/SKILL.md` (`/dev-server` in Claude). It covers running `npm run dev` and exposing it over Tailscale on the matching port.
 
+When you start as the main agent (including the main agent of an agent chain), make sure a live dev server is running for this repo. Check for an existing `eleventy --serve` / `npm run dev` process first and reuse it; otherwise start one with the dev server skill. Tell the user the local and Tailscale URLs.
+
 ## Timeline entries
 
 Use the repo-local timeline entry skill at `.claude/skills/timeline-entry/SKILL.md` (`/timeline-entry` in Claude). It covers file naming, front matter, status tags, and workflows from a blog post or GitHub commit.
