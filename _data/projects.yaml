@@ -132,6 +132,42 @@ active:
       - Terminal
       - Themes
 
+  - name: Cosmic Civilization Builder
+    summary: |
+      Grow a civilization from one star system into the neighbourhood around it,
+      at your own pace. Build mines, power and laboratories, research upgrades,
+      then survey nearby stars and send ships to settle them.
+      A relaxed idle-and-strategy game for the browser, in English and 中文.
+    url: https://cosmos.clooney.io
+    repo: null
+    image:
+      src: /assets/images/projects/cosmic-civilization-builder-helios.jpg
+      alt: Screenshot of Cosmic Civilization Builder showing the Helios star system, its planets, resources and research controls
+      fit: contain
+    tech:
+      - Browser Game
+      - Strategy
+      - Idle Game
+
+  - name: Project Stone Age
+    summary: |
+      A restoration of the classic MMORPG 石器时代 (StoneAge) in Godot 4.6,
+      centred on 萨姆吉尔村 / Samgir and the surrounding islands, with the original
+      maps, sprites, menus, animations, music and sound effects.
+      Play on a Mac, in a browser, on Vision Pro, or across several devices at once.
+    url: null
+    repo: https://github.com/NicholasClooney/project-stone-age
+    image:
+      src: /assets/images/projects/project-stone-age-marina-village.jpg
+      alt: Screenshot of Project Stone Age showing a mounted character on the beach at 玛丽娜丝渔村 / Marina village
+      fit: contain
+    tech:
+      - Godot
+      - MMORPG
+      - macOS
+      - Browser Game
+      - Vision Pro
+
   - name: ProjectSpire
     summary: |
       Multi-language effort to turn Slay the Spire 2 internals into usable tooling:
