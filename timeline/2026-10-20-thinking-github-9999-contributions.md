@@ -19,7 +19,7 @@ tags:
 
 Caught my GitHub contributions at exactly 9,999 in the last year today. Wasn't aiming for it. What a number to catch!
 
-I pulled the public-repository breakdown a little later, by which point the total had reached 10,017. This API snapshot covers `2025-10-18T23:00:00Z` to `2026-10-20T22:59:59Z`. The 27 public repositories below account for 7,889 contributions; this is not a breakdown of the earlier 9,999 in the screenshot. These counts include commit, pull request, and repository creation contributions.
+I pulled the public-repository breakdown a little later, by which point the total had reached 10,017. This API snapshot covers October 19, 2025 at 00:00 through October 20, 2026 at 23:59:59, London time (BST at both boundaries). The 27 public repositories below account for 7,889 contributions; this is not a breakdown of the earlier 9,999 in the screenshot. These counts include commit, pull request, and repository creation contributions.
 
 | Repository | Contributions |
 | --- | ---: |
@@ -33,6 +33,12 @@ I pulled the public-repository breakdown a little later, by which point the tota
 | [NicholasClooney/ProjectSpire](https://github.com/NicholasClooney/ProjectSpire) | 185 |
 | [TheClooneyCollection/project-resume](https://github.com/TheClooneyCollection/project-resume) | 150 |
 | [TheClooneyCollection/project-etho](https://github.com/TheClooneyCollection/project-etho) | 128 |
+
+<details>
+<summary>Show 17 repositories with fewer than 100 contributions each</summary>
+
+| Repository | Contributions |
+| --- | ---: |
 | [NicholasClooney/ProjectDawn](https://github.com/NicholasClooney/ProjectDawn) | 80 |
 | [NicholasClooney/ghostty-theme-picker](https://github.com/NicholasClooney/ghostty-theme-picker) | 30 |
 | [TheClooneyCollection/ansible-macOS-playbook](https://github.com/TheClooneyCollection/ansible-macOS-playbook) | 22 |
@@ -50,6 +56,9 @@ I pulled the public-repository breakdown a little later, by which point the tota
 | [jaxxstorm/sentinel](https://github.com/jaxxstorm/sentinel) | 1 |
 | [NicholasClooney/fork-VeRantyx](https://github.com/NicholasClooney/fork-VeRantyx) | 1 |
 | [NicholasClooney/fork-tailscale-sentinel](https://github.com/NicholasClooney/fork-tailscale-sentinel) | 1 |
-| **Public-repository subtotal** | **7,889** |
+
+</details>
+
+**Public-repository subtotal across all 27 repositories: 7,889 contributions.**
 
 The 4,743 commit contributions for [my blog](https://github.com/NicholasClooney/blog.clooney.io) stand out. I write and push frequently, but I suspect the bigger factor is how I keep it in sync with [Subspace](https://github.com/TheClooneyCollection/11ty-subspace-builder), which the blog is based on: whenever Subspace updates, I rebase the blog and force-update it. Rebasing changes commit IDs, and my guess is that GitHub may be counting rewritten commits as new contributions. That's a personal hunch, not a verified explanation of GitHub's counting mechanism, and I wouldn't read that number as 4,743 distinct pieces of new work.
