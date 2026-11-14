@@ -2,7 +2,6 @@
 title: "blog: Vision Pro MVD / ALVR Best Practices - No More Stuttering!"
 date: "2026-11-14"
 time: "13:14"
-parent: "/timeline/2026-05-19-published-meta-horizon-link-crossover-drive-check-bypass/"
 tags:
   - published
   - vr
