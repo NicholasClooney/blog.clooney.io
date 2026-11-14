@@ -1,0 +1,20 @@
+/* Swap light/dark image pairs with the runtime theme (same dark list as highlight-github.css) */
+.theme-img-dark {
+  display: none !important;
+}
+
+html.theme[data-theme='grape'] .theme-img-light,
+html.theme[data-theme='deep-blue'] .theme-img-light,
+html.theme[data-theme='midnight'] .theme-img-light,
+html.theme[data-theme='charcoal'] .theme-img-light,
+html.theme[data-theme='terminal'] .theme-img-light {
+  display: none !important;
+}
+
+html.theme[data-theme='grape'] .theme-img-dark,
+html.theme[data-theme='deep-blue'] .theme-img-dark,
+html.theme[data-theme='midnight'] .theme-img-dark,
+html.theme[data-theme='charcoal'] .theme-img-dark,
+html.theme[data-theme='terminal'] .theme-img-dark {
+  display: block !important;
+}
