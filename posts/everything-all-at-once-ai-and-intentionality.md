@@ -23,6 +23,47 @@ By the evening there were about 85 commits across six repos. Every tmux window h
 - **EDControlRoom:** a few late-night ideas for [EDControlRoom](https://github.com/TheClooneyCollection/EDControlRoom).
 - **This blog:** the Vision Pro post, its diagrams and illustrations, a new [Gaming series](/series/gaming/) and a stack of [timeline entries](/timeline/).
 
+<style>
+  .tmux-wall { margin: 2rem 0; }
+  .tmux-wall-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1rem 0.75rem; }
+  .tmux-wall-screen { box-sizing: border-box; min-width: 0; grid-column: span 2; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+  .tmux-wall-screen:nth-child(4) { grid-column: 2 / span 2; }
+  .tmux-wall-bezel { display: block; box-sizing: border-box; width: 100%; padding: 4%; background: #16171c; border: 1px solid #464a58; border-radius: 10px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35); }
+  .tmux-wall-bezel img { display: block; max-width: 100%; width: 100%; height: auto; border-radius: 4px; }
+  .tmux-wall .tmux-wall-label { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; }
+  .tmux-wall figcaption { margin-top: 1rem; text-align: center; }
+  @media (max-width: 640px) {
+    .tmux-wall-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tmux-wall-screen, .tmux-wall-screen:nth-child(4) { grid-column: auto; }
+    .tmux-wall-screen:nth-child(5) { grid-column: 1 / -1; width: 50%; justify-self: center; }
+  }
+</style>
+<figure class="tmux-wall">
+  <div class="tmux-wall-grid">
+    <div class="tmux-wall-screen">
+      <a class="tmux-wall-bezel" href="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-dotfiles.png"><img src="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-dotfiles.png" alt="The dotfiles tmux window: a main agent on the left, a secondary and a worker on the right, each mid-conversation" loading="lazy" /></a>
+      <a class="tmux-wall-label" href="https://github.com/TheClooneyCollection/dotfiles">dotfiles</a>
+    </div>
+    <div class="tmux-wall-screen">
+      <a class="tmux-wall-bezel" href="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-blog.png"><img src="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-blog.png" alt="The blog tmux window: a main agent on the left, a secondary and a worker on the right, each mid-conversation" loading="lazy" /></a>
+      <a class="tmux-wall-label" href="https://github.com/NicholasClooney/blog.clooney.io">blog</a>
+    </div>
+    <div class="tmux-wall-screen">
+      <a class="tmux-wall-bezel" href="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-tmux-agents.png"><img src="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-tmux-agents.png" alt="The tmux-agents tmux window: a main agent on the left, a secondary and a worker on the right, each mid-conversation" loading="lazy" /></a>
+      <a class="tmux-wall-label" href="https://github.com/TheClooneyCollection/tmux-agents">tmux-agents</a>
+    </div>
+    <div class="tmux-wall-screen">
+      <a class="tmux-wall-bezel" href="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-edcontrolroom.png"><img src="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-edcontrolroom.png" alt="The EDControlRoom tmux window: a main agent on the left, a secondary and a worker on the right, each mid-conversation" loading="lazy" /></a>
+      <a class="tmux-wall-label" href="https://github.com/TheClooneyCollection/EDControlRoom">EDControlRoom</a>
+    </div>
+    <div class="tmux-wall-screen">
+      <a class="tmux-wall-bezel" href="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-skills.png"><img src="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-skills.png" alt="The skills tmux window: a main agent on the left, a secondary and a worker on the right, each mid-conversation" loading="lazy" /></a>
+      <a class="tmux-wall-label" href="https://github.com/TheClooneyCollection/skills">skills</a>
+    </div>
+  </div>
+  <figcaption>In reality this is one terminal and I flip between windows. Spread out like this, it looks like the control room it felt like.</figcaption>
+</figure>
+
 With AI, it almost feels like you can do anything. I could never have dreamed of working on three, four, even five projects at once. But ever since AI became this capable, I've found myself working like this every now and then. It feels less like coding and more like running a small studio. Tiring, but the good kind of tired.
 
 But two things kept coming up.
