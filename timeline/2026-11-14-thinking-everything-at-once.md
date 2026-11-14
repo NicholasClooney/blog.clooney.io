@@ -27,3 +27,5 @@ That's a trade-off, and it's fine, as long as you, the one deciding, are okay wi
 Still, I think this is what AI is quietly taking away from us: intentionality. When you can do everything at once, it gets easier to stop asking whether you meant to. There's less of it than there used to be.
 
 I want to notice when that happens. And when I have the energy to give, I want to be more intentional myself. Maybe slowing down once in a while isn't such a bad idea either.
+
+*This grew into a post: [Everything All At Once: AI & Intentionality](/posts/everything-all-at-once-ai-and-intentionality/).*
