@@ -22,6 +22,47 @@ excerpt: |
 - **EDControlRoom：** 深夜给 [EDControlRoom](https://github.com/TheClooneyCollection/EDControlRoom) 想了几个点子。
 - **这个博客：** Vision Pro 那篇文章、它的示意图和插画、一个新的[游戏系列](/zh/series/gaming/)，还有一堆[时间线条目](/timeline/)。
 
+<style>
+  .tmux-wall { margin: 2rem 0; }
+  .tmux-wall-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1rem 0.75rem; }
+  .tmux-wall-screen { box-sizing: border-box; min-width: 0; grid-column: span 2; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+  .tmux-wall-screen:nth-child(4) { grid-column: 2 / span 2; }
+  .tmux-wall-bezel { display: block; box-sizing: border-box; width: 100%; padding: 4%; background: #16171c; border: 1px solid #464a58; border-radius: 10px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35); }
+  .tmux-wall-bezel img { display: block; max-width: 100%; width: 100%; height: auto; border-radius: 4px; }
+  .tmux-wall .tmux-wall-label { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; }
+  .tmux-wall figcaption { margin-top: 1rem; text-align: center; }
+  @media (max-width: 640px) {
+    .tmux-wall-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tmux-wall-screen, .tmux-wall-screen:nth-child(4) { grid-column: auto; }
+    .tmux-wall-screen:nth-child(5) { grid-column: 1 / -1; width: 50%; justify-self: center; }
+  }
+</style>
+<figure class="tmux-wall">
+  <div class="tmux-wall-grid">
+    <div class="tmux-wall-screen">
+      <a class="tmux-wall-bezel" href="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-dotfiles.png"><img src="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-dotfiles.png" alt="dotfiles 的 tmux 窗口：左边是主 agent，右边是 secondary 和 worker，各自都在对话中" loading="lazy" /></a>
+      <a class="tmux-wall-label" href="https://github.com/TheClooneyCollection/dotfiles">dotfiles</a>
+    </div>
+    <div class="tmux-wall-screen">
+      <a class="tmux-wall-bezel" href="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-blog.png"><img src="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-blog.png" alt="博客的 tmux 窗口：左边是主 agent，右边是 secondary 和 worker，各自都在对话中" loading="lazy" /></a>
+      <a class="tmux-wall-label" href="https://github.com/NicholasClooney/blog.clooney.io">blog</a>
+    </div>
+    <div class="tmux-wall-screen">
+      <a class="tmux-wall-bezel" href="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-tmux-agents.png"><img src="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-tmux-agents.png" alt="tmux-agents 的 tmux 窗口：左边是主 agent，右边是 secondary 和 worker，各自都在对话中" loading="lazy" /></a>
+      <a class="tmux-wall-label" href="https://github.com/TheClooneyCollection/tmux-agents">tmux-agents</a>
+    </div>
+    <div class="tmux-wall-screen">
+      <a class="tmux-wall-bezel" href="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-edcontrolroom.png"><img src="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-edcontrolroom.png" alt="EDControlRoom 的 tmux 窗口：左边是主 agent，右边是 secondary 和 worker，各自都在对话中" loading="lazy" /></a>
+      <a class="tmux-wall-label" href="https://github.com/TheClooneyCollection/EDControlRoom">EDControlRoom</a>
+    </div>
+    <div class="tmux-wall-screen">
+      <a class="tmux-wall-bezel" href="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-skills.png"><img src="/assets/images/posts/everything-all-at-once-ai-and-intentionality/screen-skills.png" alt="技能的 tmux 窗口：左边是主 agent，右边是 secondary 和 worker，各自都在对话中" loading="lazy" /></a>
+      <a class="tmux-wall-label" href="https://github.com/TheClooneyCollection/skills">skills</a>
+    </div>
+  </div>
+  <figcaption>实际上这是一个终端，我在窗口之间来回切换。像这样摊开来看，才像它给我的感觉：一间控制室。</figcaption>
+</figure>
+
 有了 AI，感觉几乎什么都能做。我以前做梦都想不到，可以同时推进三个、四个，甚至五个项目。但自从 AI 变得这么强，我时不时就会这样工作。它不太像写代码，更像是在经营一个小工作室。很累，但是那种好的累。
 
 不过，有两件事一直在我脑子里打转。
