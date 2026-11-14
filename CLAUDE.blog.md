@@ -52,3 +52,8 @@ The site is bilingual: English at the existing URLs, Simplified Chinese under `/
 - Translation style: natural Simplified Chinese in the author's voice. Keep "agent" in English (子 agent, 主 agent, 派生 agent), and keep code, commands, paths, URLs and product names unchanged. Put a space between Chinese and English. Don't use "——". Internal links to posts and notes point to their `/zh/` versions; timeline links stay English.
 - Timeline entries are intentionally not translated. The Chinese site shows them in their original English. Do not create Chinese versions of timeline entries unless the user explicitly asks.
 - Drafts (`draft: true`) don't need a Chinese version until they are published.
+
+## Inline HTML in posts
+
+- Set `box-sizing: border-box` on any padded element sized with `width: 100%`. The site's CSS doesn't set it globally, so padded boxes overflow their grid cells and overlap.
+- Links inside custom layouts (`<a>`) pick up the theme link colour. Style them deliberately rather than assuming `color: inherit` wins.
