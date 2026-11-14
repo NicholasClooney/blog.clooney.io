@@ -25,6 +25,15 @@ The fix: put the router on a non-DFS 80 MHz block, with its primary channel on A
 
 If you just want your setup fixed, I turned all of this into an agent skill, [avp-mvd-alvr-stutter-resolver](https://github.com/TheClooneyCollection/skills/tree/main/skills/avp-mvd-alvr-stutter-resolver). Point your agent at it and it will audit and fix your setup. If you're interested in the details, read on.
 
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/cockpit-hero.png"
+    alt="A wide view from a spaceship cockpit, with two flight sticks, a planet's horizon at sunrise and the Milky Way outside the canopy. A large translucent desktop floats on the left, with a menu bar along the top, a dock along the bottom, and code, browser and chat windows, while ship panels float on the right"
+    style="display: block; margin: 0 auto; width: 640px; height: auto; max-width: 100%;"
+  />
+  <figcaption>The goal: the game in front of me and my Mac tools beside the cockpit, both streaming to the headset at once.</figcaption>
+</figure>
+
 [[toc]]
 
 ## Best practices
@@ -35,11 +44,38 @@ Here's the setup I've settled on. None of it is exotic, but each piece is there 
 
 Give the play space its own router. If you already have a main house router, keep it, and put a second, dedicated one near where you play. That keeps the VR traffic away from everything else in the house and puts the headset close to its access point.
 
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/room-placement.png"
+    alt="Top-down floor plan: the house router in another room, a dedicated VR router at the end of the desk with a cable to the PC and the Mac, and a clear line of sight from the VR router to the headset in the play space"
+    style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
+  />
+  <figcaption>The VR router sits beside the play space, wired to the PC and the Mac, with a clear line of sight to the headset.</figcaption>
+</figure>
+
 Wire both the gaming PC and the Mac to that router. The two machines doing the heavy lifting shouldn't be competing with the headset for airtime. On the Mac, keep Ethernet first in the network service order, so its traffic takes the cable.
 
 Then join the Vision Pro *and* the Mac's Wi-Fi to the same router. This one sounds odd, since the Mac is already wired. Its Wi-Fi isn't there for traffic. It's there to pin the Mac's radio to the same channel as the headset.
 
 Finally, keep the PC, the Mac and the Vision Pro on one subnet. ALVR discovery (and mDNS) doesn't cross routers, so if the headset sits behind a different router from the PC, ALVR simply won't find it.
+
+<figure style="text-align: center;">
+  <img
+    eleventy:ignore
+    class="theme-img-light"
+    src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/network-layout.svg"
+    alt="Network diagram: the house router uplinks to a dedicated VR router; the gaming PC and the Mac are wired to it; the Vision Pro and the Mac's Wi-Fi join it, all on one subnet. ALVR streams from the PC through the router to the headset, and MVD streams from the Mac to the headset peer to peer over AWDL"
+    style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
+  />
+  <img
+    eleventy:ignore
+    class="theme-img-dark"
+    src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/network-layout-dark.svg"
+    alt="Network diagram: the house router uplinks to a dedicated VR router; the gaming PC and the Mac are wired to it; the Vision Pro and the Mac's Wi-Fi join it, all on one subnet. ALVR streams from the PC through the router to the headset, and MVD streams from the Mac to the headset peer to peer over AWDL"
+    style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
+  />
+  <figcaption>Two streams, one headset: ALVR goes through the VR router, MVD goes straight from the Mac over AWDL.</figcaption>
+</figure>
 
 ### Router settings
 
@@ -52,6 +88,24 @@ Lock the channel rather than leaving it on auto. Auto can wander onto a DFS chan
 For the wireless mode, keep the mixed mode that includes 802.11ax. Dropping the legacy modes buys very little, and a mode without ax can lock the Vision Pro out entirely.
 
 And ignore the "best channel" picks from Wi-Fi scanner apps, such as 165. Channel 165 is 20 MHz only, so it can't give you an 80 MHz block.
+
+<figure style="text-align: center;">
+  <img
+    eleventy:ignore
+    class="theme-img-light"
+    src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/channel-map.svg"
+    alt="Map of the 5 GHz channels from 36 to 165: the non-DFS blocks 36-48 and 149-161, the DFS range 52-144 that must vacate on radar, channel 165 limited to 20 MHz, and AWDL's social channels 44 and 149 marked"
+    style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
+  />
+  <img
+    eleventy:ignore
+    class="theme-img-dark"
+    src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/channel-map-dark.svg"
+    alt="Map of the 5 GHz channels from 36 to 165: the non-DFS blocks 36-48 and 149-161, the DFS range 52-144 that must vacate on radar, channel 165 limited to 20 MHz, and AWDL's social channels 44 and 149 marked"
+    style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
+  />
+  <figcaption>The 5 GHz band: pick a non-DFS 80 MHz block, and put the primary channel on AWDL's social channel.</figcaption>
+</figure>
 
 ### The channel that matters
 
@@ -77,7 +131,34 @@ Apple devices run AWDL (Apple Wireless Direct Link) for AirDrop, Continuity and 
 
 Each Apple device has one Wi-Fi radio. If the router's channel is different from AWDL's, the radio time-slices between the two. Every slot it spends away from the router's channel is a gap in the stream. That's the stutter.
 
+<figure style="text-align: center;">
+  <img
+    eleventy:ignore
+    class="theme-img-light"
+    src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/radio-time-slicing.svg"
+    alt="Timeline of the Apple device's radio: before, it alternates between the router's channel and AWDL's channel, leaving gaps in the stream; after, with the router on AWDL's channel, it stays on one channel with no gaps"
+    style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
+  />
+  <img
+    eleventy:ignore
+    class="theme-img-dark"
+    src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/radio-time-slicing-dark.svg"
+    alt="Timeline of the Apple device's radio: before, it alternates between the router's channel and AWDL's channel, leaving gaps in the stream; after, with the router on AWDL's channel, it stays on one channel with no gaps"
+    style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
+  />
+  <figcaption>Before: the radio splits its time between the router's channel and AWDL's. After: one channel, no gaps.</figcaption>
+</figure>
+
 So the channel being clean wasn't the problem. The channel being *different* was.
+
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/signal-hopping.png"
+    alt="Two panels side by side. Left, labelled Hopping: 36 ↔ 44, a headset's signal jumps between two channel lanes and the frames arrive broken with gaps. Right, labelled Steady: 44, the signal stays on one lane and the frames arrive smooth"
+    style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
+  />
+  <figcaption>Hopping between two channels breaks the stream up. Staying on one keeps it smooth.</figcaption>
+</figure>
 
 ## Seeing it on macOS
 
@@ -127,6 +208,15 @@ On the Mac, MVD traffic runs on `llw0`, not `awdl0`. `netstat -I llw0 -b` shows 
 ## Back in the cockpit
 
 I retested ALVR with the router's primary channel on 44. No more stuttering.
+
+<figure style="text-align: center;">
+  <img
+    src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/cockpit-hero.png"
+    alt="A wide view from a spaceship cockpit, with two flight sticks, a planet's horizon at sunrise and the Milky Way outside the canopy. A large translucent desktop floats on the left, with a menu bar along the top, a dock along the bottom, and code, browser and chat windows, while ship panels float on the right"
+    style="display: block; margin: 0 auto; width: 640px; height: auto; max-width: 100%;"
+  />
+  <figcaption>The goal: the game in front of me and my Mac tools beside the cockpit, both streaming to the headset at once.</figcaption>
+</figure>
 
 ALVR's stats during the test said the network was healthy:
 

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 532" width="100%" role="img" aria-labelledby="t d">
+  <title id="t">Network layout for Vision Pro streaming</title>
+  <desc id="d">The house router uplinks to a dedicated VR router. The gaming PC and the Mac are wired to the VR router. The Vision Pro and the Mac's Wi-Fi join the VR router. All three devices share one subnet. ALVR streams from the PC through the router to the headset. MVD streams from the Mac to the headset peer to peer over AWDL.</desc>
+  <defs>
+    <marker id="a-alvr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1L9 5L1 9z" fill="#e8590c"/>
+    </marker>
+    <marker id="a-mvd" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1L9 5L1 9z" fill="#9775fa"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; fill: #e6edf3; }
+    .title { font-size: 17px; font-weight: 650; }
+    .sub { font-size: 13px; fill: #9aa7b4; }
+    .name { font-size: 15px; font-weight: 650; text-anchor: middle; }
+    .role { font-size: 12px; fill: #9aa7b4; text-anchor: middle; }
+    .tag { font-size: 12px; fill: #9aa7b4; }
+    .node { fill: #1f2630; stroke: #3a4350; stroke-width: 1.5; }
+    .wire { stroke: #adb5bd; stroke-width: 4; stroke-linecap: round; fill: none; }
+    .wifi { stroke: #8b949e; stroke-width: 2; stroke-dasharray: 2 6; stroke-linecap: round; fill: none; }
+    .alvr { stroke: #e8590c; stroke-width: 3; fill: none; stroke-linecap: round; }
+    .mvd { stroke: #9775fa; stroke-width: 3; fill: none; stroke-linecap: round; }
+  </style>
+  <rect width="760" height="532" rx="16" fill="#161b22"/>
+  <text x="28" y="40" class="title">Network layout</text>
+  <text x="28" y="62" class="sub">Wire the heavy lifters, keep the headset close, and keep everything on one subnet.</text>
+
+  <!-- subnet -->
+  <rect x="230" y="88" width="510" height="388" rx="14" fill="#14233a" stroke="#74a7ef" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="248" y="112" class="tag" style="fill:#74a7ef;font-weight:600">One subnet</text>
+
+  <!-- links -->
+  <path d="M190 150 H330" class="wire" style="stroke:#5c6670"/>
+  <text x="260" y="140" class="tag" text-anchor="middle">uplink</text>
+  <path d="M395 182 L330 380" class="wire"/>
+  <path d="M440 182 L495 380" class="wire"/>
+  <text x="334" y="290" class="tag" text-anchor="end">Ethernet</text>
+  <text x="482" y="290" class="tag">Ethernet</text>
+  <path d="M566 395 C 600 360 560 215 500 172" class="wifi"/>
+  <path d="M500 150 L640 238" class="wifi"/>
+
+  <!-- streams -->
+  <path d="M318 372 L374 196" class="alvr" marker-end="url(#a-alvr)"/>
+  <path d="M506 138 L634 218" class="alvr" marker-end="url(#a-alvr)"/>
+  <path d="M566 422 C 640 422 664 384 662 316" class="mvd" marker-end="url(#a-mvd)"/>
+  <text x="674" y="372" class="tag" style="fill:#9775fa;font-weight:600">AWDL</text>
+
+  <!-- nodes -->
+  <rect x="40" y="118" width="150" height="64" rx="12" class="node"/>
+  <text x="115" y="146" class="name">House router</text>
+  <text x="115" y="166" class="role">rest of the home</text>
+
+  <rect x="330" y="118" width="170" height="64" rx="12" class="node" style="stroke:#1c7ed6;stroke-width:2"/>
+  <text x="415" y="146" class="name">VR router</text>
+  <text x="415" y="166" class="role">near the play space</text>
+
+  <rect x="250" y="380" width="130" height="60" rx="12" class="node"/>
+  <text x="315" y="406" class="name">Gaming PC</text>
+  <text x="315" y="425" class="role">ALVR server</text>
+
+  <rect x="440" y="380" width="126" height="60" rx="12" class="node"/>
+  <text x="503" y="406" class="name">Mac</text>
+  <text x="503" y="425" class="role">MVD</text>
+  <text x="503" y="460" class="role">Wi-Fi joined too, to pin its channel</text>
+
+  <rect x="604" y="238" width="116" height="70" rx="35" class="node" style="stroke:#e6edf3;stroke-width:2"/>
+  <text x="662" y="268" class="name">Vision Pro</text>
+  <text x="662" y="286" class="role">headset</text>
+
+  <!-- legend -->
+  <g transform="translate(28,506)">
+    <path d="M0 6 H28" class="wire"/><text x="36" y="11" class="tag">Ethernet</text>
+    <path d="M120 6 H148" class="wifi"/><text x="156" y="11" class="tag">Wi-Fi</text>
+    <path d="M230 6 H258" class="alvr" marker-end="url(#a-alvr)"/><text x="268" y="11" class="tag">ALVR stream</text>
+    <path d="M380 6 H408" class="mvd" marker-end="url(#a-mvd)"/><text x="418" y="11" class="tag">MVD stream, peer to peer over AWDL</text>
+  </g>
+</svg>
