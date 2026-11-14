@@ -73,13 +73,14 @@
   intro: >
     A chronological path through my recent VR experiments on macOS, blending
     longer write-ups and shorter research notes on CrossOver, Quest PCVR, OpenXR,
-    and where the stack still breaks.
+    Apple Vision Pro streaming, and where the stack still breaks.
   entries:
     - /posts/meta-horizon-link-crossover-drive-check-bypass/
     - /notes/quest-pcvr-on-mac-notes/
     - /notes/vd-crossover-findings/
     - /notes/openxr-osx-hello-xr-quest-mvp/
     - /notes/openxr-osx-crossover-bridge/
+    - /posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/
 
 - id: subspace-builder
   title: Subspace Builder Series

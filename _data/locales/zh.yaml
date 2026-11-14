@@ -172,7 +172,7 @@ series:
     intro: 关于私有网络、自托管基础设施、macOS 上的 Docker 工作流，以及那些影响我如何运行和访问服务的真实排错经历。
   vr-on-macos:
     title: macOS 上的 VR 系列
-    intro: 按时间串起我最近在 macOS 上的 VR 实验，结合长文和简短研究笔记，记录 CrossOver、Quest PCVR、OpenXR，以及这套技术栈仍然卡在哪里。
+    intro: 按时间串起我最近在 macOS 上的 VR 实验，结合长文和简短研究笔记，记录 CrossOver、Quest PCVR、OpenXR、Apple Vision Pro 串流，以及这套技术栈仍然卡在哪里。
   subspace-builder:
     title: Subspace Builder 系列
     intro: Subspace Builder 完整的已发布开发记录，从首次发布，到塑造这个网站的工具、工作流和功能更新。
