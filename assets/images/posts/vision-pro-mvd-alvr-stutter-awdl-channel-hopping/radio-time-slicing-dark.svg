@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" width="100%" role="img" aria-labelledby="t d">
+  <title id="t">The Mac's AWDL channel sequence, before and after</title>
+  <desc id="d">Two rows of 16 time slots from wdutil info. With the router on channel 36, four of the sixteen slots are spent on channel 44, away from the router. With the router on channel 44, all sixteen slots are on 44.</desc>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; fill: #e6edf3; }
+    .title { font-size: 17px; font-weight: 650; }
+    .sub { font-size: 13px; fill: #9aa7b4; }
+    .label { font-size: 14px; font-weight: 600; }
+    .slot { font-size: 13px; font-weight: 600; fill: #ffffff; text-anchor: middle; }
+    .note { font-size: 13px; fill: #9aa7b4; }
+    .bad { fill: #ff6b6b; font-weight: 600; }
+    .good { fill: #51cf66; font-weight: 600; }
+  </style>
+  <rect width="760" height="360" rx="16" fill="#161b22"/>
+  <text x="28" y="40" class="title">The Mac's AWDL channel sequence</text>
+  <text x="28" y="62" class="sub">16 time slots from sudo wdutil info. Every slot off the router's channel is a gap in the stream.</text>
+
+  <!-- Before -->
+  <text x="28" y="104" class="label">Router on 36</text>
+  <g transform="translate(28,116)">
+    <g id="before">
+      <rect x="0"   width="40" height="44" rx="6" fill="#1c7ed6"/><text x="20"  y="27" class="slot">36</text>
+      <rect x="44"  width="40" height="44" rx="6" fill="#1c7ed6"/><text x="64"  y="27" class="slot">36</text>
+      <rect x="88"  width="40" height="44" rx="6" fill="#e03131"/><text x="108" y="27" class="slot">44</text>
+      <rect x="132" width="40" height="44" rx="6" fill="#e03131"/><text x="152" y="27" class="slot">44</text>
+      <rect x="176" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="196" y="27" class="slot">36</text>
+      <rect x="220" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="240" y="27" class="slot">36</text>
+      <rect x="264" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="284" y="27" class="slot">36</text>
+      <rect x="308" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="328" y="27" class="slot">36</text>
+      <rect x="352" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="372" y="27" class="slot">36</text>
+      <rect x="396" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="416" y="27" class="slot">36</text>
+      <rect x="440" width="40" height="44" rx="6" fill="#e03131"/><text x="460" y="27" class="slot">44</text>
+      <rect x="484" width="40" height="44" rx="6" fill="#e03131"/><text x="504" y="27" class="slot">44</text>
+      <rect x="528" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="548" y="27" class="slot">36</text>
+      <rect x="572" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="592" y="27" class="slot">36</text>
+      <rect x="616" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="636" y="27" class="slot">36</text>
+      <rect x="660" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="680" y="27" class="slot">36</text>
+    </g>
+    <path d="M88 54 v8 h84 v-8 M440 54 v8 h84 v-8" fill="none" stroke="#ff6b6b" stroke-width="2"/>
+    <text x="130" y="82" class="note" text-anchor="middle"><tspan class="bad">gap</tspan></text>
+    <text x="482" y="82" class="note" text-anchor="middle"><tspan class="bad">gap</tspan></text>
+  </g>
+  <text x="732" y="104" class="note" text-anchor="end"><tspan class="bad">4 of 16</tspan> slots away from the router</text>
+
+  <!-- After -->
+  <text x="28" y="244" class="label">Router on 44</text>
+  <g transform="translate(28,256)">
+    <rect x="0"   width="40" height="44" rx="6" fill="#1c7ed6"/><text x="20"  y="27" class="slot">44</text>
+    <rect x="44"  width="40" height="44" rx="6" fill="#1c7ed6"/><text x="64"  y="27" class="slot">44</text>
+    <rect x="88"  width="40" height="44" rx="6" fill="#1c7ed6"/><text x="108" y="27" class="slot">44</text>
+    <rect x="132" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="152" y="27" class="slot">44</text>
+    <rect x="176" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="196" y="27" class="slot">44</text>
+    <rect x="220" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="240" y="27" class="slot">44</text>
+    <rect x="264" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="284" y="27" class="slot">44</text>
+    <rect x="308" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="328" y="27" class="slot">44</text>
+    <rect x="352" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="372" y="27" class="slot">44</text>
+    <rect x="396" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="416" y="27" class="slot">44</text>
+    <rect x="440" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="460" y="27" class="slot">44</text>
+    <rect x="484" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="504" y="27" class="slot">44</text>
+    <rect x="528" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="548" y="27" class="slot">44</text>
+    <rect x="572" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="592" y="27" class="slot">44</text>
+    <rect x="616" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="636" y="27" class="slot">44</text>
+    <rect x="660" width="40" height="44" rx="6" fill="#1c7ed6"/><text x="680" y="27" class="slot">44</text>
+  </g>
+  <text x="732" y="244" class="note" text-anchor="end"><tspan class="good">16 of 16</tspan> on the router's channel</text>
+
+  <!-- Legend -->
+  <g transform="translate(28,330)">
+    <rect width="14" height="14" rx="3" fill="#1c7ed6"/><text x="22" y="12" class="note">on the router's channel</text>
+    <rect x="200" width="14" height="14" rx="3" fill="#e03131"/><text x="222" y="12" class="note">on AWDL's social channel, away from the router</text>
+  </g>
+</svg>
