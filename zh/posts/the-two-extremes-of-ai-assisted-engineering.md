@@ -195,7 +195,7 @@ agent 可以听起来无比笃定，却仍然是错的。再自信地解释一�
 
 ## 一次只走一小步
 
-所以，“一次只做一件事”进入了我的常用语，后来又成了 agent 指令里的一个 [tiny slice 技能](https://github.com/TheClooneyCollection/dotfiles/blob/main/.agents/skills/local/tiny-slice/SKILL.md)。
+所以，“一次只做一件事”进入了我的常用语，后来又成了 agent 指令里的一个 [tiny slice 技能](https://github.com/TheClooneyCollection/skills/blob/main/skills/tiny-slice/SKILL.md)。
 
 好的一小步，要对应一个真实的行为。有人输入一个值、改变一个选项、重试一次操作，或看到一个结果。我们先说好应该发生什么，找出实现它需要的状态，然后就把这一点做出来。我们常常从一个测试开始。有时也会先摸清代码，因为结构还不明确。无论哪种，这一步都要足够小，让我能跟上输入、理解决定、检查结果，而不必把一整个尚未完成的系统装在脑子里。
 
@@ -215,7 +215,7 @@ agent 可以听起来无比笃定，却仍然是错的。再自信地解释一�
 
 测试替身也值得同样的关注。一个 fake，如果遇到没有预先设置的调用就悄悄返回空结果，可能会掩盖一个我不知道的依赖。如果它改为明确报错，比如来一句 `fatalError("yell at me pls")`，测试就会告诉我，它实际执行的范围比我预想的更大。
 
-好的测试检验行为，而不是实现细节。它们从外部描述代码在做什么：给定这个输入，用户看到那个结果。它们不会断言内部调用了哪个函数、顺序如何、传了什么参数。那种测试，每次我重新组织代码都会坏，哪怕用户能察觉到的行为一点没变。检验行为的测试让我可以自由调整结构，只有真正重要的东西出了问题时才失败。我把这些写成了一个 [behavior tests 技能](https://github.com/TheClooneyCollection/dotfiles/blob/main/.agents/skills/local/behavior-tests/SKILL.md)，让 agent 也从这里出发：测试沿着用户的操作流程来写，依赖则以普通函数的形式传入。
+好的测试检验行为，而不是实现细节。它们从外部描述代码在做什么：给定这个输入，用户看到那个结果。它们不会断言内部调用了哪个函数、顺序如何、传了什么参数。那种测试，每次我重新组织代码都会坏，哪怕用户能察觉到的行为一点没变。检验行为的测试让我可以自由调整结构，只有真正重要的东西出了问题时才失败。我把这些写成了一个 [behavior tests 技能](https://github.com/TheClooneyCollection/skills/blob/main/skills/behavior-tests/SKILL.md)，让 agent 也从这里出发：测试沿着用户的操作流程来写，依赖则以普通函数的形式传入。
 
 而且，测试是有成本的。Project Stone Age 教会了我这一点。如果一个套件让每个小改动都变慢，就会影响我运行它的频率，也会影响我多快能发现问题。测试同样需要工程判断。
 
@@ -241,9 +241,9 @@ agent 可以听起来无比笃定，却仍然是错的。再自信地解释一�
 
 有意推迟处理，和彻底忘掉一个问题，是有区别的。两者都还没解决。但只有前者，在待办清单里有自己的位置。
 
-我们如何协作，也是一样。如果同一个问题我纠正了两次，它就会进入 agent 的指令。写代码之前先讨论计划。一次只走一个能跟上的小步。陌生的概念，等用到时再解释，不要一上来先讲一堂课。决定做完就记下来。那个文件里的每条规则，都来自一次真实的纠正。连写这些规则，也有专门的技能 [agent-docs](https://github.com/TheClooneyCollection/dotfiles/blob/main/.agents/skills/local/agent-docs/SKILL.md)，让指令足够简短、清楚，agent 才真的能遵循。
+我们如何协作，也是一样。如果同一个问题我纠正了两次，它就会进入 agent 的指令。写代码之前先讨论计划。一次只走一个能跟上的小步。陌生的概念，等用到时再解释，不要一上来先讲一堂课。决定做完就记下来。那个文件里的每条规则，都来自一次真实的纠正。连写这些规则，也有专门的技能 [agent-docs](https://github.com/TheClooneyCollection/skills/blob/main/skills/agent-docs/SKILL.md)，让指令足够简短、清楚，agent 才真的能遵循。
 
-而在清空会话之前，我会请 agent [wrap up](https://github.com/TheClooneyCollection/dotfiles/blob/main/.agents/skills/local/wrap-up/SKILL.md)：我们学到了什么还没写下来？还有什么没做完？这样，清空会话就不等于丢掉这次会话带来的经验。
+而在清空会话之前，我会请 agent [wrap up](https://github.com/TheClooneyCollection/skills/blob/main/skills/wrap-up/SKILL.md)：我们学到了什么还没写下来？还有什么没做完？这样，清空会话就不等于丢掉这次会话带来的经验。
 
 规则让我们的协作方式可以重复。但 agent 偏离规则时，我仍然得自己察觉。
 
