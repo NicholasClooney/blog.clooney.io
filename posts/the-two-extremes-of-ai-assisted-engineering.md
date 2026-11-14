@@ -196,7 +196,7 @@ An agent can sound completely sure and still be wrong. A confident explanation o
 
 ## One small step at a time
 
-That is why "ONE THING AT A TIME" entered my vocabulary, and eventually my agent instructions, as a [tiny slice skill](https://github.com/TheClooneyCollection/dotfiles/blob/main/.agents/skills/local/tiny-slice/SKILL.md).
+That is why "ONE THING AT A TIME" entered my vocabulary, and eventually my agent instructions, as a [tiny slice skill](https://github.com/TheClooneyCollection/skills/blob/main/skills/tiny-slice/SKILL.md).
 
 A good small step has a real behaviour attached to it. Someone enters a value, changes a selection, retries an operation, or sees a result. We agree on what should happen, find the state that makes it possible, and build that much. Often we start with a test. Sometimes we explore the code first, because the shape isn't clear yet. Either way, the step is small enough that I can follow the inputs, understand the decision, and check the result without holding a whole unfinished system in my head.
 
@@ -216,7 +216,7 @@ That changes how I ask for tests. Instead of "write tests for this function", I 
 
 Test doubles deserve the same attention. A fake that quietly returns an empty result for a call nobody set up can hide a dependency I didn't know about. If that fake fails loudly instead, say with a `fatalError("yell at me pls")`, the test shows me it's exercising more than I intended.
 
-Good tests check behaviour, not implementation details. They describe what the code does from the outside: given this input, the user sees that result. They don't assert which internal function was called, in what order, with what arguments. Tests like that break every time I reorganise the code, even when nothing a user could notice has changed. Tests that check behaviour let me restructure freely, and they only fail when something that matters actually breaks. I've written this down as a [behavior tests skill](https://github.com/TheClooneyCollection/dotfiles/blob/main/.agents/skills/local/behavior-tests/SKILL.md), so the agents start from it too: tests follow the user's flow, and dependencies are passed in as plain functions.
+Good tests check behaviour, not implementation details. They describe what the code does from the outside: given this input, the user sees that result. They don't assert which internal function was called, in what order, with what arguments. Tests like that break every time I reorganise the code, even when nothing a user could notice has changed. Tests that check behaviour let me restructure freely, and they only fail when something that matters actually breaks. I've written this down as a [behavior tests skill](https://github.com/TheClooneyCollection/skills/blob/main/skills/behavior-tests/SKILL.md), so the agents start from it too: tests follow the user's flow, and dependencies are passed in as plain functions.
 
 And tests cost something. Project Stone Age taught me that. A suite that slows down every small change affects how often I run it and how quickly I find out something is wrong. Tests need engineering judgement too.
 
@@ -242,9 +242,9 @@ So the agent keeps notes. Decisions and the reasons behind them. What we found o
 
 The difference between a deliberate deferral and a forgotten problem matters. Neither is fixed yet. But only one of them has a place in the list of what's left to do.
 
-The same goes for how we work together. When I find myself making the same correction twice, it goes into the agent's instructions. Discuss the plan before writing code. One manageable step at a time. Explain an unfamiliar idea when it becomes relevant, not in a lecture up front. Record the decision once we've made it. Every rule in that file comes from a real correction. Even writing those rules has its own skill, [agent-docs](https://github.com/TheClooneyCollection/dotfiles/blob/main/.agents/skills/local/agent-docs/SKILL.md), so the instructions stay short and clear enough for an agent to actually follow.
+The same goes for how we work together. When I find myself making the same correction twice, it goes into the agent's instructions. Discuss the plan before writing code. One manageable step at a time. Explain an unfamiliar idea when it becomes relevant, not in a lecture up front. Record the decision once we've made it. Every rule in that file comes from a real correction. Even writing those rules has its own skill, [agent-docs](https://github.com/TheClooneyCollection/skills/blob/main/skills/agent-docs/SKILL.md), so the instructions stay short and clear enough for an agent to actually follow.
 
-And before I clear a session, I ask the agent to [wrap up](https://github.com/TheClooneyCollection/dotfiles/blob/main/.agents/skills/local/wrap-up/SKILL.md): what did we learn that isn't written down yet, and what's still unfinished? That way, clearing the session doesn't mean losing what the session taught us.
+And before I clear a session, I ask the agent to [wrap up](https://github.com/TheClooneyCollection/skills/blob/main/skills/wrap-up/SKILL.md): what did we learn that isn't written down yet, and what's still unfinished? That way, clearing the session doesn't mean losing what the session taught us.
 
 The rules make the way we work repeatable. I still have to notice when the agent drifts away from them.
 

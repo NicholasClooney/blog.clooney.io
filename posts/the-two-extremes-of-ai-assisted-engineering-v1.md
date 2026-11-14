@@ -105,7 +105,7 @@ Three things I couldn't get quickly on my own:
 ### The costs
 
 - **It's slow.** One feature becomes several small steps, each one reviewed.
-- **The agent wants to do too much.** Ask "where do we start?" and you get a plan for the whole thing. A single "ONE THING AT A TIME" from me, now written into a [tiny slice skill](https://github.com/TheClooneyCollection/dotfiles/blob/main/.agents/skills/local/tiny-slice/SKILL.md), keeps us working one step at a time.
+- **The agent wants to do too much.** Ask "where do we start?" and you get a plan for the whole thing. A single "ONE THING AT A TIME" from me, now written into a [tiny slice skill](https://github.com/TheClooneyCollection/skills/blob/main/skills/tiny-slice/SKILL.md), keeps us working one step at a time.
 - **I have to double-check it.** The agent can sound sure and still be wrong, so anything that matters gets checked by me before it goes in.
 - **Rules only stick once written down.** Every line in the instructions file comes from a real correction.
 
