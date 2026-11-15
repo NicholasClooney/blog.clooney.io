@@ -7,14 +7,11 @@ author:
 
 theme:
   showSelectors: true
-  previewResetDelay: 500
-  previewHoverDelay: 500
   transitionDuration: 0.5s
    # all options: linear, ease, ease-in, ease-out, ease-in-out
   transitionTimingFunction: ease-in-out
-  defaultId: sun
-  autoLightId: sun
-  autoDarkId: terminal
+  defaultId: paper
+  defaultMode: auto
 
 githubEmbed:
   collapseLineThreshold: 15
