@@ -82,6 +82,21 @@ active:
       - AI Agents
       - Terminal
 
+  - name: skills
+    summary: |
+      My agent skills for Claude Code and Codex: the workflows I keep handing
+      agents, written down once so they follow them every time. Illustrating a
+      post, cutting a release, polishing a README, fixing Vision Pro
+      streaming stutter, and more.
+    url: null
+    timeline: https://blog.nicholas.clooney.io/timeline/skills/
+    repo: https://github.com/TheClooneyCollection/skills
+    tech:
+      - Claude Code
+      - Codex
+      - AI Agents
+      - Markdown
+
   - name: EDControlRoom
     summary: |
       Commander-assist platform for Elite Dangerous that combines a real-time
@@ -148,6 +163,20 @@ active:
       - Browser Game
       - Strategy
       - Idle Game
+
+  - name: itslam-web
+    summary: |
+      An unofficial, fan-made web edition of "Is That Sheep Looking At Me? The
+      Card Game". Play complete games with friends in the browser, with private
+      hands kept hidden and a host that holds the shared state. Peer-to-peer
+      play over the internet is next.
+    url: https://itslam.clooney.io
+    repo: https://github.com/TheClooneyCollection/itslam-web
+    tech:
+      - Browser Game
+      - Card Game
+      - TypeScript
+      - WebSocket
 
   - name: Project Stone Age
     summary: |
