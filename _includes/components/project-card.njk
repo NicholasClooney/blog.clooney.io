@@ -12,13 +12,21 @@
     data-tags="{{ tagSlugs | join(',') }}"
   >
     {% if image.src %}
-      <figure class="project-card__media{% if imageFit == 'contain' %} project-card__media--contain{% endif %}">
+      <figure class="project-card__media{% if imageFit == 'contain' %} project-card__media--contain{% endif %}{% if image.browser %} project-card__media--browser{% endif %}">
+        {% if image.browser %}
+        <div class="project-card__browser">
+          <div class="project-card__browser-bar" aria-hidden="true">
+            <span class="project-card__browser-dots"><i></i><i></i><i></i></span>
+            <span class="project-card__browser-address">{{ image.browser }}</span>
+          </div>
+        {% endif %}
         <img
           src="{{ image.src }}"
           alt="{{ image.alt or (project.name ~ ' ' ~ ui.shared.projectCard.imageAltSuffix) }}"
           loading="lazy"
           decoding="async"
         >
+        {% if image.browser %}</div>{% endif %}
       </figure>
     {% endif %}
     <div class="project-card__body">

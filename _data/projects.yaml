@@ -172,6 +172,10 @@ active:
       play over the internet is next.
     url: https://itslam.clooney.io
     repo: https://github.com/TheClooneyCollection/itslam-web
+    image:
+      src: /assets/images/projects/itslam-web-hero.jpg
+      alt: Hero art for Is That Sheep Looking At Me? The Card Game, the flock-building party card game, shown in a browser window at itslam.clooney.io
+      browser: itslam.clooney.io
     tech:
       - Browser Game
       - Card Game
