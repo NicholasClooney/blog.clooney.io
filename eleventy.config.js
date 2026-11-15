@@ -16,6 +16,7 @@ import MarkdownItTocDoneRight from 'markdown-it-toc-done-right';
 // Use yaml for data
 import yaml from 'js-yaml';
 import excerpt from './lib/excerpt.js';
+import { projectHue, projectAddress } from './lib/project-cover.js';
 import { articleLayout } from './lib/article-layout.js';
 import { themeManifest } from './lib/theme-manifest.js';
 import { emitThemeBundle } from './lib/theme-bundle.js';
@@ -312,6 +313,8 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addDataExtension('yaml', (contents) => yaml.load(contents));
   eleventyConfig.addFilter('assetUrl', buildAssetUrl);
+  eleventyConfig.addFilter('projectHue', projectHue);
+  eleventyConfig.addFilter('projectAddress', projectAddress);
   eleventyConfig.addFilter('timelineRef', (entryOrRef) =>
     getTimelineEntryRef(entryOrRef),
   );
