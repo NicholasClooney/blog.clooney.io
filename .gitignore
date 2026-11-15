@@ -261,3 +261,6 @@ tags
 [._]*.un~
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,vim,emacs,node
+
+# Local drafts copied from elsewhere; never committed or built
+local-drafts/

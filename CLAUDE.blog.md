@@ -7,6 +7,7 @@ Read this file when doing any editorial work on blog.clooney.io. Also read `CLAU
 - `posts/` — long-form writing
 - `notes/` — short observations
 - `timeline/` — captain's log: shipped, published, wip, idea, thinking
+- `local-drafts/` — private source material, gitignored and in `.eleventyignore`. Never commit, build, push or quote it in a cross-project message; copy a piece into `posts/` or `notes/` only when the user asks.
 
 ## Git workflow
 
