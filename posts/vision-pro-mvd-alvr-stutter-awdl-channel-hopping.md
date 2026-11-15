@@ -19,7 +19,16 @@ excerpt: |
 
 Running Mac Virtual Display (MVD) and ALVR on my Apple Vision Pro at the same time made ALVR stutter. Even on a clean 5 GHz channel with no neighbours on it.
 
-My setup: I play Elite Dangerous in VR. The game runs on a Windows PC and streams to the headset over ALVR, while my Mac sits beside the game in MVD with my tools. That's two wireless streams landing on one headset.
+My setup: I play Elite Dangerous in VR. The game runs on a Windows PC, and my Mac sits beside the game in MVD with my tools. Four flows share the network:
+
+- The PC streams the game to the Vision Pro through ALVR.
+- The Mac streams itself to the Vision Pro through MVD.
+- The PC and the Mac reach each other with Parsec.
+- [EDControlRoom](https://github.com/TheClooneyCollection/EDControlRoom)'s hub (on the Mac) and peer (on the PC) talk to each other too.
+
+The first two are wireless streams landing on one headset, and that's where the trouble starts.
+
+**Update, November 15:** I first described this as two streams. There are four flows, but Parsec and EDControlRoom stay on the cable, as the network layout below shows.
 
 The fix: put the router on a non-DFS 80 MHz block, with its primary channel on AWDL's social channel (44 in the UK). Then the Apple devices stop hopping between the router's channel and AWDL's, and the stutter goes away.
 
@@ -55,6 +64,8 @@ Give the play space its own router. If you already have a main house router, kee
 
 Wire both the gaming PC and the Mac to that router. The two machines doing the heavy lifting shouldn't be competing with the headset for airtime. On the Mac, keep Ethernet first in the network service order, so its traffic takes the cable.
 
+That also covers the other two flows. Parsec and the EDControlRoom hub and peer travel between the PC and the Mac over Ethernet, through the VR router, so they don't use any airtime. One more reason to wire both machines.
+
 Then join the Vision Pro *and* the Mac's Wi-Fi to the same router. This one sounds odd, since the Mac is already wired. Its Wi-Fi isn't there for traffic. It's there to pin the Mac's radio to the same channel as the headset.
 
 Finally, keep the PC, the Mac and the Vision Pro on one subnet. ALVR discovery (and mDNS) doesn't cross routers, so if the headset sits behind a different router from the PC, ALVR simply won't find it.
@@ -64,17 +75,17 @@ Finally, keep the PC, the Mac and the Vision Pro on one subnet. ALVR discovery (
     eleventy:ignore
     class="theme-img-light"
     src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/network-layout.svg"
-    alt="Network diagram: the house router uplinks to a dedicated VR router; the gaming PC and the Mac are wired to it; the Vision Pro and the Mac's Wi-Fi join it, all on one subnet. ALVR streams from the PC through the router to the headset, and MVD streams from the Mac to the headset peer to peer over AWDL"
+    alt="Network diagram: the house router uplinks to a dedicated VR router; the gaming PC and the Mac are wired to it; the Vision Pro and the Mac's Wi-Fi join it, all on one subnet. ALVR streams from the PC through the router to the headset, and MVD streams from the Mac to the headset peer to peer over AWDL. Between the PC and the Mac, Parsec and the EDControlRoom hub and peer talk over Ethernet through the VR router"
     style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
   />
   <img
     eleventy:ignore
     class="theme-img-dark"
     src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/network-layout-dark.svg"
-    alt="Network diagram: the house router uplinks to a dedicated VR router; the gaming PC and the Mac are wired to it; the Vision Pro and the Mac's Wi-Fi join it, all on one subnet. ALVR streams from the PC through the router to the headset, and MVD streams from the Mac to the headset peer to peer over AWDL"
+    alt="Network diagram: the house router uplinks to a dedicated VR router; the gaming PC and the Mac are wired to it; the Vision Pro and the Mac's Wi-Fi join it, all on one subnet. ALVR streams from the PC through the router to the headset, and MVD streams from the Mac to the headset peer to peer over AWDL. Between the PC and the Mac, Parsec and the EDControlRoom hub and peer talk over Ethernet through the VR router"
     style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
   />
-  <figcaption>Two streams, one headset: ALVR goes through the VR router, MVD goes straight from the Mac over AWDL.</figcaption>
+  <figcaption>Four flows, one network: ALVR goes through the VR router, MVD goes straight from the Mac over AWDL, and Parsec and EDControlRoom stay on Ethernet between the PC and the Mac.</figcaption>
 </figure>
 
 ### Router settings
@@ -201,7 +212,7 @@ The same `wdutil info` output also shows CCA (how busy the channel is, in percen
 
 If the network looks right and you still see trouble, two more things are worth checking.
 
-On an NVIDIA PC, Parsec and ALVR share the NVENC encoder. Close Parsec while you're in VR. To see how busy the encoder is, watch the `enc` column of `nvidia-smi dmon -s u`.
+Parsec is one of the four flows, and on an NVIDIA PC it shares the NVENC encoder with ALVR. In my tests, streaming the PC with Parsec cost 2 to 3.5 ms per frame. Close Parsec while you're in VR. To see how busy the encoder is, watch the `enc` column of `nvidia-smi dmon -s u`.
 
 On the Mac, MVD traffic runs on `llw0`, not `awdl0`. `netstat -I llw0 -b` shows its byte counters, so you can see how much MVD is actually sending. For me it's normally roughly 11-16 Mbps.
 
