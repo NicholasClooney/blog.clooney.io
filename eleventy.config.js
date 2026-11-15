@@ -19,6 +19,7 @@ import excerpt from './lib/excerpt.js';
 import { projectHue, projectAddress } from './lib/project-cover.js';
 import { articleLayout } from './lib/article-layout.js';
 import { themeManifest } from './lib/theme-manifest.js';
+import { emitThemeBundle } from './lib/theme-bundle.js';
 import {
   configureI18n,
   collectionExclusions,
@@ -307,6 +308,7 @@ export default function (eleventyConfig) {
 
   eleventyConfig.on('eleventy.after', ({ dir }) => {
     emitFingerprintedAssets(dir?.output || '_site');
+    emitThemeBundle(dir?.output || '_site');
   });
 
   eleventyConfig.addDataExtension('yaml', (contents) => yaml.load(contents));
