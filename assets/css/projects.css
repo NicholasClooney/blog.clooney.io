@@ -16,6 +16,12 @@ html.theme {
   --project-browser-border: rgba(0, 0, 0, 0.12);
   --project-browser-address-bg: #fff;
   --project-browser-address-color: #5f6168;
+  --project-placeholder-l1: 0.94;
+  --project-placeholder-l2: 0.86;
+  --project-placeholder-chroma: 0.06;
+  --project-placeholder-name-l: 0.36;
+  --project-placeholder-page-bg: #fff;
+  --project-placeholder-file-color: #646b78;
 }
 
 html.theme.white,
@@ -36,6 +42,12 @@ html.theme.near-white {
   --project-browser-border: rgba(255, 255, 255, 0.14);
   --project-browser-address-bg: #1a1b1f;
   --project-browser-address-color: #b6b8bf;
+  --project-placeholder-l1: 0.3;
+  --project-placeholder-l2: 0.22;
+  --project-placeholder-chroma: 0.05;
+  --project-placeholder-name-l: 0.85;
+  --project-placeholder-page-bg: #1a1b1f;
+  --project-placeholder-file-color: #9aa3b1;
 }
 
 .projects-shell {
@@ -234,6 +246,57 @@ html.theme.near-white {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* Cover for projects without an image: a README page in the same window frame, tinted by a hue from the name. */
+.project-card__media--placeholder {
+  --project-hue: 220;
+  container-type: inline-size;
+  background-image: linear-gradient(
+    135deg,
+    oklch(var(--project-placeholder-l1, 0.94) var(--project-placeholder-chroma, 0.06) var(--project-hue)),
+    oklch(var(--project-placeholder-l2, 0.86) calc(var(--project-placeholder-chroma, 0.06) * 1.4) calc(var(--project-hue) + 35))
+  );
+}
+
+.project-card__media--placeholder .project-card__browser {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+}
+
+.project-card__placeholder-page {
+  display: flex;
+  flex-direction: column;
+  gap: 3cqw;
+  aspect-ratio: 100 / 48.5;
+  padding: 6% 7%;
+  background-color: var(--project-placeholder-page-bg, #fff);
+}
+
+.project-card__placeholder-file {
+  font: 2.6cqw/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--project-placeholder-file-color, #646b78);
+}
+
+.project-card__placeholder-name {
+  font: 700 7cqw/1.05 system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+  color: oklch(var(--project-placeholder-name-l, 0.36) 0.09 var(--project-hue));
+  overflow-wrap: anywhere;
+}
+
+.project-card__placeholder-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4cqw;
+  margin-top: auto;
+}
+
+.project-card__placeholder-pills span {
+  padding: 0.5em 0.9em;
+  border-radius: 999px;
+  font: 2.4cqw/1 system-ui, -apple-system, sans-serif;
+  background-color: oklch(var(--project-placeholder-l1, 0.94) var(--project-placeholder-chroma, 0.06) var(--project-hue));
+  color: oklch(var(--project-placeholder-name-l, 0.36) 0.09 var(--project-hue));
 }
 
 .project-card__title {

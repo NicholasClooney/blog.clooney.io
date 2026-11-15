@@ -28,6 +28,25 @@
         >
         {% if image.browser %}</div>{% endif %}
       </figure>
+    {% else %}
+      {% set tech = project.tech or [] %}
+      <figure class="project-card__media project-card__media--placeholder" style="--project-hue: {{ project.name | projectHue }}" aria-hidden="true">
+        <div class="project-card__browser">
+          <div class="project-card__browser-bar">
+            <span class="project-card__browser-dots"><i></i><i></i><i></i></span>
+            <span class="project-card__browser-address">{{ project | projectAddress }}</span>
+          </div>
+          <div class="project-card__placeholder-page">
+            <span class="project-card__placeholder-file">README.md</span>
+            <span class="project-card__placeholder-name">{{ project.name }}</span>
+            {% if tech | length %}
+              <span class="project-card__placeholder-pills">
+                {% for item in tech %}{% if loop.index <= 3 %}<span>{{ item }}</span>{% endif %}{% endfor %}
+              </span>
+            {% endif %}
+          </div>
+        </div>
+      </figure>
     {% endif %}
     <div class="project-card__body">
       <header class="project-card__header">
