@@ -11,6 +11,7 @@ theme:
    # all options: linear, ease, ease-in, ease-out, ease-in-out
   transitionTimingFunction: ease-in-out
   defaultId: paper
+  defaultStrategy: fun
   defaultMode: auto
 
 githubEmbed:
