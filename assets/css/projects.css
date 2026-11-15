@@ -12,6 +12,10 @@ html.theme {
   --project-card-color: inherit;
   --project-card-media-bg: rgba(0, 0, 0, 0.05);
   --project-card-divider: rgba(0, 0, 0, 0.05);
+  --project-browser-bg: #e9e9ec;
+  --project-browser-border: rgba(0, 0, 0, 0.12);
+  --project-browser-address-bg: #fff;
+  --project-browser-address-color: #5f6168;
 }
 
 html.theme.white,
@@ -28,6 +32,10 @@ html.theme.near-white {
   --project-card-shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.5);
   --project-card-media-bg: rgba(255, 255, 255, 0.08);
   --project-card-divider: rgba(255, 255, 255, 0.18);
+  --project-browser-bg: #2a2c31;
+  --project-browser-border: rgba(255, 255, 255, 0.14);
+  --project-browser-address-bg: #1a1b1f;
+  --project-browser-address-color: #b6b8bf;
 }
 
 .projects-shell {
@@ -160,6 +168,72 @@ html.theme.near-white {
 
 .project-card__media--contain img {
   object-fit: contain;
+}
+
+/* Browser window around a site screenshot; sized in % so the whole image fits the 100:56 frame. */
+.project-card__media--browser {
+  container-type: inline-size;
+}
+
+.project-card__browser {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 80%;
+  transform: translateY(-50%);
+  border: 1px solid var(--project-browser-border, rgba(0, 0, 0, 0.12));
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: var(--project-browser-bg, #e9e9ec);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.project-card__browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 4%;
+  padding: 0 3%;
+  aspect-ratio: 100 / 7.5;
+  font: 2.4cqw/1 system-ui, -apple-system, sans-serif;
+}
+
+.project-card__browser-dots {
+  display: flex;
+  gap: 0.45em;
+}
+
+.project-card__browser-dots i {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+  background: #ff5f57;
+}
+
+.project-card__browser-dots i:nth-child(2) {
+  background: #febc2e;
+}
+
+.project-card__browser-dots i:nth-child(3) {
+  background: #28c840;
+}
+
+.project-card__browser-address {
+  flex: 1;
+  padding: 0.35em 0.8em;
+  border-radius: 999px;
+  background-color: var(--project-browser-address-bg, #fff);
+  color: var(--project-browser-address-color, #5f6168);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.project-card__media--browser .project-card__browser img {
+  position: static;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .project-card__title {
