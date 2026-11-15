@@ -12,6 +12,8 @@ theme:
   transitionTimingFunction: ease-in-out
   # theme switch crossfade; builder default 0.4s
   fadeDuration: 0.7s
+  # blur at the crossfade midpoint; builder default 0 (none)
+  fadeBlur: 8px
   defaultId: paper
   defaultStrategy: fun
   defaultMode: auto
