@@ -18,6 +18,7 @@ import yaml from 'js-yaml';
 import excerpt from './lib/excerpt.js';
 import { projectHue, projectAddress } from './lib/project-cover.js';
 import { articleLayout } from './lib/article-layout.js';
+import { themeManifest } from './lib/theme-manifest.js';
 import {
   configureI18n,
   collectionExclusions,
@@ -619,6 +620,8 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter('excerpt', excerpt);
   eleventyConfig.addFilter('articleLayout', articleLayout);
+  eleventyConfig.addFilter('themeManifest', themeManifest);
+  eleventyConfig.addFilter('themeInitJs', () => fs.readFileSync(new URL('./assets/js/theme-init.js', import.meta.url), 'utf8'));
   eleventyConfig.addFilter('themeBaseCss', () => fs.readFileSync(new URL('./assets/css/theme-base.css', import.meta.url), 'utf8'));
 
   eleventyConfig.addFilter('absoluteUrl', (path, base = '') => {
