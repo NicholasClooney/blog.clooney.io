@@ -18,3 +18,9 @@ Drop by the blog for new posts and ideas as they land.
 - Shared-edge mode (no host ports; for reverse proxy via Caddy on the `edge` network): `docker network create edge 2>/dev/null || true`
 - Run: `docker compose -f compose.yml -f compose.edge.yml up -d`
 - Caddy (in the ingress stack) should `reverse_proxy` to the `dev` or `prod` container names on the `edge` network.
+
+## Theme presets
+
+Ten CSS skins share the same pages: Warm Paper, Swiss, Brutalist, Retro web / Zine, Soft Glass, Liquid Glass Light, Liquid Glass Dark, Starship, Retro-futurist and Holo. Seven follow light/dark mode; Liquid Glass pairs separate light/dark skins with Aurora and Indigo dark palettes; Holo is dark only. The header offers explicit previews and persistent theme/mode preferences.
+
+See [the theme system](docs/theme-system.md) for configuration, custom skins and v1 migration.
