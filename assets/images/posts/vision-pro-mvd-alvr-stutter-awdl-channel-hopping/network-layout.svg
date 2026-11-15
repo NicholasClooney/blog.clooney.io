@@ -1,12 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 532" width="100%" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 556" width="100%" role="img" aria-labelledby="t d">
   <title id="t">Network layout for Vision Pro streaming</title>
-  <desc id="d">The house router uplinks to a dedicated VR router. The gaming PC and the Mac are wired to the VR router. The Vision Pro and the Mac's Wi-Fi join the VR router. All three devices share one subnet. ALVR streams from the PC through the router to the headset. MVD streams from the Mac to the headset peer to peer over AWDL.</desc>
+  <desc id="d">The house router uplinks to a dedicated VR router. The gaming PC and the Mac are wired to the VR router. The Vision Pro and the Mac's Wi-Fi join the VR router. All three devices share one subnet. ALVR streams from the PC through the router to the headset. MVD streams from the Mac to the headset peer to peer over AWDL. Between the PC and the Mac, Parsec and the EDControlRoom hub and peer talk over Ethernet through the VR router, so they use no airtime.</desc>
   <defs>
     <marker id="a-alvr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M1 1L9 5L1 9z" fill="#e8590c"/>
     </marker>
     <marker id="a-mvd" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M1 1L9 5L1 9z" fill="#7048e8"/>
+    </marker>
+    <marker id="a-parsec" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M1 1L9 5L1 9z" fill="#0c8599"/>
+    </marker>
+    <marker id="a-edcr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M1 1L9 5L1 9z" fill="#2f9e44"/>
     </marker>
   </defs>
   <style>
@@ -21,8 +27,10 @@
     .wifi { stroke: #868e96; stroke-width: 2; stroke-dasharray: 2 6; stroke-linecap: round; fill: none; }
     .alvr { stroke: #e8590c; stroke-width: 3; fill: none; stroke-linecap: round; }
     .mvd { stroke: #7048e8; stroke-width: 3; fill: none; stroke-linecap: round; }
+    .parsec { stroke: #0c8599; stroke-width: 2.5; fill: none; stroke-linecap: round; }
+    .edcr { stroke: #2f9e44; stroke-width: 2.5; fill: none; stroke-linecap: round; }
   </style>
-  <rect width="760" height="532" rx="16" fill="#f8f9fb"/>
+  <rect width="760" height="556" rx="16" fill="#f8f9fb"/>
   <text x="28" y="40" class="title">Network layout</text>
   <text x="28" y="62" class="sub">Wire the heavy lifters, keep the headset close, and keep everything on one subnet.</text>
 
@@ -44,6 +52,10 @@
   <path d="M318 372 L374 196" class="alvr" marker-end="url(#a-alvr)"/>
   <path d="M506 138 L634 218" class="alvr" marker-end="url(#a-alvr)"/>
   <path d="M566 422 C 640 422 664 384 662 316" class="mvd" marker-end="url(#a-mvd)"/>
+  <path d="M386 400 H434" class="parsec" marker-start="url(#a-parsec)" marker-end="url(#a-parsec)"/>
+  <text x="410" y="393" class="tag" text-anchor="middle" style="fill:#0c8599;font-weight:600">Parsec</text>
+  <path d="M386 432 H434" class="edcr" marker-start="url(#a-edcr)" marker-end="url(#a-edcr)"/>
+  <text x="410" y="425" class="tag" text-anchor="middle" style="fill:#2f9e44;font-weight:600">EDCR</text>
   <text x="674" y="372" class="tag" style="fill:#7048e8;font-weight:600">AWDL</text>
 
   <!-- nodes -->
@@ -57,11 +69,11 @@
 
   <rect x="250" y="380" width="130" height="60" rx="12" class="node"/>
   <text x="315" y="406" class="name">Gaming PC</text>
-  <text x="315" y="425" class="role">ALVR server</text>
+  <text x="315" y="425" class="role">ALVR · EDCR peer</text>
 
   <rect x="440" y="380" width="126" height="60" rx="12" class="node"/>
   <text x="503" y="406" class="name">Mac</text>
-  <text x="503" y="425" class="role">MVD</text>
+  <text x="503" y="425" class="role">MVD · EDCR hub</text>
   <text x="503" y="460" class="role">Wi-Fi joined too, to pin its channel</text>
 
   <rect x="604" y="238" width="116" height="70" rx="35" class="node" style="stroke:#212529;stroke-width:2"/>
@@ -74,5 +86,10 @@
     <path d="M120 6 H148" class="wifi"/><text x="156" y="11" class="tag">Wi-Fi</text>
     <path d="M230 6 H258" class="alvr" marker-end="url(#a-alvr)"/><text x="268" y="11" class="tag">ALVR stream</text>
     <path d="M380 6 H408" class="mvd" marker-end="url(#a-mvd)"/><text x="418" y="11" class="tag">MVD stream, peer to peer over AWDL</text>
+  </g>
+  <g transform="translate(28,530)">
+    <path d="M2 6 H26" class="parsec" marker-start="url(#a-parsec)" marker-end="url(#a-parsec)"/><text x="36" y="11" class="tag">Parsec</text>
+    <path d="M122 6 H146" class="edcr" marker-start="url(#a-edcr)" marker-end="url(#a-edcr)"/><text x="156" y="11" class="tag">EDCR hub and peer</text>
+    <text x="300" y="11" class="tag">PC to Mac, over Ethernet through the VR router, no airtime</text>
   </g>
 </svg>
