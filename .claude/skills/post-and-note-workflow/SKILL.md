@@ -1,6 +1,6 @@
 ---
 name: post and note workflow
-description: Follow the editorial workflow for creating, editing, or publishing content in posts/ or notes/ on blog.clooney.io. Use when the task involves a new post, a new note, or published writing that should ship with a matching timeline entry.
+description: Follow the editorial workflow for creating, editing, or publishing content in posts/ or notes/ on blog.clooney.io. Use when the task involves a new post, a new note, or published writing that should ship with a matching timeline entry, or when the user gives a blog idea to stub out ("blog idea, no writing").
 ---
 
 Use this workflow for editorial work in `posts/` and `notes/`.
@@ -27,3 +27,13 @@ Use this workflow for editorial work in `posts/` and `notes/`.
 6. Use `.claude/skills/timeline-entry/SKILL.md` for timeline file naming, timestamp rules, front matter, body style, and topic-tag carryover.
 7. Create or update the Chinese counterpart (`zh/posts/<slug>.md` or `zh/notes/<slug>.md`) so both languages match.
 8. Before finishing, verify that the English and Chinese versions, the series entry and the timeline entry agree on title, URL path and topic context.
+
+## Idea stub and fact gathering
+
+For a "blog idea, no writing":
+
+1. Stub it in `posts/` (or `notes/` if asked): `draft: true`, a `TODO:` title, the gist as bullets, no prose. Skip zh, the series entry and the timeline entry until publish; a draft listed in `_data/series.yaml` fails the production build. Commit locally on main; no side branch unless the user asks.
+2. Don't push without the user's yes via main: drafts still build in production (only hidden from listings), so a push makes the URL live.
+3. Ask the other project's secondary for facts, as in agent-chain's "Working across projects". Facts only, no drafting.
+4. Save them to `.temp/<slug>/facts.md` (gitignored). Start it with a caution header naming what must stay out of the post: bypass specifics, personal location, hostnames, IPs, Tailscale names, personal paths, private repo names.
+5. Done when a privacy grep of the facts is clean and main has the stub path, commit state and a short fact summary.
