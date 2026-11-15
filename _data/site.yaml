@@ -10,6 +10,8 @@ theme:
   transitionDuration: 0.5s
    # all options: linear, ease, ease-in, ease-out, ease-in-out
   transitionTimingFunction: ease-in-out
+  # theme switch crossfade; builder default 0.4s
+  fadeDuration: 0.7s
   defaultId: paper
   defaultStrategy: fun
   defaultMode: auto
