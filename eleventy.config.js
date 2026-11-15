@@ -17,6 +17,7 @@ import MarkdownItTocDoneRight from 'markdown-it-toc-done-right';
 import yaml from 'js-yaml';
 import excerpt from './lib/excerpt.js';
 import { projectHue, projectAddress } from './lib/project-cover.js';
+import { articleLayout } from './lib/article-layout.js';
 import {
   configureI18n,
   collectionExclusions,
@@ -617,6 +618,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter('collectionSortKey', getCollectionSortKey);
 
   eleventyConfig.addFilter('excerpt', excerpt);
+  eleventyConfig.addFilter('articleLayout', articleLayout);
 
   eleventyConfig.addFilter('absoluteUrl', (path, base = '') => {
     if (!path) return '';
