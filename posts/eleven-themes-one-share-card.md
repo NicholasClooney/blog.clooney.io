@@ -34,8 +34,7 @@ themes post (en and zh) linking here.
 ## Two designers in parallel
 
 - Claude and Codex each drew their own set of cards from the same brief (Swiss, Retro sci-fi, Glass), into one lab page.
-- Every card has an ID and a Copy ID button, so I could review on my phone and reply with "C2-glass-series2-dark: progress bar to the bottom".
-- That habit is now part of the design-lab skill (link the skills release).
+- Every card has an ID and a Copy ID button (next section).
 - My opinion, stated plainly: if it isn't obvious, Claude is much stronger when it comes to design.
   - Claude's round 1 had a point of view per style: Swiss's red date and hashtags beside a huge title, Retro's sun and rings, Glass's frosted panel with chips. It also made series and timeline cards (check the round 1 brief before saying whether they were asked for).
   - Codex's round 1 (Cover, Index, Type, Zine) shared one layout: kind and date on top, the title, the site name at the bottom. The four styles differed mostly in colour and frame. Zh cards kept the English "Post" label and the ISO date, and page cards dropped the excerpt.
@@ -49,6 +48,27 @@ themes post (en and zh) linking here.
   - Page: C-swiss-page vs X-type-page ("Timeline")
   - Series and timeline: Codex's round 1 had none, so no pair. One sentence says so, and C-retro-series and C-swiss-shipped show what Claude added.
 - Copy the eight round 1 PNGs into the post's image folder at write time, not before.
+
+## Review by ID, from the phone
+
+<!-- Could grow into its own post: the review loop on its own, beyond share cards. -->
+
+- The loop: agents render a round into a private lab page; I open it on my phone; I reply in the Claude app with an ID and a few words; the agent fixes exactly that card and re-renders.
+- Every image on every lab page carries a stable ID and a Copy ID button. The prefix says where it came from: C- for Claude, X- for Codex, C2-/C3- for revision rounds, G- for a real blog card, S- for a style showcase sample.
+- Why IDs beat describing a card:
+  - "The Retro card with the long DNS title, the dark one, second row" is slow to write and easy to misread, especially among dozens of near-identical cards.
+  - An ID is exact, survives the page being regenerated, and can be pasted with no thinking. The words go into what to change, not which card.
+  - Agents can grep an ID straight to a file, so nothing is lost when a message passes through two or three agents.
+- Real examples from the implementation check, each one line from me:
+  - "G-posts--drafts--archived--ansible-role-umami: symbol error". The title had a non-breaking hyphen (U+2011) the card fonts lack, so it drew a box. It led to a general fix: normalise card text and check every card for missing glyphs.
+  - "G-zh-posts--codex-in-claude-code: title clipped". The longest Chinese title ran past the bottom of the card. It led to a measured title fit for every style.
+  - Earlier design rounds: "C2-glass-series2-dark: progress bar to the bottom".
+- The phone setup:
+  - The lab is a tiny local server that only serves the images and gallery pages (never drafts or notes), reachable from my phone over my private network (Tailscale), not the public internet.
+  - The replies go through the Claude iOS app to the agent that talks to me; it relays to the agents doing the work.
+  - So I can review a round without sitting at the Mac. (Ask the user for a real moment to use here.)
+- That habit is now part of the design-lab skill (link the skills release).
+- Show: a phone screenshot of a gallery card with its ID and Copy ID button, next to the one-line reply it produced. Crop out the address bar.
 
 ## The small human notes
 
