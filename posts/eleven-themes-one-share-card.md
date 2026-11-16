@@ -28,7 +28,7 @@ themes post (en and zh) linking here.
 - Opening: the themes post ended with eleven skins and Fun mode. Then I shared a link and saw the same old card.
 - The theme lives in the reader's browser. The share card is rendered once at build time and shown to people who have never visited.
 - So eleven themes collapse to one choice per site. Kind, date and series can still vary the card; the look can't.
-- Not even light and dark: the card is one static PNG for everyone, so it can't follow the reader's colour scheme either. The site picks one (Retro light or dark, to be decided).
+- Not even light and dark: the card is one static PNG for everyone, so it can't follow the reader's colour scheme either. The site picks one: Retro light. I wish cards could have light and dark versions; the platforms that show them give no way to ask.
 - Show: today's card next to the new one (real generated images).
 
 ## Two designers in parallel
