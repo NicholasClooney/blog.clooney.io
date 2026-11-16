@@ -35,7 +35,19 @@ themes post (en and zh) linking here.
 - Claude and Codex each drew their own set of cards from the same brief (Swiss, Retro sci-fi, Glass), into one lab page.
 - Every card has an ID and a Copy ID button, so I could review on my phone and reply with "C2-glass-series2-dark: progress bar to the bottom".
 - That habit is now part of the design-lab skill (link the skills release).
-- Show: a strip of round 1 cards from both agents.
+- My opinion, stated plainly: if it isn't obvious, Claude is much stronger when it comes to design.
+  - Claude's round 1 had a point of view per style: Swiss's red date and hashtags beside a huge title, Retro's sun and rings, Glass's frosted panel with chips. It also made series and timeline cards (check the round 1 brief before saying whether they were asked for).
+  - Codex's round 1 (Cover, Index, Type, Zine) shared one layout: kind and date on top, the title, the site name at the bottom. The four styles differed mostly in colour and frame. Zh cards kept the English "Post" label and the ISO date, and page cards dropped the excerpt.
+- What Codex was good at, also plainly:
+  - Robustness. Type and Index kept the long title and the zh title comfortably inside the same layout as the short one, with nothing cramped or overflowing.
+  - Speed. Its cards rendered in about 25 to 55 ms each.
+- Figure: matched pairs, same titles, Claude left and Codex right. Pair similar styles so it's fair: typographic with typographic, playful with playful.
+  - Post: C-swiss-medium vs X-type-medium ("What's Worth Keeping: On Humanness in the Age of AI")
+  - Long title: C-retro-long vs X-zine-long ("When DNS Was Innocent: ...")
+  - Chinese: C-swiss-zh vs X-type-zh (一个有家的感觉的小小数字花园)
+  - Page: C-swiss-page vs X-type-page ("Timeline")
+  - Series and timeline: Codex's round 1 had none, so no pair. One sentence says so, and C-retro-series and C-swiss-shipped show what Claude added.
+- Copy the eight round 1 PNGs into the post's image folder at write time, not before.
 
 ## The small human notes
 
