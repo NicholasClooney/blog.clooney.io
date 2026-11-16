@@ -28,6 +28,7 @@ themes post (en and zh) linking here.
 - Opening: the themes post ended with eleven skins and Fun mode. Then I shared a link and saw the same old card.
 - The theme lives in the reader's browser. The share card is rendered once at build time and shown to people who have never visited.
 - So eleven themes collapse to one choice per site. Kind, date and series can still vary the card; the look can't.
+- Not even light and dark: the card is one static PNG for everyone, so it can't follow the reader's colour scheme either. The site picks one (Retro light or dark, to be decided).
 - Show: today's card next to the new one (real generated images).
 
 ## Two designers in parallel
@@ -65,6 +66,7 @@ themes post (en and zh) linking here.
 - Glass costs about ten times more per card than Retro, because of the blurred background. Every deploy re-renders every card.
 - So the blog defaults to Retro sci-fi, and Glass stays an option.
 - Show: the build cost table (per card, whole site).
+- I considered rendering cards on my Mac and committing them, to dodge Glass's cost. With Retro at about 22 s for the whole site, it wasn't worth it; Cloudflare keeps rendering.
 
 ## Optional: when the chat gets swamped
 
