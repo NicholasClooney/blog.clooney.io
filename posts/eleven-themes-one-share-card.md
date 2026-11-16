@@ -36,7 +36,7 @@ themes post (en and zh) linking here.
 - Claude and Codex each drew their own set of cards from the same brief (Swiss, Retro sci-fi, Glass), into one lab page.
 - Every card has an ID and a Copy ID button (next section).
 - My opinion, stated plainly: if it isn't obvious, Claude is much stronger when it comes to design.
-  - Claude's round 1 had a point of view per style: Swiss's red date and hashtags beside a huge title, Retro's sun and rings, Glass's frosted panel with chips. It also made series and timeline cards (check the round 1 brief before saying whether they were asked for).
+  - Claude's round 1 had a point of view per style: Swiss's red date and hashtags beside a huge title, Retro's sun and rings, Glass's frosted panel with chips. It also made series and timeline cards, which only its brief asked for, so they don't count against Codex.
   - Codex's round 1 (Cover, Index, Type, Zine) shared one layout: kind and date on top, the title, the site name at the bottom. The four styles differed mostly in colour and frame. Zh cards kept the English "Post" label and the ISO date, and page cards dropped the excerpt.
 - What Codex was good at, also plainly:
   - Robustness. Type and Index kept the long title and the zh title comfortably inside the same layout as the short one, with nothing cramped or overflowing.
@@ -46,7 +46,7 @@ themes post (en and zh) linking here.
   - Long title: C-retro-long vs X-zine-long ("When DNS Was Innocent: ...")
   - Chinese: C-swiss-zh vs X-type-zh (一个有家的感觉的小小数字花园)
   - Page: C-swiss-page vs X-type-page ("Timeline")
-  - Series and timeline: Codex's round 1 had none, so no pair. One sentence says so, and C-retro-series and C-swiss-shipped show what Claude added.
+  - Series and timeline: only Claude's brief asked for these, so no pair. One sentence says so, and C-retro-series and C-swiss-shipped show what Claude made.
 - Copy the eight round 1 PNGs into the post's image folder at write time, not before.
 
 ## Review by ID, from the phone
@@ -67,7 +67,7 @@ themes post (en and zh) linking here.
   - The lab is a tiny local server that only serves the images and gallery pages (never drafts or notes), reachable from my phone over my private network (Tailscale), not the public internet.
   - The replies go through the Claude iOS app to the agent that talks to me; it relays to the agents doing the work.
   - So I can review a round without sitting at the Mac. (Ask the user for a real moment to use here.)
-- That habit is now part of the design-lab skill (link the skills release).
+- That habit is now part of the design-lab skill: stable gallery IDs shipped in skills [v1.9.0](https://github.com/TheClooneyCollection/skills/releases/tag/v1.9.0).
 - Show: a phone screenshot of a gallery card with its ID and Copy ID button, next to the one-line reply it produced. Crop out the address bar.
 
 ## The small human notes
@@ -90,7 +90,7 @@ themes post (en and zh) linking here.
 
 ## Optional: when the chat gets swamped
 
-- One line: so many review messages flowed between agents that I added a note feature to tmux-agents (link the release).
+- One line: so many review messages flowed between agents that I added quiet agent notes to [tmux-agents](https://github.com/TheClooneyCollection/tmux-agents). Not in a release yet; link the release tag that ships it before publishing.
 
 ## The card for this post
 
