@@ -18,11 +18,11 @@ excerpt: |
 
 在我的 Apple Vision Pro 上同时运行 Mac Virtual Display（MVD）和 ALVR，会让 ALVR 卡顿。即使选了一个干净、没有邻居占用的 5 GHz 信道，也一样。
 
-我的配置是这样的：我用 VR 玩 Elite Dangerous。游戏在 Windows PC 上运行，我的 Mac 通过 MVD 显示在游戏旁边，上面开着我的工具。网络上共有四路数据流：
+我的配置是这样的：我用 VR 玩 Elite Dangerous。游戏在一台 Windows PC 上运行，这台 PC 没接显示器，也没接键盘和鼠标。我的 Mac 通过 MVD 显示在游戏旁边，上面开着我的工具。网络上共有四路数据流：
 
 - PC 通过 ALVR 把游戏串流到 Vision Pro。
 - Mac 通过 MVD 把自己串流到 Vision Pro。
-- PC 和 Mac 之间用 Parsec 互相连接。
+- Mac 通过 Parsec 操作 PC。PC 没有显示器和键鼠，Parsec 随 PC 一起启动，我一直直接从 Mac 上通过它操作 PC。
 - [EDControlRoom](https://github.com/TheClooneyCollection/EDControlRoom) 的 hub（在 Mac 上）和 peer（在 PC 上）也在互相通信。
 
 前两路是无线串流，同时传到一个头显上，问题就出在这里。
@@ -55,15 +55,15 @@ excerpt: |
 <figure style="text-align: center;">
   <img
     src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/room-placement.png"
-    alt="俯视平面图：家用主路由器在另一个房间；专用的 VR 路由器放在桌子一端，用网线连接 PC 和 Mac，并且与游戏区域里的头显之间视线无遮挡"
+    alt="俯视平面图：家用主路由器在另一个房间；专用的 VR 路由器放在桌子一端，用网线连接 Mac 和 PC（只有一台主机，没有显示器、键盘和鼠标），一条 Parsec 虚线从 Mac 经 VR 路由器通到 PC，并且与游戏区域里的头显之间视线无遮挡"
     style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
   />
-  <figcaption>VR 路由器放在游戏区域旁边，用网线连接 PC 和 Mac，与头显之间视线无遮挡。</figcaption>
+  <figcaption>VR 路由器放在游戏区域旁边，用网线连接无显示器的 PC 和 Mac，与头显之间视线无遮挡。</figcaption>
 </figure>
 
 游戏 PC 和 Mac 都用网线连接这台路由器。这两台承担主要工作的机器，不该再和头显争用无线传输时间。在 Mac 上，把 Ethernet 放在网络服务顺序的首位，让它的流量走网线。
 
-另外两路数据流也因此走了网线。Parsec 以及 EDControlRoom 的 hub 和 peer 在 PC 和 Mac 之间经 VR 路由器走 Ethernet，完全不占用无线传输时间。这也是两台机器都该接网线的又一个理由。
+另外两路数据流也因此走了网线。Parsec（Mac 用它操作无显示器的 PC）以及 EDControlRoom 的 hub 和 peer 在 PC 和 Mac 之间经 VR 路由器走 Ethernet，完全不占用无线传输时间。这也是两台机器都该接网线的又一个理由。
 
 然后，让 Vision Pro *和* Mac 的 Wi-Fi 都连接到同一台路由器。这听起来有点奇怪，因为 Mac 已经接了网线。这里开 Wi-Fi 不是为了传流量，而是为了让 Mac 的无线电保持在和头显相同的信道上。
 
@@ -74,14 +74,14 @@ excerpt: |
     eleventy:ignore
     class="theme-img-light"
     src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/network-layout.svg"
-    alt="网络示意图：家用主路由器上联到一台专用的 VR 路由器；游戏 PC 和 Mac 都用网线连到它；Vision Pro 和 Mac 的 Wi-Fi 也连到它，三者在同一个子网。ALVR 从 PC 经路由器串流到头显，MVD 则从 Mac 通过 AWDL 点对点串流到头显。PC 和 Mac 之间，Parsec 以及 EDControlRoom 的 hub 和 peer 经 VR 路由器走网线互相通信"
+    alt="网络示意图：家用主路由器上联到一台专用的 VR 路由器；游戏 PC 和 Mac 都用网线连到它；Vision Pro 和 Mac 的 Wi-Fi 也连到它，三者在同一个子网。ALVR 从 PC 经路由器串流到头显，MVD 则从 Mac 通过 AWDL 点对点串流到头显。PC 没有显示器和键鼠，由 Mac 通过 Parsec 操作。PC 和 Mac 之间，Parsec 以及 EDControlRoom 的 hub 和 peer 经 VR 路由器走网线互相通信"
     style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
   />
   <img
     eleventy:ignore
     class="theme-img-dark"
     src="/assets/images/posts/vision-pro-mvd-alvr-stutter-awdl-channel-hopping/network-layout-dark.svg"
-    alt="网络示意图：家用主路由器上联到一台专用的 VR 路由器；游戏 PC 和 Mac 都用网线连到它；Vision Pro 和 Mac 的 Wi-Fi 也连到它，三者在同一个子网。ALVR 从 PC 经路由器串流到头显，MVD 则从 Mac 通过 AWDL 点对点串流到头显。PC 和 Mac 之间，Parsec 以及 EDControlRoom 的 hub 和 peer 经 VR 路由器走网线互相通信"
+    alt="网络示意图：家用主路由器上联到一台专用的 VR 路由器；游戏 PC 和 Mac 都用网线连到它；Vision Pro 和 Mac 的 Wi-Fi 也连到它，三者在同一个子网。ALVR 从 PC 经路由器串流到头显，MVD 则从 Mac 通过 AWDL 点对点串流到头显。PC 没有显示器和键鼠，由 Mac 通过 Parsec 操作。PC 和 Mac 之间，Parsec 以及 EDControlRoom 的 hub 和 peer 经 VR 路由器走网线互相通信"
     style="display: block; margin: 0 auto; width: 560px; height: auto; max-width: 100%;"
   />
   <figcaption>四路数据流，一个网络：ALVR 走 VR 路由器，MVD 从 Mac 经 AWDL 直接传到头显，Parsec 和 EDControlRoom 则在 PC 和 Mac 之间走网线。</figcaption>
@@ -211,7 +211,7 @@ Vision Pro 使用相同的 AWDL 社交信道，所以应该也能以同样的方
 
 如果网络看起来没问题，却还是不顺畅，还有两件事值得检查。
 
-Parsec 是这四路数据流之一。在配备 NVIDIA 显卡的 PC 上，它和 ALVR 共用 NVENC 编码器。在我的测试中，用 Parsec 串流 PC 会让每帧多花 2 到 3.5 ms。使用 VR 时，关掉 Parsec。要看编码器有多忙，可以观察 `enc` 列，运行 `nvidia-smi dmon -s u` 就能看到。
+Parsec 是这四路数据流之一。在配备 NVIDIA 显卡的 PC 上，它和 ALVR 共用 NVENC 编码器。在我的测试中，用 Parsec 串流 PC 会让每帧多花 2 到 3.5 ms。我的 PC 没有显示器，Parsec 随 PC 一起启动，我一直从 Mac 上通过它操作 PC；不过进了 VR 之后，我会断开 Parsec 连接。要看编码器有多忙，可以观察 `enc` 列，运行 `nvidia-smi dmon -s u` 就能看到。
 
 在 Mac 上，MVD 流量走的是 `llw0`，不是 `awdl0`。`netstat -I llw0 -b` 会显示它的字节计数器，让你看到 MVD 实际发送了多少数据。我这里通常大约是 11-16 Mbps。
 
