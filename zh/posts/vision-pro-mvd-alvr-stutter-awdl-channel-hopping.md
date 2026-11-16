@@ -29,6 +29,8 @@ excerpt: |
 
 **更新，11 月 15 日：** 我最初把这里写成了两路串流。实际上有四路数据流，不过 Parsec 和 EDControlRoom 都走网线，下面的网络布局会讲到。
 
+**更新，11 月 16 日：** 我的游戏 PC 没有显示器，也没接键盘和鼠标，由 Mac 通过 Parsec 操作。我相应更新了配置说明、平面图和网络示意图。
+
 解决办法：把路由器设在一个非 DFS 的 80 MHz 信道块上，并将主信道设为 AWDL 的社交信道（英国是 44）。这样，Apple 设备就不用在路由器和 AWDL 的信道之间来回跳转，卡顿也就消失了。
 
 如果你只想把自己的配置调好，我已经把这些整理成了一个 agent 技能：[avp-mvd-alvr-stutter-resolver](https://github.com/TheClooneyCollection/skills/tree/main/skills/avp-mvd-alvr-stutter-resolver)。把它交给你的 agent，它就会检查并修正你的配置。如果你想了解细节，就继续往下看。
@@ -127,6 +129,7 @@ excerpt: |
 |---|---|
 | 路由器 | 专用，靠近游戏区域 |
 | PC 和 Mac | 有线连接；Mac 上优先使用 Ethernet |
+| 游戏 PC | 不接显示器也没问题；从 Mac 上用 Parsec 操作 |
 | Vision Pro 和 Mac Wi-Fi | 连接同一台路由器 |
 | 子网 | PC、Mac 和 Vision Pro 在同一个子网 |
 | 频段和宽度 | 5 GHz，80 MHz |

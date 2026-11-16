@@ -30,6 +30,8 @@ The first two are wireless streams landing on one headset, and that's where the 
 
 **Update, November 15:** I first described this as two streams. There are four flows, but Parsec and EDControlRoom stay on the cable, as the network layout below shows.
 
+**Update, November 16:** My gaming PC is headless, with no monitor, keyboard or mouse, and the Mac drives it through Parsec. I updated the setup, the floor plan and the network diagram to match.
+
 The fix: put the router on a non-DFS 80 MHz block, with its primary channel on AWDL's social channel (44 in the UK). Then the Apple devices stop hopping between the router's channel and AWDL's, and the stutter goes away.
 
 If you just want your setup fixed, I turned all of this into an agent skill, [avp-mvd-alvr-stutter-resolver](https://github.com/TheClooneyCollection/skills/tree/main/skills/avp-mvd-alvr-stutter-resolver). Point your agent at it and it will audit and fix your setup. If you're interested in the details, read on.
@@ -128,6 +130,7 @@ Inside your non-DFS block, set the router's primary channel to AWDL's social cha
 |---|---|
 | Router | Dedicated, near the play space |
 | PC and Mac | Wired; Ethernet first on the Mac |
+| Gaming PC | Headless is fine; drive it from the Mac with Parsec |
 | Vision Pro and Mac Wi-Fi | Joined to the same router |
 | Subnet | PC, Mac and Vision Pro on one subnet |
 | Band and width | 5 GHz, 80 MHz |
