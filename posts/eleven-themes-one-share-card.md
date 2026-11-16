@@ -49,13 +49,14 @@ themes post (en and zh) linking here.
   - Series and timeline: only Claude's brief asked for these, so no pair. One sentence says so, and C-retro-series and C-swiss-shipped show what Claude made.
 - Copy the eight round 1 PNGs into the post's image folder at write time, not before.
 
-## Review by ID, from the phone
+## Review by ID
 
 <!-- Could grow into its own post: the review loop on its own, beyond share cards. -->
 
-- The loop: agents render a round into a private lab page; I open it on my phone; I reply in the Claude app with an ID and a few words; the agent fixes exactly that card and re-renders.
+- The loop: agents render a round into a private lab page; I open it wherever I am (laptop, Apple Vision Pro, sometimes the phone); I reply with an ID and a few words; the agent fixes exactly that card and re-renders.
 - Every image on every lab page carries a stable ID and a Copy ID button. The prefix says where it came from: C- for Claude, X- for Codex, C2-/C3- for revision rounds, G- for a real blog card, S- for a style showcase sample.
 - Why IDs beat describing a card:
+  - Before IDs, I took screenshots. With this many options that got tedious fast, and it made the agents read images, which costs more tokens.
   - "The Retro card with the long DNS title, the dark one, second row" is slow to write and easy to misread, especially among dozens of near-identical cards.
   - An ID is exact, survives the page being regenerated, and can be pasted with no thinking. The words go into what to change, not which card.
   - Agents can grep an ID straight to a file, so nothing is lost when a message passes through two or three agents.
@@ -63,12 +64,12 @@ themes post (en and zh) linking here.
   - "G-posts--drafts--archived--ansible-role-umami: symbol error". The title had a non-breaking hyphen (U+2011) the card fonts lack, so it drew a box. It led to a general fix: normalise card text and check every card for missing glyphs.
   - "G-zh-posts--codex-in-claude-code: title clipped". The longest Chinese title ran past the bottom of the card. It led to a measured title fit for every style.
   - Earlier design rounds: "C2-glass-series2-dark: progress bar to the bottom".
-- The phone setup:
-  - The lab is a tiny local server that only serves the images and gallery pages (never drafts or notes), reachable from my phone over my private network (Tailscale), not the public internet.
-  - The replies go through the Claude iOS app to the agent that talks to me; it relays to the agents doing the work.
+- Away from the desk (Vision Pro, sometimes the phone):
+  - The lab is a tiny local server that only serves the images and gallery pages (never drafts or notes), reachable from my own devices over my private network (Tailscale), not the public internet.
+  - On the phone, the replies go through the Claude iOS app to the agent that talks to me; it relays to the agents doing the work.
   - So I can review a round without sitting at the Mac. (Ask the user for a real moment to use here.)
 - That habit is now part of the design-lab skill: stable gallery IDs shipped in skills [v1.9.0](https://github.com/TheClooneyCollection/skills/releases/tag/v1.9.0).
-- Show: a phone screenshot of a gallery card with its ID and Copy ID button, next to the one-line reply it produced. Crop out the address bar.
+- Show: a screenshot of a gallery card with its ID and Copy ID button, next to the one-line reply it produced. Crop out the address bar.
 
 ## The small human notes
 
@@ -82,7 +83,7 @@ themes post (en and zh) linking here.
 ## The real constraints
 
 - Georgia looked right on Glass, and can't ship: it's Microsoft's, and Cloudflare's build machine doesn't have it. Fonts have to be OFL files in the repo.
-- Chinese titles need a Chinese face too, and CJK fonts are megabytes. Subset to the characters actually used.
+- Chinese titles need a Chinese face too, and CJK fonts are megabytes. The cards use the packaged Fontsource Noto Sans SC files (about 1.6 MB per weight), loaded only at build time and never shipped to readers. The build warns if a title has a character the fonts lack.
 - Glass costs about ten times more per card than Retro, because of the blurred background. Every deploy re-renders every card.
 - So the blog defaults to Retro sci-fi, and Glass stays an option.
 - Show: the build cost table (per card, whole site).
