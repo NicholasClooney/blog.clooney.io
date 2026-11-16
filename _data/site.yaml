@@ -10,9 +10,9 @@ theme:
   transitionDuration: 0.5s
    # all options: linear, ease, ease-in, ease-out, ease-in-out
   transitionTimingFunction: ease-in-out
-  # theme switch crossfade; builder default 0.4s
+  # theme switch crossfade; same as the builder default (0.7s)
   fadeDuration: 0.7s
-  # blur at the crossfade midpoint; builder default 0 (none)
+  # blur at the crossfade midpoint; same as the builder default (8px)
   fadeBlur: 8px
   defaultId: glass
   defaultStrategy: fun
