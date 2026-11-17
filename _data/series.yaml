@@ -109,6 +109,7 @@
     - /posts/v1.10-1.12-roundup/
     - /posts/v1.13-1.20-roundup/
     - /posts/threaded-timeline-entries/
+    - /posts/subspace-builder-v1-42/
 - id: subspace-surfaces
   title: Subspace Surfaces
   devOnly: true
